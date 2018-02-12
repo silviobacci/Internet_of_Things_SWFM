@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>SWFM Dashboard - Home</title>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS - FontAwesome CSS - Main CSS -->
+    <link rel="stylesheet" href="css/assets/bootstrap.css">
+    <link rel="stylesheet" href="css/assets/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
+
+    <!-- jQuery JS - Popper JS - Bootstrap JS - FontAwesome JS - Main JS -->
+    <script type="text/javascript" src="js/assets/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/assets/popper.min.js"></script>
+    <script type="text/javascript" src="js/assets/tether.min.js"></script>
+    <script type="text/javascript" src="js/assets/bootstrap.js"></script>
+    <script type="text/javascript" src="js/assets/gauge.min.js"></script>
+    <script type="text/javascript" src="js/assets/path.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+    <!-- Favicon & Preferences -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="msapplication-config" content="favicon/browserconfig.xml">
+    <meta name="theme-color" content="#2e99c2">
+  </head>
+
+  <body>
+    
+    <nav class="lat-nav sticky-top">
+        <a class="fa fa-times-circle-o" href="#"></a>
+        <div class="icon-bar">
+            <a class="nav-user-a" href="#" data-toggle="tooltip" data-animation="false" data-placement="right" title="? - Logout">
+                <img src="img/uploads/avatar-default.png" class="nav-avatar">
+            </a>
+            <a class="active" href="index.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Home">
+                <i class="fa fa-home"></i>
+            </a> 
+            <a href="evaluation.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Evaluation">
+                <i class="fa fa-dashboard"></i>
+            </a> 
+            <a href="stats.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Stats">
+                <i class="fa fa-tasks"></i>
+            </a> 
+            <a href="crash.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Crash">
+                <i class="fa fa-ban"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+        <div class="row row-heading">
+            <div class="col-sm-12">
+                <h6 class="subtitle">SWFM - DASHBOARD</h6>
+                <h2 class="title">Home</h2>
+            </div>
+        </div>
+        <div class="alert alert-info alert-dismissable fade show d-none">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Notifica.</strong>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card bg-faded profile-card">
+                    <div class="cover-img"></div>
+                    <div class="card-about">
+                        <a href="#">
+                            <img class="card-avatar" src="img/uploads/avatar-default.png">
+                        </a>
+                        <h6 class="card-name">-</h6>
+                        <p class="card-text">NORMAL USER. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card resume-card">
+                    <div class="card-title">
+                        <h3>LAST TRIP RESUME</h3>
+                    </div>
+                    <div class="row resume-data">
+                        <div class="col-sm-6 text-center" >
+                            <h3 class="green" id="counter-length">-
+                                <small class="unit green">s</small>
+                            </h3>
+                            <span class="caption">TRIP LENGTH</span>
+                        </div>
+                         <div class="col-sm-6 text-center" >
+                            <h3 class="green" id="counter-starttime">-</h3>
+                            <span class="caption">LAST USAGE</span>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center resume-gauge-container">
+                        <div class="col-sm-2">
+                            <div id="textfield-tot" class="text-center">-</div>
+                            <canvas id="gauge-total"></canvas>
+                            <div class="resume-gauge-caption text-center">TOTAL</div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div id="textfield-acc" class="text-center">-</div>
+                            <canvas id="gauge-acc"></canvas>
+                            <div class="resume-gauge-caption text-center">ACCELERATION</div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div id="textfield-bra" class="text-center">-</div>
+                            <canvas id="gauge-bra"></canvas>
+                            <div class="resume-gauge-caption text-center">BRAKING</div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div id="textfield-ste" class="text-center">-</div>
+                            <canvas id="gauge-ste"></canvas>
+                            <div class="resume-gauge-caption text-center">STEERING</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  </body>
+</html>

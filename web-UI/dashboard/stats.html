@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>SWFM Dashboard - Stats</title>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS - FontAwesome CSS - Main CSS -->
+    <link rel="stylesheet" href="css/assets/bootstrap.css">
+    <link rel="stylesheet" href="css/assets/font-awesome.css">
+    <link rel="stylesheet" href="css/assets/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
+
+    <!-- jQuery JS - Popper JS - Bootstrap JS - FontAwesome JS - Main JS -->
+    <script type="text/javascript" src="js/assets/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="js/assets/popper.min.js"></script>
+    <script type="text/javascript" src="js/assets/tether.min.js"></script>
+    <script type="text/javascript" src="js/assets/bootstrap.js"></script>
+    <script type="text/javascript" src="js/assets/moment.js"></script>
+    <script type="text/javascript" src="js/assets/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="js/assets/path.js"></script>
+    <script type="text/javascript" src="js/assets/jquery.animateNumber.js"></script>
+    <script type="text/javascript" src="js/assets/jquery.color-2.1.2.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
+
+    <!-- Favicon & Preferences -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <meta name="msapplication-config" content="favicon/browserconfig.xml">
+    <meta name="theme-color" content="#2e99c2">
+  </head>
+
+  <body>
+    <nav class="lat-nav sticky-top">
+        <a class="fa fa-times-circle-o" href="#"></a>
+        <div class="icon-bar">
+            <a class="nav-user-a" href="#" data-toggle="tooltip" data-animation="false" data-placement="right" title="? - Logout">
+                <img src="img/uploads/avatar-default.png" class="nav-avatar">
+            </a>
+            <a href="index.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Home">
+                <i class="fa fa-home"></i>
+            </a> 
+            <a href="evaluation.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Evaluation">
+                <i class="fa fa-dashboard"></i>
+            </a> 
+            <a class="active" href="stats.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Stats">
+                <i class="fa fa-tasks"></i>
+            </a> 
+            <a href="crash.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Crash">
+                <i class="fa fa-ban"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-container">
+        <div class="row row-heading">
+            <div class="col-sm-12">
+                <h6 class="subtitle">SWFM - DASHBOARD</h6>
+                <h2 class="title">Stats</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card stat-calendar-card">
+                    <div class="card-title">
+                        <h3>CHOOSE THE DAY</h3>
+                    </div>
+                    <div class="stat-calendar-container">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="datetimepicker"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-select">
+                    <div class="card-title">
+                        <h3>SELECT THE TRIP</h3>
+                    </div>
+                    <div class="select-container">
+                        <select class="form-control select-trip-list" id="trip-list">
+                            <option>-</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="card counter-card">
+                    <div class="card-title">
+                        <h3>STATS COUNTERS</h3>
+                    </div>
+                    <div class="clearfix">
+                        <div class="row counter-data">
+                            <div class="col-sm-4">
+                                <h3 class="green" id="acc-num">-</h3>
+                                <span class="caption">ACCELERATION #</span>
+                            </div>
+                            <div class="col-sm-4" >
+                                <h3 class="green" id="bra-num">-</h3>
+                                <span class="caption">BRAKING #</span>
+                            </div>
+                            <div class="col-sm-4" >
+                                <h3 class="green" id="trn-num">-</h3>
+                                <span class="caption">TURN #</span>
+                            </div>
+                        </div>
+                        <div class="row white-space"></div>
+                        <div class="row counter-data">
+                            <div class="col-sm-4">
+                                <h3 class="green" id="acc-wrs">-</h3>
+                                <span class="caption">WORST ACC. [0-100]</span>
+                            </div>
+                            <div class="col-sm-4" >
+                                <h3 class="green" id="bra-wrs">-</h3>
+                                <span class="caption">WORST BRAKE [0-100]</span>
+                            </div>
+                            <div class="col-sm-4" >
+                                <h3 class="green" id="trn-wrs">-</h3>
+                                <span class="caption">WORST TURN [0-100]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+  </body>
+</html>

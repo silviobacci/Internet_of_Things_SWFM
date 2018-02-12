@@ -1,0 +1,286 @@
+/* 
+----------------------
+FRONTEND PAGE CSS FILE 
+----------------------
+
+INDEX:
+    0 - Coverboard
+    1 - Navbar
+    2 - Jumbotron
+    3 - Iphone block
+    4 - Team block
+    5 - Footer
+*/
+
+/* 
+// -----------------------
+// 0 - Coverboard
+// -----------------------
+*/
+
+.cover-container {
+    background-image: url("../img/index-cover.jpg");
+    background-size: cover;
+    height: 100vh;
+    padding: 0px 0px;
+    background-position: center;
+}
+
+/* 
+// -----------------------
+// 1 - Navbar
+// -----------------------
+*/
+
+.logo {
+    font-family: 'Work Sans', sans-serif;
+    background: #fff;
+    padding: 12px;
+    border-radius: 4px;
+    color: #568EC2;
+}
+
+.navbar-nav a {
+    color: white !important;
+    font-family: 'Work Sans', sans-serif;
+    line-height: 21px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.75px;
+}
+
+.navbar-nav a:hover {
+    color: #DDD !important;
+}
+
+@media (min-width: 768px) {
+    .index-header {
+        padding: 40px;
+    }
+}
+@media (max-width: 767px) {
+    .index-header {
+        padding: 15px;
+    }
+}
+
+.navbar-inverse .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-brand {
+    padding-bottom: 1rem;
+}
+
+/* 
+// -----------------------
+// 2 - Jumbotron
+// -----------------------
+*/
+
+.wave {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.jumbo-block {
+	background-color: rgba(0,128,255,0.8);
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+
+.jumbo-row {
+	margin-top: calc(50vh - 121px - 146px);
+	margin-bottom: calc(50vh - 121px  - 146px);
+}
+
+.jumbo {
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.jumbo > .col-sm-6 {
+    padding: 5% 5%;
+    color: white;
+}
+
+@media (max-width: 967px) {
+    .jumbo > .col-sm-6 {
+        padding: 10px 5%;
+        color: white;
+    }
+}
+
+@media (max-width: 767px) {
+    .jumbo > .col-sm-6 {
+        padding: 20px 5%;
+    }
+}
+
+.brand-text {
+    letter-spacing: -0.42px;
+    line-height: 30px;
+    font-weight: 300;
+    font-size: 21px;
+    font-family: 'Work Sans', sans-serif;
+    color: rgba(255, 255, 255, 0.7);
+	margin-bottom: 0;
+}
+
+/* 
+// -----------------------
+// 3 - Iphone block
+// -----------------------
+*/
+
+.cover-dam-container {
+	background-image: url("../img/dam-cover.jpg");
+	background-size: cover;
+	height: 100vh;
+	padding: 0px 0px;
+	background-position: center;
+}
+
+@media (max-width: 768px) {
+	.cover-dam-container{
+		background-image: none;
+		padding: 20px 0;
+		font-size: 21px;
+		padding-bottom: 60px;
+		height: auto;
+	}
+	h1.block-title {
+		font-size: 42px;
+	}
+}
+
+.dam-row {
+	margin-top: calc(50vh - 219px);
+	margin-bottom: calc(50vh - 219px);
+	margin-left: calc(50vw);
+	margin-right: 0;
+}
+
+@media (max-width: 768px) {
+	.dam-row{
+		margin-top: 0;
+	}
+}
+
+.dam-block {
+	background-color: rgba(0,128,255,0.8);
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
+
+@media (max-width: 767px) {
+	.desktop-div{
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.mobile-div{
+		display: none;
+	}
+}
+
+.col-sm-6.col-sm-offset-1 {
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+/* 
+// -----------------------
+// 4 - Team block
+// -----------------------
+*/
+
+#team {
+    padding-top: 50px;
+}
+
+.team-member {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+section h2.section-heading {
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.team-member h4 {
+    margin-top: 25px;
+    margin-bottom: 0;
+    text-transform: none;
+}
+
+.team-member img {
+    width: 225px;
+    height: 225px;
+    border: 7px solid #fff;
+}
+
+.bg-light{
+	background-color: white;
+}
+
+@media (min-width: 1200px) {
+	.bg-light{
+		padding-top: 2.5%;
+		padding-bottom: 2.5%;
+	}
+}
+
+/* 
+// -----------------------
+// 5 - Footer
+// -----------------------
+*/
+
+.footer {
+	height: 100 vh;
+}
+
+.container-footer {
+    padding: 30px 1rem;
+}
+
+.container-footer .col-sm-6 {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.title-footer {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.text-footer {
+    font-family: 'Work Sans', sans-serif;
+    color: rgba(255, 255, 255, .7);
+    font-weight: 300;
+    letter-spacing: -0.3px;
+}
+
+.text-footer a {
+    color: white;
+}
+
+.bibtex-code {
+    border: #495158 1px solid;
+    border-radius: .3rem;
+    color: #6EA4CF;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 12px;
+}
+

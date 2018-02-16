@@ -1,0 +1,58 @@
+/*
+ * res-bpm.c
+ *
+ *  Created on: Nov 14, 2017
+ *      Author: Giacomo Tanganelli
+ */
+
+
+
+
+#include <stdlib.h>
+#include <string.h>
+#include "rest-engine.h"
+#include "er-coap.h"
+
+static void res_get_handler(void *request, void *response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
+
+RESOURCE(res_bmp_temp,
+         "title=\"Barometer (Temperature)\";rt=\"C\"",
+		 res_get_handler,
+         NULL,
+         NULL,
+         NULL);
+
+const char *coap_server_supported_msg = "Supported:"
+                                        "text/plain,"
+                                        "application/json";
+
+/*---------------------------------------------------------------------------*/
+/* BMP sensor resources: Temperature, Pressure */
+static void
+res_get_handler(void *request, void *response, uint8_t *buffer,
+                         uint16_t preferred_size, int32_t *offset)
+{
+	unsigned int accept = -1;
+	REST.get_header_accept(request, &accept);
+
+	if(accept == -1 || accept == REST.type.TEXT_PLAIN) {
+	    REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
+	    //print_bmp_temp((char *)buffer);
+		REST.set_response_payload(response, (uint8_t *)buffer,
+								  strlen((char *)buffer));
+	} else if(accept == REST.type.APPLICATION_JSON) {
+	    REST.set_header_content_type(response, REST.type.APPLICATION_JSON);
+	    //print_bpm_temp((char *)buffer);
+	    snprintf((char *)buffer, REST_MAX_CHUNK_SIZE, "{\"%s\":%s}",
+	    		"Air Temp", (char *)buffer);
+
+	    REST.set_response_payload(response, buffer, strlen((char *)buffer));
+	}else {
+	    REST.set_response_status(response, REST.status.NOT_ACCEPTABLE);
+	    REST.set_response_payload(response, coap_server_supported_msg,
+	                              strlen(coap_server_supported_msg));
+	}
+
+}
+/*---------------------------------------------------------------------------*/
+

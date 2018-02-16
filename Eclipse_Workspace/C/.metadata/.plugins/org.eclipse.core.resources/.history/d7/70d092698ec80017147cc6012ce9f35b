@@ -1,0 +1,306 @@
+/*
+ * sensors_reading.c
+ *
+ *  Created on: Nov 13, 2017
+ *      Author: Giacomo Tanganelli
+ */
+
+
+#include "sensors_reading.h"
+
+#include <stdio.h>
+#include <stdint.h>
+/*---------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------------------------------*/
+static void
+init_bmp_reading(void *not_used)
+{
+  SENSORS_ACTIVATE(bmp_280_sensor);
+}
+/*---------------------------------------------------------------------------*/
+static void
+init_opt_reading(void *not_used)
+{
+  SENSORS_ACTIVATE(opt_3001_sensor);
+}
+/*---------------------------------------------------------------------------*/
+static void
+init_hdc_reading(void *not_used)
+{
+  SENSORS_ACTIVATE(hdc_1000_sensor);
+}
+/*---------------------------------------------------------------------------*/
+static void
+init_tmp_reading(void *not_used)
+{
+  SENSORS_ACTIVATE(tmp_007_sensor);
+}
+/*---------------------------------------------------------------------------*/
+static void
+init_mpu_reading(void *not_used)
+{
+  mpu_9250_sensor.configure(SENSORS_ACTIVE, MPU_9250_SENSOR_TYPE_ALL);
+}
+/*---------------------------------------------------------------------------*/
+
+static void
+get_bmp_reading()
+{
+  clock_time_t next = SENSOR_READING_PERIOD +
+	    (random_rand() % SENSOR_READING_RANDOM);
+  bmp_press_value = bmp_280_sensor.value(BMP_280_SENSOR_TYPE_PRESS);
+  bmp_temp_value = bmp_280_sensor.value(BMP_280_SENSOR_TYPE_TEMP);
+
+  SENSORS_DEACTIVATE(bmp_280_sensor);
+
+  ctimer_set(&bmp_timer, next, init_bmp_reading, NULL);
+
+}
+
+static void
+print_bmp(){
+	int value = bmp_press_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+		printf("BAR: Pressure=%d.%02d hPa\n", value / 100, value % 100);
+	} else {
+		printf("BAR: Pressure Read Error\n");
+	}
+	value = bmp_temp_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+	    printf("BAR: Temp=%d.%02d C\n", value / 100, value % 100);
+	} else {
+	    printf("BAR: Temperature Read Error\n");
+	}
+
+}
+/*---------------------------------------------------------------------------*/
+static void
+get_tmp_reading()
+{
+	clock_time_t next = SENSOR_READING_PERIOD +
+		    (random_rand() % SENSOR_READING_RANDOM);
+  int value = tmp_007_sensor.value(TMP_007_SENSOR_TYPE_ALL);
+  tmp_ambient_value = tmp_007_sensor.value(TMP_007_SENSOR_TYPE_AMBIENT);
+  tmp_object_value = tmp_007_sensor.value(TMP_007_SENSOR_TYPE_OBJECT);
+
+  SENSORS_DEACTIVATE(tmp_007_sensor);
+
+  ctimer_set(&tmp_timer, next, init_tmp_reading, NULL);
+}
+
+static void
+print_tmp(){
+	int value = tmp_ambient_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+		 printf("TMP: Ambient=%d.%03d C\n", value / 1000, value % 1000);
+	} else {
+		 printf("TMP: Ambient Read Error\n");
+	}
+	value = tmp_object_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+		printf("TMP: Object=%d.%03d C\n", value / 1000, value % 1000);
+	} else {
+		printf("TMP: Object Read Error\n");
+	}
+}
+/*---------------------------------------------------------------------------*/
+static void
+get_hdc_reading()
+{
+	clock_time_t next = SENSOR_READING_PERIOD +
+		    (random_rand() % SENSOR_READING_RANDOM);
+  hdc_temp_value = hdc_1000_sensor.value(HDC_1000_SENSOR_TYPE_TEMP);
+  hdc_hum_value = hdc_1000_sensor.value(HDC_1000_SENSOR_TYPE_HUMIDITY);
+
+  SENSORS_DEACTIVATE(hdc_1000_sensor);
+
+  ctimer_set(&hdc_timer, next, init_hdc_reading, NULL);
+}
+
+static void
+print_hdc(){
+	int value = hdc_temp_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+		printf("HDC: Temp=%d.%02d C\n", value / 100, value % 100);
+	} else {
+		printf("HDC: Temp Read Error\n");
+	}
+	value = hdc_hum_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+		printf("HDC: Humidity=%d.%02d %%RH\n", value / 100, value % 100);
+	} else {
+		printf("HDC: Humidity Read Error\n");
+	}
+}
+/*---------------------------------------------------------------------------*/
+static void
+get_light_reading()
+{
+	clock_time_t next = SENSOR_READING_PERIOD +
+		    (random_rand() % SENSOR_READING_RANDOM);
+  light_value = opt_3001_sensor.value(0);
+
+  SENSORS_DEACTIVATE(opt_3001_sensor);
+
+  ctimer_set(&opt_timer, next, init_opt_reading, NULL);
+}
+
+static void
+print_light(){
+	int value = light_value;
+	if(value != CC26XX_SENSOR_READING_ERROR) {
+		printf("OPT: Light=%d.%02d lux\n", value / 100, value % 100);
+	} else {
+		printf("OPT: Light Read Error\n");
+	}
+}
+/*---------------------------------------------------------------------------*/
+static void
+get_mpu_reading()
+{
+	clock_time_t next = SENSOR_READING_PERIOD +
+		    (random_rand() % SENSOR_READING_RANDOM);
+  mpu_gyro_x_value = mpu_9250_sensor.value(MPU_9250_SENSOR_TYPE_GYRO_X);
+  mpu_gyro_y_value = mpu_9250_sensor.value(MPU_9250_SENSOR_TYPE_GYRO_Y);
+  mpu_gyro_z_value = mpu_9250_sensor.value(MPU_9250_SENSOR_TYPE_GYRO_Z);
+  mpu_acc_x_value = mpu_9250_sensor.value(MPU_9250_SENSOR_TYPE_ACC_X);
+  mpu_acc_y_value = mpu_9250_sensor.value(MPU_9250_SENSOR_TYPE_ACC_Y);
+  mpu_acc_z_value = mpu_9250_sensor.value(MPU_9250_SENSOR_TYPE_ACC_Z);
+
+  SENSORS_DEACTIVATE(mpu_9250_sensor);
+
+  ctimer_set(&mpu_timer, next, init_mpu_reading, NULL);
+
+}
+
+static void
+print_mpu_reading(int reading)
+{
+  if(reading < 0) {
+    printf("-");
+    reading = -reading;
+  }
+
+  printf("%d.%02d", reading / 100, reading % 100);
+}
+
+static void
+print_mpu(){
+	int value = mpu_gyro_x_value;
+	printf("MPU Gyro: X=");
+	print_mpu_reading(value);
+	printf(" deg/sec\n");
+
+	printf("MPU Gyro: Y=");
+	value = mpu_gyro_y_value;
+	print_mpu_reading(value);
+	printf(" deg/sec\n");
+
+	printf("MPU Gyro: Z=");
+	value = mpu_gyro_z_value;
+	print_mpu_reading(value);
+	printf(" deg/sec\n");
+
+	printf("MPU Acc: X=");
+	value = mpu_acc_x_value;
+	print_mpu_reading(value);
+	printf(" G\n");
+
+	printf("MPU Acc: Y=");
+	value = mpu_acc_y_value;
+	print_mpu_reading(value);
+	printf(" G\n");
+
+	printf("MPU Acc: Z=");
+	value = mpu_acc_z_value;
+	print_mpu_reading(value);
+	printf(" G\n");
+
+	SENSORS_DEACTIVATE(mpu_9250_sensor);
+
+	ctimer_set(&mpu_timer, SENSOR_READING_PERIOD, init_mpu_reading, NULL);
+}
+
+/*---------------------------------------------------------------------------*/
+static void
+get_battery_reading(void)
+{
+  bat_temp_value = batmon_sensor.value(BATMON_SENSOR_TYPE_TEMP);
+  bat_volt_value = batmon_sensor.value(BATMON_SENSOR_TYPE_VOLT);
+
+}
+
+static void
+print_battery(){
+	int value = bat_temp_value;
+	printf("Bat: Temp=%d C\n", value);
+	value = bat_volt_value;
+	printf("Bat: Volt=%d mV\n", (value * 125) >> 5);
+}
+/*---------------------------------------------------------------------------*/
+
+static void
+init_sensors(void)
+{
+
+  SENSORS_ACTIVATE(reed_relay_sensor);
+  SENSORS_ACTIVATE(batmon_sensor);
+}
+
+/*---------------------------------------------------------------------------*/
+static void
+activate_sensors(void)
+{
+
+  SENSORS_ACTIVATE(hdc_1000_sensor); // Temperature and Humidity sensor
+  SENSORS_ACTIVATE(tmp_007_sensor); // Temperature sensor
+  SENSORS_ACTIVATE(opt_3001_sensor); // Light sensor
+  SENSORS_ACTIVATE(bmp_280_sensor); // Pressure sensor
+  init_mpu_reading(NULL); // Accellerometer and Gyro sensor
+
+}
+
+/*---------------------------------------------------------------------------*/
+
+PROCESS_THREAD(sensortag_read_process, ev, data){
+	PROCESS_BEGIN();
+	init_sensors();
+	activate_sensors();
+
+	while(1) {
+	    PROCESS_YIELD();
+	    if(ev == sensors_event && data == BTN_LEFT) {
+	            printf("Left: Pin %d, press duration %d clock ticks\n",
+	                   (BTN_LEFT)->value(BUTTON_SENSOR_VALUE_STATE),
+	                   (BTN_LEFT)->value(BUTTON_SENSOR_VALUE_DURATION));
+
+	            if((BTN_LEFT)->value(BUTTON_SENSOR_VALUE_DURATION) >
+	               CLOCK_SECOND) {
+	              printf("Long button press!\n");
+	            }
+
+	            leds_toggle(LEDS_RED);
+	    }
+	    else if(ev == sensors_event && data == BTN_RIGHT) {
+			leds_on(LEDS_ALL);
+			watchdog_reboot();
+	    } else if(ev == sensors_event && data == &bmp_280_sensor) {
+	    	get_bmp_reading();
+	    } else if(ev == sensors_event && data == &opt_3001_sensor) {
+	    	get_light_reading();
+	    } else if(ev == sensors_event && data == &hdc_1000_sensor) {
+	    	get_hdc_reading();
+	    } else if(ev == sensors_event && data == &tmp_007_sensor) {
+	    	get_tmp_reading();
+	    } else if(ev == sensors_event && data == &mpu_9250_sensor) {
+	    	get_mpu_reading();
+	    }
+	    get_battery_reading();
+	}
+
+	PROCESS_END();
+}
+
+

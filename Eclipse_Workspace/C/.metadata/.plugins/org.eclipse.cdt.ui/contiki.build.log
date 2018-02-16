@@ -1,0 +1,6 @@
+04:19:07 **** Build of configuration Default for project contiki ****
+make all 
+make: *** No rule to make target 'all'.  Stop.
+
+04:19:07 Build Finished (took 287ms)
+

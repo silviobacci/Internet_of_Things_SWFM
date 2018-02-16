@@ -34,91 +34,92 @@
   </head>
 
   <body>
-    
-    <nav class="lat-nav sticky-top">
-        <a class="fa fa-times-circle-o" href="#"></a>
-        <div class="icon-bar">
-            <a class="nav-user-a" href="#" data-toggle="tooltip" data-animation="false" data-placement="right" title="? - Logout">
-                <img src="img/uploads/avatar-default.png" class="nav-avatar">
-            </a>
-            <a class="active" href="index.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Home">
-                <i class="fa fa-home"></i>
-            </a> 
-            <a href="evaluation.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Evaluation">
-                <i class="fa fa-dashboard"></i>
-            </a> 
-            <a href="stats.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Stats">
-                <i class="fa fa-tasks"></i>
-            </a> 
-            <a href="crash.html" data-toggle="tooltip" data-animation="false" data-placement="right" title="Crash">
-                <i class="fa fa-ban"></i>
-            </a>
-        </div>
-    </nav>
-
+	  <div class="texture-container">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/g.png" id="g" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/l.png" id="l" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/w.png" id="w" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/r.png" id="r" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/u.png" id="u" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/b.png" id="b" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/1.png" id="1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/2.png" id="2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/3.png" id="3" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/4.png" id="4" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/5.png" id="5" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/6.png" id="6" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/7.png" id="7" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/8.png" id="8" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/u2.png" id="u2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/b2.png" id="b2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o1.png" id="o1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o2.png" id="o2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o3.png" id="o3" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o4.png" id="o4" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o5.png" id="o5" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o6.png" id="o6" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o7.png" id="o7" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o8.png" id="o8" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o9.png" id="o9" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/dashboard/img/tileset/o0.png" id="o0" width="16" height="16">
+	  </div>
+	  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="signup-modal-label" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+			  <div class="modal-content modal-container">
+				  <div class="modal-header">
+					  <h5 class="modal-title" id="login-modal-label">Pescia - Fiume</h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+					  </button>
+				  </div>
+				  <div class="modal-body row">
+					  <div class="col-sm-6">
+						  <canvas id="river-ov" class="canvas" onclick="dam()">
+						  </canvas>
+					  </div>
+					  <div class="col-sm-6">
+						  <canvas id="river-sec" class="canvas" onload="createImage()">
+						  </canvas>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+	  </div>
     <div class="container-fluid main-container">
-        <div class="row row-heading">
-            <div class="col-sm-12">
-                <h6 class="subtitle">SWFM - DASHBOARD</h6>
-                <h2 class="title">Home</h2>
-            </div>
-        </div>
-        <div class="alert alert-info alert-dismissable fade show d-none">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Notifica.</strong>
-        </div>
-        <div class="row">
+		<!-- NAV BEGIN -->
+		<div class="index-header header">
+			<nav class="navbar navbar-inverse navbar-toggleable-md">
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<a class="navbar-brand" href="#">
+					<strong class="logo">bb</strong>
+				</a>
+				
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item" id="btn-logout">
+							<a class="nav-link" href="#" class="btn btn-primary">LOGOUT</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<!-- NAV END -->
+        <div class="row row-container">
             <div class="col-sm-4">
-                <div class="card bg-faded profile-card">
+                <div class="card bg-faded profile">
                     <div class="cover-img"></div>
                     <div class="card-about">
-                        <a href="#">
-                            <img class="card-avatar" src="img/uploads/avatar-default.png">
-                        </a>
-                        <h6 class="card-name">-</h6>
-                        <p class="card-text">NORMAL USER. </p>
+						<img class="card-avatar" src="img/uploads/avatar-default.png">
+                        <h6 class="card-name"></h6>
+                        <p class="card-text"></p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-8">
-                <div class="card resume-card">
-                    <div class="card-title">
-                        <h3>LAST TRIP RESUME</h3>
-                    </div>
-                    <div class="row resume-data">
-                        <div class="col-sm-6 text-center" >
-                            <h3 class="green" id="counter-length">-
-                                <small class="unit green">s</small>
-                            </h3>
-                            <span class="caption">TRIP LENGTH</span>
-                        </div>
-                         <div class="col-sm-6 text-center" >
-                            <h3 class="green" id="counter-starttime">-</h3>
-                            <span class="caption">LAST USAGE</span>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center resume-gauge-container">
-                        <div class="col-sm-2">
-                            <div id="textfield-tot" class="text-center">-</div>
-                            <canvas id="gauge-total"></canvas>
-                            <div class="resume-gauge-caption text-center">TOTAL</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div id="textfield-acc" class="text-center">-</div>
-                            <canvas id="gauge-acc"></canvas>
-                            <div class="resume-gauge-caption text-center">ACCELERATION</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div id="textfield-bra" class="text-center">-</div>
-                            <canvas id="gauge-bra"></canvas>
-                            <div class="resume-gauge-caption text-center">BRAKING</div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div id="textfield-ste" class="text-center">-</div>
-                            <canvas id="gauge-ste"></canvas>
-                            <div class="resume-gauge-caption text-center">STEERING</div>
-                        </div>
-                    </div>
+                <div class="card map-card" id="map">
+					<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=init_map"></script>
                 </div>
             </div>
         </div>

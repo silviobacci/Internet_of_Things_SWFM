@@ -5,24 +5,28 @@
 // ------------------------------
 
 // ----------------------------
-// GLOBAL GAUGES VARIABLE
-// ----------------------------
-
-var gauge_tot;
-var gauge_acc;
-var gauge_bra;
-var gauge_ste;
-
-// ----------------------------
 // PAGE CODE
 // ----------------------------
 
 get_user_data();
 
-$(document).ready(function(){
-    get_lasttrip_data();
-    gauge_build();
-});
+var texture = [];
+var tile_width = 16;
+var tile_height = 16;
+var row_number;
+var col_number;
+
+create_texture();
+
+var dam_open = false;
+
+var animation_position = 0;
+var animation_timer;
+
+var top_dam;
+var bottom_dam;
+var start_dam;
+var end_dam;
 
 // ----------------------------
 // GET USER FUNCTIONS
@@ -57,113 +61,329 @@ function get_err(reply) {
 
 // Prepare page with custom user data
 function prepare_page(userdata) {
-    $('.nav-user-a').attr("href", php_logout);
-    $('.nav-user-a').attr("title", userdata.username + " - Logout");
-    $('.nav-avatar').attr("src", img_svr_path + userdata.avatar);
-    $('.card-avatar').attr("src", img_svr_path + userdata.avatar);
-    $('.cover-img').css('background-image', 'url(' + img_svr_path + userdata.cover + ')');
-    $('.card-name').html(userdata.name + " " + userdata.surname);
+	$('#btn-logout > a').attr("href", php_logout);
+	$('.nav-avatar').attr("src", img_svr_path + userdata.avatar);
+	$('.card-avatar').attr("src", img_svr_path + userdata.avatar);
+	$('.cover-img').css('background-image', 'url(' + img_svr_path + userdata.cover + ')');
+	$('.card-name').html(userdata.name + " " + userdata.surname);
 	if(userdata.admin == "1")
-		$('.card-text').html("ADMINISTRATOR");
+		$('.card-text').html("You are an administrator. You can act directly on our dams in order control the water flows.");
 	else
-		$('.card-text').html("NORMAL USER");
+		$('.card-text').html("You are a standard user so we can simply observe an overview of the current state of the water flows.");
 		
-    $('a.fa.fa-times-circle-o').attr("href", rel_fron_path);
-    toggle_tooltip();
-}
-
-// -------------------------
-// GET LAST TRIP FUNCTION
-// -------------------------
-
-// AJAX-REQ
-// Get last trip data with AJAX req
-function get_lasttrip_data() {
-    ajax_req(
-        php_home,
-        "",     
-        get_lasttrip_succ, 
-        get_lasttrip_err
-    );
-}
-
-// AJAX-REP
-// Set gauge data and counter
-function get_lasttrip_succ(reply) {
-    if (reply.error == false) {
-        trip_data = reply.lasttripdata;
-        gauge_set(trip_data.pointstotal, 
-                    trip_data.pointsacceleration,
-                    trip_data.pointsbraking,
-                    trip_data.pointssteering);
-        counter_set(trip_data.starttime, trip_data.secondslength);
-    }
-        
-}
-
-// AJAX-ERR
-// Alert with error text in case of failure
-function get_lasttrip_err() {
-    alert("Server unreachable.");
-}
-
-// Prepare counter with last trip data
-function counter_set(starttime, secondslength) {
-    hour_minute = starttime.substr(11, 5);
-    $('#counter-length').html(secondslength+'<small class="unit green">s</small>');
-    $('#counter-starttime').html(hour_minute);
+    $('.navbar-brand').attr("href", rel_fron_path);
 }
 
 // -------------------------------------
-// GAUGE OPTIONS AND BUILD
+// MAP INITIALIZATION FUNCTION
 // -------------------------------------
 
-var opts = {
-    angle: -0.1,    // The span of the gauge arc
-    lineWidth: 0.2, // The line thickness
-    radiusScale: 1, // Relative radius
-    pointer: {
-      length: 0.5, // Relative to gauge radius
-      strokeWidth: 0.035, // The thickness
-      color: '#000000' // Fill color
-    },
-    minValue: 0,
-    limitMax: false,     // If false, max value increases automatically if value > maxValue
-    limitMin: true,     // If true, the min value of the gauge will be fixed
-    colorStart: '#6FADCF',   // Colors
-    colorStop: '#8FC0DA',    // just experiment with them
-    strokeColor: '#E0E0E0',  // to see which ones work best for you
-    generateGradient: true,
-    highDpiSupport: true,     // High resolution support
-    percentColors: [[0.0, "#ff0000" ], [0.50, "#f9c802"], [1.0, "#a9d70b"]]
-  };
-
-// Build gauge and set initial data
-function gauge_build() {
-    gauge_tot = new Gauge(document.getElementById("gauge-total")).setOptions(opts);
-    gauge_acc = new Gauge(document.getElementById("gauge-acc")).setOptions(opts);
-    gauge_bra = new Gauge(document.getElementById("gauge-bra")).setOptions(opts);
-    gauge_ste = new Gauge(document.getElementById("gauge-ste")).setOptions(opts);
-    gauge_tot.setTextField(document.getElementById("textfield-tot"));
-    gauge_acc.setTextField(document.getElementById("textfield-acc"));
-    gauge_bra.setTextField(document.getElementById("textfield-bra"));
-    gauge_ste.setTextField(document.getElementById("textfield-ste"));
-    gauge_tot.maxValue = 100;
-    gauge_acc.maxValue = 100;
-    gauge_bra.maxValue = 100;
-    gauge_ste.maxValue = 100;
-    gauge_tot.set(0);
-    gauge_bra.set(0);
-    gauge_acc.set(0);
-    gauge_ste.set(0);
+function init_map() {
+	var river = {lat: 43.843176, lng: 10.734928};
+	var map = new google.maps.Map(document.getElementById('map'), {zoom: 6, center: river});
+	var marker = new google.maps.Marker({position: river, map: map});
+	
+	marker.addListener('click', function() {$('#modal').modal('show'); draw_texture();});
 }
 
-// Set gauge to last trip data
-function gauge_set(tot, acc, bra, ste) {
-    gauge_tot.set(tot);
-    gauge_bra.set(acc);
-    gauge_acc.set(bra);
-    gauge_ste.set(ste);
+// -------------------------------------
+// CANVAS RIVER OVERVIEW
+// -------------------------------------
+
+function create_texture() {
+	$.get(texture_svr_path + "texture_map.txt", function(data) {
+		var lines = data.split("\n");
+		for(var i = 0; i < lines.length - 1; i++) {
+		  	var chars = lines[i].split("");
+			texture[i] = [];
+		  	for(var j = 0; j < chars.length; j++) {
+		  		texture[i][j] = chars[j];
+		  	}
+		}
+		row_number = texture.length;
+		col_number = texture[1].length;
+	});
+}
+
+function open_dam_left() {
+	var current_index = end_dam - animation_position;
+	switch(current_index) {
+		case end_dam:
+			texture[top_dam][current_index] = "7";
+			texture[bottom_dam][current_index] = "6";
+			animation_position++;
+			draw_texture();
+			break;
+		case start_dam:
+			if (current_index - 1 > 0) {
+				texture[top_dam][current_index] = "8";
+				texture[bottom_dam][current_index] = "5";
+			}
+			else {
+				texture[top_dam][current_index] = "u";
+				texture[bottom_dam][current_index] = "b";
+			}
+			texture[top_dam][current_index + 1] = "u";
+			texture[bottom_dam][current_index + 1] = "b";
+			animation_position = 0;
+			draw_texture();
+			clearInterval(animation_timer);
+			break;
+		default:
+			if(current_index + 1 != end_dam) {
+				texture[top_dam][current_index + 1] = "u";
+				texture[bottom_dam][current_index + 1] = "b";
+			}
+			texture[top_dam][current_index] = "a";
+			texture[bottom_dam][current_index] = "d";
+			animation_position++;
+			draw_texture();
+			break;
+	}
+	
+	dam_open = true;
+}
+
+function close_dam_left() {
+	var current_index = start_dam + animation_position;
+	switch(current_index) {
+		case start_dam:
+			texture[top_dam][current_index] = "r";
+			texture[bottom_dam][current_index] = "r";
+			animation_position++;
+			draw_texture();
+			break;
+		case end_dam:
+			texture[top_dam][current_index] = "l";
+			texture[bottom_dam][current_index] = "l";
+			texture[top_dam][current_index - 1] = "9";
+			texture[bottom_dam][current_index - 1] = "0";
+			animation_position = 0;
+			draw_texture();
+			clearInterval(animation_timer);
+			break;
+		default:
+			if (current_index - 1 != start_dam) {
+				texture[top_dam][current_index - 1] = "9";
+				texture[bottom_dam][current_index - 1] = "0";
+			}
+			texture[top_dam][current_index] = "a";
+			texture[bottom_dam][current_index] = "d";
+			animation_position++;
+			draw_texture();
+			break;
+	}
+	
+	dam_open = false;
+}
+
+function open_dam_right() {
+	var current_index = start_dam + animation_position;
+	switch(current_index) {
+		case start_dam:
+			texture[top_dam][current_index] = "h";
+			texture[bottom_dam][current_index] = "j";
+			animation_position++;
+			draw_texture();
+			break;
+		case start_dam + 1:
+			texture[top_dam][current_index - 1] = "8";
+			texture[bottom_dam][current_index - 1] = "5";
+			texture[top_dam][current_index] = "k";
+			texture[bottom_dam][current_index] = "m";
+			animation_position++;
+			draw_texture();
+			break;
+		case end_dam:
+			if(current_index + 1 <= col_number) {
+				texture[top_dam][current_index + 1] = "7";
+				texture[bottom_dam][current_index + 1] = "6";
+			}
+			texture[top_dam][current_index] = "u";
+			texture[bottom_dam][current_index] = "b";
+			texture[top_dam][current_index - 1] = "u";
+			texture[bottom_dam][current_index - 1] = "b";
+			animation_position = 0;
+			draw_texture();
+			clearInterval(animation_timer);
+			break;
+		default:
+			texture[top_dam][current_index - 1] = "u";
+			texture[bottom_dam][current_index - 1] = "b";
+			texture[top_dam][current_index] = "k";
+			texture[bottom_dam][current_index] = "m";
+			animation_position++;
+			draw_texture();
+			break;
+	}
+	
+	dam_open = true;
+}
+
+function close_dam_right() {
+	var current_index = end_dam - animation_position;
+	switch(current_index) {
+		case end_dam:
+			if(current_index + 1 <= col_number) {
+				texture[top_dam][current_index + 1] = "l";
+				texture[bottom_dam][current_index + 1] = "l";
+			}
+			texture[top_dam][current_index] = "k";
+			texture[bottom_dam][current_index] = "m";
+			animation_position++;
+			draw_texture();
+			break;
+		case start_dam:
+			texture[top_dam][current_index] = "r";
+			texture[bottom_dam][current_index] = "r";
+			texture[top_dam][current_index + 1] = "9";
+			texture[bottom_dam][current_index + 1] = "0";
+			animation_position = 0;
+			draw_texture();
+			clearInterval(animation_timer);
+			break;
+		default:
+			texture[top_dam][current_index] = "k";
+			texture[bottom_dam][current_index] = "m";
+			texture[top_dam][current_index + 1] = "9";
+			texture[bottom_dam][current_index + 1] = "0";
+			animation_position++;
+			draw_texture();
+			break;
+	}
+
+	dam_open = false;
+}
+
+function dam() {
+	start_dam = 0;
+	end_dam = 7;
+	top_dam = 2;
+	bottom_dam = 3;
+	
+	if (dam_open == true)
+		animation_timer = setInterval(close_dam_left, 25);
+	else
+		animation_timer = setInterval(open_dam_left, 25);
+}
+
+function draw_texture() {
+	var g = $('#g')[0];
+	var l = $('#l')[0];
+	var w = $('#w')[0];
+	var r = $('#r')[0];
+	var u = $('#u')[0];
+	var b = $('#b')[0];
+	var w1 = $('#1')[0];
+	var w2 = $('#2')[0];
+	var w3 = $('#3')[0];
+	var w4 = $('#4')[0];
+	var g1 = $('#5')[0];
+	var g2 = $('#6')[0];
+	var g3 = $('#7')[0];
+	var g4 = $('#8')[0];
+	var u2 = $('#u2')[0];
+	var b2 = $('#b2')[0];
+	var o1 = $('#o1')[0];
+	var o2 = $('#o2')[0];
+	var o3 = $('#o3')[0];
+	var o4 = $('#o4')[0];
+	var o5 = $('#o5')[0];
+	var o6 = $('#o6')[0];
+	var o7 = $('#o7')[0];
+	var o8 = $('#o8')[0];
+	var o9 = $('#o9')[0];
+	var o0 = $('#o0')[0];
+
+	var canvas = $('#river-ov')[0];
+	canvas.width = tile_width * col_number;
+	canvas.height = tile_height * row_number;
+
+	var context = canvas.getContext("2d");
+	
+	for(var i = 0; i < row_number; i++) {
+		for(var j = 0; j < col_number; j++) {
+			switch(texture[i][j]) {
+				case "r":
+					context.drawImage(r, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "w":
+					context.drawImage(w, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "l":
+					context.drawImage(l, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "u":
+					context.drawImage(u, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "b":
+					context.drawImage(b, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "1":
+					context.drawImage(w1, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "2":
+					context.drawImage(w2, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "3":
+					context.drawImage(w3, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "4":
+					context.drawImage(w4, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "5":
+					context.drawImage(g1, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "6":
+					context.drawImage(g2, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "7":
+					context.drawImage(g3, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "8":
+					context.drawImage(g4, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "9":
+					context.drawImage(u2, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "0":
+					context.drawImage(b2, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "a":
+					context.drawImage(o1, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "c":
+					context.drawImage(o2, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "d":
+					context.drawImage(o3, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "e":
+					context.drawImage(o4, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "f":
+					context.drawImage(o5, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "h":
+					context.drawImage(o6, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "i":
+					context.drawImage(o7, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "j":
+					context.drawImage(o8, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "k":
+					context.drawImage(o9, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				case "m":
+					context.drawImage(o0, j*tile_width, i*tile_height, tile_width, tile_height);
+					break;
+				default:
+					context.drawImage(g, j*tile_width, i*tile_height, tile_width, tile_height);
+			}
+		}
+	}
 }
 
 // -------------------------------------
@@ -173,17 +393,12 @@ function gauge_set(tot, acc, bra, ste) {
 // Send an ajax req
 function ajax_req(dest, info, succ, err) {
     $.ajax({
-        type: "POST",
-        url: dest,
-        xhrFields: { withCredentials: true },
-        data: info,
-        dataType: "json",
-        success: succ,
-        error: err
+		type: "POST",
+		url: dest,
+		xhrFields: { withCredentials: true },
+		data: info,
+		dataType: "json",
+		success: succ,
+		error: err
     });
-}
-
-// Toggle on boostrap tooltip
-function toggle_tooltip() {
-    $('[data-toggle="tooltip"]').tooltip(); 
 }

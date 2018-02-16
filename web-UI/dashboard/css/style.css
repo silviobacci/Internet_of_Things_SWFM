@@ -27,102 +27,57 @@ CRASH:
 */
 
 /* 
-// ------------------
-// 1 - LATERAL NAVBAR
-// ------------------
-*/
-
-.lat-nav {
-    background-color: #eee;
-}
-
-@media (min-width: 768px) {
-    .lat-nav {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 70px;
-        margin-top: 0;
-        margin-bottom: 0;
-        overflow-y: auto;
-    }
-
-    .lat-nav a {
-        display: block;
-    }
-}
-
-.lat-nav a {
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    color: #000;
-    font-size: 18px;
-    border-bottom: solid 1px #fff;
-}
-
-@media (max-width: 767px) {
-    .lat-nav a {
-        display: inline-block;
-        padding: 4.5%;
-    }
-    
-    .lat-nav > a {
-        display: block;
-    }
-    .icon-bar {
-        text-align: center;
-    }
-}
-
-.lat-nav a:hover {
-    text-decoration: none;
-    color: #666;
-}
-
-.lat-nav > a {
-    background-color: #2598C4;
-    color: #eee;
-    font-size: 40px;
-}
-
-.lat-nav > a:hover {
-    color: #000;
-}
-
-.nav-avatar {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-}
-
-.lat-nav .active {
-    color: #495057;
-    background-color: #fff;
-}
-
-/* 
 // ---------------------------
 // 2 - CONTAINERS AND HEADINGS
 // ---------------------------
 */
 
-@media (min-width: 768px) {
-    .main-container {
-        margin-left: 70px;
-        padding: 50px 70px;
-    }
+.navbar-collapse{
+	margin-top: 10px;
+}
+
+.header {
+	background-color: rgb(41, 43, 44);
+	padding: 10px 10px;
+}
+
+.logo {
+	font-family: 'Work Sans', sans-serif;
+	background: #fff;
+	padding: 12px;
+	border-radius: 4px;
+	color: #568EC2;
+}
+
+.main-container {
+	height: 100vh;
+	padding: 0px 0px;
+}
+
+.row-container {
+	height: calc(100% - 170px);
+	margin: 50px 50px;
 }
 
 @media (max-width: 767px) {
-    .main-container {
-        padding: 30px 20px;
-    }
+	.row-container {
+		height: 100%;
+		margin: 0px 0px;
+	}
+	
     .col-sm-4 {
-        padding-bottom: 20px;
+		height: 50%;
+        padding: 20px;
     }
+	
+	.col-sm-8 {
+		height: 50%;
+		padding: 20px;
+	}
+	
+	.row-container {
+		margin: 10px 0px;
+	}
 }
 
 .row-heading {
@@ -207,8 +162,18 @@ CRASH:
 // ---------------------------
 */
 
+.profile {
+	height: 100%;
+}
+
+@media(max-width: 767px){
+	.col-sm-4 {
+		width: 100%;
+	}
+}
+
 .cover-img {
-    height: 150px;
+    height: 40%;
     background-size: cover;
     background-image: url("../img/uploads/cover-default.png");
     background-position: center;
@@ -218,7 +183,7 @@ CRASH:
     text-align: center;
     padding: 15px;
     font-weight: 200;
-    height: 250px;
+    height: 60%;
 }
 
 .card-avatar {
@@ -235,252 +200,52 @@ CRASH:
     font-weight: 600;
 }
 
-/* 
-// ---------------------------
-// 5 - RESUME CARD
-// ---------------------------
-*/
-
-.resume-card {
-    min-height: 402px;
-}
-
-.resume-data .col-sm-4 {
-    padding: 10px 40px;
-    text-align: center;
-}
-
-.resume-data .unit {
-    display: inline-block;
-    padding: .4em;
-    font-size: 12px;
-    vertical-align: middle;
-}
-
-.resume-data .caption {
-    font-size: 85%;
-    letter-spacing: .15em;
-    color: #78838e;
-    text-transform: uppercase;
-}
-
-.resume-gauge-container {
-    margin-top: 50px;
-}
-
-.reset {
-    text-align: center;
-}
-
-.resume-gauge-container .col-sm-2 {
-    padding-left: 5px;
-    padding-right: 5px;
-    flex-grow: 1;
-}
-
-.col-sm-2 canvas {
-    width: 100%;
-    height: auto;
-}
-
-.resume-gauge-caption {
-    font-size: 14px;
-    color: #78838e;
-}
-
-@media (max-width: 767px) {
-    .resume-gauge-caption {
-        font-size: 16px;
-        color: #78838e;
-    }
-    .resume-gauge-container .col-sm-2 {
-        padding-top: 25px;
-        padding-bottom: 25px;
-    }
+@media(max-width: 767px){
+	.card-text{
+		font-size: 10px;
+	}
+	
+	.card-name {
+		font-size: 12px;
+	}
 }
 
 /* 
 // ---------------------------
-// 6 - FULL CARD
-// ---------------------------
-*/
-@media (min-width: 768px) {
-    .card-full {
-        height: calc(100vh - 190px);
-    }
-}
-@media (max-width: 767px) {
-    .mt-4 {
-        display: none;
-    }
-}
-
-.fp-section.fp-table, .fp-slide.fp-table {
-    display: block;
-    table-layout: auto;
-    width: auto;
-}
-
-.fp-tableCell {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.chart-container {
-    text-align: center;
-    margin: 0 auto;
-    height: 250px; 
-    width: 300px;
-}
-
-.eval-gauge-caption {
-    font-size: 54px;
-    text-align: center;
-}
-
-/* 
-// ---------------------------
-// 7 - STAT CALENDAR CARD
+// 5 - MAP CARD
 // ---------------------------
 */
 
-.stat-calendar-card {
-    min-height: 300px;
+.map-card {
+	height: 100%;
 }
 
-.stat-calendar-container {
-    overflow: hidden;
-    padding: 0px 25px;
-    font-size: 0.7rem;
+.modal-dialog {
+	margin: 0px 0px;
 }
 
-.stat-calendar-container .bootstrap-datetimepicker-widget table td.day {
-    height: 30px;
-    width: 30px;
+.modal-container {
+	height: calc(100vh - 60px);
+	width: calc(100vw - 60px);
+	margin: 30px 30px;
 }
 
-.card-select {
-    margin-top: 20px;
+.modal-header{
+	height: calc(15% - 60px);
 }
 
-.select-container {
-    text-align: center;
+.modal-body{
+	height: calc(85% - 60px);
 }
 
-.select-trip-list {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0px;
-    margin-bottom: 20px;
+.modal-body.modal.modal-dialog.modal-content{
+	width: 100%;
 }
 
-/* 
-// ---------------------------
-// 9 - STAT COUNTER CARD
-// ---------------------------
-*/
-
-.counter-card {
-    min-height: 456px;
+.canvas{
+	border:1px solid #000000;
 }
 
-.counter-data .col-sm-4 {
-    padding: 10px 40px;
-    text-align: center;
-}
-
-.counter-data .unit {
-    display: inline-block;
-    padding: .4em;
-    font-size: 12px;
-    vertical-align: middle;
-}
-
-.counter-data .caption {
-    font-size: 85%;
-    letter-spacing: .15em;
-    color: #78838e;
-    text-transform: uppercase;
-}
-
-.counter-data h3 {
-    font-size: 4.5rem;
-}
-
-.white-space {
-    height: 40px;
-}
-
-
-/* 
-// ---------------------------
-// 10 - CRASH CALENDAR CARD
-// ---------------------------
-*/
-
-.calendar-card {
-    min-height: 402px;
-}
-
-.calendar-container {
-    overflow: hidden;
-    padding: 25px;
-    font-size: 0.9rem;
-}
-
-.calendar-container .bootstrap-datetimepicker-widget table td.day {
-    height: 40px;
-}
-
-.bootstrap-datetimepicker-widget table td.notify {
-    position: relative;
-}
-
-.bootstrap-datetimepicker-widget table td.notify:before {
-    content: '';
-    display: inline-block;
-    border: solid transparent;
-    border-width: 7px 0 0 7px;
-    border-top-color: #b73333;
-    border-bottom-color: rgba(0, 0, 0, 0.2);
-    position: absolute;
-    top: 4px;
-    right: 4px;
-}
-
-.crashes-card {
-    text-align: center;
-    min-height: 419px;
-}
-
-/* 
-// ---------------------------
-// 11 - CRASH TABLE CARD
-// ---------------------------
-*/
-
-.crash-table {
-    width: 90%;
-    margin: 1rem auto;
-}
-
-@media (max-width: 767px) {
-    .crash-table {
-        font-size: 14px;
-    }
-}
-
-th {
-    text-align: center;
-}
-
-.pagination-container {
-    padding: 20px;
-}
-
-.pagination {
-    float: right;
-    margin-bottom: 0px;
+.texture-container {
+	display: none;
 }

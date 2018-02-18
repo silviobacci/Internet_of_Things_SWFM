@@ -9,7 +9,7 @@
 
 #define str(s) 		#s
 
-const char *w_flow,*w_level,*w_t,*evolution,*to_reach;
+const char *w_flow,*w_l,*w_t,*evolution,*to_reach;
 
 
 typedef struct{

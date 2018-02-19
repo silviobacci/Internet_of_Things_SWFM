@@ -8,35 +8,14 @@
 #include "sys/etimer.h" // Include etimer
 
 
-static sensor_state state;
+static char dam_state[10];
 static int reference; 
-static int invalidator = 63,initialized = 44;
+static int invalidator = 436,initialized = 44;
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 
 
-EVENT_RESOURCE(resource_example, "title=\"Resource\";rt=\"Sensor\"", res_event_get_handler, res_event_post_handler, NULL, NULL, NULL);
-
-void check_resource_changed(){
-	if(abs(state.water_level-reference) >= RES_CHANGE && state.evolution!=0){
-		printf("notify \n");
-		//REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);
-		REST.notify_subscribers(&resource_example);
-		reference = state.water_level;
-	}
-
-}
-
-void state_step(){
-	int step = state.evolution * FIXED_STEP;
-	//printf("level: %d t:%d \n", (rand() ), RAND_MAX);
-	
-		state.water_level = state.water_level +  abs((rand() %  10)) *  step;	
-		printf("level: %d \n", state.water_level);
-		check_resource_changed();
-	
-
-}
+EVENT_RESOURCE(resource_example, "title=\"Resource\";rt=\"Dam\"", res_event_get_handler, res_event_post_handler, NULL, NULL, NULL);
 
 void
 res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
@@ -52,10 +31,11 @@ res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t p
 		REST.set_header_content_type(response, REST.type.TEXT_PLAIN); 		//set header content format
 		REST.set_response_payload(response, buffer, MESSAGE_SIZE);
 	
-	} else if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: XML
-		sprintf(j_message,"{\"%s\":%d,\"%s\":%d,\"%s\":%d,\"%s\":%d}", str(to_reach),state.level_to_reach,str(w_l),state.water_level,str(w_t),state.water_level_threshold,str(evolution),state.evolution);	
+	} else if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: X	
+		sprintf(j_message,"{\"%s\":\"%s\"}", str(dam),dam_state);	
 		printf("sended:%s \n",j_message);
 		memcpy(buffer, j_message,strlen(j_message));
+
 
 		REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);	//set header content format
 		REST.set_response_payload(response, buffer, strlen(j_message));
@@ -69,27 +49,30 @@ res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t p
 }
 
 void jparse_and_store(struct jsonparse_state *parser ){
-	int tmp;
+	char tmp[10];
 
-	if(json_get_int(parser, str(w_flow), &tmp) != ERROR)
-		state.water_flow = tmp;
-
-	if(json_get_int(parser, str(w_l), &tmp) != ERROR){
+	json_get_string(parser, str(dam), dam_state,DAM_STATE_SIZE);
+	
+	/*if(json_get_int(parser, str(w_l), &tmp) != ERROR){
 		reference = tmp;	
 		state.water_level = tmp;
-		initialized = 1;
 	}
 	if(json_get_int(parser, str(w_t), &tmp) != ERROR)
 		state.water_level_threshold = tmp;
 
-	if(json_get_int(parser, str(evolution), &tmp) != ERROR){
+	if(json_get_int(parser, str(evolution), &tmp) != ERROR)
 		state.evolution = tmp;
-	//	if(state.evolution != 0)
-			//sstate.to_reach = state.water_level_threshold + state.evolution *  abs((rand() %  5)) * 0.1 * state.water_level_threshold;
-	}
+	
+	if(json_get_int(parser, str(to_reach), &tmp) != ERROR){
+		state.level_to_reach = tmp;
+		printf("changed \n");
+		printf("%s \n",str(w_flow));
+		initialized = 1;	
+	}*/
 }
 
 void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
+
 	int len;
 	const char *val = NULL;
 	char *message = NULL;	
@@ -106,7 +89,8 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 			jsonparse_setup(&parser, val, len);
 			
 			jparse_and_store(&parser);
-			printf("to_reach=%d ,level=%d ,threshold=%d, evolution=%d \n",state.level_to_reach,state.water_level,state.water_level_threshold,state.evolution);
+printf("state:%s",dam_state);
+			//printf("to_reach=%d ,level=%d ,threshold=%d, evolution=%d \n",state.level_to_reach,state.water_level,state.water_level_threshold,state.evolution);
 		
 		 }else 
 		     REST.set_response_status(response, REST.status.BAD_REQUEST);
@@ -139,21 +123,7 @@ PROCESS_THREAD(server, ev, data)
 	
 	PROCESS_WAIT_EVENT();
 	
-	if(etimer_expired(&et)  && initialized){
-		state_step();
-		printf(":)\n");
-		//printf("flow=%d ,level=%d ,threshold=%d, evolution=%d \n",state.level_to_reach,state.water_level,state.water_level_threshold,state.evolution);
-		
-	etimer_reset(&et);
-	}
-	/*if(etimer_expired(&et) && initialized == 1){
-		state_step();
-		printf("flow=%d ,level=%d ,threshold=%d, evolution=%d \n",state.water_flow,state.water_level,state.water_level_threshold,state.evolution);
-		etimer_reset(&et); 
-}*/
+}
 
-
-
-  }
   PROCESS_END();
 }

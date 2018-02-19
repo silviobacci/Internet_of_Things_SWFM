@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class App {
-	
+
 	
 	public void startRandomSimulation() {
 		
@@ -28,23 +28,30 @@ public class App {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-    		client.postJSON("Sensor1");
-    		client.postJSON("Sensor2");
-    		client.postJSON("Sensor3");
+    		
+    		try {
+				TimeUnit.SECONDS.sleep(1);
+			//	System.out.println("wait..");
+			} catch (InterruptedException e) {
+					
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		client.SensorPostJSON("Sensor2",30,1,null,100);
+    	//	client.SensorPostJSON("Sensor2",1,null,300,200);
+    	//	client.DamPostJSON("Dam1", "open");
+    	
     		//while(true) {
-	    		try {
-					TimeUnit.SECONDS.sleep(1);
-					System.out.println("wait");
-				} catch (InterruptedException e) {
-						
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    		client.observe("Sensor1");
 	    		
-	   		client.observe("Sensor3");
+	    		client.observe("Sensor2");
 	    		
-	    		while(true) {}
+	   	//	client.observe("Sensor2");
+	    		
+	   		Controller DamController  = new Controller();
+			DamController.start();
+	    		while(true) {
+	    			
+	    		}
     		}
     		
     

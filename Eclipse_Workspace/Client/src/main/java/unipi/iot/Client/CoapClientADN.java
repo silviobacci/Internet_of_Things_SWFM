@@ -30,10 +30,30 @@ import com.google.common.collect.BiMap;
 
 
 
+
 public class CoapClientADN {
 	private static CoapClientADN instance;
 	private static HashMap<String,WaterFlowSensor> monitoringModule=new HashMap<String, WaterFlowSensor>();
+	private static HashMap<String,DamActuator> DamModule=new HashMap<String, DamActuator>();
 	private static ArrayList<CoapObserveRelation> relation = new ArrayList<CoapObserveRelation>();
+	
+	private int nSensors = 7; 
+	private int nDams = 4; 
+	
+	
+	public void addMonitoringModule(String name, String address) {
+		monitoringModule.put( name, new WaterFlowSensor(getJProperties(),name,address) ); 
+	}
+	private CoapClientADN() {
+	
+	}
+	
+	public static CoapClientADN getInstance(){
+	    if (instance == null)
+	    	instance = new CoapClientADN();
+
+	    	return instance; 
+	 }
 	
 
 public ArrayList<String> getJProperties() {
@@ -46,11 +66,15 @@ public ArrayList<String> getJProperties() {
 	return jsonProp;
 }
 
+
+
 public void getModulesAddresses() throws IOException {	
-	String ip = "[fd00::c30c:0:0:1]";
-    String port = "80";
+	String ip = "[fd00::c30c:0:0:1]", port = "80";
     String send_message = "GET / HTTP/1.1\r\n\r\n";
-    StringTokenizer tokenizer;
+    String uri, coreUri;
+    char  id; 
+    String []routes;    
+    int i=0,s=1,d=1;
     
         try {
           Socket sock = new Socket(ip, Integer.parseInt(port));
@@ -67,56 +91,48 @@ public void getModulesAddresses() throws IOException {
         	  
             str = br.readLine();
             tmp = tmp+" "+ str;
-            //System.out.println("Content: " + str);
+            
           } while (str != null);
-          //System.out.println("\nServer Reponse: " + message);
-          System.out.println(""+tmp);
+          System.out.println("\nServer Reponse: " + message);
           
           str = tmp.substring(tmp.lastIndexOf("<pre>")+5);
           str=str.substring(0,str.indexOf("<"));
-          String [] routes =str.split(" ");
-          int i=0,j=1;
-          System.out.println(routes[1]+"  "+routes[1].contains("/"));
+          routes =str.split(" ");
+         
+ 
           while(routes[i] != null) {
         	 
         	 if(routes[i].contains("/") == true) {
         	   routes[i] = routes[i].substring(0,routes[i].length()-4);
-      
-        	   System.out.println("name:"+"Sensor"+(j)+" address:"+"coap://["+routes[i]+"]:5683/example");
-        	   monitoringModule.put( "Sensor"+(j), new WaterFlowSensor(getJProperties(),"Sensor"+(j++),"coap://["+routes[i++]+"]:5683/example") ); 
+        	   uri = "coap://["+routes[i]+"]:5683/example";
+        	   coreUri = "coap://["+routes[i]+"]:5683/.well-known/core";
+        	   //System.out.println("name:"+"Sensor"+(s)+" address:"+"coap://["+routes[i]+"]:5683/example");
+        	   id = uri.charAt(uri.lastIndexOf("]")-1);
+        	   if(isDam(coreUri)) {
+        		   DamModule.put( "Dam"+(id), new DamActuator(getJProperties(),"Dam"+(id),uri)); 
+        		   System.out.println("dam"+id+" created");
+        	   }else {
+        		   monitoringModule.put( "Sensor"+(id), new WaterFlowSensor(getJProperties(),"Sensor"+(id),"coap://["+routes[i++]+"]:5683/example") ); 
+        		   System.out.println("Sensor"+id+" created");
+        	   }
         	 }else
         		  	i++;
         	 
           }
        
       
-          
+          sock.close();
       } catch (Exception e) {
           System.out.println(e.getMessage());
       }
+      
 	
 }
-	public void addMonitoringModule(String name, String address) {
-		monitoringModule.put( name, new WaterFlowSensor(getJProperties(),name,address) ); 
-	}
-	private CoapClientADN() {
-		
-		//monitoringModule.put( "Sensor1", new WaterFlowSensor(getJProperties(),"Sensor1","coap://[fd00::c30c:0:0:2]:5683/example") ); 
-		//monitoringModule.put( "Sensor2", new WaterFlowSensor(getJProperties(),"Sensor2","coap://[fd00::c30c:0:0:3]:5683/example") ); 
-		
-		//relation.add();
-	}
-	
-	public static CoapClientADN getInstance(){
-	    if (instance == null)
-	    	instance = new CoapClientADN();
 
-	    	return instance; 
-	 }
 	
 	
-	
-	public static CoapObserveRelation observe(final String name) {
+	public static CoapObserveRelation observe( final String name) {
+		monitoringModule.get(name).getConnection();
 		return monitoringModule.get(name).getConnection().observe(
     		new CoapHandler() {
     			public void onLoad(CoapResponse response) {
@@ -140,25 +156,70 @@ public void getModulesAddresses() throws IOException {
     	return coapClient.get(i).advanced(req);
 	}*/
 	
-	public CoapResponse postJSON(String name) {
-		DamActuator da = new DamActuator(true, 40, "pippo");
-		
+	public static  CoapResponse SensorPostJSON(String name, Integer wl, Integer evo, Integer toReach, Integer wt) {
+		//DamActuator da = new DamActuator(true, 40, "pippo");
+		boolean atLeastOne=false;
+		String json = "json={";
 		Request req = new Request(Code.POST);
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		req.setPayload("json={\"w_l\":10,\"evolution\":1,\"to_reach\":250}");
+		if(wl != null) {
+			json += "\"w_l\":"+wl.intValue();
+			atLeastOne= true;
+		}
+		
+		if(evo != null) {
+			if(atLeastOne)
+				json+=",";
+			else
+				atLeastOne=true;
+			json += "\"evolution\":"+evo.intValue();
+		
+		}
+		if(toReach != null) {
+			if(atLeastOne)
+				json+=",";
+			else
+				atLeastOne=true;
+			json += "\"to_reach\":"+toReach.intValue();
+		}
+			
+		if(wt != null) {
+			if(atLeastOne)
+				json+=",";
+			else
+				atLeastOne=true;
+			json += "\"w_t\":"+wt.intValue();
+
+		}
+			json += "}";
+		req.setPayload(json);
     	return monitoringModule.get(name).getConnection().advanced(req);
 	}
 	
-	/*public CoapResponse getJSON(int i) {
-		DamActuator da = new DamActuator(true, 40, "pippo");
+
+	public static CoapResponse DamPostJSON(String name, String control) {
 		
 		Request req = new Request(Code.POST);
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		req.setObserve();
-    	return coapClient.get(i).advanced(req);
-	}*/
+		req.setPayload("json={\"dam\":\""+control+"\"}");
+    	return DamModule.get(name).getConnection().advanced(req);
+	}
+	
+	public boolean isDam(String address) {
+		Request req = new Request(Code.GET);
+    	 CoapResponse res =  new CoapClient(address).advanced(req);
+    	 String type = res.getResponseText();
+    	 type = type.substring(  type.lastIndexOf("rt=")+4 , type.length()-1);
+    	
+    	 if(type.equalsIgnoreCase("Sensor"))
+    		 return false;
+    	 else
+    		 return true;
+    	 
+    	 
+	}
 	
 	public String getRaw(CoapResponse response) {
     	return response.getResponseText();
@@ -177,8 +238,32 @@ public void getModulesAddresses() throws IOException {
 		Request req = new Request(Code.GET);
 		//req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
 		//req.setPayload("json={\"w_l\":10,\"evolution\":1,\"to_reach\":201}");
-    	CoapResponse r= (new CoapClient("[fd00::c30c:0:0:1]").advanced(req) );
-    	System.out.println("get:"+r.getResponseText());
+    	CoapResponse r= (new CoapClient("coap://[fd00::c30c:0:0:1]").advanced(req) );
+    	//System.out.println("get:"+r.getResponseText());
 	
+	}
+
+
+
+	public static HashMap<String, WaterFlowSensor> getMonitoringModule() {
+		return monitoringModule;
+	}
+
+
+
+	public static void setMonitoringModule(HashMap<String, WaterFlowSensor> monitoringModule) {
+		CoapClientADN.monitoringModule = monitoringModule;
+	}
+
+
+
+	public static HashMap<String, DamActuator> getDamModule() {
+		return DamModule;
+	}
+
+
+
+	public static void setDamModule(HashMap<String, DamActuator> damModule) {
+		DamModule = damModule;
 	}
 }

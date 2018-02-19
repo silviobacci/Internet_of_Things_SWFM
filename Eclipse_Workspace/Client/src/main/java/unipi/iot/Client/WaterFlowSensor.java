@@ -30,6 +30,15 @@ public class WaterFlowSensor {
 	public CoapClient getConnection() {
 		return connection;
 	}
+	
+	public boolean isOverflowed() {
+		if(sensorState.get("w_l") != null && sensorState.get("w_t") != null )
+			return (sensorState.get("w_t") - sensorState.get("w_l") < 0);
+		else
+			return false;
+	}
+	
+	
 	public void printState() {
 		System.out.print(name+":");
 		for(String key: sensorState.keySet())
@@ -37,18 +46,19 @@ public class WaterFlowSensor {
 		System.out.println();
 	}
 	public WaterFlowSensor(ArrayList<String> prop, String n, String address) {
+		connection = new CoapClient(address);
 		sensorState = new HashMap<String,Integer>();
 		for (String property: prop) {
-			sensorState.put(property,new Integer(0));
+			sensorState.put(property,null);
 			
 		}
 		parser = jParser.getInstance(prop);
 		name = n;
-		connection = new CoapClient(address);
+	
 	}
 	
 	public void updateState(String jsonPost) {
-		HashMap<String, Integer> tmp = parser.getValues(jsonPost);
+		HashMap<String, Integer> tmp = parser.getSensorValues(jsonPost);
 		
 		for (String key: tmp.keySet()) {
 			

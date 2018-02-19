@@ -82,8 +82,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>38.4181355383896</x>
-        <y>70.44418542273502</y>
+        <x>35.76140027410881</x>
+        <y>67.78745015845423</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -96,11 +96,29 @@
       </interface_config>
       <motetype_identifier>z12</motetype_identifier>
     </mote>
+    <mote>
+      <breakpoints />
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>59.49111855528339</x>
+        <y>81.11240272936013</y>
+        <z>0.0</z>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.mspmote.interfaces.MspClock
+        <deviation>1.0</deviation>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.mspmote.interfaces.MspMoteID
+        <id>3</id>
+      </interface_config>
+      <motetype_identifier>z12</motetype_identifier>
+    </mote>
   </simulation>
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>0</z>
+    <z>1</z>
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -113,10 +131,10 @@
       <skin>org.contikios.cooja.plugins.skins.GridVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
-      <viewport>8.280840133296348 0.0 0.0 8.280840133296348 19.21679761482355 -253.06431053322646</viewport>
+      <viewport>7.4663720271036516 0.0 0.0 7.4663720271036516 -73.81918707863852 -294.263807132456</viewport>
     </plugin_config>
     <width>400</width>
-    <z>2</z>
+    <z>0</z>
     <height>400</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -139,6 +157,7 @@
     <plugin_config>
       <mote>0</mote>
       <mote>1</mote>
+      <mote>2</mote>
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
@@ -170,7 +189,7 @@
       <bound>true</bound>
     </plugin_config>
     <width>362</width>
-    <z>1</z>
+    <z>2</z>
     <height>116</height>
     <location_x>783</location_x>
     <location_y>42</location_y>

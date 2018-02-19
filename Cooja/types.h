@@ -6,10 +6,11 @@
 #define FIXED_STEP	5
 #define EQUAL_THRESHOLD 20
 #define RES_CHANGE	20
+#define DAM_STATE_SIZE	10
 
 #define str(s) 		#s
 
-const char *w_flow,*w_l,*w_t,*evolution,*to_reach;
+const char *w_flow,*w_l,*w_t,*evolution,*dam,*closed,*open;
 
 
 typedef struct{

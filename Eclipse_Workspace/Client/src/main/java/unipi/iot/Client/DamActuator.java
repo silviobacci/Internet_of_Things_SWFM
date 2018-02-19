@@ -1,47 +1,71 @@
 package unipi.iot.Client;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import org.eclipse.californium.core.coap.Request;
+import org.eclipse.californium.core.coap.CoAP.Code;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
 public class DamActuator {
-	private final String state_string = "state_string";
-	private final String id_string = "id";
-	private final String name_string = "name";
+	private boolean isOpen;
+	private final String name;
 	
-	public boolean state;
-	public int id;
-	public String name;
+	private final CoapClient connection;
+	private String state;
+	private static 	jParser parser;
+
 	
-	private JSONObject createJsonObject() {
-		JSONObject jo = new JSONObject();
-		jo.put(state_string, state);
-		jo.put(id_string, id);
-		jo.put(name_string, name);
+	public void printState() {
+		System.out.println(name+" is currently "+state);
 		
-		return jo;
 	}
 	
-	public DamActuator(boolean s, int i, String n) {
-		state = s;
-		id = i;
+	public CoapClient getConnection() {
+		return connection;
+	}
+	
+	public void setOpened() {
+		isOpen= true; 
+		state = "open";
+	}
+	public void damControl(String jsonPost) {
+		HashMap<String, String> tmp = parser.getDamValues(jsonPost);
+		
+		for (String key: tmp.keySet()) {
+			System.out.println(key+"  "+tmp.get(key));
+			if(key == "dam") {
+				if(tmp.get(key) == "open")
+					isOpen = true;
+				else
+					isOpen = false;
+				state = tmp.get(key);
+			
+			}
+		}
+		printState();
+	}
+	
+	
+	
+	public DamActuator(ArrayList<String> prop, String n, String address){
+		parser = jParser.getInstance(prop);
 		name = n;
+		connection = new CoapClient(address);
+		isOpen = false;
+		state = "closed";
 	}
 	
-	public DamActuator(String s) throws ParseException {
-		JSONObject jo = (JSONObject) JSONValue.parseWithException(s);
-		
-		state = ((Long) jo.get(state_string)).intValue() > 0 ? true : false;
-		id = ((Long) jo.get(id_string)).intValue();
-		name = (String) jo.get(name_string);
-	}
-	
-	public String toString() {
-		JSONObject jo = createJsonObject();
+	/*public String toString() {
+		//JSONObject jo = createJsonObjec)t();
 		return jo.toJSONString();
 	}
 	
 	public String toParsedString() {
 		JSONObject jo = createJsonObject();
 		return JSONValue.escape(jo.toJSONString());
-	}
+	}*/
 }

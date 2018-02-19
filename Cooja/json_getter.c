@@ -17,7 +17,7 @@ int json_has_next(struct jsonparse_state *state)
 // 		    equal to name parameter
 //------------------------------------------------------------------------------
 int json_iterate_to(struct jsonparse_state *state, char * name){
-	char message[90];
+	char message[90],tmp[90];
 	
 	jsonparse_setup(state, state->json, state->len);			//parser reset	
 	jsonparse_next(state);							
@@ -27,7 +27,7 @@ int json_iterate_to(struct jsonparse_state *state, char * name){
 
 		jsonparse_next(state);
 		jsonparse_copy_value(state, message,10);			//current value
-
+	
 		if (!json_has_next(state)){
 			printf("Reached end of JSON!\n");
 			return -1; 
@@ -35,6 +35,8 @@ int json_iterate_to(struct jsonparse_state *state, char * name){
 	}
 
 	jsonparse_next(state);
+jsonparse_copy_value(state, tmp,90);	
+		printf("value:%s \n",tmp);
 	return 0;	
 }
 
@@ -58,7 +60,7 @@ int json_get_int(struct jsonparse_state *state, char * name, int* value){
 // json_get_string: returns the string value associated to the properties passed
 //		    as parameter
 //------------------------------------------------------------------------------
-/*int json_get_string(struct jsonparse_state *state, char * name, char* value, int len){
+int json_get_string(struct jsonparse_state *state, char * name, char* value, int len){
 	if(json_iterate_to(state,name) != 0)					//check if value name is present
 		return -1; 
 	
@@ -68,4 +70,4 @@ int json_get_int(struct jsonparse_state *state, char * name, int* value){
 	}else
 		return -1;
 		
-}*/
+}

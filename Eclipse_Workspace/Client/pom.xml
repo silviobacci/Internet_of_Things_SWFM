@@ -77,7 +77,7 @@
 					</descriptorRefs>
 					<archive>
 			    		<manifest>
-			      			<mainClass>unipi.iot.Client.App</mainClass>
+			      			<mainClass>unipi.iot.Client.Starter</mainClass>
 			    		</manifest>
 		  			</archive>
 				</configuration>

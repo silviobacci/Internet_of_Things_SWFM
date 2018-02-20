@@ -8,7 +8,7 @@
   <project EXPORT="discard">[APPS_DIR]/powertracker</project>
   <simulation>
     <title>IoT_SImulation</title>
-    <speedlimit>1.0</speedlimit>
+    <speedlimit>2.0</speedlimit>
     <randomseed>123456</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
@@ -301,7 +301,7 @@
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>1</z>
+    <z>0</z>
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -317,7 +317,7 @@
       <viewport>1.8143678189139256 0.0 0.0 1.8143678189139256 31.04382113864494 37.89003743607377</viewport>
     </plugin_config>
     <width>400</width>
-    <z>0</z>
+    <z>2</z>
     <height>634</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -330,7 +330,7 @@
       <coloring />
     </plugin_config>
     <width>1255</width>
-    <z>2</z>
+    <z>1</z>
     <height>708</height>
     <location_x>400</location_x>
     <location_y>160</location_y>
@@ -356,7 +356,7 @@
       <zoomfactor>500.0</zoomfactor>
     </plugin_config>
     <width>1655</width>
-    <z>5</z>
+    <z>4</z>
     <height>166</height>
     <location_x>0</location_x>
     <location_y>867</location_y>
@@ -368,7 +368,7 @@
       <decorations>true</decorations>
     </plugin_config>
     <width>975</width>
-    <z>4</z>
+    <z>5</z>
     <height>160</height>
     <location_x>680</location_x>
     <location_y>0</location_y>

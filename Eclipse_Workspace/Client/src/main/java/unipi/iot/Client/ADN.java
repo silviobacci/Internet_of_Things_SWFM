@@ -118,24 +118,36 @@ public class ADN {
 	}
 	
 	public static void discovery(boolean isMN) {
+		Request req = new Request(Code.GET);
 		String address; 
 		if(isMN)
 			address = mnAddress;
 		else
 			address = inAddress;
 		
-		address += "/?fu=1";		
+		address += "/?fu=1";	
+		
+		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
+		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
+    	new CoapClient(address).advanced(req);
+		
 	}
 	
 	
 	public static void discovery(boolean isMN, int type) {
+		Request req = new Request(Code.GET);
 		String address; 
+		
 		if(isMN)
 			address = mnAddress;
 		else
 			address = inAddress;
 		
 		address += "/?fu=1&rty="+type;	
+		
+		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
+		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
+    	new CoapClient(address).advanced(req);
 	}
 	
 	public static void createSubscription(boolean isMN , String json, String ae, String container) {

@@ -28,6 +28,7 @@ public class jParser {
 	
 	public HashMap<String, Integer> getSensorValues(String toParse) {
 		JSONObject jo= new JSONObject();
+		//System.out.println("toparse:"+toParse);
 		try {
 			jo = (JSONObject) JSONValue.parseWithException( toParse); //"{\"to_reach\":200,\"evolution\":1}");
 		} catch (ParseException e) {
@@ -50,7 +51,7 @@ public class jParser {
 		//	System.out.println(""+toParse);
 			jo = (JSONObject) JSONValue.parseWithException( toParse); //"{\"to_reach\":200,\"evolution\":1}");
 		} catch (ParseException e) {
-			System.out.println("Parsing exception while parsing:"+toParse);
+	//		System.out.println("Parsing exception while parsing:"+toParse);
 			e.printStackTrace();
 		}
 		HashMap<String, String> propVal = new HashMap<String, String>();

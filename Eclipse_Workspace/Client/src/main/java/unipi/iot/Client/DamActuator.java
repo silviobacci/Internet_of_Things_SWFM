@@ -11,7 +11,7 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 
 public class DamActuator {
-	private boolean isOpen;
+	private boolean isOpen=false;
 	private final String name;
 	
 	private final CoapClient connection;
@@ -26,6 +26,11 @@ public class DamActuator {
 	
 	public CoapClient getConnection() {
 		return connection;
+	}
+	
+	public void setClosed() {
+		isOpen=false;
+		state= "closed";
 	}
 	
 	public void setOpened() {
@@ -49,6 +54,9 @@ public class DamActuator {
 		printState();
 	}
 	
+	public boolean isOpened() {
+		return isOpen;
+	}
 	
 	
 	public DamActuator(ArrayList<String> prop, String n, String address){

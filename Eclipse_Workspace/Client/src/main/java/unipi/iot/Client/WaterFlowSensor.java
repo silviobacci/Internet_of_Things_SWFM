@@ -38,9 +38,13 @@ public class WaterFlowSensor {
 			return false;
 	}
 	
+	public int getLevel() {
+		return sensorState.get("w_l");
+	}
+	
 	
 	public void printState() {
-		System.out.print(name+":");
+		System.out.print("updating "+name+":");
 		for(String key: sensorState.keySet())
 			System.out.print(key+":"+sensorState.get(key)+" ");
 		System.out.println();
@@ -69,17 +73,7 @@ public class WaterFlowSensor {
 		printState();
 	}
 	
-	/*public WaterFlowSensor(String s) throws ParseException {
-		JSONObject jo = (JSONObject) JSONValue.parseWithException(s);
-		
-		System.out.println("TEMP: " + jo.get("temperature"));
-		
-		water_level = ((Long) jo.get(water_level_string)).intValue();
-		water_speed = ((Long) jo.get(water_speed_string)).intValue();
-		id = ((Long) jo.get(id_string)).intValue();
-		name = (String) jo.get(name_string);
-	}*/
-	
+
 	public String toString() {
 		JSONObject jo = createJsonObject();
 		return jo.toJSONString();

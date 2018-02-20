@@ -8,7 +8,7 @@
 #include "sys/etimer.h" // Include etimer
 
 
-static char dam_state[10];
+static char dam_state[10]="closed";
 static int reference; 
 static int invalidator = 436,initialized = 44;
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
@@ -117,7 +117,7 @@ PROCESS_THREAD(server, ev, data)
   etimer_set(&et, CLOCK_SECOND*5); // Set the timer
  // SENSORS_ACTIVATE(button_sensor);
   rest_init_engine();
-  rest_activate_resource(&resource_example, "example");
+  rest_activate_resource(&resource_example, "Dam");
 
   while(1) {
 	

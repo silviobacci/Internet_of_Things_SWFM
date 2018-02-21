@@ -102,6 +102,7 @@ public class CoapClientADN {
 	        	   coreUri = "coap://["+routes[i]+"]:5683/.well-known/core";
 	        	   //System.out.println("name:"+"Sensor"+(s)+" address:"+"coap://["+routes[i]+"]:5683/example");
 	        	   id = uri.charAt(uri.lastIndexOf("]")-1);
+	        	   //controlla se non esiste gia 
 	        	   if(isDam(coreUri)) {
 	        		   uri += "Dam";
 	        		   DamModule.put( "Dam"+(id), new DamActuator(getJProperties(),"Dam"+(id),uri)); 

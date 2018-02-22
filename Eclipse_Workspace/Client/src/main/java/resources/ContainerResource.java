@@ -1,6 +1,8 @@
 package resources;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 public class ContainerResource extends Resource {
 	
@@ -42,6 +44,43 @@ public class ContainerResource extends Resource {
 		la = _la;
 	}
 	
+	public ContainerResource(String json) {
+		super(json, "m2m:cnt");
+		try {
+			JSONObject created = (JSONObject) JSONValue.parseWithException(json);
+			created = (JSONObject) created.get("m2m:cnt");
+			for(Object key : created.keySet()) {
+				if(key.toString().equals("acpi")) acpi = created.get(key).toString();
+				else if(key.toString().equals("et")) et = created.get(key).toString();
+				else if(key.toString().equals("st")) st = (Integer) created.get(key);
+				else if(key.toString().equals("mni")) mni = (Integer) created.get(key);
+				else if(key.toString().equals("mbs")) mbs = (Integer) created.get(key);
+				else if(key.toString().equals("mia")) mia = (Integer) created.get(key);
+				else if(key.toString().equals("cni")) cni = (Integer) created.get(key);
+				else if(key.toString().equals("cbs")) cbs = (Integer) created.get(key);
+				else if(key.toString().equals("ol")) ol = created.get(key).toString();
+				else if(key.toString().equals("la")) la = created.get(key).toString();
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ContainerResource(JSONObject created) {
+		super(created);
+		for(Object key : created.keySet()) {
+			if(key.toString().equals("acpi")) acpi = created.get(key).toString();
+			else if(key.toString().equals("et")) et = created.get(key).toString();
+			else if(key.toString().equals("st")) st = (Integer) created.get(key);
+			else if(key.toString().equals("mni")) mni = (Integer) created.get(key);
+			else if(key.toString().equals("mbs")) mbs = (Integer) created.get(key);
+			else if(key.toString().equals("mia")) mia = (Integer) created.get(key);
+			else if(key.toString().equals("cni")) cni = (Integer) created.get(key);
+			else if(key.toString().equals("cbs")) cbs = (Integer) created.get(key);
+			else if(key.toString().equals("ol")) ol = created.get(key).toString();
+			else if(key.toString().equals("la")) la = created.get(key).toString();
+		}
+	}
 
 	public JSONObject toJSON() {
 		JSONObject jo = super.toJSON();

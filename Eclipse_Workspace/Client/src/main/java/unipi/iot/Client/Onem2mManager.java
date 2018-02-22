@@ -1,7 +1,5 @@
 package unipi.iot.Client;
 
-import java.util.HashMap;
-
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.coap.Option;
 import org.eclipse.californium.core.coap.Request;
@@ -26,6 +24,13 @@ public class Onem2mManager {
 			return inAddress;
 	}
 	
+	private static String mnName(boolean isMN) {
+		if(isMN)
+			return mnName;
+		else
+			return inName;
+	}
+	
 	public Onem2mManager(String inA, String mnA, String inN, String mnN) {
 		inAddress = inA;
 		mnAddress = mnA;
@@ -33,6 +38,7 @@ public class Onem2mManager {
 		mnName = mnN;
 	}
 	
+	/*
 	public static JSONObject jsonAE(String api, String rn, String rr) {
 		JSONObject jo = new JSONObject();
 		jo.put("api", api);
@@ -42,7 +48,7 @@ public class Onem2mManager {
 		return jo;
 	}
 	
-	public static JSONObject jsonContainer( String rn) {
+	public static JSONObject jsonContainer(String rn) {
 		JSONObject jo = new JSONObject();
 		jo.put("rn", rn);
 
@@ -65,6 +71,7 @@ public class Onem2mManager {
 		
 		return jo;
 	}
+	*/
 	
 	private static Request postRequest(int type) {
 		Request req = new Request(Code.POST);
@@ -87,8 +94,7 @@ public class Onem2mManager {
 		req.setPayload(payload.toJSONString());
 		
     	CoapResponse res = new CoapClient(address) .advanced(req);
-    	System.out.println("resAE:"+res.getResponseText());
-    		
+    	System.out.println("resAE:"+res.getResponseText());	
 	}
 	
 	

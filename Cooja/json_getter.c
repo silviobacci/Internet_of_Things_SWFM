@@ -35,8 +35,8 @@ int json_iterate_to(struct jsonparse_state *state, char * name){
 	}
 
 	jsonparse_next(state);
-jsonparse_copy_value(state, tmp,90);	
-		printf("value:%s \n",tmp);
+	jsonparse_copy_value(state, tmp,90);	
+	printf("value:%s \n",tmp);
 	return 0;	
 }
 

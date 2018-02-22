@@ -3,12 +3,13 @@
 #define 	W_STATIONARY 		0
 #define 	ERROR 			-1
 #define 	MESSAGE_SIZE		100
-#define 	FIXED_STEP		5
+#define 	FIXED_STEP		3
 #define 	EQUAL_THRESHOLD 	20
-#define 	RES_CHANGE		20
+#define 	RES_CHANGE		5
 #define 	DAM_STATE_SIZE		10
-#define	MIN_LEVEL_DETECTABLE		10
-#define	MAX_LEVEL_DETECTABLE		300
+#define		MIN_LEVEL_DETECTABLE	30
+#define		MAX_LEVEL_DETECTABLE	500
+#define 	SAMPLING_PERIOD		1
 
 #define str(s) 		#s
 

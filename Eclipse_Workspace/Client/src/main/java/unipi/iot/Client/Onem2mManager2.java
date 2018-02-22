@@ -17,13 +17,20 @@ import org.json.simple.parser.ParseException;
 import resources.AEResource;
 import resources.ContainerResource;
 import resources.InstanceResource;
+import resources.ReferenceResource;
 import resources.Resource;
 
 public class Onem2mManager2 {
-	private String inAddress = "127.0.0.1:5683/~/SWFM-in-cse";
-	private String mnAddress = "127.0.0.1:5684/~/SWFM-mn-cse";
-	private String inName = "SWFM-in-name"; 
-	private String mnName = "SWFM-mn-name"; 
+	private static final int RESPONSE_STATUS_CODE = 265;
+	private static final int CREATED_SUCCESSFULLY = 2001;
+	private static final int CONTENT = 2000;
+
+	private String inAddress = "coap://127.0.0.1:5683/~";
+	private String mnAddress = "coap://127.0.0.1:5684/~";
+	private String inCSE = "/SWFM-in-cse"; 
+	private String mnCSE = "/SWFM-mn-cse"; 
+	private String inName = "/SWFM-in-name"; 
+	private String mnName = "/SWFM-mn-name"; 
 
 	public Onem2mManager2() {}
 	
@@ -39,6 +46,13 @@ public class Onem2mManager2 {
 			return mnAddress;
 		else
 			return inAddress;
+	}
+	
+	private String getCSE(boolean isMN) {
+		if(isMN)
+			return mnCSE;
+		else
+			return inCSE;
 	}
 	
 	private String getName(boolean isMN) {
@@ -64,7 +78,7 @@ public class Onem2mManager2 {
 		return jo;
 	}
 	
-	public JSONObject jsonSubscription(String nct, String rn, String nu) {
+	public JSONObject jsonSubscription(String rn, String nu, int nct) {
 		JSONObject jo = new JSONObject();
 		jo.put("rn", rn);
 		jo.put("nu", nu);
@@ -73,12 +87,27 @@ public class Onem2mManager2 {
 		return jo;
 	}
 	
-	public JSONObject jsonCI(String cnf, String con) {
+	public JSONObject jsonCI(String cnf, Object con) {
 		JSONObject jo = new JSONObject();
 		jo.put("cnf",cnf);
 		jo.put("con",con);
 		
 		return jo;
+	}
+	
+	private boolean checkResponse(CoapResponse res, int code) {
+		Option responseCode = null;
+		for(Option opt : res.getOptions().asSortedList()) {
+		      if(opt.getNumber() == RESPONSE_STATUS_CODE) {
+		    	  responseCode = opt;
+		    	  break;
+		      }
+		}
+		
+		if(responseCode != null && responseCode.getIntegerValue() == code)
+			return true;
+		
+		return false;
 	}
 	
 	private CoapResponse postRequest(String address, String payload, int type) {
@@ -95,38 +124,48 @@ public class Onem2mManager2 {
 	
 	
 	public AEResource createAE(boolean isMN, JSONObject ae) {		
-		String address = getAddress(isMN);
+		String address = getAddress(isMN) + getCSE(isMN);
 		
 		JSONObject payload = new JSONObject();
 		payload.put("m2m:ae",ae);
 		
 		CoapResponse res = postRequest(address, payload.toJSONString(), 2);
 
+		if(!checkResponse(res, CREATED_SUCCESSFULLY))
+			return null;
+		
     	System.out.println("resAE:"+res.getResponseText());	
     	
     	return new AEResource(res.getResponseText());
 	}
 	
 	public ContainerResource createContainer(boolean isMN, Resource father, JSONObject cnt) {
-		String address = getAddress(isMN)+"/"+father.getRi();
+		String address = getAddress(isMN) + father.getRi();
+		System.out.println("Address: " + address);
 		
 		JSONObject payload = new JSONObject();
 		payload.put("m2m:cnt",cnt);
 		
 		CoapResponse res = postRequest(address, payload.toJSONString(), 3);
 
+		if(!checkResponse(res, CREATED_SUCCESSFULLY))
+			return null;
+		
 		System.out.println("resContainer:"+res.getResponseText());
 		
 		return new ContainerResource(res.getResponseText());
 	}
 	
 	public InstanceResource createContentInstance(boolean isMN , Resource father, JSONObject inst) {
-		String address = getAddress(isMN)+"/"+father.getRi();
+		String address = getAddress(isMN) + father.getRi();
 		
 		JSONObject payload = new JSONObject();
 		payload.put("m2m:cin",inst);
 		
 		CoapResponse res = postRequest(address, payload.toJSONString(), 4);
+		
+		if(!checkResponse(res, CREATED_SUCCESSFULLY))
+			return null;
 		
 		System.out.println("resContentInstance:"+res.getResponseText());
 		
@@ -154,9 +193,12 @@ public class Onem2mManager2 {
 	}
 	
 	public InstanceResource getContentInstance(boolean isMN, InstanceResource who) {
-		String address = getAddress(isMN)+"/"+who.getRi();
+		String address = getAddress(isMN) + who.getRi();
 		
 		CoapResponse res = getRequest(address);
+		
+		if(!checkResponse(res, CONTENT))
+			return null;
 		
 		System.out.println("getContentInstance:"+res.getResponseText());
 
@@ -164,9 +206,12 @@ public class Onem2mManager2 {
 	}
 	
 	public ContainerResource getContainer(boolean isMN, ContainerResource who) {
-		String address = getAddress(isMN)+"/"+who.getRi();
+		String address = getAddress(isMN) + who.getRi();
 		
 		CoapResponse res = getRequest(address);
+		
+		if(!checkResponse(res, CONTENT))
+			return null;
 		
 		System.out.println("getContainer:"+res.getResponseText());
 
@@ -174,9 +219,12 @@ public class Onem2mManager2 {
 	}
 	
 	public AEResource getContentInstance(boolean isMN, AEResource who) {
-		String address = getAddress(isMN)+"/"+who.getRi();
+		String address = getAddress(isMN) + who.getRi();
 		
 		CoapResponse res = getRequest(address);
+		
+		if(!checkResponse(res, CONTENT))
+			return null;
 		
 		System.out.println("getAE:"+res.getResponseText());
 
@@ -184,6 +232,10 @@ public class Onem2mManager2 {
 	}
 
 	public ArrayList<Resource> discovery(boolean isMN) {
+		return discovery(isMN, null, null);
+	}
+	
+	public ArrayList<Resource> discovery(boolean isMN, Integer type, ArrayList<String> filter) {
 		String address = getAddress(isMN);
 		
 		ArrayList<Resource> resources = new ArrayList<Resource>();
@@ -192,19 +244,37 @@ public class Onem2mManager2 {
 		
 		req.getOptions().addUriQuery("fu=1");
 		
+		if(type != null)
+			req.getOptions().addUriQuery("rty="+type.intValue());
+		
+		if(filter != null)
+			for(String s : filter)
+				req.getOptions().addUriQuery(s);
+		
 		CoapResponse res = new CoapClient(address).advanced(req);
 		
+		if(!checkResponse(res, CONTENT))
+			return null;
+		
 		try {
-			JSONObject created = (JSONObject) JSONValue.parseWithException(res.getResponseText());
-			JSONArray json = (JSONArray) created.get("m2m:uril");
+			JSONObject discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
+			JSONArray json = (JSONArray) discJSON.get("m2m:uril");
 			
-			for(Object jo : json) {
-				if(((Integer) ((JSONObject) jo).get("ty")) == 2)
-					resources.add(new AEResource((JSONObject) jo));
-				if(((Integer) ((JSONObject) jo).get("ty")) == 3)
-					resources.add(new ContainerResource((JSONObject) jo));
-				if(((Integer) ((JSONObject) jo).get("ty")) == 4)
-					resources.add(new InstanceResource((JSONObject) jo));
+			for(Object j : json) {
+				String jo = (String) j;
+				res = getRequest(address + jo);
+				if (checkResponse(res, CONTENT)){
+					discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
+					
+					if(discJSON.get("m2m:ae") != null)
+						resources.add(new AEResource((JSONObject) discJSON.get("m2m:ae")));
+					if(discJSON.get("m2m:cnt") != null)
+						resources.add(new ContainerResource((JSONObject) discJSON.get("m2m:cnt")));
+					if(discJSON.get("m2m:cin") != null)
+						resources.add(new InstanceResource((JSONObject) discJSON.get("m2m:cin")));
+					if(discJSON.get("m2m:csr") != null)
+						resources.add(new ReferenceResource((JSONObject) discJSON.get("m2m:csr")));
+				}
 			}
 		} catch (ParseException e) {
 			return null;
@@ -213,33 +283,63 @@ public class Onem2mManager2 {
 		return resources;
 	}
 	
+	public ArrayList<Resource> bridgedDiscovery(boolean isMN) {
+		return bridgedDiscovery(isMN, null, null);
+	}
 	
-	public ArrayList<Resource> discovery(boolean isMN, int type, String filter) {
-		String address = getAddress(isMN);
+	public ArrayList<Resource> bridgedDiscovery(boolean isMN, Integer type, ArrayList<String> filter) {
+		ArrayList<Resource> resources = discovery(isMN);
 		
-		ArrayList<Resource> resources = new ArrayList<Resource>();
+		CoapResponse res = null;
+		String address = null;
 		
-		Request req = getRequest();
+		for(Resource r : resources) {
+			if(r instanceof ReferenceResource) {
+				Request req = getRequest();
+				
+				req.getOptions().addUriQuery("fu=1");
+				
+				if(type != null)
+					req.getOptions().addUriQuery("rty="+type.intValue());
+				
+				if(filter != null)
+					for(String s : filter)
+						req.getOptions().addUriQuery(s);
+				
+				address = getAddress(isMN) + ((ReferenceResource) r).getCsi();
+				
+				res = new CoapClient(address).advanced(req);
+			}
+		}
 		
-		req.getOptions().addUriQuery("fu=1");
-		req.getOptions().addUriQuery("rty="+type);
+		if(res == null)
+			return null;
 		
-		if(filter != null)
-			req.getOptions().addUriQuery(filter);
+		if(!checkResponse(res, CONTENT))
+			return null;
 		
-		CoapResponse res = new CoapClient(address).advanced(req);
+		resources = new ArrayList<Resource>();
 		
 		try {
-			JSONObject created = (JSONObject) JSONValue.parseWithException(res.getResponseText());
-			JSONArray json = (JSONArray) created.get("m2m:uril");
+			JSONObject discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
+			JSONArray json = (JSONArray) discJSON.get("m2m:uril");
 			
-			for(Object jo : json) {
-				if(((Integer) ((JSONObject) jo).get("ty")) == 2)
-					resources.add(new AEResource((JSONObject) jo));
-				if(((Integer) ((JSONObject) jo).get("ty")) == 3)
-					resources.add(new ContainerResource((JSONObject) jo));
-				if(((Integer) ((JSONObject) jo).get("ty")) == 4)
-					resources.add(new InstanceResource((JSONObject) jo));
+			for(Object j : json) {
+				String jo = (String) j;
+				res = getRequest(getAddress(isMN) + jo);
+				if(checkResponse(res, CONTENT)){
+					System.out.println(res.getResponseText());
+					discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
+					
+					if(discJSON.get("m2m:ae") != null)
+						resources.add(new AEResource((JSONObject) discJSON.get("m2m:ae")));
+					if(discJSON.get("m2m:cnt") != null)
+						resources.add(new ContainerResource((JSONObject) discJSON.get("m2m:cnt")));
+					if(discJSON.get("m2m:cin") != null)
+						resources.add(new InstanceResource((JSONObject) discJSON.get("m2m:cin")));
+					if(discJSON.get("m2m:csr") != null)
+						resources.add(new ReferenceResource((JSONObject) discJSON.get("m2m:csr")));
+				}
 			}
 		} catch (ParseException e) {
 			return null;
@@ -249,7 +349,7 @@ public class Onem2mManager2 {
 	}
 	
 	public void createSubscription(boolean isMN, Resource father, JSONObject sub) {
-		String address = getAddress(isMN)+"/"+father.getRi();
+		String address = getAddress(isMN)+father.getRi();
 		
 		JSONObject payload = new JSONObject();
 		payload.put("m2m:sub",sub);

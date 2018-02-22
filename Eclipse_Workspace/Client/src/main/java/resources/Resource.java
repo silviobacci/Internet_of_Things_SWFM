@@ -6,7 +6,7 @@ import org.json.simple.parser.ParseException;
 
 public class Resource {
 	private String rn; 
-	private int 	ty; 
+	private long 	ty; 
 	private String 	ri;
 	private String 	pi;
 	private String 	ct;
@@ -25,18 +25,18 @@ public class Resource {
 		return jo;
 	}
 	
-	public Resource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt ) {
+	public Resource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt ) {
 		rn = _rn; 
-		ty = _ty.intValue();
+		ty = _ty;
 		ri = _ri;
 		pi = _pi;
 		ct = _ct;
 		lt = _lt;
 	}
 	
-	public Resource(String _rn, Integer _ty, String _ri) {
+	public Resource(String _rn, long _ty, String _ri) {
 		rn = _rn; 
-		ty = _ty.intValue();
+		ty = _ty;
 		ri = _ri;
 	}
 	
@@ -46,7 +46,7 @@ public class Resource {
 			created = (JSONObject) created.get(type);
 			for(Object key : created.keySet()) {
 				if(key.toString().equals("rn")) rn = created.get(key).toString();
-				else if(key.toString().equals("ty")) ty = (Integer) created.get(key);
+				else if(key.toString().equals("ty")) ty = (Long) created.get(key);
 				else if(key.toString().equals("ri")) ri = created.get(key).toString();
 				else if(key.toString().equals("pi")) pi = created.get(key).toString();
 				else if(key.toString().equals("ct")) ct = created.get(key).toString();
@@ -60,7 +60,7 @@ public class Resource {
 	public Resource(JSONObject created) {
 		for(Object key : created.keySet()) {
 			if(key.toString().equals("rn")) rn = created.get(key).toString();
-			else if(key.toString().equals("ty")) ty = (Integer) created.get(key);
+			else if(key.toString().equals("ty")) ty = (Long) created.get(key);
 			else if(key.toString().equals("ri")) ri = created.get(key).toString();
 			else if(key.toString().equals("pi")) pi = created.get(key).toString();
 			else if(key.toString().equals("ct")) ct = created.get(key).toString();
@@ -76,11 +76,11 @@ public class Resource {
 		this.rn = rn;
 	}
 
-	public int getTy() {
+	public long getTy() {
 		return ty;
 	}
 
-	public void setTy(int ty) {
+	public void setTy(long ty) {
 		this.ty = ty;
 	}
 

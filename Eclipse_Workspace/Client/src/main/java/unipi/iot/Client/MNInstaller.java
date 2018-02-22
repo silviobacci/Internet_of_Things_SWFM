@@ -5,11 +5,14 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapResponse;
+import org.eclipse.californium.core.coap.Request;
 import org.json.simple.JSONObject;
 
 import resources.AEResource;
 import resources.ContainerResource;
 import resources.InstanceResource;
+import resources.ReferenceResource;
 import resources.Resource;
 
 public class MNInstaller extends Thread {
@@ -17,24 +20,49 @@ public class MNInstaller extends Thread {
 	private ArrayList<AEResource> ae;
 	private ArrayList<ContainerResource> cnt;
 	private ArrayList<InstanceResource> inst;
+	private ArrayList<AEResource> bridgedAe;
+	private ArrayList<ContainerResource> bridhedCnt;
+	private ArrayList<InstanceResource> bridgedInst;
 	private CoapClientADN context = CoapClientADN.getInstance();
 	//private ArrayList<Resource> resources;
 	
 	public MNInstaller() {
 		mng = new Onem2mManager2();
+		ae = new ArrayList<AEResource>();
+		cnt = new ArrayList<ContainerResource>();
+		inst = new ArrayList<InstanceResource>();
+		bridgedAe = new ArrayList<AEResource>();
+		bridhedCnt = new ArrayList<ContainerResource>();
+		bridgedInst = new ArrayList<InstanceResource>();
 	}
 	
 	public void createMN() {
+		boolean isMN = true;
+		/*
 		//Water level AE
 		JSONObject json = mng.jsonAE("Water_level", "Water_level", true);
 		System.out.println("jsonAE :"+json.toJSONString());
-		ae.add(mng.createAE(true, json));	
+		ae.add(mng.createAE(isMN, json));	
 		
 		json = mng.jsonContainer("Sensor1");
 		System.out.println("jsonContainer :"+json.toJSONString());
-		cnt.add(mng.createContainer(true, ae.get(0), json));	
+		cnt.add(mng.createContainer(isMN, ae.get(0), json));	
 		
+		json = mng.jsonContainer("SensorNested1");
+		System.out.println("jsonNestedContainer :" + json.toJSONString());
+		cnt.add(mng.createContainer(isMN, cnt.get(0), json));	
 		
+		json = mng.jsonCI("new Reading", 10);
+		System.out.println("jsonInstance :" + json.toJSONString());
+		inst.add(mng.createContentInstance(isMN, cnt.get(1), json));
+		inst.add(mng.createContentInstance(isMN, cnt.get(1), json));
+		*/
+		
+		ArrayList<Resource> discovered = mng.bridgedDiscovery(!isMN, 2, null);
+		for(Resource r : discovered) {
+			bridgedAe.add((AEResource) r);
+		}
+
 		/*
 		
 		json = mng.jsonContainer("Sensor1");

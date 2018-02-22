@@ -6,20 +6,20 @@ import org.json.simple.parser.ParseException;
 
 public class InstanceResource extends Resource {
 
-	private int st; 
+	private long st; 
 	private String cnf;
-	private int cs; 
-	private int con;
+	private long cs; 
+	private Object con;
   
-	public InstanceResource(String _rn, int _ty, String _ri, String _pi, String _ct, String _lt) {
+	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 	}
   
-	public InstanceResource(String _rn, Integer _ty, String _ri) {
+	public InstanceResource(String _rn, long _ty, String _ri) {
 		super(_rn, _ty, _ri);
 	}
   
-	public InstanceResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt, int _st, String _cnf, int _cs, int _con) {
+	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, long _st, String _cnf, long _cs, Object _con) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		st = _st; 
 		cnf = _cnf;
@@ -34,10 +34,10 @@ public class InstanceResource extends Resource {
 			created = (JSONObject) created.get("m2m:cin");
 			
 			for(Object key : created.keySet()) {
-				if(key.toString().equals("st")) st = (Integer) created.get(key);
+				if(key.toString().equals("st")) st = (Long) created.get(key);
 				else if(key.toString().equals("cnf")) cnf = created.get(key).toString();
-				else if(key.toString().equals("cs")) cs = (Integer) created.get(key);
-				else if(key.toString().equals("con")) con = (Integer) created.get(key);
+				else if(key.toString().equals("cs")) cs = (Long) created.get(key);
+				else if(key.toString().equals("con")) con = created.get(key);
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -47,10 +47,10 @@ public class InstanceResource extends Resource {
 	public InstanceResource(JSONObject created) {
 		super(created);
 		for(Object key : created.keySet()) {
-			if(key.toString().equals("st")) st = (Integer) created.get(key);
+			if(key.toString().equals("st")) st = (Long) created.get(key);
 			else if(key.toString().equals("cnf")) cnf = created.get(key).toString();
-			else if(key.toString().equals("cs")) cs = (Integer) created.get(key);
-			else if(key.toString().equals("con")) con = (Integer) created.get(key);
+			else if(key.toString().equals("cs")) cs = (Long) created.get(key);
+			else if(key.toString().equals("con")) con = created.get(key);
 		}
 	}
   
@@ -66,11 +66,11 @@ public class InstanceResource extends Resource {
 		return jo;		
 	}
 
-	public int getSt() {
+	public long getSt() {
 		return st;
 	}
 
-	public void setSt(int st) {
+	public void setSt(long st) {
 		this.st = st;
 	}
 
@@ -82,19 +82,19 @@ public class InstanceResource extends Resource {
 		this.cnf = cnf;
 	}
 
-	public int getCs() {
+	public long getCs() {
 		return cs;
 	}
 
-	public void setCs(int cs) {
+	public void setCs(long cs) {
 		this.cs = cs;
 	}
 
-	public int getCon() {
+	public Object getCon() {
 		return con;
 	}
 
-	public void setCon(int con) {
+	public void setCon(Object con) {
 		this.con = con;
 	}
 	

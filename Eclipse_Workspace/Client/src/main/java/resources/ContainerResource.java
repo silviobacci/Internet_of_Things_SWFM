@@ -9,28 +9,28 @@ public class ContainerResource extends Resource {
 
 	private String acpi; 
 	private String et; 
-	private int st; 
-	private int mni; 
-	private int mbs; 
-	private int mia; 
-	private int cni; 
-	private int cbs; 
+	private long st; 
+	private long mni; 
+	private long mbs; 
+	private long mia; 
+	private long cni; 
+	private long cbs; 
 	private String ol;
 	private String la;
 	
 
-	public ContainerResource(String _rn, Integer _ty, String _ri) {
+	public ContainerResource(String _rn, Long _ty, String _ri) {
 		super(_rn, _ty, _ri);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ContainerResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt) {
+	public ContainerResource(String _rn, Long _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ContainerResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt, String _acpi, String _et, Integer _st,
-			Integer _mni, Integer _mbs, Integer _mia, Integer _cni, Integer _cbs, String _ol, String _la) {
+	public ContainerResource(String _rn, Long _ty, String _ri, String _pi, String _ct, String _lt, String _acpi, String _et, Long _st,
+			Long _mni, Long _mbs, Long _mia, Long _cni, Long _cbs, String _ol, String _la) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		acpi = _acpi; 
 		et = _et;
@@ -52,12 +52,12 @@ public class ContainerResource extends Resource {
 			for(Object key : created.keySet()) {
 				if(key.toString().equals("acpi")) acpi = created.get(key).toString();
 				else if(key.toString().equals("et")) et = created.get(key).toString();
-				else if(key.toString().equals("st")) st = (Integer) created.get(key);
-				else if(key.toString().equals("mni")) mni = (Integer) created.get(key);
-				else if(key.toString().equals("mbs")) mbs = (Integer) created.get(key);
-				else if(key.toString().equals("mia")) mia = (Integer) created.get(key);
-				else if(key.toString().equals("cni")) cni = (Integer) created.get(key);
-				else if(key.toString().equals("cbs")) cbs = (Integer) created.get(key);
+				else if(key.toString().equals("st")) st = (Long) created.get(key);
+				else if(key.toString().equals("mni")) mni = (Long) created.get(key);
+				else if(key.toString().equals("mbs")) mbs = (Long) created.get(key);
+				else if(key.toString().equals("mia")) mia = (Long) created.get(key);
+				else if(key.toString().equals("cni")) cni = (Long) created.get(key);
+				else if(key.toString().equals("cbs")) cbs = (Long) created.get(key);
 				else if(key.toString().equals("ol")) ol = created.get(key).toString();
 				else if(key.toString().equals("la")) la = created.get(key).toString();
 			}
@@ -71,12 +71,12 @@ public class ContainerResource extends Resource {
 		for(Object key : created.keySet()) {
 			if(key.toString().equals("acpi")) acpi = created.get(key).toString();
 			else if(key.toString().equals("et")) et = created.get(key).toString();
-			else if(key.toString().equals("st")) st = (Integer) created.get(key);
-			else if(key.toString().equals("mni")) mni = (Integer) created.get(key);
-			else if(key.toString().equals("mbs")) mbs = (Integer) created.get(key);
-			else if(key.toString().equals("mia")) mia = (Integer) created.get(key);
-			else if(key.toString().equals("cni")) cni = (Integer) created.get(key);
-			else if(key.toString().equals("cbs")) cbs = (Integer) created.get(key);
+			else if(key.toString().equals("st")) st = (Long) created.get(key);
+			else if(key.toString().equals("mni")) mni = (Long) created.get(key);
+			else if(key.toString().equals("mbs")) mbs = (Long) created.get(key);
+			else if(key.toString().equals("mia")) mia = (Long) created.get(key);
+			else if(key.toString().equals("cni")) cni = (Long) created.get(key);
+			else if(key.toString().equals("cbs")) cbs = (Long) created.get(key);
 			else if(key.toString().equals("ol")) ol = created.get(key).toString();
 			else if(key.toString().equals("la")) la = created.get(key).toString();
 		}
@@ -114,40 +114,40 @@ public class ContainerResource extends Resource {
 	public void setEt(String et) {
 		this.et = et;
 	}
-	public int getSt() {
+	public long getSt() {
 		return st;
 	}
-	public void setSt(int st) {
+	public void setSt(long st) {
 		this.st = st;
 	}
-	public int getMni() {
+	public long getMni() {
 		return mni;
 	}
-	public void setMni(int mni) {
+	public void setMni(long mni) {
 		this.mni = mni;
 	}
-	public int getMbs() {
+	public long getMbs() {
 		return mbs;
 	}
-	public void setMbs(int mbs) {
+	public void setMbs(long mbs) {
 		this.mbs = mbs;
 	}
-	public int getMia() {
+	public long getMia() {
 		return mia;
 	}
-	public void setMia(int mia) {
+	public void setMia(long mia) {
 		this.mia = mia;
 	}
-	public int getCni() {
+	public long getCni() {
 		return cni;
 	}
-	public void setCni(int cni) {
+	public void setCni(long cni) {
 		this.cni = cni;
 	}
-	public int getCbs() {
+	public long getCbs() {
 		return cbs;
 	}
-	public void setCbs(int cbs) {
+	public void setCbs(long cbs) {
 		this.cbs = cbs;
 	}
 	public String getOl() {

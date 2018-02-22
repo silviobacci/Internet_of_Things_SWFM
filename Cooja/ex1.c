@@ -30,7 +30,7 @@ void check_resource_changed(){
 
 void state_step(){
 	int step = state.evolution ;
-	int random =  abs((rand() %  5)) ;
+	int random =  abs((rand() %  FIXED_STEP)) ;
 
 	if(state.water_level + random *  step < MAX_LEVEL_DETECTABLE && state.water_level +  random *  step > MIN_LEVEL_DETECTABLE )
 		state.water_level = state.water_level +  random *  step;	
@@ -123,37 +123,23 @@ PROCESS_THREAD(server, ev, data)
 
  
   PROCESS_BEGIN();
- static struct etimer et; // Declare an etime
-  etimer_set(&et, CLOCK_SECOND*7);// Port 1 interrupt service routine
-
-
-
-// Set the timer
- // SENSORS_ACTIVATE(button_sensor);
+  static struct etimer et; 
+  etimer_set(&et, CLOCK_SECOND* SAMPLING_PERIOD);
   rest_init_engine();
   rest_activate_resource(&resource_example, "Sensor");
 
 
   while(1) {
 
-     
 	PROCESS_WAIT_EVENT();	
 	
 	if(etimer_expired(&et)  && initialized){
-				
-
-
 		state_step();
-	
-	etimer_reset(&et);
+		etimer_reset(&et);
 	}
-
-
- 
-  PROCESS_END();
-}
-
-
+	
+	PROCESS_END();
+  }
 
 }
 

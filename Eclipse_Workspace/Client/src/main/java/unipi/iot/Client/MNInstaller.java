@@ -1,30 +1,41 @@
 package unipi.iot.Client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import org.eclipse.californium.core.CoapClient;
 import org.json.simple.JSONObject;
 
+import resources.AEResource;
+import resources.ContainerResource;
+import resources.InstanceResource;
 import resources.Resource;
 
 public class MNInstaller extends Thread {
-
-	private Onem2mManager mng ;
+	private Onem2mManager2 mng ;
+	private ArrayList<AEResource> ae;
+	private ArrayList<ContainerResource> cnt;
+	private ArrayList<InstanceResource> inst;
 	private CoapClientADN context = CoapClientADN.getInstance();
 	//private ArrayList<Resource> resources;
 	
 	public MNInstaller() {
-		Onem2mManager mng = new Onem2mManager();
+		mng = new Onem2mManager2();
 	}
-	
-
 	
 	public void createMN() {
 		//Water level AE
-		JSONObject json = mng.jsonAE("Water_level", "Water_level", "true");
-		System.out.println("json:"+json.toJSONString());
-		mng.createAE(true, json);	
+		JSONObject json = mng.jsonAE("Water_level", "Water_level", true);
+		System.out.println("jsonAE :"+json.toJSONString());
+		ae.add(mng.createAE(true, json));	
+		
+		json = mng.jsonContainer("Sensor1");
+		System.out.println("jsonContainer :"+json.toJSONString());
+		cnt.add(mng.createContainer(true, ae.get(0), json));	
+		
+		
+		/*
 		
 		json = mng.jsonContainer("Sensor1");
 	    mng.createContainer(true, json, "Water_level");
@@ -45,7 +56,7 @@ public class MNInstaller extends Thread {
 		
 		for( String cnt : containers)
 			mng.getResource(true, cnt);
-	    
+	    */
 	    
 	    //Dam AE
 		
@@ -105,10 +116,6 @@ public class MNInstaller extends Thread {
 		// TODO Auto-generated method stub
 		super.run();
 		createMN();
-		
-		
-		
-		
 	}
 
 	

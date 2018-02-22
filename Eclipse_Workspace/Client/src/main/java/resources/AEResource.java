@@ -1,6 +1,8 @@
 package resources;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 public class AEResource extends Resource {
 	private String acpi; 
@@ -30,6 +32,34 @@ public class AEResource extends Resource {
 		super(_rn,_ty,_ri);
 		api = _api; 
 		rr = _rr;
+	}
+	
+	public AEResource(String json) {
+		super(json, "m2m:ae");
+		try {
+			JSONObject created = (JSONObject) JSONValue.parseWithException(json);
+			created = (JSONObject) created.get("m2m:ae");
+			for(Object key : created.keySet()) {
+				if(key.toString().equals("acpi")) acpi = created.get(key).toString();
+				else if(key.toString().equals("et")) et = created.get(key).toString();
+				else if(key.toString().equals("api")) api = created.get(key).toString();
+				else if(key.toString().equals("aei")) aei = created.get(key).toString();
+				else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public AEResource(JSONObject created) {
+		super(created);
+		for(Object key : created.keySet()) {
+			if(key.toString().equals("acpi")) acpi = created.get(key).toString();
+			else if(key.toString().equals("et")) et = created.get(key).toString();
+			else if(key.toString().equals("api")) api = created.get(key).toString();
+			else if(key.toString().equals("aei")) aei = created.get(key).toString();
+			else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
+		}
 	}
 
 	public JSONObject toJSON() {

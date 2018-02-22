@@ -1,6 +1,8 @@
 package resources;
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 public class Resource {
 	private String rn; 
@@ -21,7 +23,6 @@ public class Resource {
 		jo.put("lt", lt);
 		
 		return jo;
-		
 	}
 	
 	public Resource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt ) {
@@ -37,6 +38,34 @@ public class Resource {
 		rn = _rn; 
 		ty = _ty.intValue();
 		ri = _ri;
+	}
+	
+	public Resource(String json, String type) {
+		try {
+			JSONObject created = (JSONObject) JSONValue.parseWithException(json);
+			created = (JSONObject) created.get(type);
+			for(Object key : created.keySet()) {
+				if(key.toString().equals("rn")) rn = created.get(key).toString();
+				else if(key.toString().equals("ty")) ty = (Integer) created.get(key);
+				else if(key.toString().equals("ri")) ri = created.get(key).toString();
+				else if(key.toString().equals("pi")) pi = created.get(key).toString();
+				else if(key.toString().equals("ct")) ct = created.get(key).toString();
+				else if(key.toString().equals("lt")) lt = created.get(key).toString();
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Resource(JSONObject created) {
+		for(Object key : created.keySet()) {
+			if(key.toString().equals("rn")) rn = created.get(key).toString();
+			else if(key.toString().equals("ty")) ty = (Integer) created.get(key);
+			else if(key.toString().equals("ri")) ri = created.get(key).toString();
+			else if(key.toString().equals("pi")) pi = created.get(key).toString();
+			else if(key.toString().equals("ct")) ct = created.get(key).toString();
+			else if(key.toString().equals("lt")) lt = created.get(key).toString();
+		}
 	}
 	
 	public String getRn() {

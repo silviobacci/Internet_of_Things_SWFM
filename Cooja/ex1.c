@@ -149,6 +149,7 @@ AUTOSTART_PROCESSES(&server);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(server, ev, data) {
 	PROCESS_BEGIN();
+	serial_line_init();
 	static struct etimer sampling_timer,gps_timer; 
 	
 	int x = NULL;

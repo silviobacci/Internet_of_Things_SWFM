@@ -11,7 +11,7 @@
 
 static sensor_state state;
 static int reference; 
-static int initialized = 0;
+static int initialized = 3;
 static struct jsonparse_state	parser;	
 
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
@@ -149,6 +149,7 @@ AUTOSTART_PROCESSES(&server);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(server, ev, data) {
 	PROCESS_BEGIN();
+	serial_line_init();
 	static struct etimer sampling_timer,gps_timer; 
 	
 	int x = NULL;
@@ -169,14 +170,16 @@ rest_activate_resource(&resource_example, "Sensor");
 			state_step();
 			etimer_reset(&sampling_timer);
 		}else*/ if(etimer_expired(&gps_timer)){
-			//PROCESS_WAIT_EVENT();	
+			
 			printf("get_gps\n");
+PROCESS_WAIT_EVENT();	
 			if(ev == serial_line_event_message){
 				jsonparse_setup(&parser,(char *)data,strlen((char *)data));
 				if(json_get_int(&parser,"x", &x) != ERROR && json_get_int(&parser,"y", &y) != ERROR )	
 					update_position(x,  y);
-				etimer_reset(&gps_timer);
+				
 			}
+etimer_reset(&gps_timer);
 		}
 	}
 /*

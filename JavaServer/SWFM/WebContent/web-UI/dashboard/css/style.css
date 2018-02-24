@@ -245,16 +245,54 @@ CRASH:
 .texture-container {
 	display: none;
 }
-/*
-.modal-body {
-	text-align: center;
-	display: flex;
-	align-items: center;
-}
 
 .canvas {
-	border:1px solid #000000;
-	margin-left: auto;
-	margin-right: auto;
+	display: flex;
+	justify-content: center;
+	height : 100%;
 }
- */
+
+.title {
+	border-top-left-radius : 25px;
+	border-top-right-radius : 25px;
+	border-bottom-left-radius : 0;
+	border-bottom-right-radius : 0;
+}
+
+#canvas-left-container > .canvas {
+	align-items : center;
+}
+
+
+#canvas-right-container {
+	overflow : scroll;
+}
+
+#form-th {
+	border-bottom-left-radius : 25px;
+	border-bottom-right-radius : 25px;
+}
+
+.form-thr {
+	padding: 15px;
+}
+
+.form-group {
+	text-align : center;
+	width : 100%;
+	margin : 0;
+}
+
+.slider,.form-control-label,.btn{
+	display : inline-block;
+	width : 160px;
+}
+
+.form-control-label {
+	text-align : center;
+	margin : 0;
+}
+
+#canvas-right-container .row {
+	margin-bottom : 20px;
+}

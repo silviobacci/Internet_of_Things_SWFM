@@ -131,9 +131,10 @@ public class Onem2mManager2 {
 		
 		CoapResponse res = postRequest(address, payload.toJSONString(), 2);
 
-		if(!checkResponse(res, CREATED_SUCCESSFULLY))
+		if(!checkResponse(res, CREATED_SUCCESSFULLY)) {
+			System.out.println("null");
 			return null;
-		
+		}
     	System.out.println("resAE:"+res.getResponseText());	
     	
     	return new AEResource(res.getResponseText());
@@ -200,7 +201,7 @@ public class Onem2mManager2 {
 		if(!checkResponse(res, CONTENT))
 			return null;
 		
-		System.out.println("getContentInstance:"+res.getResponseText());
+		//System.out.println("getContentInstance:"+res.getResponseText());
 
     	return new InstanceResource(res.getResponseText());
 	}
@@ -213,7 +214,7 @@ public class Onem2mManager2 {
 		if(!checkResponse(res, CONTENT))
 			return null;
 		
-		System.out.println("getContainer:"+res.getResponseText());
+	//	System.out.println("getContainer:"+res.getResponseText());
 
     	return new ContainerResource(res.getResponseText());
 	}
@@ -226,7 +227,7 @@ public class Onem2mManager2 {
 		if(!checkResponse(res, CONTENT))
 			return null;
 		
-		System.out.println("getAE:"+res.getResponseText());
+	//	System.out.println("getAE:"+res.getResponseText());
 
     	return new AEResource(res.getResponseText());
 	}

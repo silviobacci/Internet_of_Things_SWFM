@@ -33,13 +33,10 @@ import com.google.common.collect.BiMap;
 
 public class CoapClientADN {
 	private static CoapClientADN instance = null;
-	private HashMap<String,WaterFlowSensor> monitoringModule=new HashMap<String, WaterFlowSensor>();
-	private HashMap<String,DamActuator> DamModule=new HashMap<String, DamActuator>();
-	private ArrayList<CoapObserveRelation> relation = new ArrayList<CoapObserveRelation>();
-	
-	private int nSensors = 7; 
-	private int nDams = 4; 
-	
+	private  HashMap<String,WaterFlowSensor> monitoringModule=new HashMap<String, WaterFlowSensor>();
+	private  HashMap<String,DamActuator> DamModule=new HashMap<String, DamActuator>();
+	private  ArrayList<CoapObserveRelation> relation = new ArrayList<CoapObserveRelation>();
+
 	
 	public void addMonitoringModule(String name, String address) {
 		monitoringModule.put( name, new WaterFlowSensor(getJProperties(),name,address) ); 
@@ -102,15 +99,19 @@ public class CoapClientADN {
 	        	   coreUri = "coap://["+routes[i]+"]:5683/.well-known/core";
 	        	   //System.out.println("name:"+"Sensor"+(s)+" address:"+"coap://["+routes[i]+"]:5683/example");
 	        	   id = uri.charAt(uri.lastIndexOf("]")-1);
-	        	   //controlla se non esiste gia 
+	        	   
 	        	   if(isDam(coreUri)) {
 	        		   uri += "Dam";
-	        		   DamModule.put( "Dam"+(id), new DamActuator(getJProperties(),"Dam"+(id),uri)); 
-	        		   System.out.println("dam"+id+" created");
+	        		   if(!DamModule.containsKey("Dam"+(id))) {
+	        			   DamModule.put( "Dam"+(id), new DamActuator(getJProperties(),"Dam"+(id),uri)); 
+	        		   	   System.out.println("dam"+id+" created");
+	        		   }
 	        	   }else {
 	        		   uri += "Sensor";
-	        		   monitoringModule.put( "Sensor"+(id), new WaterFlowSensor(getJProperties(),"Sensor"+(id),uri) ); 
-	        		   System.out.println("Sensor"+id+" created");
+	        		   if(!monitoringModule.containsKey("Sensor"+(id))) {
+		        		   monitoringModule.put( "Sensor"+(id), new WaterFlowSensor(getJProperties(),"Sensor"+(id),uri) ); 
+		        		   System.out.println("Sensor"+id+" created");
+	        		   }
 	        	   }
 	        	 }else
 	        		  	i++;
@@ -140,9 +141,11 @@ public class CoapClientADN {
 	
 	public void InitializeContext(int wl, int threshold) {
 		System.out.println("initializing");
-		for(String s : monitoringModule.keySet()) 
+		for(String s : monitoringModule.keySet()) {
 			SensorPostJSON(s, wl, 0, null, threshold);
+			System.out.println(s+" initializaed");
 		
+		}
 		
 	}
 	
@@ -238,7 +241,9 @@ public class CoapClientADN {
 
 
 	public  HashMap<String, WaterFlowSensor> getMonitoringModule() {
-		return this.monitoringModule;
+		for (String id :monitoringModule.keySet())
+			System.out.println("s:"+id);
+		return monitoringModule;
 	}
 
 

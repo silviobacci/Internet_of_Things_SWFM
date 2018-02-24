@@ -9,15 +9,17 @@
 #define 	DAM_STATE_SIZE		10
 #define		MIN_LEVEL_DETECTABLE	30
 #define		MAX_LEVEL_DETECTABLE	500
-#define 	SAMPLING_PERIOD		1
+#define 	LEVEL_SAMPLING_PERIOD	10
+#define 	POS_SAMPLING_PERIOD	25
 
 #define str(s) 		#s
 
-const char *w_flow,*w_l,*w_t,*evolution,*dam,*closed,*open;
+const char *w_l,*w_t,*evolution,*dam,*closed,*open,*get_gps,*gps_x,*gps_y;
 
 
 typedef struct{
-	int water_flow;
+	int gps_x;
+	int gps_y;
 	int evolution;
 	int water_level;
 	unsigned int water_level_threshold;

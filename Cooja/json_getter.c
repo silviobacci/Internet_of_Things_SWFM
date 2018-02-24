@@ -29,14 +29,14 @@ int json_iterate_to(struct jsonparse_state *state, char * name){
 		jsonparse_copy_value(state, message,10);			//current value
 	
 		if (!json_has_next(state)){
-			printf("Reached end of JSON!\n");
+			//printf("Reached end of JSON!\n");
 			return -1; 
 		}		
 	}
 
 	jsonparse_next(state);
 	jsonparse_copy_value(state, tmp,90);	
-	printf("value:%s \n",tmp);
+	//printf("value:%s \n",tmp);
 	return 0;	
 }
 

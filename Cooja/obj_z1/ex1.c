@@ -2,49 +2,26 @@
 #include <stdlib.h>
 #include "contiki.h"
 #include "contiki-net.h"
-#include "dev/serial-line.h"
 #include "rest-engine.h"
 #include "json_getter.c"
 #include "types.h"
-#include "sys/etimer.h" 				// Include etimer
+#include "sys/etimer.h" 		
+ #include "dev/serial-line.h"				// Include etimer
 
 
 static sensor_state state;
 static int reference; 
-static int initialized = 0;
-static struct jsonparse_state	parser;	
+static int initialized = 2;
 
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
-void gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
+
 
 EVENT_RESOURCE(resource_example, "title=\"Resource\";rt=\"Sensor\"", res_event_get_handler, res_event_post_handler, NULL, NULL, NULL);
-EVENT_RESOURCE(gps, "title=\"Resource\";rt=\"gps\"", gps_event_get_handler, NULL, NULL, NULL, NULL);
-
-void
-gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
-
-	char j_message[MESSAGE_SIZE];
-	unsigned int accept = -1;
-  	REST.get_header_accept(request, &accept);							//retrieve accepted options
-	 if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: JSON
-		sprintf(j_message,"{\"%s\":%d,\"%s\":%d}",str(gps_x),state.gps_x,str(gps_y),state.gps_y);	
-		//printf("sended:%s \n",j_message);
-		//memcpy(buffer, j_message,strlen(j_message));
-
-		REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);			//set header content format
-		REST.set_response_payload(response, j_message, strlen(j_message));
-	
-	}/* else{
-		REST.set_response_status(response, REST.status.NOT_ACCEPTABLE);
-		//message = "Supporting content-types text/plain, application/xml";
-		REST.set_response_payload(response, message, strlen(message));
-	}*/
-}
 
 void check_resource_changed(){
 	if(abs(state.water_level-reference) >= RES_CHANGE && state.evolution!=0){
-		//printf("notify \n");
+		printf("notify \n");
 		//REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);
 		REST.notify_subscribers(&resource_example);
 		reference = state.water_level;
@@ -64,32 +41,35 @@ void state_step(){
 void
 res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
 	
-	// Populat the buffer with the response payload
+	/* Populat the buffer with the response payload*/
 	char *message = NULL;
 	char j_message[MESSAGE_SIZE];
 	unsigned int accept = -1;
   	REST.get_header_accept(request, &accept);							//retrieve accepted options
-	/*if(  accept == REST.type.TEXT_PLAIN) {								//select and create the correct format: plain tex
+	if(  accept == REST.type.TEXT_PLAIN) {								//select and create the correct format: plain tex
 		REST.set_header_content_type(response, REST.type.TEXT_PLAIN); 				//set header content format
 		REST.set_response_payload(response, buffer, MESSAGE_SIZE);
 	
-	} else */if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: JSON
+	} else if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: JSON
 		sprintf(j_message,"{\"%s\":%d,\"%s\":%d,\"%s\":%d}",str(w_l),state.water_level,str(w_t),state.water_level_threshold,str(evolution),state.evolution);	
 		//printf("sended:%s \n",j_message);
-		//memcpy(buffer, j_message,strlen(j_message));
+		memcpy(buffer, j_message,strlen(j_message));
 
 		REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);			//set header content format
-		REST.set_response_payload(response, j_message, strlen(j_message));
+		REST.set_response_payload(response, buffer, strlen(j_message));
 	
-	}/* else{
+	} else{
 		REST.set_response_status(response, REST.status.NOT_ACCEPTABLE);
-		//message = "Supporting content-types text/plain, application/xml";
+		message = "Supporting content-types text/plain, application/xml";
 		REST.set_response_payload(response, message, strlen(message));
-	}*/
+	}
 }
 
 void jparse_and_store(struct jsonparse_state *parser ){
 	int tmp;
+
+	if(json_get_int(parser, str(w_flow), &tmp) != ERROR)
+		state.water_flow = tmp;
 
 	if(json_get_int(parser, str(w_l), &tmp) != ERROR){
 		reference = tmp;	
@@ -112,7 +92,7 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 	REST.get_header_accept(request, &accept);							//getting request
      
   	if(accept == REST.type.APPLICATION_JSON) {							//select and create the correct format: JSON
-					
+		struct jsonparse_state	parser;				
 		
 		len=REST.get_post_variable(request, "json", &val);					//get post variable (json format)			
 	
@@ -132,57 +112,42 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 	}
 }
 
-void update_position(int x, int y){
-	if(state.gps_x != x || state.gps_y != y ){	
-		state.gps_x = x;
-		state.gps_y = y;
-		//REST.notify_subscribers(&gps);
-		printf("changed %d %d \n",state.gps_x,state.gps_y);
-	}
-}
-
-
 
 /*---------------------------------------------------------------------------*/
 PROCESS(server, "Server process");
 AUTOSTART_PROCESSES(&server);
 /*---------------------------------------------------------------------------*/
+
 PROCESS_THREAD(server, ev, data) {
-	PROCESS_BEGIN();
-	static struct etimer sampling_timer,gps_timer; 
-	
-	int x = NULL;
-	int y = NULL;
+ PROCESS_BEGIN();
+ printf("getPosition\n");
+// serial_line_init();
+ static struct etimer et; 
+ //etimer_set(&et, CLOCK_SECOND* SAMPLING_PERIOD);
+// etimer_set(&et, CLOCK_SECOND* 10);
+ //rest_init_engine();
+ //rest_activate_resource(&resource_example, "Sensor");
 
-etimer_set(&sampling_timer, CLOCK_SECOND * LEVEL_SAMPLING_PERIOD);
-etimer_set(&gps_timer, CLOCK_SECOND * POS_SAMPLING_PERIOD);
-rest_init_engine();
-rest_activate_resource(&resource_example, "Sensor");
+ /*if(etimer_expired(&et)  && initialized==0){
+  state_step();
+  etimer_reset(&et);
+ }*/
 
+ printf("getPosition\n");
+ PROCESS_WAIT_EVENT();
+ if(ev == serial_line_event_message)
+  printf("received line: %s\n", (char *)data);
 
+ /*while(1) {
 
-	while(1) {
+ PROCESS_WAIT_EVENT(); 
 
-	PROCESS_WAIT_EVENT();	
-		/*if(etimer_expired(&sampling_timer)  ){
-			//printf("step \n");		
-			state_step();
-			etimer_reset(&sampling_timer);
-		}else*/ if(etimer_expired(&gps_timer)){
-			//PROCESS_WAIT_EVENT();	
-			printf("get_gps\n");
-			if(ev == serial_line_event_message){
-				jsonparse_setup(&parser,(char *)data,strlen((char *)data));
-				if(json_get_int(&parser,"x", &x) != ERROR && json_get_int(&parser,"y", &y) != ERROR )	
-					update_position(x,  y);
-				etimer_reset(&gps_timer);
-			}
-		}
-	}
-/*
-	while(1){}
-*/
-	PROCESS_END();
+ if(etimer_expired(&et)  && initialized){
+ state_step();
+ etimer_reset(&et);
+ }
+ */
+
+ while(1){}
+ PROCESS_END();
 }
-
-

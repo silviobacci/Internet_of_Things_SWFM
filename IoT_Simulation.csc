@@ -8,7 +8,7 @@
   <project EXPORT="discard">[APPS_DIR]/powertracker</project>
   <simulation>
     <title>IoT_SImulation</title>
-    <speedlimit>2.0</speedlimit>
+    <speedlimit>1.0</speedlimit>
     <randomseed>123456</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
@@ -45,9 +45,9 @@
       org.contikios.cooja.mspmote.Z1MoteType
       <identifier>z12</identifier>
       <description>Sensor</description>
-      <source EXPORT="discard">[CONFIG_DIR]/ex1.c</source>
+      <source EXPORT="discard">[CONFIG_DIR]/Cooja/ex1.c</source>
       <commands EXPORT="discard">make ex1.z1 TARGET=z1</commands>
-      <firmware EXPORT="copy">[CONFIG_DIR]/ex1.z1</firmware>
+      <firmware EXPORT="copy">[CONFIG_DIR]/Cooja/ex1.z1</firmware>
       <moteinterface>org.contikios.cooja.interfaces.Position</moteinterface>
       <moteinterface>org.contikios.cooja.interfaces.RimeAddress</moteinterface>
       <moteinterface>org.contikios.cooja.interfaces.IPAddress</moteinterface>
@@ -65,9 +65,9 @@
       org.contikios.cooja.mspmote.Z1MoteType
       <identifier>z13</identifier>
       <description>Dam</description>
-      <source EXPORT="discard">[CONFIG_DIR]/dam.c</source>
+      <source EXPORT="discard">[CONFIG_DIR]/Cooja/dam.c</source>
       <commands EXPORT="discard">make dam.z1 TARGET=z1</commands>
-      <firmware EXPORT="copy">[CONFIG_DIR]/dam.z1</firmware>
+      <firmware EXPORT="copy">[CONFIG_DIR]/Cooja/dam.z1</firmware>
       <moteinterface>org.contikios.cooja.interfaces.Position</moteinterface>
       <moteinterface>org.contikios.cooja.interfaces.RimeAddress</moteinterface>
       <moteinterface>org.contikios.cooja.interfaces.IPAddress</moteinterface>
@@ -103,8 +103,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>54.53392073319816</x>
-        <y>18.968664825613615</y>
+        <x>56.187389213363225</x>
+        <y>19.519820985668638</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -114,10 +114,6 @@
       <interface_config>
         org.contikios.cooja.mspmote.interfaces.MspMoteID
         <id>2</id>
-      </interface_config>
-      <interface_config>
-        org.contikios.cooja.mspmote.interfaces.MspDefaultSerial
-        <history>msg~;e~;2~;</history>
       </interface_config>
       <motetype_identifier>z12</motetype_identifier>
     </mote>
@@ -305,7 +301,7 @@
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>0</z>
+    <z>2</z>
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -318,11 +314,10 @@
       <skin>org.contikios.cooja.plugins.skins.GridVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
-      <skin>org.contikios.cooja.plugins.skins.PositionVisualizerSkin</skin>
       <viewport>1.8143678189139256 0.0 0.0 1.8143678189139256 31.04382113864494 37.89003743607377</viewport>
     </plugin_config>
     <width>400</width>
-    <z>1</z>
+    <z>3</z>
     <height>634</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -335,7 +330,7 @@
       <coloring />
     </plugin_config>
     <width>1255</width>
-    <z>2</z>
+    <z>1</z>
     <height>708</height>
     <location_x>400</location_x>
     <location_y>160</location_y>
@@ -361,7 +356,7 @@
       <zoomfactor>500.0</zoomfactor>
     </plugin_config>
     <width>1655</width>
-    <z>6</z>
+    <z>5</z>
     <height>166</height>
     <location_x>0</location_x>
     <location_y>867</location_y>
@@ -373,7 +368,7 @@
       <decorations>true</decorations>
     </plugin_config>
     <width>975</width>
-    <z>7</z>
+    <z>6</z>
     <height>160</height>
     <location_x>680</location_x>
     <location_y>0</location_y>
@@ -386,7 +381,7 @@
       <bound>true</bound>
     </plugin_config>
     <width>362</width>
-    <z>5</z>
+    <z>4</z>
     <height>116</height>
     <location_x>710</location_x>
     <location_y>30</location_y>
@@ -394,35 +389,46 @@
   <plugin>
     org.contikios.cooja.plugins.ScriptRunner
     <plugin_config>
-      <script>while(true) {
-    YIELD();
-    if(msg.equals("get_gps")){
-        var x = mote.getInterfaces().getPosition().getXCoordinate();
-        var y = mote.getInterfaces().getPosition().getYCoordinate(); 
-        write(mote, "{\"x\":" + x + ",\"y\":" + y + "\n}");
-        log.log("Risposta a: " + mote.getInterfaces().getMoteID().getMoteID()+"\n");
-    }
-}</script>
-      <active>true</active>
+      <script>/*
+ * Example Contiki test script (JavaScript).
+ * A Contiki test script acts on mote output, such as via printf()'s.
+ * The script may operate on the following variables:
+ *  Mote mote, int id, String msg
+ */
+
+/* Make test automatically fail (timeout) after 100 simulated seconds */
+//TIMEOUT(100000); /* milliseconds. no action at timeout */
+log.log("tyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
+TIMEOUT(100000, log.log("last msg: " + msg + "\n")); /* milliseconds. print last msg at timeout */
+
+log.log("first mote output: '" + msg + "'\n");
+
+YIELD(); /* wait for another mote output */
+
+log.log("second mote output: '" + msg + "'\n");
+
+log.log("waiting for hello world output from mote 1\n");
+WAIT_UNTIL(id == 1 &amp;&amp; msg.equals("Hello, world"));
+
+write(mote, "Hello, mote\n"); /* Write to mote serial port */
+
+GENERATE_MSG(15000, "continue");
+YIELD_THEN_WAIT_UNTIL(msg.equals("continue"));
+
+log.log("ok, reporting success now\n");
+log.testOK(); /* Report test success and quit */
+//log.testFailed(); /* Report test failure and quit */
+
+
+var x = mote.getInterfaces().getPosition().getXCoordinate();
+var y = mote.getInterfaces().getPosition().getYCoordinate();</script>
+      <active>false</active>
     </plugin_config>
     <width>867</width>
-    <z>3</z>
+    <z>0</z>
     <height>906</height>
     <location_x>942</location_x>
     <location_y>47</location_y>
-  </plugin>
-  <plugin>
-    org.contikios.cooja.plugins.MoteInterfaceViewer
-    <mote_arg>1</mote_arg>
-    <plugin_config>
-      <interface>Serial port</interface>
-      <scrollpos>0,0</scrollpos>
-    </plugin_config>
-    <width>350</width>
-    <z>4</z>
-    <height>300</height>
-    <location_x>1053</location_x>
-    <location_y>207</location_y>
   </plugin>
 </simconf>
 

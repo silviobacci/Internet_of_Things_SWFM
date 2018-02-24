@@ -53,7 +53,7 @@ public class WaterFlowSensor {
 		connection = new CoapClient(address);
 		sensorState = new HashMap<String,Integer>();
 		for (String property: prop) {
-			sensorState.put(property,null);
+			sensorState.put(property,0);
 			
 		}
 		parser = jParser.getInstance(prop);

@@ -48,10 +48,13 @@ var h01, h02, h03, h04, h11, h12, h13, h14, h21, h22, h23, h24, h31, h32, h33, h
 var fm1, fm2, marker, label, red, green, yellow, grey;
 var brackground, wave;
 
+var chart;
+
 $(document).ready(function(){
 	$('#modal').on('shown.bs.modal', function (e) {
 		draw_wave();
 		draw_texture();
+		build_chart();
 	});
 	g = $('#g')[0];
 	l = $('#l')[0];
@@ -719,6 +722,55 @@ function draw_texture() {
 		 else if (contains(mote[5], x, y))
 			set_water_level(5, 15);
 	});
+}
+
+// build chart history
+function chart_history_update(eval_data) {
+	var data_points = [];
+	for(var i = 0; i < eval_data.length; i++) {
+		data_points[i] = {
+			x : Number(eval_data[i].number),
+			y : Number(eval_data[i].pointssteering)
+		};
+		chart.options.data[0].dataPoints.push(data_points[i]);
+	}
+}
+
+// build a chart
+function build_chart() {
+	chart = new CanvasJS.Chart("river-history", {
+	   animationEnabled: true,
+	   axisX: {
+		   valueFormatString: "#",
+		   titleFontFamily: "Roboto",
+		   interval: 1,
+		   minimum: 0,
+		   maximum: 10
+	   },
+	   axisY: {
+		   gridThickness: 0,
+		   tickLength: 0,
+		   margin: 0,
+		   lineThickness: 0,
+		   valueFormatString: " "
+	   },
+	   legend: {
+		   fontFamily: "Roboto",
+		   verticalAlign: "top",
+		   horizontalAlign: "right",
+		   dockInsidePlotArea: true
+	   },
+	   data: [{
+			  name: "WATER LEVEL",
+			  legendMarkerType: "square",
+			  type: "area",
+			  color: "rgba(40,175,101,0.6)",
+			  markerSize: 0,
+			  dataPoints: [{x : 0,y : 0}]
+		}]
+	});
+	chart.render();
+	$('.canvasjs-chart-canvas').css('position', 'static');
 }
 
 // -------------------------------------

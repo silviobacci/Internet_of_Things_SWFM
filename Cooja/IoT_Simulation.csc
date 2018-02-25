@@ -8,7 +8,11 @@
   <project EXPORT="discard">[APPS_DIR]/powertracker</project>
   <simulation>
     <title>IoT_SImulation</title>
+<<<<<<< HEAD
     <speedlimit>10.0</speedlimit>
+=======
+    <speedlimit>2.0</speedlimit>
+>>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
     <randomseed>123456</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
@@ -65,7 +69,11 @@
       org.contikios.cooja.mspmote.Z1MoteType
       <identifier>z13</identifier>
       <description>Dam</description>
+<<<<<<< HEAD
       <source EXPORT="discard">/mnt/hgfs/GitHub/Internet_of_Things_SWFM/Cooja/dam.c</source>
+=======
+      <source EXPORT="discard">[CONFIG_DIR]/dam.c</source>
+>>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
       <commands EXPORT="discard">make dam.z1 TARGET=z1</commands>
       <firmware EXPORT="copy">[CONFIG_DIR]/dam.z1</firmware>
       <moteinterface>org.contikios.cooja.interfaces.Position</moteinterface>
@@ -305,7 +313,11 @@
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
+<<<<<<< HEAD
     <z>1</z>
+=======
+    <z>0</z>
+>>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -319,10 +331,17 @@
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.PositionVisualizerSkin</skin>
+<<<<<<< HEAD
       <viewport>1.8143678189139256 0.0 0.0 1.8143678189139256 1.9769411386452367 83.69611743607383</viewport>
     </plugin_config>
     <width>400</width>
     <z>0</z>
+=======
+      <viewport>1.8143678189139256 0.0 0.0 1.8143678189139256 31.04382113864494 37.89003743607377</viewport>
+    </plugin_config>
+    <width>400</width>
+    <z>1</z>
+>>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
     <height>634</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -408,8 +427,13 @@
     <width>867</width>
     <z>3</z>
     <height>906</height>
+<<<<<<< HEAD
     <location_x>914</location_x>
     <location_y>79</location_y>
+=======
+    <location_x>942</location_x>
+    <location_y>47</location_y>
+>>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.MoteInterfaceViewer

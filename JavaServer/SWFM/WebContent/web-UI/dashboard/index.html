@@ -17,7 +17,6 @@
     <script type="text/javascript" src="js/assets/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="js/assets/popper.min.js"></script>
     <script type="text/javascript" src="js/assets/tether.min.js"></script>
-	 <script type="text/javascript" src="js/assets/jquery.canvasjs.min.js"></script>
     <script type="text/javascript" src="js/assets/bootstrap.js"></script>
     <script type="text/javascript" src="js/assets/path.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
@@ -114,65 +113,35 @@
 					  </button>
 				  </div>
 				  <div class="modal-body row">
-					  <div class="col-sm-6" id="canvas-left-container">
-						<div class="canvas">
-							<div>
-								<div class="card bg-faded title">
-									<div class="card-about">
-										<h6 class="text-left d-inline">CURRENT STATE</h6><br>
-									</div>
-								</div>
-								<canvas id="river-ov"></canvas>
-							</div>
-						</div>
+					  <div class="col-sm-6" id="canvas-left-container" class="canvas">
+								<canvas id="river-ov">
+								</canvas>
 					  </div>
-					  <div class="col-sm-6" id="canvas-right-container">
-						  <div class="canvas">
-							  <div class="fluid-container">
-								  <div class="row">
-									  <div class="col-sm-12">
-										  <div class="card bg-faded title">
-											  <div class="card-about">
-												  <h6 class="text-left d-inline">CURRENT SENSOR LEVEL: ?</h6><br>
-											  </div>
-										  </div>
-										  <canvas id="river-sec"></canvas>
+					  <div class="col-sm-6" id="canvas-right-container" class="canvas">
+							<canvas id="river-sec">
+							</canvas>
+							<div class="card bg-faded">
+							  <div class="card-about">
+								  <h6 class="text-left d-inline">Current level: 3m</h6><br>
+							  </div>
+							</div>
+						  <div class="card bg-faded">
+							  <div class="card-about">
+								  <h6 class="text-left d-inline">Current threshold: 4m</h6>
+								  <form id="form-signup" method="post" enctype="multipart/form-data" data-toggle="validator">
+									  <div class="form-group">
+										<label for="name" class="form-control-label">New threshold:</label>
+										<input type="text" class="align-middle" name="name" id="signup-name" data-vindicate="required|active">
+										<button type="button" onclick="submit_signup();" class="btn btn-primary">Chnage</button>
 									  </div>
-								  </div>
-								  <div class="row">
-									  <div class="col-sm-12">
-										  <div class="card bg-faded title">
-											  <div class="card-about">
-												  <h6 class="text-left d-inline">SENSOR HISTORY</h6>
-											  </div>
-										  </div>
-										  <div id="river-history" class="chart-container"></div>
-									  </div>
-								  </div>
-								  <div class="row">
-									  <div class="col-sm-12">
-										  <div class="card bg-faded title">
-											  <div class="card-about">
-												  <h6 class="text-left d-inline">CURRENT THRESHOLD: ?</h6><br>
-											  </div>
-										  </div>
-										  <form id="form-th" method="post" enctype="multipart/form-data" data-toggle="validator" class="bg-faded form-thr">
-											  <div class="form-group">
-												  <label for="name" class="form-control-label">NEW THRESHOLD:</label>
-												  <input type="range" min="30" max="500" value="60" class="slider" id="th" width="100">
-												  <button type="button" onclick="submit_signup();" class="btn btn-primary">Chnage</button>
-											  </div>
-										  </form>
-									 </div>
-								  </div>
-								  <div class="row">
-									  <div class="col-sm-12">
-										  <div class="alert alert-success">
-											  <strong>Situation ok!</strong> No problems detected.
-										  </div>
-									  </div>
-								  </div>
-							   </div>
+								  </form>
+							  </div>
+							</div>
+						  	<div class="card bg-faded">
+								<div class="card-about">
+									<h6>ATTENTION:</h6>
+									<p>Messaggio</p>
+								</div>
 							</div>
 					  </div>
 				  </div>

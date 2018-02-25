@@ -66,7 +66,7 @@ public class CoapClientADN {
 	    String send_message = "GET / HTTP/1.1\r\n\r\n";
 	    String uri, coreUri;
 	    char  id; 
-	    String [] routes, names;    
+	    String [] routes;    
 	    int i=0;
 	    
 	        try {
@@ -87,7 +87,7 @@ public class CoapClientADN {
 	            
 	          } while (str != null);
 	          System.out.println("\nServer Reponse: " + message);
-	          
+	          sock.close();
 	          str = tmp.substring(tmp.lastIndexOf("<pre>")+5);
 	          str=str.substring(0,str.indexOf("<"));
 	          routes =str.split(" ");
@@ -121,10 +121,11 @@ public class CoapClientADN {
 	          }
 	       
 	      
-	          sock.close();
 	      } catch (Exception e) {
 	          System.out.println(e.getMessage());
 	      }
+
+	        
 	      
 		
 	}

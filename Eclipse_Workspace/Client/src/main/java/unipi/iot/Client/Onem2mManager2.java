@@ -188,7 +188,7 @@ public class Onem2mManager2 {
 		if(!checkResponse(res, CREATED_SUCCESSFULLY))
 			return null;
 		
-		System.out.println("resContentInstance:"+res.getResponseText());
+		//System.out.println("resContentInstance:"+res.getResponseText());
 		
 		return new InstanceResource(res.getResponseText());
 	}

@@ -3,7 +3,7 @@
 #define 	W_STATIONARY 		0
 #define 	ERROR 			-1
 #define 	MESSAGE_SIZE		100
-#define 	FIXED_STEP		3
+#define 	FIXED_STEP		1
 #define 	EQUAL_THRESHOLD 	20
 #define 	RES_CHANGE		5
 #define 	DAM_STATE_SIZE		10

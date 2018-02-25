@@ -40,13 +40,15 @@ public class MNInstaller extends Thread {
 		boolean isMN = true;
 		
 		//Water level AE
+		
 		JSONObject json = mng.jsonAE("Water_level", "Water_level", true);
-		System.out.println("jsonAE :"+json.toJSONString());
-		ae.add(mng.createAE(isMN, json));	
+		
+		if(ae.add(mng.createAE(isMN, json)))
+			System.out.println("jsonAE :"+json.toJSONString());
 		
 		json = mng.jsonContainer("Sensor1");
-		System.out.println("jsonContainer :"+json.toJSONString());
-		cnt.add(mng.createContainer(isMN, ae.get(0), json));	
+		if(cnt.add(mng.createContainer(isMN, ae.get(0), json)))
+			System.out.println("jsonContainer :"+json.toJSONString());
 		
 		json = mng.jsonContainer("SensorNested1");
 		System.out.println("jsonNestedContainer :" + json.toJSONString());

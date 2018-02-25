@@ -55,6 +55,8 @@ public class CoapClientADN {
 		jsonProp.add("w_l");
 		jsonProp.add("evolution");
 		jsonProp.add("w_t");
+		jsonProp.add("gps_x");
+		jsonProp.add("gps_y");
 		
 		return jsonProp;
 	}
@@ -64,7 +66,7 @@ public class CoapClientADN {
 	    String send_message = "GET / HTTP/1.1\r\n\r\n";
 	    String uri, coreUri;
 	    char  id; 
-	    String []routes;    
+	    String [] routes, names;    
 	    int i=0;
 	    
 	        try {
@@ -100,14 +102,14 @@ public class CoapClientADN {
 	        	   //System.out.println("name:"+"Sensor"+(s)+" address:"+"coap://["+routes[i]+"]:5683/example");
 	        	   id = uri.charAt(uri.lastIndexOf("]")-1);
 	        	   
-	        	   if(isDam(coreUri)) {
+	        	   if(!isSensor(coreUri)) {
 	        		   uri += "Dam";
 	        		   if(!DamModule.containsKey("Dam"+(id))) {
 	        			   DamModule.put( "Dam"+(id), new DamActuator(getJProperties(),"Dam"+(id),uri)); 
 	        		   	   System.out.println("dam"+id+" created");
 	        		   }
 	        	   }else {
-	        		   uri += "Sensor";
+	        		  
 	        		   if(!monitoringModule.containsKey("Sensor"+(id))) {
 		        		   monitoringModule.put( "Sensor"+(id), new WaterFlowSensor(getJProperties(),"Sensor"+(id),uri) ); 
 		        		   System.out.println("Sensor"+id+" created");
@@ -130,28 +132,46 @@ public class CoapClientADN {
 	public void observeAllSensors() {
 		
 		for(String s : monitoringModule.keySet()) {
-			//observe(s);
+			observe(s);
 		
 		
 		}
-		observe("Sensor2");
-		observe("Sensor4");
+		//observe("Sensor2");
+	//	observe("Sensor4");
 		
+	}
+	
+	private boolean isSensor(String address) {
+		Request req = new Request(Code.GET);
+   	 	CoapResponse res =  new CoapClient(address).advanced(req);
+   	 	String type = res.getResponseText();
+		
+   	 	if(type.contains("gps"))
+			return true;
+		return false;
+	}
+	
+	private String [] SensorNames(String str) {
+		 String [] names = null; 
+		 names[0] = str.substring(  str.indexOf("rt=")+4 ,  str.indexOf("rt=")+9);
+		 names[1] = str.substring(  str.lastIndexOf("rt=")+4 ,  str.lastIndexOf("rt=")+9);
+		 return names;
+
 	}
 	
 	public void InitializeContext(int wl, int threshold) {
 		System.out.println("initializing");
 		for(String s : monitoringModule.keySet()) {
 			SensorPostJSON(s, wl, 0, null, threshold);
-			System.out.println(s+" initializaed");
+			System.out.println(s+" initialized");
 		
 		}
 		
 	}
 	
-	public CoapObserveRelation observe( final String name) {
+	public void observe( final String name) {
 	//	System.out.println("trying:"+name); 
-		return monitoringModule.get(name).getConnection().observe(
+		 monitoringModule.get(name).getSensorConnection().observe(
     		new CoapHandler() {
     			public void onLoad(CoapResponse response) {
     				monitoringModule.get(name).updateState( response.getResponseText());
@@ -163,7 +183,40 @@ public class CoapClientADN {
     			}
 			}
     	);
+		 
+		monitoringModule.get(name).getGpsConnection().observe(
+		    		new CoapHandler() {
+		    			public void onLoad(CoapResponse response) {
+		    				monitoringModule.get(name).updateState( response.getResponseText());
+		    			
+		    			}
+					
+		    			public void onError() {
+		    				System.err.println("FAILED--------"); 
+		    			}
+					}
+		    	);
 	}
+	
+	public  CoapResponse gpsPostJSON(String name, int x, int y) {
+		//DamActuator da = new DamActuator(true, 40, "pippo");
+		boolean atLeastOne=false;
+		String json = "json={";
+		Request req = new Request(Code.POST);
+		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
+		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
+		
+		json += "\"gps_x\":"+x;
+
+		json += "\"gps_y\":"+y;
+		
+		
+		json += "}";
+		req.setPayload(json);
+		//System.out.println("json:"+json);
+    	return monitoringModule.get(name).getGpsConnection().advanced(req);
+	}
+	
 	
 	public  CoapResponse SensorPostJSON(String name, Integer wl, Integer evo, Integer toReach, Integer wt) {
 		//DamActuator da = new DamActuator(true, 40, "pippo");
@@ -197,7 +250,7 @@ public class CoapClientADN {
 			json += "}";
 		req.setPayload(json);
 		//System.out.println("json:"+json);
-    	return monitoringModule.get(name).getConnection().advanced(req);
+    	return monitoringModule.get(name).getSensorConnection().advanced(req);
 	}
 	
 
@@ -214,7 +267,9 @@ public class CoapClientADN {
 		Request req = new Request(Code.GET);
     	 CoapResponse res =  new CoapClient(address).advanced(req);
     	 String type = res.getResponseText();
-    	 type = type.substring(  type.lastIndexOf("rt=")+4 , type.length()-1);
+    	 
+    	
+    	 type = type.substring(  type.indexOf("rt=")+4 , type.length()-1);
     	
     	 if(type.equalsIgnoreCase("Sensor"))
     		 return false;

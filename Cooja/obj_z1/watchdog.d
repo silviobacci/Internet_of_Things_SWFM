@@ -27,10 +27,7 @@ obj_z1/watchdog.o: /home/osboxes/contiki/cpu/msp430/./watchdog.c \
  /home/osboxes/contiki/core/./sys/loader.h \
  /home/osboxes/contiki/core/./sys/clock.h \
  /home/osboxes/contiki/core/./sys/energest.h \
-<<<<<<< HEAD
  /home/osboxes/contiki/core/./dev/watchdog.h \
-=======
->>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
  /home/osboxes/contiki/cpu/msp430/./isr_compat.h
 /home/osboxes/contiki/cpu/msp430/./watchdog.c :
  /home/osboxes/contiki/core/./contiki.h :
@@ -61,8 +58,5 @@ obj_z1/watchdog.o: /home/osboxes/contiki/cpu/msp430/./watchdog.c \
  /home/osboxes/contiki/core/./sys/loader.h :
  /home/osboxes/contiki/core/./sys/clock.h :
  /home/osboxes/contiki/core/./sys/energest.h :
-<<<<<<< HEAD
  /home/osboxes/contiki/core/./dev/watchdog.h :
-=======
->>>>>>> parent of 41db29f... Merge branch 'master' of https://github.com/ciabbi94/Internet_of_Things_SWFM
  /home/osboxes/contiki/cpu/msp430/./isr_compat.h :

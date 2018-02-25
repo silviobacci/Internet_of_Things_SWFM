@@ -126,9 +126,9 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 		     REST.set_response_status(response, REST.status.BAD_REQUEST);
 				
 								
-		memcpy(buffer, message, MESSAGE_SIZE);							//building response
-		REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);			//set header content format
-		REST.set_response_payload(response, buffer, MESSAGE_SIZE);
+		//memcpy(buffer, message, MESSAGE_SIZE);							//building response
+		//REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);			//set header content format
+		//REST.set_response_payload(response, buffer, MESSAGE_SIZE);
 	}
 }
 
@@ -136,8 +136,8 @@ void update_position(int x, int y){
 	if(state.gps_x != x || state.gps_y != y ){	
 		state.gps_x = x;
 		state.gps_y = y;
-		//REST.notify_subscribers(&gps);
-		printf("changed %d %d \n",state.gps_x,state.gps_y);
+		REST.notify_subscribers(&gps);
+		//printf("changed %d %d \n",state.gps_x,state.gps_y);
 	}
 }
 
@@ -160,17 +160,18 @@ etimer_set(&sampling_timer, CLOCK_SECOND * LEVEL_SAMPLING_PERIOD);
 etimer_set(&gps_timer, CLOCK_SECOND * POS_SAMPLING_PERIOD);
 rest_init_engine();
 rest_activate_resource(&resource_example, "Sensor");
+rest_activate_resource(&gps, "gps");
 
 
 
 	while(1) {
 
 	PROCESS_WAIT_EVENT();	
-		/*if(etimer_expired(&sampling_timer)  ){
+		if(etimer_expired(&sampling_timer) && initialized == 1 ){
 			//printf("step \n");		
 			state_step();
 			etimer_reset(&sampling_timer);
-		}else*/ if(etimer_expired(&gps_timer)){
+		}else if(etimer_expired(&gps_timer)){
 			//PROCESS_WAIT_EVENT();	
 			printf("get_gps\n");
 			if(ev == serial_line_event_message){

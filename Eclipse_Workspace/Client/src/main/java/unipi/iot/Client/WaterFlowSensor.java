@@ -15,7 +15,7 @@ public class WaterFlowSensor {
 	
 	private final 	String name_string = "name";
 	private static 	jParser parser;
-	private final   CoapClient connection;
+	private final   CoapClient sensorConnection,gpsConnection;
 	
 	private JSONObject createJsonObject() {
 		JSONObject jo = new JSONObject();
@@ -27,8 +27,12 @@ public class WaterFlowSensor {
 		return jo;
 	}
 	
-	public CoapClient getConnection() {
-		return connection;
+	public CoapClient getSensorConnection() {
+		return sensorConnection;
+	}
+	
+	public CoapClient getGpsConnection() {
+		return gpsConnection;
 	}
 	
 	public boolean isOverflowed() {
@@ -50,22 +54,26 @@ public class WaterFlowSensor {
 		System.out.println();
 	}
 	public WaterFlowSensor(ArrayList<String> prop, String n, String address) {
-		connection = new CoapClient(address);
+		sensorConnection = new CoapClient(address+ "Sensor");
+		gpsConnection = new CoapClient(address+ "gps");
+		
+	
 		sensorState = new HashMap<String,Integer>();
 		for (String property: prop) {
 			sensorState.put(property,0);
 			
 		}
 		parser = jParser.getInstance(prop);
+		
 		name = n;
 	
 	}
 	
 	public void updateState(String jsonPost) {
 		HashMap<String, Integer> tmp = parser.getSensorValues(jsonPost);
-		
+		System.out.println("update:"+this.name);
 		for (String key: tmp.keySet()) {
-			
+			System.out.println("key updated:"+key);
 			if(sensorState.containsKey(key)) 
 				sensorState.put(key,tmp.get(key));		 
 		

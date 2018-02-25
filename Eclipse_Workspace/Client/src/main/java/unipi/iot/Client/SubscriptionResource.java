@@ -23,12 +23,6 @@ public class SubscriptionResource extends CoapResource {
 	public void handleGET(CoapExchange exchange) {}
 	
 	public void handlePOST(CoapExchange exchange) {
-		if(exchange.getRequestOptions().getContentFormat() == MediaTypeRegistry.APPLICATION_JSON)
-			System.out.println("TEXT");
-		
-		if(exchange.getRequestOptions().getAccept() == MediaTypeRegistry.APPLICATION_JSON)
-			System.out.println("JSON");
-		
 		System.out.println(exchange.getRequestText());
 		exchange.respond(ResponseCode.CREATED);
 	}

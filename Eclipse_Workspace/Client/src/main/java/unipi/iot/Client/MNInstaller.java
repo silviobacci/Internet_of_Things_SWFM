@@ -38,7 +38,7 @@ public class MNInstaller extends Thread {
 	
 	public void createMN() {
 		boolean isMN = true;
-		/*
+		
 		//Water level AE
 		JSONObject json = mng.jsonAE("Water_level", "Water_level", true);
 		System.out.println("jsonAE :"+json.toJSONString());
@@ -56,14 +56,14 @@ public class MNInstaller extends Thread {
 		System.out.println("jsonInstance :" + json.toJSONString());
 		inst.add(mng.createContentInstance(isMN, cnt.get(1), json));
 		inst.add(mng.createContentInstance(isMN, cnt.get(1), json));
-		*/
 		
+		/*
 		ArrayList<Resource> discovered = mng.bridgedDiscovery(!isMN, 2, null);
 		for(Resource r : discovered) {
 			bridgedAe.add((AEResource) r);
 		}
 
-		/*
+		
 		
 		json = mng.jsonContainer("Sensor1");
 	    mng.createContainer(true, json, "Water_level");

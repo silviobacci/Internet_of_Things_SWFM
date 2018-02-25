@@ -1,146 +1,104 @@
 package oneM2M;
 
 import java.util.ArrayList;
-
 import org.json.simple.JSONObject;
 
 import resources.*;
 
 
-public class InstallerIN extends Thread {
-	private int period;
+public class InstallerIN extends Thread{
 	private OM2MManager mng;
 	private boolean IN;
 	private JSONObject json;
-	ArrayList<ReferenceResource> references;
 	
-	private ArrayList<AEResource> createReferenceCopy() {
-		ArrayList<AEResource> copiedMN;
+	private AEResource createReferenceCopy(ReferenceResource r) {
+		ArrayList<String> f = new ArrayList<String>();
+		f.add("rn=" + r.getRi());
 		
-		ArrayList<Resource> ref = mng.discovery(IN, 1, null);
+		ArrayList<Resource> copiedMN = mng.discovery(IN, 2, f);
 		
-		for(Resource rf : ref) {
-			ReferenceResource r = (ReferenceResource) rf;
-			references.add(r);
-			
-			ArrayList<String> f = new ArrayList<String>();
-			f.add("rn=" + r.getRi());
-			
-			if(mng.discovery(IN, 2, f) == null) {
-				json = mng.jsonAE(r.getRi()+"-ID", r.getRi(), true);
-				copiedMN.add(mng.createAE(IN, json));
-			}
+		if(copiedMN == null) {
+			copiedMN = new ArrayList<Resource>();
+			json = mng.jsonAE(r.getRi()+"-ID", r.getRi(), true);
+			copiedMN.add(mng.createAE(IN, json));
 		}
 		
-		if(copiedMN.isEmpty())
-			return null;
-		
-		return copiedMN;
+		return (AEResource) copiedMN.get(0);
 	}
 	
-	private ArrayList<ContainerResource> createAECopy(ReferenceResource r) {
-		ArrayList<ContainerResource> copiedAE;
+	private ContainerResource createAECopy(AEResource ae, AEResource copiedMN) {
+		ArrayList<String> f = new ArrayList<String>();
+		f.add("pi=" + copiedMN.getRi());
+		f.add("rn=" + ae.getRi());
 		
+		ArrayList<Resource> copiedAE = mng.discovery(IN, 3, f);
+		
+		if(copiedAE == null) {
+			copiedAE = new ArrayList<Resource>();
+			json = mng.jsonContainer(ae.getRi());
+			copiedAE.add(mng.createContainer(IN, copiedMN, json));
+		}
+		
+		return (ContainerResource) copiedAE.get(0);
+	}
+	
+	private ContainerResource creatContainerCopy(ContainerResource c, ContainerResource copiedAE) {
+		ArrayList<String> f = new ArrayList<String>();
+		f.add("rn=" + c.getRi());
+		f.add("pi=" + copiedAE.getRi());
+		ArrayList<Resource> copiedContainer = mng.discovery(IN, 3, f);
+		
+		if(copiedContainer == null) {
+			copiedContainer = new ArrayList<Resource>();
+			json = mng.jsonContainer(c.getRi());
+			copiedContainer.add(mng.createContainer(IN, copiedAE, json));
+		}
+		
+		return (ContainerResource) copiedContainer.get(0);
+	}
+	
+	private void createMN() {
+		ArrayList<Resource> references = mng.discovery(IN, 1, null);
+		for(Resource ref : references) {
+			ReferenceResource r = (ReferenceResource) ref;
+			AEResource copiedMN = createReferenceCopy(r);
+			
+			createAE(r, copiedMN);
+		}
+	}
+		
+	private void createAE(ReferenceResource r, AEResource copiedMN) {
 		ArrayList<Resource> aes = mng.bridgedDiscovery(IN, r.getCsi(), 2, null);
-		
 		for(Resource ae : aes) {
 			AEResource a = (AEResource) ae;
+		
+			ContainerResource copiedAE = createAECopy(a, copiedMN);
 			
-			ArrayList<String> f = new ArrayList<String>();
-			f.add("rn=" + a.getRn());
-			
-			if(mng.discovery(IN, 3, f) == null) {
-				json = mng.jsonContainer(a.getRn());
-				copiedAE.add(mng.createContainer(IN, r, json));
-			}
+			createContainer(r, a, copiedAE);
 		}
-		
-		if(copiedAE.isEmpty())
-			return null;
-		
-		return copiedAE;
 	}
 	
-	private ContainerResource createReferenceContainer(AEResource a) {
-		ArrayList<ContainerResource> copiedCnt;
-		
+	private void createContainer(ReferenceResource r, Resource ac, ContainerResource copiedAE) {
 		ArrayList<String> f = new ArrayList<String>();
-		f.add("pi="+a.getPi());
+		f.add("pi=" + ac.getRi());
+		
 		ArrayList<Resource> containers = mng.bridgedDiscovery(IN, r.getCsi(), 3, f);
-		for(Resource container : containers) {
-			ContainerResource cont = (ContainerResource) container;
-			copiedCnt.add(createReferenceContainer(cont, copiedAE.get(copiedAE.size() - 1)));
+		for(Resource cont : containers) {
+			ContainerResource c = (ContainerResource) cont;
 			
-		json = mng.jsonContainer(c.getRn());
-		return mng.createContainer(IN, ae, json);
-	}
-	
-	private ContainerResource createReferenceContainer(ContainerResource c, ContainerResource cnt) {
-		json = mng.jsonContainer(c.getRn());
-		return mng.createContainer(IN, cnt, json);
+			ContainerResource copiedContainer = creatContainerCopy(c, copiedAE);
+			
+			createContainer(r, c, copiedContainer);
+		}
 	}
 
-	public InstallerIN(int p) {
-		period = p;
+	public InstallerIN(boolean isIN) {
 		mng = new OM2MManager();
-		IN = true;
-		references = new ArrayList<ReferenceResource>();
+		IN = isIN;
 	}
 
 	@Override
 	public void run() {
-		super.run();
-		
-		while(true) {
-			ArrayList<AEResource> copiedMN = createReferenceCopy();
-			ArrayList<ContainerResource> copiedAE;
-			for(ReferenceResource r : references)
-				createAECopy(r);
-			ArrayList<ContainerResource> copiedAE;
-			ArrayList<ContainerResource> copiedCnt;
-			ArrayList<String> f;
-
-			ArrayList<Resource> references = mng.discovery(IN, 1, null);
-			for(Resource ref : references) {
-				ReferenceResource r = (ReferenceResource) ref;
-				copiedMN.add(createReferenceCopy(r));
-				
-				ArrayList<Resource> aes = mng.bridgedDiscovery(IN, r.getCsi(), 2, null);
-				for(Resource ae : aes) {
-					AEResource a = (AEResource) ae;
-					copiedAE.add(createReferenceAE(a, copiedMN.get(copiedMN.size() - 1)));
-					
-					f = new ArrayList<String>();
-					f.add("pi="+a.getPi());
-					ArrayList<Resource> containers = mng.bridgedDiscovery(IN, r.getCsi(), 3, f);
-					for(Resource container : containers) {
-						ContainerResource cont = (ContainerResource) container;
-						copiedCnt.add(createReferenceContainer(cont, copiedAE.get(copiedAE.size() - 1)));
-						
-						f = new ArrayList<String>();
-						f.add("pi=" + cont.getPi());
-						while((ArrayList<Resource> cnt = mng.bridgedDiscovery(IN, r.getCsi(), 3, f)) != null) {
-							for(Resource cn : cnt) {
-								ContainerResource c = (ContainerResource) cn;
-								copiedCnt.add(createReferenceContainer(c, copiedAE.get(copiedAE.size() - 1)));
-							
-								
-							}
-						}
-						f = new ArrayList<String>();
-						f.add("pi="+c.getPi());
-						ArrayList<Resource> containers = mng.bridgedDiscovery(IN, r.getCsi(), 3, f);
-				}
-			}
-				
-			try {
-				Thread.sleep(period);
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-				return;
-			}
-		}
+		createMN();
 	}
-
 }

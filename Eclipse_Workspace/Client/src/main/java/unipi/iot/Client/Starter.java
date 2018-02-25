@@ -10,8 +10,8 @@ public class Starter {
 	public static void main(String[] args) {
 		//client = CoapClientADN.getInstance();
 		//GUI.main();
-		// new MNInstaller().start();		
-		init.start();
+		 new MNInstaller().start();		
+		//init.start();
 	}
 
 }

@@ -21,6 +21,26 @@ import resources.ReferenceResource;
 import resources.Resource;
 
 public class Onem2mManager2 {
+	/** Big integer constant for ACP member type */
+	public static final int ACP = 1;
+	/** Big integer constant for AE member type */
+	public static final int AE = 2;
+	/** Big integer constant for CNT member type */
+	public static final int CONTAINER = 3;
+	/** Big integer constant for CIN member type */
+	public static final int CONTENT_INSTANCE = 4;
+	/** Big integer constant for CSB member type */
+	public static final int CSE_BASE = 5;
+	/** Big integer constant for M2M service subscription member type */
+	public static final int M2M_SERVICE_SUBSCRIPTION = 11;
+	/** Big integer constant for REMOTE_CSE member type */
+	public static final int REMOTE_CSE = 16;
+	/** Big integer constant for SUBSCRIPTION member type */
+	public static final int SUBSCRIPTION = 23;
+	public static final int WHOLE_RESOURCE = 1; 
+	public static final int MODIFIED_ATTRIBUTES = 2; 
+	public static final int REFERENCE_ONLY = 3;
+	
 	private static final int RESPONSE_STATUS_CODE = 265;
 	private static final int CREATED_SUCCESSFULLY = 2001;
 	private static final int CONTENT = 2000;
@@ -354,8 +374,9 @@ public class Onem2mManager2 {
 		
 		JSONObject payload = new JSONObject();
 		payload.put("m2m:sub",sub);
+		System.out.println("jsonSubscription: " + payload.toJSONString().replace("\\",""));
 		
-		CoapResponse res = postRequest(address, payload.toJSONString(), 1);
+		CoapResponse res = postRequest(address, payload.toJSONString().replace("\\",""), SUBSCRIPTION);
 		
 		System.out.println("subscription: " + res.getResponseText());
 	}

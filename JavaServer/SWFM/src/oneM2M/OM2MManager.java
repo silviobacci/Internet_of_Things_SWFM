@@ -213,7 +213,7 @@ public class OM2MManager {
 	}
 	
 	public AEResource getContentInstance(boolean isMN, AEResource who) {
-		String address = getAddress(isMN) + who.getRi();
+		String address = getAddress(isMN) + who.getRi() + "/la";
 		
 		CoapResponse res = getRequest(address);
 		
@@ -222,7 +222,20 @@ public class OM2MManager {
 		
 		System.out.println("getAE:"+res.getResponseText());
 
-    	return new AEResource(res.getResponseText());
+		return new AEResource(res.getResponseText());
+	}
+	
+	public AEResource getSubscription(boolean isMN) {
+		String address = getAddress(isMN);
+		
+		CoapResponse res = getRequest(address);
+		
+		if(!checkResponse(res, CONTENT))
+			return null;
+		
+		System.out.println("getSubscription: " + res.getResponseText());
+
+		return new SubscriptionResource(res.getResponseText());
 	}
 
 	public ArrayList<Resource> discovery(boolean isMN) {

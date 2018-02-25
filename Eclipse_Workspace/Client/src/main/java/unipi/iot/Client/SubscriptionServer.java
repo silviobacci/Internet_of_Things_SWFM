@@ -36,17 +36,18 @@ public class SubscriptionServer extends CoapServer {
     	String nu = null;
 		try {
 			nu = "coap://" + Inet4Address.getLocalHost().getHostAddress() + ":5685/pippo";
+			System.out.println("nu: " + nu);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
     	JSONObject json = mng.jsonSubscription("subscription_pippo", nu, 2);
-		System.out.println("subscription :"+json.toJSONString());
 		
-		ArrayList<Resource> discovered = mng.discovery(true, 2, null);
-		ArrayList<AEResource> bridgedAe = new ArrayList<AEResource>();
+		ArrayList<Resource> discovered = mng.discovery(true, 3, null);
+		ArrayList<ContainerResource> bridgedAe = new ArrayList<ContainerResource>();
 		for(Resource r : discovered) {
-			bridgedAe.add((AEResource) r);
+			bridgedAe.add((ContainerResource) r);
+			System.out.println(r.toJSON().toJSONString());
 		}
 		
 		mng.createSubscription(true, bridgedAe.get(0), json);
@@ -54,21 +55,22 @@ public class SubscriptionServer extends CoapServer {
 		
 		while(true) {
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+			System.out.println("sono qui");
 			discovered = mng.discovery(true, 3, null);
-			ArrayList<ContainerResource> cnt = new ArrayList<ContainerResource>();
+			bridgedAe = new ArrayList<ContainerResource>();
 			for(Resource r : discovered) {
-				cnt.add((ContainerResource) r);
+				bridgedAe.add((ContainerResource) r);
+				System.out.println(r.toJSON().toJSONString());
 			}
 			
 			json = mng.jsonCI("new Reading", 10);
 			System.out.println("jsonInstance :" + json.toJSONString());
 			ArrayList<InstanceResource> inst = new ArrayList<InstanceResource>();
-			inst.add(mng.createContentInstance(true, cnt.get(0), json));
+			inst.add(mng.createContentInstance(true, bridgedAe.get(0), json));
 		}
     }
 }

@@ -9,15 +9,24 @@
 // ----------------------------
 
 $(document).ready(function(){
+	get_user_data();
+	create_texture("texture_map.txt");
+	
 	$('#modal').on('shown.bs.modal', function (e) {
-		get_user_data();
-		texture_constructor("texture_map.txt", $("#canvas-ov"), $("#canvas-left-container"), 30);
+		texture_constructor($("#river-ov"), $("#canvas-left-container"), 30);
 		wave_constructor($("#river-sec"), $("#canvas-right-container"), 30);
 		draw_texture();
 		draw_wave();
-		create_handlers();
+		create_default_motes();
+		create_texture_handlers();
 	});
 });
+
+function create_default_motes() {
+	var default_motes_columns = [11, 27, 14, 26, 18, 18];
+	var default_motes_rows = [1, 1, 11, 11, 21, 28];
+	create_motes(default_motes_rows, default_motes_columns);
+}
 
 // ----------------------------
 // GET USER FUNCTIONS
@@ -93,66 +102,6 @@ function request_to_server() {
 		   console.log(data);
 		   }
 		   });
-}
-
-function contains(rect, x, y) {
-	return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h)
-}
-
-function create_handlers() {
-	$('#river-ov').mousemove(function(ev) {
-		var x = ev.pageX - $(this).offset().left;
-		var y = ev.pageY - $(this).offset().top;
-
-		if(contains(d0, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(d1, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(d2, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(d3, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[0], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[1], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[2], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[3], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[4], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[5], x, y))
-			$(this).css('cursor', 'pointer');
-		else
-			$(this).css('cursor', 'default');
-	});
-	
-	$('#river-ov').click(function(ev) {
-		var x = ev.pageX - $(this).offset().left;
-		var y = ev.pageY - $(this).offset().top;
-
-		if(contains(d0, x, y))
-			dam(0, false);
-		else if (contains(d1, x, y))
-			dam(1, true);
-		else if (contains(d2, x, y))
-			dam(2, false);
-		else if (contains(d3, x, y))
-			dam(3, true);
-		 else if (contains(mote[0], x, y))
-			set_water_level(0, 15);
-		 else if (contains(mote[1], x, y))
-			set_water_level(1, 15);
-		 else if (contains(mote[2], x, y))
-			set_water_level(2, 15);
-		 else if (contains(mote[3], x, y))
-			set_water_level(3, 15);
-		 else if (contains(mote[4], x, y))
-			set_water_level(4, 15);
-		 else if (contains(mote[5], x, y))
-			set_water_level(5, 15);
-	});
 }
 
 // -------------------------------------

@@ -1,12 +1,16 @@
 var context_wave;
+
+var animation_speed_wave;
+var animation_position_wave = 0;
+var animation_timer_wave;
+
 var brackground, wave;
-var animation_speed;
 
 function wave_constructor(canvas, container, as) {
-	animation_speed = as;
-	set_wave_dimension(canvas, container);
 	brackground = $('#brackground')[0];
 	wave = $('#wave')[0];
+	animation_speed_wave = as;
+	set_wave_dimension(canvas, container);
 }
 
 function set_wave_dimension(canvas, container) {
@@ -26,12 +30,12 @@ function set_wave_dimension(canvas, container) {
 
 function wave_animation() {
 	context_wave.drawImage(background, 0, 0, background.width, background.height);
-	if(++animation_wave_position == background.width)
-		animation_wave_position = 0;
+	if(++animation_position_wave == background.width)
+		animation_position_wave = 0;
 	var height = background.height - wave.height;
-	var threshold_height = animation_wave_position;
-	context_wave.drawImage(wave, animation_wave_position, height, wave.width, wave.height);
-	context_wave.drawImage(wave, animation_wave_position - wave.width, height, wave.width, wave.height);
+	var threshold_height = animation_position_wave;
+	context_wave.drawImage(wave, animation_position_wave, height, wave.width, wave.height);
+	context_wave.drawImage(wave, animation_position_wave - wave.width, height, wave.width, wave.height);
 	
 	context_wave.beginPath();
 	context_wave.moveTo(0,threshold_height);
@@ -42,7 +46,6 @@ function wave_animation() {
 }
 
 function draw_wave() {
-	request_timer = setInterval(wave_animation, 10);
-	
 	context_wave.drawImage(background, 0, 0, background.width, background.height);
+	animation_timer_wave = setInterval(wave_animation, animation_speed_wave);
 }

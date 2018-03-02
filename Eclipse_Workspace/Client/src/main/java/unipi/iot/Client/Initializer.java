@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import communication.CoapClientADN;
+import oneM2M.Onem2mManager2;
 import resources.AEResource;
 import resources.ContainerResource;
 import resources.InstanceResource;
@@ -157,7 +159,7 @@ public class Initializer extends Thread {
 		while(true) {
 			
 			try {
-				sleep(15000);
+				sleep(20000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

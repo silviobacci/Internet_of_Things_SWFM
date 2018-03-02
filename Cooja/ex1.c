@@ -9,10 +9,13 @@
 #include "sys/etimer.h" 				// Include etimer
 
 
-static sensor_state state;
+static sensor_state s_state;
 static int reference; 
 static int initialized = 0;
+static char j_message[MESSAGE_SIZE];
 static struct jsonparse_state	parser;	
+static	unsigned int accept = -1;
+static int tmp;
 
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
 void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
@@ -23,12 +26,11 @@ EVENT_RESOURCE(gps, "title=\"Resource\";rt=\"gps\"", gps_event_get_handler, NULL
 
 void
 gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
-
-	char j_message[MESSAGE_SIZE];
-	unsigned int accept = -1;
+ 
+	accept = -1;
   	REST.get_header_accept(request, &accept);							//retrieve accepted options
 	 if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: JSON
-		sprintf(j_message,"{\"%s\":%d,\"%s\":%d}",str(gps_x),state.gps_x,str(gps_y),state.gps_y);	
+		sprintf(j_message,"{\"%s\":%d,\"%s\":%d}",str(gps_x),s_state.gps_x,str(gps_y),s_state.gps_y);
 		//printf("sended:%s \n",j_message);
 		//memcpy(buffer, j_message,strlen(j_message));
 
@@ -43,38 +45,38 @@ gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t p
 }
 
 void check_resource_changed(){
-	if(abs(state.water_level-reference) >= RES_CHANGE && state.evolution!=0){
+	if(abs(s_state.water_level-reference) >= RES_CHANGE && s_state.evolution!=0){
 		//printf("notify \n");
 		//REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);
 		REST.notify_subscribers(&resource_example);
-		reference = state.water_level;
+		reference = s_state.water_level;
 	}
 
 }
 
 void state_step(){
-	int step = state.evolution ;
+	int step = s_state.evolution ;
 	int random =  abs((rand() %  FIXED_STEP)) ;
 
-	if(state.water_level + random *  step < MAX_LEVEL_DETECTABLE && state.water_level +  random *  step > MIN_LEVEL_DETECTABLE )
-		state.water_level = state.water_level +  random *  step;	
+	if(s_state.water_level + random *  step < MAX_LEVEL_DETECTABLE && s_state.water_level +  random *  step > MIN_LEVEL_DETECTABLE ){
+		s_state.water_level = s_state.water_level +  random *  step;	
+	}
 	check_resource_changed();	
 }
 
 void
 res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
-	
+
 	// Populat the buffer with the response payload
-	char *message = NULL;
-	char j_message[MESSAGE_SIZE];
-	unsigned int accept = -1;
+	
+	accept = -1;
   	REST.get_header_accept(request, &accept);							//retrieve accepted options
 	/*if(  accept == REST.type.TEXT_PLAIN) {								//select and create the correct format: plain tex
 		REST.set_header_content_type(response, REST.type.TEXT_PLAIN); 				//set header content format
 		REST.set_response_payload(response, buffer, MESSAGE_SIZE);
 	
 	} else */if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: JSON
-		sprintf(j_message,"{\"%s\":%d,\"%s\":%d,\"%s\":%d}",str(w_l),state.water_level,str(w_t),state.water_level_threshold,str(evolution),state.evolution);	
+		sprintf(j_message,"{\"%s\":%d,\"%s\":%d,\"%s\":%d}",str(w_l),s_state.water_level,str(w_t),s_state.water_level_threshold,str(evolution),s_state.evolution);	
 		//printf("sended:%s \n",j_message);
 		//memcpy(buffer, j_message,strlen(j_message));
 
@@ -89,35 +91,33 @@ res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t p
 }
 
 void jparse_and_store(struct jsonparse_state *parser ){
-	int tmp;
+	
 
 	if(json_get_int(parser, str(w_l), &tmp) != ERROR){
 		reference = tmp;	
-		state.water_level = tmp;
+		s_state.water_level = tmp;
 		initialized = 1;
 	}
 	if(json_get_int(parser, str(w_t), &tmp) != ERROR)
-		state.water_level_threshold = tmp;
+		s_state.water_level_threshold = tmp;
 
 	if(json_get_int(parser, str(evolution), &tmp) != ERROR)
-		state.evolution = tmp;
+		s_state.evolution = tmp;
 }
 
 void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
-	int len;
 	const char *val = NULL;
-	char *message = NULL;	
-	unsigned int accept = -1;
+	accept = -1;
 
 	REST.get_header_accept(request, &accept);							//getting request
      
   	if(accept == REST.type.APPLICATION_JSON) {							//select and create the correct format: JSON
 					
 		
-		len=REST.get_post_variable(request, "json", &val);					//get post variable (json format)			
+		tmp = REST.get_post_variable(request, "json", &val);					//get post variable (json format)			
 	
-		if( len > 0 && val[len-1]=='}'){							//check post parameter validity
-			jsonparse_setup(&parser, val, len);
+		if( tmp > 0 && val[tmp-1] == '}'){							//check post parameter validity
+			jsonparse_setup(&parser, val, tmp);
 			jparse_and_store(&parser);
 
 			//printf("level=%d ,threshold=%d, evolution=%d \n",state.water_level,state.water_level_threshold,state.evolution);
@@ -133,9 +133,9 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 }
 
 void update_position(int x, int y){
-	if(state.gps_x != x || state.gps_y != y ){	
-		state.gps_x = x;
-		state.gps_y = y;
+	if(s_state.gps_x != x || s_state.gps_y != y ){	
+		s_state.gps_x = x;
+		s_state.gps_y = y;
 		REST.notify_subscribers(&gps);
 		//printf("changed %d %d \n",state.gps_x,state.gps_y);
 	}
@@ -153,8 +153,8 @@ PROCESS_THREAD(server, ev, data) {
 	serial_line_init();
 	static struct etimer sampling_timer,gps_timer; 
 	
-	int x = NULL;
-	int y = NULL;
+	int x ;
+	int y ;
 
 etimer_set(&sampling_timer, CLOCK_SECOND * LEVEL_SAMPLING_PERIOD);
 etimer_set(&gps_timer, CLOCK_SECOND * POS_SAMPLING_PERIOD);
@@ -181,11 +181,9 @@ rest_activate_resource(&gps, "gps");
 				etimer_reset(&gps_timer);
 			}
 		}
-	}
-/*
-	while(1){}
-*/
+	
 	PROCESS_END();
+}
 }
 
 

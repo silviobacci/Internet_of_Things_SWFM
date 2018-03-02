@@ -1,4 +1,4 @@
-package unipi.iot.Client;
+package oneM2M;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +9,7 @@ import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.coap.Request;
 import org.json.simple.JSONObject;
 
+import communication.CoapClientADN;
 import resources.AEResource;
 import resources.ContainerResource;
 import resources.InstanceResource;

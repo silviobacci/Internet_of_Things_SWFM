@@ -1,4 +1,4 @@
-package unipi.iot.Client;
+package interaction;
 
 import java.awt.EventQueue;
 
@@ -11,6 +11,11 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+
+import communication.CoapClientADN;
+import unipi.iot.Client.Simulator;
+import unipi.iot.Client.Starter;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;

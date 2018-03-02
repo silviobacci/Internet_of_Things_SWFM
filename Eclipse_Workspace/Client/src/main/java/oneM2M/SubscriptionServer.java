@@ -1,4 +1,4 @@
-package unipi.iot.Client;
+package oneM2M;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;

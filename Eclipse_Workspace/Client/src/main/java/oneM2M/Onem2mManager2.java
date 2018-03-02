@@ -1,4 +1,4 @@
-package unipi.iot.Client;
+package oneM2M;
 
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.coap.Option;

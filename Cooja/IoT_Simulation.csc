@@ -103,8 +103,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>54.53392073319816</x>
-        <y>18.968664825613615</y>
+        <x>70.849384009583</x>
+        <y>18.539310528866643</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -125,8 +125,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>22.40075509535559</x>
-        <y>51.26918226013723</y>
+        <x>34.85202970101771</x>
+        <y>46.546284995920566</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -143,8 +143,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>50.01643042275609</x>
-        <y>78.62691748739267</y>
+        <x>56.8860991707076</x>
+        <y>74.76272881666995</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -161,8 +161,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>126.82777315523079</x>
-        <y>21.206892604539345</y>
+        <x>141.85517354137474</x>
+        <y>26.359144165502983</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -197,8 +197,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>93.58590631591255</x>
-        <y>101.16210298655568</y>
+        <x>116.77103834024894</x>
+        <y>100.30339439306174</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -301,6 +301,24 @@
       </interface_config>
       <motetype_identifier>z12</motetype_identifier>
     </mote>
+    <mote>
+      <breakpoints />
+      <interface_config>
+        org.contikios.cooja.interfaces.Position
+        <x>3.267788092171589</x>
+        <y>-26.875936047057984</y>
+        <z>0.0</z>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.mspmote.interfaces.MspClock
+        <deviation>1.0</deviation>
+      </interface_config>
+      <interface_config>
+        org.contikios.cooja.mspmote.interfaces.MspMoteID
+        <id>13</id>
+      </interface_config>
+      <motetype_identifier>z12</motetype_identifier>
+    </mote>
   </simulation>
   <plugin>
     org.contikios.cooja.plugins.SimControl
@@ -319,10 +337,10 @@
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.PositionVisualizerSkin</skin>
-      <viewport>2.1772413826967107 0.0 0.0 2.1772413826967107 -4.227670633625713 13.03534092328864</viewport>
+      <viewport>2.329078822726507 0.0 0.0 2.329078822726507 -15.392260187926194 41.970501750783086</viewport>
     </plugin_config>
     <width>400</width>
-    <z>2</z>
+    <z>1</z>
     <height>634</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -335,10 +353,10 @@
       <coloring />
     </plugin_config>
     <width>1255</width>
-    <z>3</z>
+    <z>4</z>
     <height>708</height>
-    <location_x>400</location_x>
-    <location_y>160</location_y>
+    <location_x>396</location_x>
+    <location_y>159</location_y>
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.TimeLine
@@ -355,6 +373,7 @@
       <mote>9</mote>
       <mote>10</mote>
       <mote>11</mote>
+      <mote>12</mote>
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
@@ -373,7 +392,7 @@
       <decorations>true</decorations>
     </plugin_config>
     <width>975</width>
-    <z>1</z>
+    <z>3</z>
     <height>160</height>
     <location_x>680</location_x>
     <location_y>0</location_y>
@@ -403,10 +422,10 @@
         log.log("Risposta a: " + mote.getInterfaces().getMoteID().getMoteID()+"\n");
     }
 }</script>
-      <active>false</active>
+      <active>true</active>
     </plugin_config>
     <width>867</width>
-    <z>4</z>
+    <z>2</z>
     <height>906</height>
     <location_x>914</location_x>
     <location_y>79</location_y>

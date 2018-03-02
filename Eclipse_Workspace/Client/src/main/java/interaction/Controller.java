@@ -1,16 +1,21 @@
-package unipi.iot.Client;
+package interaction;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-public class Controller extends Thread {
+import Modules.DamActuator;
+import Modules.WaterFlowSensor;
+import communication.CoapClientADN;
 
+public class Controller extends Thread {
+	private static final int PERIOD	= 15;
+	
 	private CoapClientADN context = CoapClientADN.getInstance();
 
 	private void attuateLogic() {
 		HashMap <String,WaterFlowSensor> tmps =context.getMonitoringModule();
 		HashMap <String,DamActuator> tmpd =context.getDamModule();
-		System.out.println("controller-> S2:"+tmps.get("Sensor2").getLevel()+" S4:"+tmps.get("Sensor4").getLevel()+" dam3:"+ tmpd.get("Dam3").isOpened());
+		//System.out.println("controller-> S2:"+tmps.get("Sensor2").getLevel()+" S4:"+tmps.get("Sensor4").getLevel()+" dam3:"+ tmpd.get("Dam3").isOpened());
 		if( ( tmps.get("Sensor2").isOverflowed() || tmps.get("Sensor4").isOverflowed() ) && !tmpd.get("Dam3").isOpened() ) {
 			context.DamPostJSON("Dam3","open");
 			tmpd.get("Dam3").setOpened();
@@ -69,7 +74,7 @@ public class Controller extends Thread {
 		while(true) {
 			
 		try {
-			TimeUnit.SECONDS.sleep(15);
+			TimeUnit.SECONDS.sleep(PERIOD);
 			System.out.println("controller");
 		} catch (InterruptedException e) {
 		

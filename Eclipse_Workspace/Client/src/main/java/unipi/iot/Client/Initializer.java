@@ -24,6 +24,7 @@ public class Initializer extends Thread {
 	private ArrayList<ContainerResource> bridhedCnt;
 	private ArrayList<InstanceResource> bridgedInst;
 	private CoapClientADN context = CoapClientADN.getInstance();
+	private static int i; 
 	
 	public Initializer() {
 		mng = new Onem2mManager2();
@@ -33,6 +34,7 @@ public class Initializer extends Thread {
 		bridgedAe = new ArrayList<AEResource>();
 		bridhedCnt = new ArrayList<ContainerResource>();
 		bridgedInst = new ArrayList<InstanceResource>();
+		i=0;
 	}
 	
 	private void addInstance(InstanceResource r) {
@@ -41,7 +43,7 @@ public class Initializer extends Thread {
 	}
 	
 	private boolean addContainer(ContainerResource r) {
-		if(r != null) {
+		if(r != null && !cnt.contains(r)) {
 			cnt.add(r);
 			return true;
 		}
@@ -49,7 +51,7 @@ public class Initializer extends Thread {
 	}
 	
 	private void addAE(AEResource r) {
-		if(r != null)
+		if(r != null && !ae.contains(r))
 			ae.add(r);
 	}
 	
@@ -60,7 +62,7 @@ public class Initializer extends Thread {
 	
 	private void createMiddleNode() {
 		
-		int i = 0; 
+
 		int measured;
 		Boolean damState;
 		
@@ -89,14 +91,53 @@ public class Initializer extends Thread {
 		}
 		
 		for (String id :context.getDamModule().keySet()) {
-			cnt.add(mng.createContainer(isMN, ae.get(0), mng.jsonContainer(id)));	
-			damState = context.getDamModule().get(id).isOpened();
-			inst.add(mng.createContentInstance(isMN, cnt.get(i++), mng.jsonCI(DAM,damState)));
+			if(addContainer(mng.createContainer(isMN, ae.get(0), mng.jsonContainer(id)))) {
+				damState = context.getDamModule().get(id).isOpened();
+				inst.add(mng.createContentInstance(isMN, cnt.get(i++), mng.jsonCI(DAM,damState)));
+			}
 		}
 		
 		
 		
 		
+		
+	}
+
+	private void updateMiddleNode() {
+		
+		int i = 0; 
+		int measured;
+		Boolean damState;
+		
+		//Cooja discovery 
+		try {
+			context.getModulesAddresses();
+			context.InitializeContext( new Integer(70),new Integer(150));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		JSONObject json = mng.jsonAE("Pescia", "Pescia", true);
+		//System.out.println("jsonAE :"+json.toJSONString());
+		addAE(mng.createAE(isMN, json));
+		
+		//Sensors Container and instances
+		for (String id :context.getMonitoringModule().keySet()) {
+			
+			if(addContainer(mng.createContainer(isMN, ae.get(0), mng.jsonContainer(id)))) {
+				measured = context.getMonitoringModule().get(id).getLevel();
+				addInstance(mng.createContentInstance(isMN, cnt.get(i++), mng.jsonCI(WL,measured)));
+			}
+			
+		}
+		i=0;
+		for (String id :context.getDamModule().keySet()) {
+			cnt.add(mng.createContainer(isMN, ae.get(0), mng.jsonContainer(id)));	
+			damState = context.getDamModule().get(id).isOpened();
+			inst.add(mng.createContentInstance(isMN, cnt.get(i++), mng.jsonCI(DAM,damState)));
+		}
 		
 	}
 
@@ -116,7 +157,7 @@ public class Initializer extends Thread {
 		while(true) {
 			
 			try {
-				sleep(20000);
+				sleep(15000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

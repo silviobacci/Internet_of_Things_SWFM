@@ -8,7 +8,7 @@
   <project EXPORT="discard">[APPS_DIR]/powertracker</project>
   <simulation>
     <title>IoT_SImulation</title>
-    <speedlimit>10.0</speedlimit>
+    <speedlimit>1.0</speedlimit>
     <randomseed>123456</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
@@ -65,7 +65,7 @@
       org.contikios.cooja.mspmote.Z1MoteType
       <identifier>z13</identifier>
       <description>Dam</description>
-      <source EXPORT="discard">/mnt/hgfs/GitHub/Internet_of_Things_SWFM/Cooja/dam.c</source>
+      <source EXPORT="discard">[CONFIG_DIR]/dam.c</source>
       <commands EXPORT="discard">make dam.z1 TARGET=z1</commands>
       <firmware EXPORT="copy">[CONFIG_DIR]/dam.z1</firmware>
       <moteinterface>org.contikios.cooja.interfaces.Position</moteinterface>
@@ -305,7 +305,7 @@
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>1</z>
+    <z>0</z>
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -319,10 +319,10 @@
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.PositionVisualizerSkin</skin>
-      <viewport>1.8143678189139256 0.0 0.0 1.8143678189139256 1.9769411386452367 83.69611743607383</viewport>
+      <viewport>2.1772413826967107 0.0 0.0 2.1772413826967107 -4.227670633625713 13.03534092328864</viewport>
     </plugin_config>
     <width>400</width>
-    <z>0</z>
+    <z>2</z>
     <height>634</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -335,7 +335,7 @@
       <coloring />
     </plugin_config>
     <width>1255</width>
-    <z>2</z>
+    <z>3</z>
     <height>708</height>
     <location_x>400</location_x>
     <location_y>160</location_y>
@@ -361,7 +361,7 @@
       <zoomfactor>500.0</zoomfactor>
     </plugin_config>
     <width>1655</width>
-    <z>6</z>
+    <z>7</z>
     <height>166</height>
     <location_x>0</location_x>
     <location_y>867</location_y>
@@ -373,7 +373,7 @@
       <decorations>true</decorations>
     </plugin_config>
     <width>975</width>
-    <z>7</z>
+    <z>1</z>
     <height>160</height>
     <location_x>680</location_x>
     <location_y>0</location_y>
@@ -386,7 +386,7 @@
       <bound>true</bound>
     </plugin_config>
     <width>362</width>
-    <z>5</z>
+    <z>6</z>
     <height>116</height>
     <location_x>710</location_x>
     <location_y>30</location_y>
@@ -403,10 +403,10 @@
         log.log("Risposta a: " + mote.getInterfaces().getMoteID().getMoteID()+"\n");
     }
 }</script>
-      <active>true</active>
+      <active>false</active>
     </plugin_config>
     <width>867</width>
-    <z>3</z>
+    <z>4</z>
     <height>906</height>
     <location_x>914</location_x>
     <location_y>79</location_y>
@@ -419,7 +419,7 @@
       <scrollpos>0,0</scrollpos>
     </plugin_config>
     <width>350</width>
-    <z>4</z>
+    <z>5</z>
     <height>300</height>
     <location_x>1053</location_x>
     <location_y>207</location_y>

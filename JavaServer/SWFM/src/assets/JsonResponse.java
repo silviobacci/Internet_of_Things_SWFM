@@ -4,7 +4,7 @@ import org.json.*;
 
 public class JsonResponse {
 
-	public String create(boolean error, String info) {
+	public String create(boolean error, Object info) {
 		try {
 			JSONObject json = new JSONObject();
 			json.put("error", error);

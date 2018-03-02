@@ -4,9 +4,9 @@
 
 var base_svr_path = "http://localhost/";
 var img_svr_path = "http://localhost/SWFM/web-UI/frontend/img/";
-var rel_dash_path = "/SWFM/web-UI/dashboard/";
+var rel_dash_path = "/SWFM/web-UI/backend/";
 var rel_fron_path = "/SWFM/web-UI/frontend/";
-var abs_dash_path = "http://localhost/SWFM/web-UI/dashboard/";
+var abs_dash_path = "http://localhost/SWFM/web-UI/backend/";
 var abs_fron_path = "http://localhost/SWFM/web-UI/frontend/";
 
 // ------------------------------------

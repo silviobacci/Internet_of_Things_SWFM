@@ -1,11 +1,14 @@
 package frontend;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.HashMap;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import assets.DbManager;
 import assets.JsonResponse;
@@ -13,7 +16,6 @@ import assets.JsonResponse;
 @SuppressWarnings("serial")
 @WebServlet(name = "login", urlPatterns={"/frontend/login"}, loadOnStartup = 1)
 public class Login extends HttpServlet {
-	
 	private HttpSession createSession(HttpServletRequest req, HashMap<String, Object> user) {
 		HttpSession session = req.getSession();
 		try {
@@ -40,14 +42,14 @@ public class Login extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("text/plain");
-		resp.getWriter().println("RISPOSTA");
+		resp.getWriter().println("GET RESPONSE FROM: login");
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{	
 		DbManager db = new DbManager();
 		
-		resp.setContentType("text/plain");
+		resp.setContentType("application/json");
 		
 		if(req.getParameter("username") == null || req.getParameter("password") == null) {
 			resp.getWriter().write(new JsonResponse().create(true, "You have left a field empty."));

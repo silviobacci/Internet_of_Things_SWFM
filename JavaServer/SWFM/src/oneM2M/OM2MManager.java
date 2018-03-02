@@ -7,6 +7,7 @@ import org.json.simple.*;
 import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.eclipse.californium.core.*;
 import org.eclipse.californium.core.CoapResponse;
@@ -14,25 +15,53 @@ import org.eclipse.californium.core.coap.CoAP.Code;
 
 import resources.*;
 
+@SuppressWarnings("unchecked")
 public class OM2MManager {
+	public static final int ACP = 1;
+	public static final int AE = 2;
+	public static final int CONTAINER = 3;
+	public static final int CONTENT_INSTANCE = 4;
+	public static final int CSE_BASE = 5;
+	public static final int M2M_SERVICE_SUBSCRIPTION = 11;
+	public static final int REMOTE_CSE = 16;
+	public static final int SUBSCRIPTION = 23;
+	
+	public static final int WHOLE_RESOURCE = 1; 
+	public static final int MODIFIED_ATTRIBUTES = 2; 
+	public static final int REFERENCE_ONLY = 3;
+	
+	public static final String RESOURCE_TYPE_AE = "m2m:ae";
+	public static final String RESOURCE_TYPE_CONTAINER = "m2m:cnt";
+	public static final String RESOURCE_TYPE_CONTENT_INSTANCE = "m2m:cin";
+	public static final String RESOURCE_TYPE_REMOTE_CSE = "m2m:csr";
+	public static final String RESOURCE_TYPE_SUBSCRIPTION = "m2m:sub";
+	public static final String RESOURCE_TYPE_URI_LIST = "m2m:uril";
+	public static final String FILTER_USAGE = "fu=1";
+	public static final String FILTER_RESOURCE_TYPE = "rty=";
+	
 	private static final int RESPONSE_STATUS_CODE = 265;
 	private static final int CREATED_SUCCESSFULLY = 2001;
 	private static final int CONTENT = 2000;
 
-	private String inAddress = "coap://127.0.0.1:5683/~";
-	private String mnAddress = "coap://127.0.0.1:5684/~";
+	private static final int portIN = 5683;
+	private static final int portMN = 5684;
+
+	private String inAddress;
+	private String mnAddress;
+	
 	private String inCSE = "/SWFM-in-cse"; 
 	private String mnCSE = "/SWFM-mn-cse"; 
-	private String inName = "/SWFM-in-name"; 
-	private String mnName = "/SWFM-mn-name"; 
 
-	public OM2MManager() {}
+	public OM2MManager(String ip) {
+		inAddress = "coap://" + ip + ":" + portIN + "/~";
+		mnAddress = "coap://" + ip + ":" + portMN + "/~";
+	}
 	
-	public OM2MManager(String inA, String mnA, String inN, String mnN) {
+	public OM2MManager(String ip, String inA, String mnA) {
+		inAddress = "coap://" + ip + ":" + portIN + "/~";
+		mnAddress = "coap://" + ip + ":" + portMN + "/~";
 		inAddress = inA;
 		mnAddress = mnA;
-		inName = inN;
-		mnName = mnN;
 	}
 	
 	private String getAddress(boolean isMN) {
@@ -49,25 +78,38 @@ public class OM2MManager {
 			return inCSE;
 	}
 	
-	private String getName(boolean isMN) {
-		if(isMN)
-			return mnName;
-		else
-			return inName;
-	}
-	
-	public JSONObject jsonAE(String api, String rn, boolean rr) {
+	public JSONObject jsonAE(String api, String rn, boolean rr, String lbl) {
 		JSONObject jo = new JSONObject();
 		jo.put("api", api);
 		jo.put("rn", rn);
 		jo.put("rr", rr);
+		jo.put("lbl", lbl);
 		
 		return jo;
 	}
 	
-	public JSONObject jsonContainer(String rn) {
+	public JSONObject jsonAE(String api, String rn, boolean rr, ArrayList<String> lbl) {
+		JSONObject jo = new JSONObject();
+		jo.put("api", api);
+		jo.put("rn", rn);
+		jo.put("rr", rr);
+		jo.put("lbl", lbl);
+		
+		return jo;
+	}
+	
+	public JSONObject jsonContainer(String rn, String lbl) {
 		JSONObject jo = new JSONObject();
 		jo.put("rn", rn);
+		jo.put("lbl", lbl);
+
+		return jo;
+	}
+	
+	public JSONObject jsonContainer(String rn, ArrayList<String> lbl) {
+		JSONObject jo = new JSONObject();
+		jo.put("rn", rn);
+		jo.put("lbl", lbl);
 
 		return jo;
 	}
@@ -81,15 +123,48 @@ public class OM2MManager {
 		return jo;
 	}
 	
-	public JSONObject jsonCI(String cnf, Object con) {
+	public JSONObject jsonCI(String cnf, Object con, String lbl, String rn) {
 		JSONObject jo = new JSONObject();
-		jo.put("cnf",cnf);
-		jo.put("con",con);
+		jo.put("rn", rn);
+		jo.put("cnf", cnf);
+		jo.put("con", con);
+		jo.put("lbl", lbl);
+		
+		return jo;
+	}
+	
+	public JSONObject jsonCI(String cnf, Object con, ArrayList<String> lbl, String rn) {
+		JSONObject jo = new JSONObject();
+		jo.put("rn", rn);
+		jo.put("cnf", cnf);
+		jo.put("con", con);
+		jo.put("lbl", lbl);
+		
+		return jo;
+	}
+	
+	public JSONObject jsonCI(String cnf, Object con, ArrayList<String> lbl) {
+		JSONObject jo = new JSONObject();
+		jo.put("cnf", cnf);
+		jo.put("con", con);
+		jo.put("lbl", lbl);
+		
+		return jo;
+	}
+	
+	public JSONObject jsonCI(String cnf, Object con, String lbl) {
+		JSONObject jo = new JSONObject();
+		jo.put("cnf", cnf);
+		jo.put("con", con);
+		jo.put("lbl", lbl);
 		
 		return jo;
 	}
 	
 	private boolean checkResponse(CoapResponse res, int code) {
+		if(res == null)
+			return false;
+		
 		Option responseCode = null;
 		for(Option opt : res.getOptions().asSortedList()) {
 		      if(opt.getNumber() == RESPONSE_STATUS_CODE) {
@@ -113,60 +188,92 @@ public class OM2MManager {
 		req.getOptions().addOption(new Option(267,type));
 		req.setPayload(payload);
 		
-    	return new CoapClient(address).advanced(req);
+		return new CoapClient(address).advanced(req);
 	}
 	
-	
-	public AEResource createAE(boolean isMN, JSONObject ae) {		
-		String address = getAddress(isMN) + getCSE(isMN);
-		
-		JSONObject payload = new JSONObject();
-		payload.put("m2m:ae",ae);
-		
-		CoapResponse res = postRequest(address, payload.toJSONString(), 2);
+	public String createResource(boolean isMN, String id_father, String resource_type, int type, JSONObject body) {		
+		String address = getAddress(isMN) + id_father;
 
-		if(!checkResponse(res, CREATED_SUCCESSFULLY))
-			return null;
-		
-    	System.out.println("resAE:"+res.getResponseText());	
-    	
-    	return new AEResource(res.getResponseText());
-	}
-	
-	public ContainerResource createContainer(boolean isMN, Resource father, JSONObject cnt) {
-		String address = getAddress(isMN) + father.getRi();
-		System.out.println("Address: " + address);
-		
 		JSONObject payload = new JSONObject();
-		payload.put("m2m:cnt",cnt);
+		payload.put(resource_type, body);
 		
-		CoapResponse res = postRequest(address, payload.toJSONString(), 3);
-
-		if(!checkResponse(res, CREATED_SUCCESSFULLY))
-			return null;
-		
-		System.out.println("resContainer:"+res.getResponseText());
-		
-		return new ContainerResource(res.getResponseText());
-	}
-	
-	public InstanceResource createContentInstance(boolean isMN , Resource father, JSONObject inst) {
-		String address = getAddress(isMN) + father.getRi();
-		
-		JSONObject payload = new JSONObject();
-		payload.put("m2m:cin",inst);
-		
-		CoapResponse res = postRequest(address, payload.toJSONString(), 4);
+		CoapResponse res = postRequest(address, payload.toJSONString().replace("\\", ""), type);
 		
 		if(!checkResponse(res, CREATED_SUCCESSFULLY))
 			return null;
 		
-		System.out.println("resContentInstance:"+res.getResponseText());
-		
-		return new InstanceResource(res.getResponseText());
+	    	return res.getResponseText();
 	}
 	
-	public CoapResponse getRequest(String address) {
+	public String createBridgedResource(boolean isMN, String csi, String id_father, String resource_type, int type, JSONObject body) {		
+		return createResource(isMN, csi + id_father, resource_type, type, body);
+	}
+	
+	public AEResource createAE(boolean isMN, JSONObject body) {		
+		String resource = createResource(isMN, getCSE(isMN), RESOURCE_TYPE_AE, AE, body);
+		if(resource == null)
+			return null;
+		
+		return new AEResource(resource);
+	}
+	
+	public ContainerResource createContainer(boolean isMN, String id_father, JSONObject body) {
+		String resource = createResource(isMN, id_father, RESOURCE_TYPE_CONTAINER, CONTAINER, body);
+		if(resource == null)
+			return null;
+		
+		return new ContainerResource(resource);
+	}
+	
+	public InstanceResource createContentInstance(boolean isMN, String id_father, JSONObject body) {
+		String resource = createResource(isMN, id_father, RESOURCE_TYPE_CONTENT_INSTANCE, CONTENT_INSTANCE, body);
+		if(resource == null)
+			return null;
+		
+		return new InstanceResource(resource);
+	}
+	
+	public SubscriptionResource createSubscription(boolean isMN, String id_father, JSONObject body) {
+		String resource = createResource(isMN, id_father, RESOURCE_TYPE_SUBSCRIPTION, SUBSCRIPTION, body);
+		if(resource == null)
+			return null;
+		
+		return new SubscriptionResource(resource);
+	}
+	
+	public AEResource createBridgedAE(boolean isMN, String csi, JSONObject body) {	
+		String resource = createBridgedResource(isMN, csi, getCSE(isMN), RESOURCE_TYPE_AE, AE, body);
+		if(resource == null)
+			return null;
+		
+		return new AEResource(resource);
+	}
+	
+	public ContainerResource createBridgedContainer(boolean isMN, String csi, String id_father, JSONObject body) {
+		String resource = createBridgedResource(isMN, csi, id_father, RESOURCE_TYPE_CONTAINER, CONTAINER, body);
+		if(resource == null)
+			return null;
+		
+		return new ContainerResource(resource);
+	}
+	
+	public InstanceResource createBridgedContentInstance(boolean isMN, String csi, String id_father, JSONObject body) {
+		String resource = createBridgedResource(isMN, csi, id_father, RESOURCE_TYPE_CONTENT_INSTANCE, CONTENT_INSTANCE, body);
+		if(resource == null)
+			return null;
+		
+		return new InstanceResource(resource);
+	}
+	
+	public SubscriptionResource createBridgedSubscription(boolean isMN, String csi, String id_father, JSONObject body) {
+		String resource = createBridgedResource(isMN, csi, id_father, RESOURCE_TYPE_SUBSCRIPTION, SUBSCRIPTION, body);
+		if(resource == null)
+			return null;
+		
+		return new SubscriptionResource(resource);
+	}
+	
+	private CoapResponse getRequest(String address) {
 		Request req = new Request(Code.GET);
 		
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
@@ -176,7 +283,7 @@ public class OM2MManager {
 		return new CoapClient(address).advanced(req); 
 	}
 	
-	public Request getRequest() {
+	private Request getRequest() {
 		Request req = new Request(Code.GET);
 		
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
@@ -186,73 +293,117 @@ public class OM2MManager {
 		return req;
 	}
 	
-	public InstanceResource getContentInstance(boolean isMN, InstanceResource who) {
-		String address = getAddress(isMN) + who.getRi();
+	private String getResource(boolean isMN, String id) {
+		String address = getAddress(isMN) + id;
 		
 		CoapResponse res = getRequest(address);
 		
 		if(!checkResponse(res, CONTENT))
 			return null;
-		
-		System.out.println("getContentInstance:"+res.getResponseText());
 
-		return new InstanceResource(res.getResponseText());
+    		return res.getResponseText();
 	}
 	
-	public ContainerResource getContainer(boolean isMN, ContainerResource who) {
-		String address = getAddress(isMN) + who.getRi();
+	private String getBridgedResource(boolean isMN, String csi, String id) {
+		String address = getAddress(isMN) + csi + id;
 		
 		CoapResponse res = getRequest(address);
 		
 		if(!checkResponse(res, CONTENT))
 			return null;
-		
-		System.out.println("getContainer:"+res.getResponseText());
 
-    		return new ContainerResource(res.getResponseText());
+    		return res.getResponseText();
 	}
 	
-	public AEResource getContentInstance(boolean isMN, AEResource who) {
-		String address = getAddress(isMN) + who.getRi() + "/la";
-		
-		CoapResponse res = getRequest(address);
-		
-		if(!checkResponse(res, CONTENT))
+	public ReferenceResource getReference(boolean isMN, String id) {
+		String resource = getResource(isMN, id);
+		if(resource == null)
 			return null;
 		
-		System.out.println("getAE:"+res.getResponseText());
-
-		return new AEResource(res.getResponseText());
+		return new ReferenceResource(resource);
 	}
 	
-	public AEResource getSubscription(boolean isMN) {
-		String address = getAddress(isMN);
-		
-		CoapResponse res = getRequest(address);
-		
-		if(!checkResponse(res, CONTENT))
+	public AEResource getAE(boolean isMN, String id) {
+		String resource = getResource(isMN, id);
+		if(resource == null)
 			return null;
 		
-		System.out.println("getSubscription: " + res.getResponseText());
-
-		return new SubscriptionResource(res.getResponseText());
-	}
-
-	public ArrayList<Resource> discovery(boolean isMN) {
-		return discovery(isMN, null, null);
+		return new AEResource(resource);
 	}
 	
-	public ArrayList<Resource> discovery(boolean isMN, Integer type, ArrayList<String> filter) {
-		String address = getAddress(isMN);
+	public ContainerResource getContainer(boolean isMN, String id) {
+		String resource = getResource(isMN, id);
+		if(resource == null)
+			return null;
 		
-		ArrayList<Resource> resources = new ArrayList<Resource>();
+		return new ContainerResource(resource);
+	}
+	
+	public InstanceResource getContentInstance(boolean isMN, String id) {
+		String resource = getResource(isMN, id + "/la");
+		if(resource == null)
+			return null;
+		
+		return new InstanceResource(resource);
+	}
+	
+	public SubscriptionResource getSubscription(boolean isMN, String id) {
+		String resource = getResource(isMN, id);
+		if(resource == null)
+			return null;
+		
+		return new SubscriptionResource(resource);
+	}
+	
+	public ReferenceResource getBridgedReference(boolean isMN, String csi, String id) {
+		String resource = getBridgedResource(isMN, csi, id);
+		if(resource == null)
+			return null;
+		
+		return new ReferenceResource(resource);
+	}
+	
+	public AEResource getBridgedAE(boolean isMN, String csi, String id) {
+		String resource = getBridgedResource(isMN, csi, id);
+		if(resource == null)
+			return null;
+		
+		return new AEResource(resource);
+	}
+	
+	public ContainerResource getBridgedContainer(boolean isMN, String csi, String id) {
+		String resource = getBridgedResource(isMN, csi, id);
+		if(resource == null)
+			return null;
+		
+		return new ContainerResource(resource);
+	}
+	
+	public InstanceResource getBridgedContentInstance(boolean isMN, String csi, String id) {
+		String resource = getBridgedResource(isMN, csi, id + "/la");
+		if(resource == null)
+			return null;
+		
+		return new InstanceResource(resource);
+	}
+	
+	public SubscriptionResource getBridgedSubscription(boolean isMN, String csi, String id) {
+		String resource = getBridgedResource(isMN, csi, id);
+		if(resource == null)
+			return null;
+		
+		return new SubscriptionResource(resource);
+	}
+	
+	private ArrayList<OM2MResource> discovery(boolean isMN, String address, Integer type, ArrayList<String> filter) {
+		ArrayList<OM2MResource> resources = new ArrayList<OM2MResource>();
 		
 		Request req = getRequest();
 		
-		req.getOptions().addUriQuery("fu=1");
+		req.getOptions().addUriQuery(FILTER_USAGE);
 		
 		if(type != null)
-			req.getOptions().addUriQuery("rty="+type.intValue());
+			req.getOptions().addUriQuery(FILTER_RESOURCE_TYPE + type.intValue());
 		
 		if(filter != null)
 			for(String s : filter)
@@ -265,98 +416,85 @@ public class OM2MManager {
 		
 		try {
 			JSONObject discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
-			JSONArray json = (JSONArray) discJSON.get("m2m:uril");
-			
-			for(Object j : json) {
-				String jo = (String) j;
-				res = getRequest(address + jo);
-				if (checkResponse(res, CONTENT)){
-					discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
-					
-					if(discJSON.get("m2m:ae") != null)
-						resources.add(new AEResource((JSONObject) discJSON.get("m2m:ae")));
-					if(discJSON.get("m2m:cnt") != null)
-						resources.add(new ContainerResource((JSONObject) discJSON.get("m2m:cnt")));
-					if(discJSON.get("m2m:cin") != null)
-						resources.add(new InstanceResource((JSONObject) discJSON.get("m2m:cin")));
-					if(discJSON.get("m2m:csr") != null)
-						resources.add(new ReferenceResource((JSONObject) discJSON.get("m2m:csr")));
-				}
-			}
-		} catch (ParseException e) {
-			return null;
-		}
-		
-		if(resources.isEmpty())
-			return null;
-
-		return resources;
-	}
-	
-	public ArrayList<Resource> bridgedDiscovery(boolean isMN, String csi) {
-		return bridgedDiscovery(isMN, csi, null, null);
-	}
-	
-	public ArrayList<Resource> bridgedDiscovery(boolean isMN, String csi, Integer type, ArrayList<String> filter) {
-		String address = getAddress(isMN) + csi;
-
-		Request req = getRequest();
-				
-		req.getOptions().addUriQuery("fu=1");
-				
-		if(type != null)
-			req.getOptions().addUriQuery("rty="+type.intValue());
-		
-		if(filter != null)
-			for(String s : filter)
-				req.getOptions().addUriQuery(s);
-		
-		CoapResponse res = new CoapClient(address).advanced(req);
-		
-		if(!checkResponse(res, CONTENT))
-			return null;
-		
-		ArrayList<Resource> resources = new ArrayList<Resource>();
-		
-		try {
-			JSONObject discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
-			JSONArray json = (JSONArray) discJSON.get("m2m:uril");
+			JSONArray json = (JSONArray) discJSON.get(RESOURCE_TYPE_URI_LIST);
 			
 			for(Object j : json) {
 				String jo = (String) j;
 				res = getRequest(getAddress(isMN) + jo);
-				if(checkResponse(res, CONTENT)){
-					System.out.println(res.getResponseText());
+				if (checkResponse(res, CONTENT)){
 					discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
 					
-					if(discJSON.get("m2m:ae") != null)
-						resources.add(new AEResource((JSONObject) discJSON.get("m2m:ae")));
-					if(discJSON.get("m2m:cnt") != null)
-						resources.add(new ContainerResource((JSONObject) discJSON.get("m2m:cnt")));
-					if(discJSON.get("m2m:cin") != null)
-						resources.add(new InstanceResource((JSONObject) discJSON.get("m2m:cin")));
-					if(discJSON.get("m2m:csr") != null)
-						resources.add(new ReferenceResource((JSONObject) discJSON.get("m2m:csr")));
+					if(discJSON.get(RESOURCE_TYPE_AE) != null)
+						resources.add(new AEResource((JSONObject) discJSON.get(RESOURCE_TYPE_AE)));
+					if(discJSON.get(RESOURCE_TYPE_CONTAINER) != null)
+						resources.add(new ContainerResource((JSONObject) discJSON.get(RESOURCE_TYPE_CONTAINER)));
+					if(discJSON.get(RESOURCE_TYPE_CONTENT_INSTANCE) != null)
+						resources.add(new InstanceResource((JSONObject) discJSON.get(RESOURCE_TYPE_CONTENT_INSTANCE)));
+					if(discJSON.get(RESOURCE_TYPE_REMOTE_CSE) != null)
+						resources.add(new ReferenceResource((JSONObject) discJSON.get(RESOURCE_TYPE_REMOTE_CSE)));
 				}
 			}
 		} catch (ParseException e) {
 			return null;
 		}
-
+		
 		if(resources.isEmpty())
 			return null;
-		
+
 		return resources;
 	}
 	
-	public void createSubscription(boolean isMN, Resource father, JSONObject sub) {
-		String address = getAddress(isMN)+father.getRi();
+	public ArrayList<OM2MResource> discovery(boolean isMN) {
+		return discovery(isMN, getAddress(isMN), null, null);
+	}
+	
+	public ArrayList<OM2MResource> discovery(boolean isMN, Integer type) {
+		return discovery(isMN, getAddress(isMN), type, null);
+	}
+	
+	public ArrayList<OM2MResource> discovery(boolean isMN, Integer type, ArrayList<String> filter) {
+		return discovery(isMN, getAddress(isMN), type, filter);
+	}
+	
+	public ArrayList<OM2MResource> bridgedDiscovery(boolean isMN, String csi) {
+		return discovery(isMN, getAddress(isMN) + csi, null, null);
+	}
+	
+	public ArrayList<OM2MResource> bridgedDiscovery(boolean isMN, String csi, Integer type) {
+		return discovery(isMN, getAddress(isMN) + csi, type, null);
+	}
+	
+	public ArrayList<OM2MResource> bridgedDiscovery(boolean isMN, String csi, Integer type, ArrayList<String> filter) {
+		return discovery(isMN, getAddress(isMN) + csi, type, filter);
+	}
+	
+	public ArrayList<OM2MResource> filterByName(ArrayList<OM2MResource> r, String name) {
+		Iterator<OM2MResource> iter = r.iterator();
+		while(iter.hasNext()) {
+		    if(!iter.next().getRn().equals(name))
+		        iter.remove();
+		}
 		
-		JSONObject payload = new JSONObject();
-		payload.put("m2m:sub",sub);
+		return r;
+	}
+	
+	public ArrayList<OM2MResource> getResourcesByName(ArrayList<OM2MResource> r, String name) {
+		Iterator<OM2MResource> iter = r.iterator();
+		while(iter.hasNext()) {
+		    if(iter.next().getRn().equals(name))
+		        iter.remove();
+		}
 		
-		CoapResponse res = postRequest(address, payload.toJSONString(), 1);
+		return r;
+	}
+	
+	public ArrayList<OM2MResource> getResourcesById(ArrayList<OM2MResource> r, String id) {
+		Iterator<OM2MResource> iter = r.iterator();
+		while(iter.hasNext()) {
+		    if(iter.next().getRn().equals(id))
+		        iter.remove();
+		}
 		
-		System.out.println("subscription: " + res.getResponseText());
+		return r;
 	}
 }

@@ -27,13 +27,13 @@ function check_succ(reply) {
         $("#btn-login").hide();
         $("#btn-signup").hide();
     } else {
-        $("#btn-dashboard").hide();
+        $("#btn-backend").hide();
     }
 }
 
 // Hide dashboard button (server not reachable)
 function check_err() {
-    $("#btn-dashboard").hide();
+    $("#btn-backend").hide();
 }
 
 // -------------------------------------

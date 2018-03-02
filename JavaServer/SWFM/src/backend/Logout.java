@@ -1,15 +1,20 @@
-package frontend;
+package backend;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import java.io.IOException;
 
-import org.json.JSONObject;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "logout", urlPatterns={"/dashboard/logout"}, loadOnStartup = 2)
+@WebServlet(name = "logout", urlPatterns={"/backend/logout"}, loadOnStartup = 2)
 public class Logout extends HttpServlet {
+	@SuppressWarnings("unchecked")
 	private String createResponse(boolean error, String info) {
 		try {
 			JSONObject json = new JSONObject();
@@ -23,17 +28,18 @@ public class Logout extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		System.out.println("INIT dashboard/logout");
+		System.out.println("INIT backend/logout");
 	}
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("text/plain");
-		resp.getWriter().println();
+		resp.getWriter().println("GET RESPONSE FROM: logout");
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+		resp.setContentType("application/json");
 		HttpSession session = req.getSession();
 		if(session.getAttribute("username") != null)
 			session.invalidate();

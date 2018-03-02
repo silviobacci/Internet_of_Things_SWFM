@@ -4,55 +4,83 @@
 // to prepare home dashboard page
 // ------------------------------
 
-// ----------------------------
-// PAGE CODE
-// ----------------------------
+var size = 528;
 
-get_user_data();
-
-var texture = [];
 var tile_width = 16;
 var tile_height = 16;
+
 var tile_level_width = 1;
 var tile_level_height = 4;
 var min_level = 8;
 var av_level = 24;
 var max_level = 32;
+
 var row_number;
 var col_number;
-var context, context_wave;
-var n_motes = 6;
-var scaling_factor;
-
-var mote = [];
-
-create_texture();
 
 var dam_open = [false, false, false, false];
-
 var animation_position = [0, 0, 0, 0];
 var animation_timer = [0, 0, 0, 0];
-var animation_speed = 50;
-var animation_wave_position = 0;
-
+var animation_speed;
 var sd = [0, 28, 0, 21];
 var ed = [9, 32, 15, 32];
 var td = [3, 3, 22, 30];
 var bd = [4, 4, 23, 31];
 
-var d0, d1, d2, d3;
+var d0 = {x: (tile_width - 1) * ed[0], y: tile_height * td[0], w: tile_width * 2, h: tile_height * 3};
+var d1 = {x: tile_width * sd[1], y: tile_height * td[1], w: tile_width * 2, h: tile_height * 3};
+var d2 = {x: (tile_width - 1) * ed[2], y: tile_height * td[2], w: tile_width * 2, h: tile_height * 3};
+var d3 = {x: tile_width * sd[3], y: tile_height * td[3], w: tile_width * 2, h: tile_height * 3};
+
+var n_motes;
+var mote = [];
 
 var g, l, w, r, u, b, w1, w2, w3, w4, g1, g2, g3, g4, u2, b2, o1, o2, o3, o4, o5, o6, o7, o8, o9, o0;
 var t1, t2, t3, m1, m2, m3, m4, m5, m6, m7, m8, f2, f5;
 var h01, h02, h03, h04, h11, h12, h13, h14, h21, h22, h23, h24, h31, h32, h33, h34, h41, h42, h43, h44;
 var fm1, fm2, marker, label, red, green, yellow, grey;
-var brackground, wave;
 
-$(document).ready(function(){
-	$('#modal').on('shown.bs.modal', function (e) {
-		draw_wave();
-		draw_texture();
+function texture_constructor(texture_file, canvas, container, as) {
+	animation_speed = as;
+	create_texture();
+	set_texture_dimension(canvas, container);
+}
+
+function create_texture(texture_file) {
+	$.get(texture_svr_path + texture_file, function(data) {
+		var lines = data.split("\n");
+		for(var i = 0; i < lines.length - 1; i++) {
+		  var chars = lines[i].split("");
+		  texture[i] = [];
+		  for(var j = 0; j < chars.length; j++) {
+		  	texture[i][j] = chars[j];
+		  }
+		}
+		row_number = texture.length;
+		col_number = texture[1].length;
 	});
+}
+
+function set_texture_dimension(canvas, container) {
+	console.log(canvas[0]);
+	console.log(canvas);
+	context = canvas[0].getContext("2d");
+	
+	var min_dim = container.innerWidth() < container.innerHeight() ? container.innerWidth() : container.innerHeight();
+	
+	if(min_dim < size) {
+		canvas[0].width = min_dim;
+		canvas[0].height = min_dim;
+		var scaling_factor = min_dim/size;
+		context.scale(scaling_factor, scaling_factor);
+	}
+	else {
+		canvas[0].width = tile_height * row_number;
+		canvas[0].height = tile_width * row_number;
+	}
+}
+
+function create_tileset() {
 	g = $('#g')[0];
 	l = $('#l')[0];
 	w = $('#w')[0];
@@ -119,99 +147,6 @@ $(document).ready(function(){
 	green = $('#green')[0];
 	yellow = $('#yellow')[0];
 	grey = $('#grey')[0];
-	brackground = $('#brackground')[0];
-	wave = $('#wave')[0];
-});
-
-// ----------------------------
-// GET USER FUNCTIONS
-// ----------------------------
-
-// AJAX-REQ
-// Change navbar link if already logged in
-function get_user_data() {
-    ajax_req(
-        php_redir, 
-        "",     
-        get_succ, 
-        get_err
-    );
-}
-
-// AJAX-REP
-// Action done in case of success
-function get_succ(reply) {
-    if (reply.error == false)
-        prepare_page(reply.message);
-    else
-        window.location.replace(rel_fron_path);
-}
-
-// AJAX-ERR
-// Action done in case of failure
-function get_err(reply) {
-	alert("Server unreachable.");
-    window.location.replace(rel_fron_path);
-}
-
-// AJAX-REP
-// Action done in case of success
-function logout_succ(reply) {
-	window.location.replace(rel_fron_path);
-}
-
-// AJAX-ERR
-// Action done in case of failure
-function logout_err(reply) {
-	alert("Server unreachable.");
-}
-
-// Prepare page with custom user data
-function prepare_page(userdata) {
-	$('#btn-logout > a').click(function (){
-		ajax_req(php_logout, "null", logout_succ, logout_err);
-	});
-	$('.nav-avatar').attr("src", img_svr_path + userdata.avatar);
-	$('.card-avatar').attr("src", img_svr_path + userdata.avatar);
-	$('.cover-img').css('background-image', 'url(' + img_svr_path + userdata.cover + ')');
-	$('.card-name').html(userdata.name + " " + userdata.surname);
-	if(userdata.admin == true)
-		$('.card-text').html("You are an administrator. You can act directly on our dams in order control the water flows.");
-	else
-		$('.card-text').html("You are a standard user so we can simply observe an overview of the current state of the water flows.");
-		
-    $('.navbar-brand').attr("href", rel_fron_path);
-}
-
-// -------------------------------------
-// MAP INITIALIZATION FUNCTION
-// -------------------------------------
-
-function init_map() {
-	var river = {lat: 43.843176, lng: 10.734928};
-	var map = new google.maps.Map(document.getElementById('map'), {zoom: 6, center: river});
-	var marker = new google.maps.Marker({position: river, map: map});
-	
-	marker.addListener('click', function() {$('#modal').modal('show');});
-}
-
-// -------------------------------------
-// CANVAS RIVER OVERVIEW
-// -------------------------------------
-
-function create_texture() {
-	$.get(texture_svr_path + "texture_map.txt", function(data) {
-		var lines = data.split("\n");
-		for(var i = 0; i < lines.length - 1; i++) {
-		  	var chars = lines[i].split("");
-			texture[i] = [];
-		  	for(var j = 0; j < chars.length; j++) {
-		  		texture[i][j] = chars[j];
-		  	}
-		}
-		row_number = texture.length;
-		col_number = texture[1].length;
-	});
 }
 
 function open_dam_left(index_dam) {
@@ -369,10 +304,6 @@ function dam(index_dam, right) {
 	}
 }
 
-function contains(rect, x, y) {
-	return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h)
-}
-
 function set_water_level(mote_index, level) {
 	if(level <= min_level){
 		for(var i = 0; i < level; i++)
@@ -394,81 +325,24 @@ function set_water_level(mote_index, level) {
 	}
 }
 
-function request_to_server() {
-	$.ajax({
-		   type: 'GET',
-		   url: 'http://localhost:8080/JavaServer/MyServer',
-		   contentType: 'text/plain',
-		   xhrFields: {withCredentials: false},
-		   headers: {},
-		   success: function(data) {
-		   set_water_level(0, data);
-		   },
-		   error: function(data) {
-		   console.log(data);
-		   }
-		   });
+function add_mote(new_mote_row, new_mote_columns) {
+	n_motes++;
+	draw_mote(n_motes - 1, new_motes_row[n_motes - 1], new_motes_columns[n_motes - 1]);
 }
 
-function wave_animation() {
-	context_wave.drawImage(background, 0, 0, background.width, background.height);
-	if(++animation_wave_position == background.width)
-		animation_wave_position = 0;
-	var height = background.height - wave.height;
-	var threshold_height = animation_wave_position;
-	context_wave.drawImage(wave, animation_wave_position, height, wave.width, wave.height);
-	context_wave.drawImage(wave, animation_wave_position - wave.width, height, wave.width, wave.height);
-	
-	context_wave.beginPath();
-	context_wave.moveTo(0,threshold_height);
-	context_wave.lineTo(background.width, threshold_height);
-	context_wave.lineWidth = 5;
-	context_wave.strokeStyle = '#ff0000';
-	context_wave.stroke();
+function create_motes(new_motes_row, new_motes_columns) {
+	n_motes = new_motes.size();
+	for(var mote_index = 0; mote_index < n_motes; i++)
+		draw_mote(mote_index, new_motes_row[mote_index],  new_motes_columns[mote_index]);
 }
 
-function draw_wave() {
-	request_timer = setInterval(wave_animation, 10);
-	
-	var canvas = $('#river-sec');
-	context_wave = canvas[0].getContext("2d");
-	
-	var min_dim = background.width < $('#canvas-right-container').innerWidth() ? background.width : $('#canvas-right-container').innerWidth();
-	
-	canvas[0].width = min_dim;
-	canvas[0].height = background.height;
-	
-	if(min_dim == $('#canvas-right-container').innerWidth()) {
-		scaling_factor = min_dim/background.width;
-		canvas[0].height = background.height * scaling_factor;
-		context_wave.scale(scaling_factor, scaling_factor);
-	}
-	
-	context_wave.drawImage(background, 0, 0, background.width, background.height);
-	
+function draw_mote(mote_index, row, column) {
+	mote[mote_index] = {x : (column-1)*tile_width+8, y : (row-1)*tile_height+6, w : tile_width*3, h : tile_height};
+	context.drawImage(label, (column-1)*tile_width, (row-1)*tile_height, tile_width*3, tile_height);
+	context.drawImage(marker, column*tile_width, row*tile_height, tile_width, tile_height);
 }
 
 function draw_texture() {
-	//request_timer = setInterval(request_to_server, 1000);
-	
-	var canvas = $('#river-ov');
-	context = canvas[0].getContext("2d");
-	
-	var min_dim = $('#canvas-left-container').innerWidth() < $('#canvas-left-container').innerHeight() ? $('#canvas-left-container').innerWidth() : $('#canvas-left-container').innerHeight();
-	
-	if(min_dim < 528) {
-		canvas[0].width = min_dim;
-		canvas[0].height = min_dim;
-		scaling_factor = min_dim/528;
-		context.scale(scaling_factor, scaling_factor);
-	}
-	else {
-		canvas[0].width = tile_height * row_number;
-		canvas[0].height = tile_width * row_number;
-	}
-	
-	var mote_index = 0;
-	
 	for(var i = 0; i < row_number; i++) {
 		for(var j = 0; j < col_number; j++) {
 			switch(texture[i][j]) {
@@ -649,91 +523,9 @@ function draw_texture() {
 				case "@":
 					context.drawImage(fm2, j*tile_width, i*tile_height, tile_width, tile_height);
 					break;
-				case "ç":
-					mote[mote_index] = {x : (j-1)*tile_width+8, y : (i-1)*tile_height+6, w : tile_width*3, h : tile_height};
-					mote_index++;
-					context.drawImage(label, (j-1)*tile_width, (i-1)*tile_height, tile_width*3, tile_height);
-					context.drawImage(marker, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
 				default:
 					context.drawImage(g, j*tile_width, i*tile_height, tile_width, tile_height);
 			}
 		}
 	}
-	
-	d0 = {x: (tile_width - 1) * ed[0], y: tile_height * td[0], w: tile_width * 2, h: tile_height * 3};
-	d1 = {x: tile_width * sd[1], y: tile_height * td[1], w: tile_width * 2, h: tile_height * 3};
-	d2 = {x: (tile_width - 1) * ed[2], y: tile_height * td[2], w: tile_width * 2, h: tile_height * 3};
-	d3 = {x: tile_width * sd[3], y: tile_height * td[3], w: tile_width * 2, h: tile_height * 3};
-	
-	$('#river-ov').mousemove(function(ev) {
-		var x = ev.pageX - $(this).offset().left;
-		var y = ev.pageY - $(this).offset().top;
-
-		if(contains(d0, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(d1, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(d2, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(d3, x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[0], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[1], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[2], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[3], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[4], x, y))
-			$(this).css('cursor', 'pointer');
-		else if (contains(mote[5], x, y))
-			$(this).css('cursor', 'pointer');
-		else
-			$(this).css('cursor', 'default');
-	});
-	
-	$('#river-ov').click(function(ev) {
-		var x = ev.pageX - $(this).offset().left;
-		var y = ev.pageY - $(this).offset().top;
-
-		if(contains(d0, x, y))
-			dam(0, false);
-		else if (contains(d1, x, y))
-			dam(1, true);
-		else if (contains(d2, x, y))
-			dam(2, false);
-		else if (contains(d3, x, y))
-			dam(3, true);
-		 else if (contains(mote[0], x, y))
-			set_water_level(0, 15);
-		 else if (contains(mote[1], x, y))
-			set_water_level(1, 15);
-		 else if (contains(mote[2], x, y))
-			set_water_level(2, 15);
-		 else if (contains(mote[3], x, y))
-			set_water_level(3, 15);
-		 else if (contains(mote[4], x, y))
-			set_water_level(4, 15);
-		 else if (contains(mote[5], x, y))
-			set_water_level(5, 15);
-	});
-}
-
-// -------------------------------------
-// UTILITY
-// -------------------------------------
-
-// Send an ajax req
-function ajax_req(dest, info, succ, err) {
-    $.ajax({
-		type: "POST",
-		url: dest,
-		xhrFields: { withCredentials: true },
-		data: info,
-		dataType: "json",
-		success: succ,
-		error: err
-    });
 }

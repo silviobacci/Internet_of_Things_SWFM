@@ -1,40 +1,37 @@
 package frontend;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import java.io.IOException;
 
-import org.json.JSONObject;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
+
+import assets.JsonResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "redirect", urlPatterns={"/frontend/redirect", "/dashboard/redirect"}, loadOnStartup = 2)
+@WebServlet(name = "redirect", urlPatterns={"/frontend/redirect", "/backend/redirect"}, loadOnStartup = 1)
 public class Redirect extends HttpServlet {
-	private String createResponse(boolean error, String info) {
-		try {
-			JSONObject json = new JSONObject();
-			json.put("error", error);
-			json.put("message", info);
-			return json.toString();
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
 	@Override
 	public void init() throws ServletException {
 		System.out.println("INIT frontend/redirect");
+		System.out.println("INIT backend/redirect");
 	}
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("text/plain");
-		resp.getWriter().println("RISPOSTA");
+		resp.getWriter().println("GET RESPONSE FROM: redirect");
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		resp.setContentType("text/plain");
+		resp.setContentType("application/json");
 		HttpSession session = req.getSession();
 		
 		if(session.getAttribute("username") != null) {
@@ -54,10 +51,10 @@ public class Redirect extends HttpServlet {
 				resp.getWriter().write(json.toString());
 			}
 			catch(Exception e) {
-				resp.getWriter().write(createResponse(true, "Error creating json object."));
+				resp.getWriter().write(new JsonResponse().create(true, "Error creating json object."));
 			}
 		}
 		else
-			resp.getWriter().write(createResponse(true, "Not yet logged."));
+			resp.getWriter().write(new JsonResponse().create(true, "Not yet logged."));
 	}
 }

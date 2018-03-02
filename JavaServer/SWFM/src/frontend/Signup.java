@@ -1,16 +1,18 @@
 package frontend;
 
-import java.io.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import assets.DbManager;
 import assets.JsonResponse;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "frontend_signup", urlPatterns={"/frontend/signup"}, loadOnStartup = 1)
+@WebServlet(name = "signup", urlPatterns={"/frontend/signup"}, loadOnStartup = 1)
 public class Signup extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
@@ -20,10 +22,11 @@ public class Signup extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("text/plain");
-		resp.getWriter().println();
+		resp.getWriter().println("GET RESPONSE FROM: signup");
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		DbManager db = new DbManager();
 		

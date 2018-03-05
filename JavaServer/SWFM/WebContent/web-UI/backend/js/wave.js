@@ -6,14 +6,14 @@ var animation_timer_wave;
 
 var brackground, wave;
 
-function wave_constructor(canvas, container, as) {
+function wave_constructor(canvas, container, container2, as) {
 	brackground = $('#brackground')[0];
 	wave = $('#wave')[0];
 	animation_speed_wave = as;
-	set_wave_dimension(canvas, container);
+	set_wave_dimension(canvas, container, container2);
 }
 
-function set_wave_dimension(canvas, container) {
+function set_wave_dimension(canvas, container, container2) {
 	context_wave = canvas[0].getContext("2d");
 	
 	var min_dim = background.width < container.innerWidth() ? background.width : container.innerWidth();
@@ -26,6 +26,17 @@ function set_wave_dimension(canvas, container) {
 		canvas[0].height = background.height * scaling_factor;
 		context_wave.scale(scaling_factor, scaling_factor);
 	}
+	
+	container2.css("width", canvas[0].width + 4);
+	container2.css("height", canvas[0].height + 4);
+}
+
+function create_wave_placeholder(canvas) {
+	context_wave.drawImage($("#unable_rect")[0], 0, 0, canvas[0].width, canvas[0].height);
+}
+
+function create_wave_click_to_open(canvas) {
+	context_wave.drawImage($("#click")[0], 0, 0, canvas[0].width, canvas[0].height);
 }
 
 function wave_animation() {

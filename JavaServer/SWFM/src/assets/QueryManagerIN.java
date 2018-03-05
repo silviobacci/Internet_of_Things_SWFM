@@ -153,41 +153,6 @@ public class QueryManagerIN {
 		return all;
 	}
 	
-	private JSONObject getLatitudeLongitude(String father_id) {
-		ArrayList<OM2MResource> gps_containers = getContainerByName(father_id, GPS);
-		
-		if(gps_containers == null)
-			return null;
-		
-		ContainerResource gps = (ContainerResource) gps_containers.get(0);
-		
-		ArrayList<OM2MResource> gps_lat = getContainerByName(gps.getRi(), LATITUDE);
-		
-		if(gps_lat == null)
-			return null;
-		
-		ContainerResource lat = (ContainerResource) gps_lat.get(0);
-		
-		ArrayList<OM2MResource> gps_lon = getContainerByName(gps.getRi(), LONGITUDE);
-		
-		if(gps_lon == null)
-			return null;
-		
-		ContainerResource lon = (ContainerResource) gps_lon.get(0);
-		
-		InstanceResource last_lat = mng.getContentInstance(IN, ((ContainerResource) lat).getRi());
-		InstanceResource last_lon = mng.getContentInstance(IN, ((ContainerResource) lon).getRi());
-		
-		if(last_lat == null || last_lon == null)
-			return null;
-		
-		JSONObject jo = new JSONObject();
-		jo.put("lat", last_lat.getCon());
-		jo.put("lon", last_lon.getCon());
-		
-		return jo;
-	}
-	
 	private JSONObject getSingleData(String father_id, String type) {
 		ArrayList<OM2MResource> types = getContainerByName(father_id, type);
 		
@@ -228,12 +193,7 @@ public class QueryManagerIN {
 		JSONArray response = new JSONArray();
 		
 		for(OM2MResource s : sensors) {
-			JSONObject data = null;
-			
-			if(d == GPS)
-				data = getLatitudeLongitude(s.getRi());
-			else
-				data = getSingleData(s.getRi(), d);
+			JSONObject data = getSingleData(s.getRi(), d);
 			
 			if(data != null)
 				response.add(data);
@@ -302,7 +262,7 @@ public class QueryManagerIN {
 			return null;
 		
 		for (OM2MResource mn : copiedMN) {
-			JSONObject value = getLatitudeLongitude(mn.getRi());
+			JSONObject value = getSingleData(mn.getRi(), GPS);
 			
 			if(value != null) {
 				JSONObject jo = new JSONObject();

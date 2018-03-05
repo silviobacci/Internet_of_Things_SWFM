@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>SWFM backend - Home</title>
+		<title>SWFM - Home</title>
 		
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -9,6 +9,7 @@
 		
 		<!-- Bootstrap CSS - FontAwesome CSS - Main CSS -->
 		<link rel="stylesheet" href="css/assets/bootstrap.css">
+		<link rel="stylesheet" href="css/assets/bootstrap-slider.min.css">
 		<link rel="stylesheet" href="css/assets/font-awesome.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
@@ -18,6 +19,8 @@
 		<script type="text/javascript" src="js/assets/popper.min.js"></script>
 		<script type="text/javascript" src="js/assets/tether.min.js"></script>
 		<script type="text/javascript" src="js/assets/bootstrap.js"></script>
+		<script type="text/javascript" src="js/assets/bootstrap-slider.min.js"></script>
+		<script type="text/javascript" src="js/assets/jquery.canvasjs.min.js"></script>
 		<script type="text/javascript" src="js/assets/path.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/texture.js"></script>
@@ -105,8 +108,12 @@
 			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/green.png" id="green" width="1" height="4">
 			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/yellow.png" id="yellow" width="1" height="4">
 			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/grey.png" id="grey" width="1" height="4">
-			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/background.png" id="background" width="528" height="297">
-			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/wave.png" id="wave" width="528" height="189">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/background.png" id="background" width="400" height="225">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/wave.png" id="wave" width="400" height="143">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/rect.png" id="rect" width="48" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/unable_rect.png" id="unable_rect" width="528" height="297">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/unable_quad.png" id="unable_quad" width="528" height="528">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/click.png" id="click" width="528" height="297">
 		</div>
 		
 		<div class="container-fluid main-container">
@@ -141,11 +148,9 @@
 							<p class="card-text"></p>
 						</div>
 					</div>
-					</div>
+				</div>
 				<div class="col-sm-8">
-					<div class="card map-card" id="map">
-						<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=create_map"></script>
-					</div>
+					<div class="card map-card" id="map"></div>
 				</div>
 			</div>
 		</div>
@@ -154,38 +159,95 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content modal-container">
 					<div class="modal-header">
-						<h5 class="modal-title" id="login-modal-label">Pescia - Fiume</h5>
+						<h5 class="modal-title" id="login-modal-label">PESCIA - CSR_2313121231</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body row">
-						<div class="col-sm-6" id="canvas-left-container" class="canvas">
-							<canvas id="river-ov"></canvas>
-						</div>
-						<div class="col-sm-6" id="canvas-right-container" class="canvas">
-							<canvas id="river-sec"></canvas>
-							<div class="card bg-faded">
-								<div class="card-about">
-									<h6 class="text-left d-inline">Current level: 3m</h6><br>
-								</div>
-							</div>
-							<div class="card bg-faded">
-								<div class="card-about">
-									<h6 class="text-left d-inline">Current threshold: 4m</h6>
-									<form id="form-signup" method="post" enctype="multipart/form-data" data-toggle="validator">
-										<div class="form-group">
-											<label for="name" class="form-control-label">New threshold:</label>
-											<input type="text" class="align-middle" name="name" id="signup-name" data-vindicate="required|active">
-											<button type="button" onclick="submit_signup();" class="btn btn-primary">Chnage</button>
+						<div class="col-sm-6">
+							<div id="canvas-left-container" class="canvas">
+								<div>
+									<div class="card bg-faded titles">
+										<div class="card-about">
+											<h6 class="text-left d-inline">CURRENT STATE</h6>
 										</div>
-									</form>
+									</div>
+									<div id="canvas-river-ov">
+										<canvas id="river-ov"></canvas>
+										<canvas id="overlay"></canvas>
+									</div>
 								</div>
 							</div>
-							<div class="card bg-faded">
-								<div class="card-about">
-									<h6>ATTENTION:</h6>
-									<p>Messaggio</p>
+						</div>
+						<div class="col-sm-6 right-section">
+							<div>
+								<div class="row">
+									<div class="col-sm-12">
+										<div id="canvas-right-container" class="canvas">
+											<div>
+												<div class="card bg-faded titles">
+													<div class="card-about">
+														<h6 class="text-left d-inline">CURRENT LEVEL: 3m</h6>
+													</div>
+												</div>
+												<div id="canvas-river-sec">
+													<canvas id="river-sec"></canvas>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="canvas">
+											<div>
+												<div class="card bg-faded titles">
+													<div class="card-about">
+														<h6 class="text-left d-inline">SENSOR HISTORY</h6><br>
+													</div>
+												</div>
+												<div id="chart-history" class="chart-container"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row to-hidden">
+									<div class="col-sm-12">
+										<div class="canvas">
+											<div>
+												<div class="card bg-faded titles">
+													<div class="card-about">
+														<h6 class="text-left d-inline">CURRENT THRESHOLD: 50 cm</h6>
+													</div>
+												</div>
+												<div id="threshold">
+													<div class="unable click">
+														<div class="th">
+															<label id="new_th" class="form-control-label">NEW THRESHOLD: 50 cm</label>
+														</div>
+														<div class="th">
+															<input id="slider" data-slider-id='sliderSlider' type="text" data-slider-min="0" data-slider-max="500" data-slider-step="1" data-slider-value="50"/>
+														</div>
+														<div class="th">
+															<button type="button" onclick="submit_signup();" class="btn btn-primary">CHANGE</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row  unable">
+									<div class="col-sm-12">
+										<div class="canvas">
+											<div>
+												<div id="alert" class="alert alert-success">
+													<strong>Success!</strong> Indicates a successful or positive action.
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

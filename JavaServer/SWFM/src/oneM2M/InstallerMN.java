@@ -1,13 +1,13 @@
 package oneM2M;
 
 import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 
 import resources.AEResource;
 import resources.ContainerResource;
 import resources.InstanceResource;
 import resources.OM2MResource;
-import resources.ReferenceResource;
 
 public class InstallerMN extends Thread {
 	private OM2MManager mng ;

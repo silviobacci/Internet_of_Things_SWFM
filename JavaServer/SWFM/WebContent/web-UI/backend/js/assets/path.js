@@ -14,6 +14,17 @@ var abs_fron_path = "http://localhost/SWFM/web-UI/frontend/";
 // MOST USED SERVER PHP PAGES
 // ------------------------------------
 
-var php_logout = "http://localhost/SWFM/backend/logout";
-var php_redir = "http://localhost/SWFM/backend/redirect";
+var logout = "http://localhost/SWFM/backend/logout";
+var redirect = "http://localhost/SWFM/backend/redirect";
+
+//------------------------------------
+// SERVLET
+//------------------------------------
+
+var getmarkerposition = "http://localhost/SWFM/backend/getmarkerposition";
+var getmarkername = "http://localhost/SWFM/backend/getmarkername";
+var getdamdata = "http://localhost/SWFM/backend/getdamdata";
+var setdamdata = "http://localhost/SWFM/backend/setdamdata";
+var getsensordata = "http://localhost/SWFM/backend/getsensordata";
+var setsensordata = "http://localhost/SWFM/backend/setsensordata";
 

@@ -13,18 +13,17 @@ $(document).ready(function(){
 	get_user_data();
 	create_texture("texture_map.txt");
 	//$('#modal').modal('show');
-	map_constructor($("#map"));
-	create_map_placeholder($("#map"));
+	getMarkerPosition();
 	
 	$('#modal').on('shown.bs.modal', function (e) {
 		texture_constructor($("#river-ov"), $("#canvas-left-container"), $("#canvas-river-ov"), 50);
 		wave_constructor($("#river-sec"), $("#canvas-right-container"), $("#canvas-river-sec"), 30);
 		history_constructor($("#river-sec"), $("#chart-history"));
 		
-		draw_texture();
-		create_default_motes();
-		create_texture_handlers(is_admin);
-		create_overlay($("#river-ov"), $("#overlay"));
+		//draw_texture();
+		//create_default_motes();
+		//create_texture_handlers(is_admin);
+		//create_overlay($("#river-ov"), $("#overlay"));
 		//create_texture_placeholder($("#river-ov"));
 		
 		//draw_wave();
@@ -80,7 +79,7 @@ function create_slider_handler() {
 // Change navbar link if already logged in
 function get_user_data() {
     ajax_req(
-        redirect, 
+    		redirect, 
         "",     
         get_succ, 
         get_err

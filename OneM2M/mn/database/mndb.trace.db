@@ -1,0 +1,2816 @@
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE" not found; SQL statement:
+ALTER TABLE AE DROP CONSTRAINT FK_AE_GENERATEDACP_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB" not found; SQL statement:
+ALTER TABLE CSEB DROP CONSTRAINT FK_CSEB_sch_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT" not found; SQL statement:
+ALTER TABLE CNT DROP CONSTRAINT FK_CNT_PARENTCSR_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+ALTER TABLE CSR DROP CONSTRAINT FK_CSR_GENERATEDACP_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+ALTER TABLE CSR DROP CONSTRAINT FK_CSR_sch_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB" not found; SQL statement:
+ALTER TABLE SUB DROP CONSTRAINT FK_SUB_sch_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+ALTER TABLE AE_CHACP DROP CONSTRAINT FK_AE_CHACP_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+ALTER TABLE AE_CHACP DROP CONSTRAINT FK_AE_CHACP_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+ALTER TABLE CSEB_CHILDACP DROP CONSTRAINT FK_CSEB_CHILDACP_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+ALTER TABLE CSEB_CHILDACP DROP CONSTRAINT FK_CSEB_CHILDACP_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_ACPCH_JOIN DROP CONSTRAINT FK_CSR_ACPCH_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_ACPCH_JOIN DROP CONSTRAINT FK_CSR_ACPCH_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_ACP_JOIN DROP CONSTRAINT FK_ANDI_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_ACP_JOIN DROP CONSTRAINT FK_ANDI_ACP_JOIN_ANDI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+ALTER TABLE ANI_ACP_JOIN DROP CONSTRAINT FK_ANI_ACP_JOIN_ANI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+ALTER TABLE ANI_ACP_JOIN DROP CONSTRAINT FK_ANI_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+ALTER TABLE ACP_SUB_JOIN DROP CONSTRAINT FK_ACP_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+ALTER TABLE ACP_SUB_JOIN DROP CONSTRAINT FK_ACP_SUB_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+ALTER TABLE ACP_DAC_JOIN DROP CONSTRAINT FK_ACP_DAC_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+ALTER TABLE ACP_DAC_JOIN DROP CONSTRAINT FK_ACP_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+ALTER TABLE ACP_LBL DROP CONSTRAINT FK_ACP_LBL_linkedACP_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+ALTER TABLE ACP_LBL DROP CONSTRAINT FK_ACP_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+ALTER TABLE AE_ACP DROP CONSTRAINT FK_AE_ACP_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+ALTER TABLE AE_ACP DROP CONSTRAINT FK_AE_ACP_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+ALTER TABLE CNT_ACP_JOIN DROP CONSTRAINT FK_CNT_ACP_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+ALTER TABLE CNT_ACP_JOIN DROP CONSTRAINT FK_CNT_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+ALTER TABLE CSEB_ACP DROP CONSTRAINT FK_CSEB_ACP_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+ALTER TABLE CSEB_ACP DROP CONSTRAINT FK_CSEB_ACP_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+ALTER TABLE DAC_ACP_JOIN DROP CONSTRAINT FK_DAC_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+ALTER TABLE DAC_ACP_JOIN DROP CONSTRAINT FK_DAC_ACP_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+ALTER TABLE FCNTA_ACP_JOIN DROP CONSTRAINT FK_FCNTA_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+ALTER TABLE FCNTA_ACP_JOIN DROP CONSTRAINT FK_FCNTA_ACP_JOIN_FCNTA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_ACP_JOIN DROP CONSTRAINT FK_FCNT_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_ACP_JOIN DROP CONSTRAINT FK_FCNT_ACP_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+ALTER TABLE NOD_ACP_JOIN DROP CONSTRAINT FK_NOD_ACP_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+ALTER TABLE NOD_ACP_JOIN DROP CONSTRAINT FK_NOD_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+ALTER TABLE ACP_PCH_JOIN DROP CONSTRAINT FK_ACP_PCH_JOIN_PCH_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+ALTER TABLE ACP_PCH_JOIN DROP CONSTRAINT FK_ACP_PCH_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+ALTER TABLE SUB_ACP_JOIN DROP CONSTRAINT FK_SUB_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+ALTER TABLE SUB_ACP_JOIN DROP CONSTRAINT FK_SUB_ACP_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+ALTER TABLE ACP_ACR_PV DROP CONSTRAINT FK_ACP_ACR_PV_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+ALTER TABLE ACP_ACR_PV DROP CONSTRAINT FK_ACP_ACR_PV_ACR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+ALTER TABLE ACP_ACR_PVS DROP CONSTRAINT FK_ACP_ACR_PVS_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+ALTER TABLE ACP_ACR_PVS DROP CONSTRAINT FK_ACP_ACR_PVS_ACR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+ALTER TABLE ACR_ACC DROP CONSTRAINT FK_ACR_ACC_ACR_ACR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+ALTER TABLE ACR_ACC DROP CONSTRAINT ACRACCaccessControlContexts_ACCESSCONTROLCONTEXTID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+ALTER TABLE ACR_ACO DROP CONSTRAINT FK_ACR_ACO_accessControlOriginators_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+ALTER TABLE ACR_ACO DROP CONSTRAINT FK_ACR_ACO_ACR_ACR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+ALTER TABLE CSEB_AE DROP CONSTRAINT FK_CSEB_AE_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+ALTER TABLE CSEB_AE DROP CONSTRAINT FK_CSEB_AE_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHAE_JOIN DROP CONSTRAINT FK_CSR_CHAE_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHAE_JOIN DROP CONSTRAINT FK_CSR_CHAE_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+ALTER TABLE AE_CNT_JOIN DROP CONSTRAINT FK_AE_CNT_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+ALTER TABLE AE_CNT_JOIN DROP CONSTRAINT FK_AE_CNT_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+ALTER TABLE AE_DACCHILD_JOIN DROP CONSTRAINT FK_AE_DACCHILD_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+ALTER TABLE AE_DACCHILD_JOIN DROP CONSTRAINT FK_AE_DACCHILD_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+ALTER TABLE AE_FCNT_JOIN DROP CONSTRAINT FK_AE_FCNT_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+ALTER TABLE AE_FCNT_JOIN DROP CONSTRAINT FK_AE_FCNT_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+ALTER TABLE AE_CHGRP_JOIN DROP CONSTRAINT FK_AE_CHGRP_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+ALTER TABLE AE_CHGRP_JOIN DROP CONSTRAINT FK_AE_CHGRP_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+ALTER TABLE AE_DAC_JOIN DROP CONSTRAINT FK_AE_DAC_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+ALTER TABLE AE_DAC_JOIN DROP CONSTRAINT FK_AE_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+ALTER TABLE AE_LBL DROP CONSTRAINT FK_AE_LBL_linkedAe_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+ALTER TABLE AE_LBL DROP CONSTRAINT FK_AE_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+ALTER TABLE AE_PCH_JOIN DROP CONSTRAINT FK_AE_PCH_JOIN_PCH_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+ALTER TABLE AE_PCH_JOIN DROP CONSTRAINT FK_AE_PCH_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+ALTER TABLE AE_SUB_JOIN DROP CONSTRAINT FK_AE_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+ALTER TABLE AE_SUB_JOIN DROP CONSTRAINT FK_AE_SUB_JOIN_AE_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_AEANNCH_JOIN DROP CONSTRAINT FK_CSR_AEANNCH_JOIN_AEANNC_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_AEANNCH_JOIN DROP CONSTRAINT FK_CSR_AEANNCH_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+ALTER TABLE AEANNC_ACP DROP CONSTRAINT FK_AEANNC_ACP_AEANNC_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+ALTER TABLE AEANNC_ACP DROP CONSTRAINT FK_AEANNC_ACP_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+ALTER TABLE AEANNC_DAC_JOIN DROP CONSTRAINT FK_AEANNC_DAC_JOIN_AEANNC_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+ALTER TABLE AEANNC_DAC_JOIN DROP CONSTRAINT FK_AEANNC_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+ALTER TABLE AEANNC_FCNTA_JOIN DROP CONSTRAINT FK_AEANNC_FCNTA_JOIN_FCNTA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+ALTER TABLE AEANNC_FCNTA_JOIN DROP CONSTRAINT FK_AEANNC_FCNTA_JOIN_AEANNC_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+ALTER TABLE AEA_LBL DROP CONSTRAINT FK_AEA_LBL_linkedAeA_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+ALTER TABLE AEA_LBL DROP CONSTRAINT FK_AEA_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+ALTER TABLE AEANNCSUB_JOIN_ID DROP CONSTRAINT FK_AEANNCSUB_JOIN_ID_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+ALTER TABLE AEANNCSUB_JOIN_ID DROP CONSTRAINT FK_AEANNCSUB_JOIN_ID_AEANNC_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_NOD_JOIN DROP CONSTRAINT FK_ANDI_NOD_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_NOD_JOIN DROP CONSTRAINT FK_ANDI_NOD_JOIN_ANDI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_DAC_JOIN DROP CONSTRAINT FK_ANDI_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_DAC_JOIN DROP CONSTRAINT FK_ANDI_DAC_JOIN_ANDI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+ALTER TABLE ANDI_LBL DROP CONSTRAINT FK_ANDI_LBL_linkedAndi_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+ALTER TABLE ANDI_LBL DROP CONSTRAINT FK_ANDI_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_SUB_JOIN DROP CONSTRAINT FK_ANDI_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+ALTER TABLE ANDI_SUB_JOIN DROP CONSTRAINT FK_ANDI_SUB_JOIN_ANDI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+ALTER TABLE ANI_NOD_JOIN DROP CONSTRAINT FK_ANI_NOD_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+ALTER TABLE ANI_NOD_JOIN DROP CONSTRAINT FK_ANI_NOD_JOIN_ANI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+ALTER TABLE ANI_DAC_JOIN DROP CONSTRAINT FK_ANI_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+ALTER TABLE ANI_DAC_JOIN DROP CONSTRAINT FK_ANI_DAC_JOIN_ANI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+ALTER TABLE ANI_LBL DROP CONSTRAINT FK_ANI_LBL_linkedAni_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+ALTER TABLE ANI_LBL DROP CONSTRAINT FK_ANI_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+ALTER TABLE ANI_SUB_JOIN DROP CONSTRAINT FK_ANI_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+ALTER TABLE ANI_SUB_JOIN DROP CONSTRAINT FK_ANI_SUB_JOIN_ANI_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_CNT_JOIN DROP CONSTRAINT FK_CSEB_CNT_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_CNT_JOIN DROP CONSTRAINT FK_CSEB_CNT_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_CHILDDAC_JOIN DROP CONSTRAINT FK_CSEB_CHILDDAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_CHILDDAC_JOIN DROP CONSTRAINT FK_CSEB_CHILDDAC_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_FCNT_JOIN DROP CONSTRAINT FK_CSEB_FCNT_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_FCNT_JOIN DROP CONSTRAINT FK_CSEB_FCNT_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+ALTER TABLE CSB_GRP_JOIN DROP CONSTRAINT FK_CSB_GRP_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+ALTER TABLE CSB_GRP_JOIN DROP CONSTRAINT FK_CSB_GRP_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+ALTER TABLE CSB_NOD_CH_JOIN DROP CONSTRAINT FK_CSB_NOD_CH_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+ALTER TABLE CSB_NOD_CH_JOIN DROP CONSTRAINT FK_CSB_NOD_CH_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+ALTER TABLE CSB_CSR DROP CONSTRAINT FK_CSB_CSR_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+ALTER TABLE CSB_CSR DROP CONSTRAINT FK_CSB_CSR_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_REQ_JOIN DROP CONSTRAINT FK_CSEB_REQ_JOIN_REQ_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_REQ_JOIN DROP CONSTRAINT FK_CSEB_REQ_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+ALTER TABLE CSB_SUB_JOIN DROP CONSTRAINT FK_CSB_SUB_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+ALTER TABLE CSB_SUB_JOIN DROP CONSTRAINT FK_CSB_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_DAC_JOIN DROP CONSTRAINT FK_CSEB_DAC_JOIN_CSEB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+ALTER TABLE CSEB_DAC_JOIN DROP CONSTRAINT FK_CSEB_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+ALTER TABLE CSEB_LBL DROP CONSTRAINT FK_CSEB_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+ALTER TABLE CSEB_LBL DROP CONSTRAINT FK_CSEB_LBL_linkedCsb_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+ALTER TABLE CNT_CHCNT DROP CONSTRAINT FK_CNT_CHCNT_CNTCH_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+ALTER TABLE CNT_CHCNT DROP CONSTRAINT FK_CNT_CHCNT_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+ALTER TABLE FCNT_CHCNT DROP CONSTRAINT FK_FCNT_CHCNT_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+ALTER TABLE FCNT_CHCNT DROP CONSTRAINT FK_FCNT_CHCNT_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+ALTER TABLE FCNT_CHCNT DROP CONSTRAINT FK_FCNT_CHCNT_CNTCH_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+ALTER TABLE CNT_CIN_JOIN DROP CONSTRAINT FK_CNT_CIN_JOIN_CINCH_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+ALTER TABLE CNT_CIN_JOIN DROP CONSTRAINT FK_CNT_CIN_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+ALTER TABLE CNT_FCNTCHILD_JOIN DROP CONSTRAINT FK_CNT_FCNTCHILD_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+ALTER TABLE CNT_FCNTCHILD_JOIN DROP CONSTRAINT FK_CNT_FCNTCHILD_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+ALTER TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN DROP CONSTRAINT CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+ALTER TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN DROP CONSTRAINT CNTDYNAMICAUTHORIZATIONCONSULTATION_JOINDAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+ALTER TABLE CNT_LBL DROP CONSTRAINT FK_CNT_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+ALTER TABLE CNT_LBL DROP CONSTRAINT FK_CNT_LBL_linkedCnt_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+ALTER TABLE CNT_SUB_JOIN DROP CONSTRAINT FK_CNT_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+ALTER TABLE CNT_SUB_JOIN DROP CONSTRAINT FK_CNT_SUB_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+ALTER TABLE CSR_DACCHILD_JOIN DROP CONSTRAINT FK_CSR_DACCHILD_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+ALTER TABLE CSR_DACCHILD_JOIN DROP CONSTRAINT FK_CSR_DACCHILD_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+ALTER TABLE DAC_DACCHILD_JOIN DROP CONSTRAINT FK_DAC_DACCHILD_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+ALTER TABLE DAC_DACCHILD_JOIN DROP CONSTRAINT FK_DAC_DACCHILD_JOIN_DACCHILD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+ALTER TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL DROP CONSTRAINT DYNMCTHRZTNCNSLTTNNTTYLBLDYNMCTHRZTNCNSLTTNNTITYri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+ALTER TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL DROP CONSTRAINT DYNMCTHORIZATIONCONSULTATIONENTITYLBLlblsnttieslbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+ALTER TABLE CIN_DAC_JOIN DROP CONSTRAINT FK_CIN_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+ALTER TABLE CIN_DAC_JOIN DROP CONSTRAINT FK_CIN_DAC_JOIN_CIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+ALTER TABLE FCNTA_DAC_JOIN DROP CONSTRAINT FK_FCNTA_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+ALTER TABLE FCNTA_DAC_JOIN DROP CONSTRAINT FK_FCNTA_DAC_JOIN_FCNTA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_DAC_JOIN DROP CONSTRAINT FK_FCNT_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_DAC_JOIN DROP CONSTRAINT FK_FCNT_DAC_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+ALTER TABLE GRP_DAC_JOIN DROP CONSTRAINT FK_GRP_DAC_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+ALTER TABLE GRP_DAC_JOIN DROP CONSTRAINT FK_GRP_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+ALTER TABLE NOD_DAC_JOIN DROP CONSTRAINT FK_NOD_DAC_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+ALTER TABLE NOD_DAC_JOIN DROP CONSTRAINT FK_NOD_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+ALTER TABLE CSR_DAC_JOIN DROP CONSTRAINT FK_CSR_DAC_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+ALTER TABLE CSR_DAC_JOIN DROP CONSTRAINT FK_CSR_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+ALTER TABLE SCH_DAC_JOIN DROP CONSTRAINT FK_SCH_DAC_JOIN_SCH_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+ALTER TABLE SCH_DAC_JOIN DROP CONSTRAINT FK_SCH_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHFCNT_JOIN DROP CONSTRAINT FK_CSR_CHFCNT_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHFCNT_JOIN DROP CONSTRAINT FK_CSR_CHFCNT_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+ALTER TABLE FCNT_CHFCNT DROP CONSTRAINT FK_FCNT_CHFCNT_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+ALTER TABLE FCNT_CHFCNT DROP CONSTRAINT FK_FCNT_CHFCNT_CFCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_CA_JOIN DROP CONSTRAINT FK_FCNT_CA_JOIN_CA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_CA_JOIN DROP CONSTRAINT FK_FCNT_CA_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+ALTER TABLE FCNT_LBL DROP CONSTRAINT FK_FCNT_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+ALTER TABLE FCNT_LBL DROP CONSTRAINT FK_FCNT_LBL_linkedFcnt_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_SUB_JOIN DROP CONSTRAINT FK_FCNT_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+ALTER TABLE FCNT_SUB_JOIN DROP CONSTRAINT FK_FCNT_SUB_JOIN_FCNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+ALTER TABLE FCNTA_FCNTACHILD_JOIN DROP CONSTRAINT FK_FCNTA_FCNTACHILD_JOIN_CFCNTA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+ALTER TABLE FCNTA_FCNTACHILD_JOIN DROP CONSTRAINT FK_FCNTA_FCNTACHILD_JOIN_FCNTA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+ALTER TABLE FCNTA_LBL DROP CONSTRAINT FK_FCNTA_LBL_linkedFcntA_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+ALTER TABLE FCNTA_LBL DROP CONSTRAINT FK_FCNTA_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+ALTER TABLE FCNTASUB_JOIN_ID DROP CONSTRAINT FK_FCNTASUB_JOIN_ID_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+ALTER TABLE FCNTASUB_JOIN_ID DROP CONSTRAINT FK_FCNTASUB_JOIN_ID_FCNTA_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+ALTER TABLE CNTA_LBL DROP CONSTRAINT FK_CNTA_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+ALTER TABLE CNTA_LBL DROP CONSTRAINT FK_CNTA_LBL_cntA_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+ALTER TABLE CIN_ACP_JOIN DROP CONSTRAINT FK_CIN_ACP_JOIN_CIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+ALTER TABLE CIN_ACP_JOIN DROP CONSTRAINT FK_CIN_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+ALTER TABLE CIN_LBL DROP CONSTRAINT FK_CIN_LBL_linkedCin_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+ALTER TABLE CIN_LBL DROP CONSTRAINT FK_CIN_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+ALTER TABLE CSR_GRP_JOIN DROP CONSTRAINT FK_CSR_GRP_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+ALTER TABLE CSR_GRP_JOIN DROP CONSTRAINT FK_CSR_GRP_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+ALTER TABLE GRP_ACP_JOIN DROP CONSTRAINT FK_GRP_ACP_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+ALTER TABLE GRP_ACP_JOIN DROP CONSTRAINT FK_GRP_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+ALTER TABLE GRP_LBL DROP CONSTRAINT FK_GRP_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+ALTER TABLE GRP_LBL DROP CONSTRAINT FK_GRP_LBL_linkedGroup_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+ALTER TABLE GRP_SUB_JOIN DROP CONSTRAINT FK_GRP_SUB_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+ALTER TABLE GRP_SUB_JOIN DROP CONSTRAINT FK_GRP_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+ALTER TABLE CSR_LBL DROP CONSTRAINT FK_CSR_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+ALTER TABLE CSR_LBL DROP CONSTRAINT FK_CSR_LBL_linkedCsr_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+ALTER TABLE NODE_LBL DROP CONSTRAINT FK_NODE_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+ALTER TABLE NODE_LBL DROP CONSTRAINT FK_NODE_LBL_linkedNodes_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+ALTER TABLE PCH_LBL DROP CONSTRAINT FK_PCH_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+ALTER TABLE PCH_LBL DROP CONSTRAINT FK_PCH_LBL_linkedPch_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+ALTER TABLE SUB_LBL DROP CONSTRAINT FK_SUB_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+ALTER TABLE SUB_LBL DROP CONSTRAINT FK_SUB_LBL_linkedSub_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_NOD_CH_JOIN DROP CONSTRAINT FK_CSR_NOD_CH_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_NOD_CH_JOIN DROP CONSTRAINT FK_CSR_NOD_CH_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+ALTER TABLE NOD_SUB_JOIN DROP CONSTRAINT FK_NOD_SUB_JOIN_NOD_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+ALTER TABLE NOD_SUB_JOIN DROP CONSTRAINT FK_NOD_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_PCH_JOIN DROP CONSTRAINT FK_CSR_PCH_JOIN_PCH_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+ALTER TABLE CSR_PCH_JOIN DROP CONSTRAINT FK_CSR_PCH_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+ALTER TABLE CSR_ACP_JOIN DROP CONSTRAINT FK_CSR_ACP_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+ALTER TABLE CSR_ACP_JOIN DROP CONSTRAINT FK_CSR_ACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHCNT_JOIN DROP CONSTRAINT FK_CSR_CHCNT_JOIN_CNT_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHCNT_JOIN DROP CONSTRAINT FK_CSR_CHCNT_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHGRP_JOIN DROP CONSTRAINT FK_CSR_CHGRP_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+ALTER TABLE CSR_CHGRP_JOIN DROP CONSTRAINT FK_CSR_CHGRP_JOIN_grp_id [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+ALTER TABLE CSR_SUB_JOIN DROP CONSTRAINT FK_CSR_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+ALTER TABLE CSR_SUB_JOIN DROP CONSTRAINT FK_CSR_SUB_JOIN_CSR_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+ALTER TABLE CSRA_LBL DROP CONSTRAINT FK_CSRA_LBL_csrA_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+ALTER TABLE CSRA_LBL DROP CONSTRAINT FK_CSRA_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+ALTER TABLE REQ_LBL DROP CONSTRAINT FK_REQ_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+ALTER TABLE REQ_LBL DROP CONSTRAINT FK_REQ_LBL_REQ_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+ALTER TABLE SCHACP_JOIN DROP CONSTRAINT FK_SCHACP_JOIN_ACP_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+ALTER TABLE SCHACP_JOIN DROP CONSTRAINT FK_SCHACP_JOIN_SCH_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+ALTER TABLE SCH_LBL DROP CONSTRAINT FK_SCH_LBL_labelsEntities_lbl [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+ALTER TABLE SCH_LBL DROP CONSTRAINT FK_SCH_LBL_sch_ri [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+ALTER TABLE SCH_SUB_JOIN DROP CONSTRAINT FK_SCH_SUB_JOIN_SCH_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+ALTER TABLE SCH_SUB_JOIN DROP CONSTRAINT FK_SCH_SUB_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+ALTER TABLE SUB_DAC_JOIN DROP CONSTRAINT FK_SUB_DAC_JOIN_SUB_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+ALTER TABLE SUB_DAC_JOIN DROP CONSTRAINT FK_SUB_DAC_JOIN_DAC_JOINID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACC" not found; SQL statement:
+DROP TABLE ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACO" not found; SQL statement:
+DROP TABLE ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP" not found; SQL statement:
+DROP TABLE ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR" not found; SQL statement:
+DROP TABLE ACR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE" not found; SQL statement:
+DROP TABLE AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA" not found; SQL statement:
+DROP TABLE AEA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI" not found; SQL statement:
+DROP TABLE ANDI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI" not found; SQL statement:
+DROP TABLE ANI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB" not found; SQL statement:
+DROP TABLE CSEB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT" not found; SQL statement:
+DROP TABLE CNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT" not found; SQL statement:
+DROP TABLE FCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA" not found; SQL statement:
+DROP TABLE FCNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CA" not found; SQL statement:
+DROP TABLE CA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA" not found; SQL statement:
+DROP TABLE CNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN" not found; SQL statement:
+DROP TABLE CIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP" not found; SQL statement:
+DROP TABLE GRP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "LBL" not found; SQL statement:
+DROP TABLE LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE" not found; SQL statement:
+DROP TABLE NODE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH" not found; SQL statement:
+DROP TABLE PCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+DROP TABLE CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA" not found; SQL statement:
+DROP TABLE CSRA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ" not found; SQL statement:
+DROP TABLE REQ [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH" not found; SQL statement:
+DROP TABLE SCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB" not found; SQL statement:
+DROP TABLE SUB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "URI_MAPPER" not found; SQL statement:
+DROP TABLE URI_MAPPER [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANNC_RESOURCES" not found; SQL statement:
+DROP TABLE ANNC_RESOURCES [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+DROP TABLE AE_CHACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+DROP TABLE CSEB_CHILDACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACPCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANDI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+DROP TABLE ACP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+DROP TABLE ACP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+DROP TABLE ACP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+DROP TABLE AE_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE CNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+DROP TABLE CSEB_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+DROP TABLE DAC_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+DROP TABLE NOD_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+DROP TABLE ACP_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+DROP TABLE SUB_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+DROP TABLE ACP_ACR_PV [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+DROP TABLE ACP_ACR_PVS [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+DROP TABLE ACR_ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+DROP TABLE ACR_ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+DROP TABLE CSEB_AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHAE_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+DROP TABLE AE_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE AE_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+DROP TABLE AE_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE AE_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+DROP TABLE AE_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+DROP TABLE AE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+DROP TABLE AE_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+DROP TABLE AE_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_AEANNCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+DROP TABLE AEANNC_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_FCNTA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+DROP TABLE AEA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+DROP TABLE AEANNCSUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANDI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANDI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+DROP TABLE ANDI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANDI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+DROP TABLE ANI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CHILDDAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSB_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSB_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+DROP TABLE CSB_CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+DROP TABLE CSEB_REQ_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSB_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+DROP TABLE CSEB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+DROP TABLE CNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+DROP TABLE FCNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+DROP TABLE CNT_CIN_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+DROP TABLE CNT_FCNTCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+DROP TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+DROP TABLE CNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE CNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE CSR_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE DAC_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+DROP TABLE CIN_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNT_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+DROP TABLE GRP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+DROP TABLE NOD_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSR_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+DROP TABLE SCH_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHFCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+DROP TABLE FCNT_CHFCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+DROP TABLE FCNT_CA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+DROP TABLE FCNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE FCNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_FCNTACHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+DROP TABLE FCNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+DROP TABLE FCNTASUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+DROP TABLE CNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+DROP TABLE CIN_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+DROP TABLE CIN_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+DROP TABLE GRP_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+DROP TABLE GRP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+DROP TABLE GRP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+DROP TABLE CSR_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+DROP TABLE NODE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+DROP TABLE PCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+DROP TABLE SUB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSR_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+DROP TABLE NOD_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSR_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+DROP TABLE CSRA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+DROP TABLE REQ_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+DROP TABLE SCHACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+DROP TABLE SCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+DROP TABLE SCH_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+DROP TABLE SUB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACC" not found; SQL statement:
+DROP TABLE ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACO" not found; SQL statement:
+DROP TABLE ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP" not found; SQL statement:
+DROP TABLE ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR" not found; SQL statement:
+DROP TABLE ACR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE" not found; SQL statement:
+DROP TABLE AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA" not found; SQL statement:
+DROP TABLE AEA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI" not found; SQL statement:
+DROP TABLE ANDI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI" not found; SQL statement:
+DROP TABLE ANI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB" not found; SQL statement:
+DROP TABLE CSEB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT" not found; SQL statement:
+DROP TABLE CNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT" not found; SQL statement:
+DROP TABLE FCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA" not found; SQL statement:
+DROP TABLE FCNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CA" not found; SQL statement:
+DROP TABLE CA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA" not found; SQL statement:
+DROP TABLE CNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN" not found; SQL statement:
+DROP TABLE CIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP" not found; SQL statement:
+DROP TABLE GRP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "LBL" not found; SQL statement:
+DROP TABLE LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE" not found; SQL statement:
+DROP TABLE NODE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH" not found; SQL statement:
+DROP TABLE PCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+DROP TABLE CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA" not found; SQL statement:
+DROP TABLE CSRA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ" not found; SQL statement:
+DROP TABLE REQ [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH" not found; SQL statement:
+DROP TABLE SCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB" not found; SQL statement:
+DROP TABLE SUB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "URI_MAPPER" not found; SQL statement:
+DROP TABLE URI_MAPPER [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANNC_RESOURCES" not found; SQL statement:
+DROP TABLE ANNC_RESOURCES [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+DROP TABLE AE_CHACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+DROP TABLE CSEB_CHILDACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACPCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANDI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+DROP TABLE ACP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+DROP TABLE ACP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+DROP TABLE ACP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+DROP TABLE AE_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE CNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+DROP TABLE CSEB_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+DROP TABLE DAC_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+DROP TABLE NOD_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+DROP TABLE ACP_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+DROP TABLE SUB_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+DROP TABLE ACP_ACR_PV [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+DROP TABLE ACP_ACR_PVS [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+DROP TABLE ACR_ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+DROP TABLE ACR_ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+DROP TABLE CSEB_AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHAE_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+DROP TABLE AE_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE AE_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+DROP TABLE AE_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE AE_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+DROP TABLE AE_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+DROP TABLE AE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+DROP TABLE AE_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+DROP TABLE AE_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_AEANNCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+DROP TABLE AEANNC_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_FCNTA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+DROP TABLE AEA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+DROP TABLE AEANNCSUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANDI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANDI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+DROP TABLE ANDI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANDI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+DROP TABLE ANI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CHILDDAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSB_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSB_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+DROP TABLE CSB_CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+DROP TABLE CSEB_REQ_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSB_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+DROP TABLE CSEB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+DROP TABLE CNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+DROP TABLE FCNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+DROP TABLE CNT_CIN_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+DROP TABLE CNT_FCNTCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+DROP TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+DROP TABLE CNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE CNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE CSR_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE DAC_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+DROP TABLE CIN_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNT_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+DROP TABLE GRP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+DROP TABLE NOD_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSR_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+DROP TABLE SCH_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHFCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+DROP TABLE FCNT_CHFCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+DROP TABLE FCNT_CA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+DROP TABLE FCNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE FCNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_FCNTACHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+DROP TABLE FCNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+DROP TABLE FCNTASUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+DROP TABLE CNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+DROP TABLE CIN_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+DROP TABLE CIN_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+DROP TABLE GRP_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+DROP TABLE GRP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+DROP TABLE GRP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+DROP TABLE CSR_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+DROP TABLE NODE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+DROP TABLE PCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+DROP TABLE SUB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSR_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+DROP TABLE NOD_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSR_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+DROP TABLE CSRA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+DROP TABLE REQ_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+DROP TABLE SCHACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+DROP TABLE SCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+DROP TABLE SCH_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+DROP TABLE SUB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACC" not found; SQL statement:
+DROP TABLE ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACO" not found; SQL statement:
+DROP TABLE ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP" not found; SQL statement:
+DROP TABLE ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR" not found; SQL statement:
+DROP TABLE ACR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE" not found; SQL statement:
+DROP TABLE AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA" not found; SQL statement:
+DROP TABLE AEA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI" not found; SQL statement:
+DROP TABLE ANDI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI" not found; SQL statement:
+DROP TABLE ANI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB" not found; SQL statement:
+DROP TABLE CSEB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT" not found; SQL statement:
+DROP TABLE CNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT" not found; SQL statement:
+DROP TABLE FCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA" not found; SQL statement:
+DROP TABLE FCNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CA" not found; SQL statement:
+DROP TABLE CA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA" not found; SQL statement:
+DROP TABLE CNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN" not found; SQL statement:
+DROP TABLE CIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP" not found; SQL statement:
+DROP TABLE GRP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "LBL" not found; SQL statement:
+DROP TABLE LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE" not found; SQL statement:
+DROP TABLE NODE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH" not found; SQL statement:
+DROP TABLE PCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+DROP TABLE CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA" not found; SQL statement:
+DROP TABLE CSRA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ" not found; SQL statement:
+DROP TABLE REQ [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH" not found; SQL statement:
+DROP TABLE SCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB" not found; SQL statement:
+DROP TABLE SUB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "URI_MAPPER" not found; SQL statement:
+DROP TABLE URI_MAPPER [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANNC_RESOURCES" not found; SQL statement:
+DROP TABLE ANNC_RESOURCES [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+DROP TABLE AE_CHACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+DROP TABLE CSEB_CHILDACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACPCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANDI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+DROP TABLE ACP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+DROP TABLE ACP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+DROP TABLE ACP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+DROP TABLE AE_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE CNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+DROP TABLE CSEB_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+DROP TABLE DAC_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+DROP TABLE NOD_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+DROP TABLE ACP_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+DROP TABLE SUB_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+DROP TABLE ACP_ACR_PV [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+DROP TABLE ACP_ACR_PVS [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+DROP TABLE ACR_ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+DROP TABLE ACR_ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+DROP TABLE CSEB_AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHAE_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+DROP TABLE AE_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE AE_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+DROP TABLE AE_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE AE_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+DROP TABLE AE_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+DROP TABLE AE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+DROP TABLE AE_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+DROP TABLE AE_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_AEANNCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+DROP TABLE AEANNC_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_FCNTA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+DROP TABLE AEA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+DROP TABLE AEANNCSUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANDI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANDI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+DROP TABLE ANDI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANDI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+DROP TABLE ANI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CHILDDAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSB_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSB_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+DROP TABLE CSB_CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+DROP TABLE CSEB_REQ_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSB_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+DROP TABLE CSEB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+DROP TABLE CNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+DROP TABLE FCNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+DROP TABLE CNT_CIN_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+DROP TABLE CNT_FCNTCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+DROP TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+DROP TABLE CNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE CNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE CSR_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE DAC_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+DROP TABLE CIN_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNT_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+DROP TABLE GRP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+DROP TABLE NOD_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSR_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+DROP TABLE SCH_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHFCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+DROP TABLE FCNT_CHFCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+DROP TABLE FCNT_CA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+DROP TABLE FCNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE FCNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_FCNTACHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+DROP TABLE FCNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+DROP TABLE FCNTASUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+DROP TABLE CNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+DROP TABLE CIN_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+DROP TABLE CIN_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+DROP TABLE GRP_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+DROP TABLE GRP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+DROP TABLE GRP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+DROP TABLE CSR_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+DROP TABLE NODE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+DROP TABLE PCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+DROP TABLE SUB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSR_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+DROP TABLE NOD_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSR_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+DROP TABLE CSRA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+DROP TABLE REQ_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+DROP TABLE SCHACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+DROP TABLE SCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+DROP TABLE SCH_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+DROP TABLE SUB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACC" not found; SQL statement:
+DROP TABLE ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACO" not found; SQL statement:
+DROP TABLE ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP" not found; SQL statement:
+DROP TABLE ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR" not found; SQL statement:
+DROP TABLE ACR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE" not found; SQL statement:
+DROP TABLE AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA" not found; SQL statement:
+DROP TABLE AEA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI" not found; SQL statement:
+DROP TABLE ANDI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI" not found; SQL statement:
+DROP TABLE ANI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB" not found; SQL statement:
+DROP TABLE CSEB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT" not found; SQL statement:
+DROP TABLE CNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT" not found; SQL statement:
+DROP TABLE FCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA" not found; SQL statement:
+DROP TABLE FCNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CA" not found; SQL statement:
+DROP TABLE CA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA" not found; SQL statement:
+DROP TABLE CNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN" not found; SQL statement:
+DROP TABLE CIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP" not found; SQL statement:
+DROP TABLE GRP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "LBL" not found; SQL statement:
+DROP TABLE LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE" not found; SQL statement:
+DROP TABLE NODE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH" not found; SQL statement:
+DROP TABLE PCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+DROP TABLE CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA" not found; SQL statement:
+DROP TABLE CSRA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ" not found; SQL statement:
+DROP TABLE REQ [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH" not found; SQL statement:
+DROP TABLE SCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB" not found; SQL statement:
+DROP TABLE SUB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "URI_MAPPER" not found; SQL statement:
+DROP TABLE URI_MAPPER [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANNC_RESOURCES" not found; SQL statement:
+DROP TABLE ANNC_RESOURCES [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+DROP TABLE AE_CHACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+DROP TABLE CSEB_CHILDACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACPCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANDI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+DROP TABLE ACP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+DROP TABLE ACP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+DROP TABLE ACP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+DROP TABLE AE_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE CNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+DROP TABLE CSEB_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+DROP TABLE DAC_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+DROP TABLE NOD_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+DROP TABLE ACP_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+DROP TABLE SUB_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+DROP TABLE ACP_ACR_PV [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+DROP TABLE ACP_ACR_PVS [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+DROP TABLE ACR_ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+DROP TABLE ACR_ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+DROP TABLE CSEB_AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHAE_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+DROP TABLE AE_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE AE_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+DROP TABLE AE_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE AE_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+DROP TABLE AE_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+DROP TABLE AE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+DROP TABLE AE_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+DROP TABLE AE_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_AEANNCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+DROP TABLE AEANNC_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_FCNTA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+DROP TABLE AEA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+DROP TABLE AEANNCSUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANDI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANDI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+DROP TABLE ANDI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANDI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+DROP TABLE ANI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CHILDDAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSB_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSB_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+DROP TABLE CSB_CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+DROP TABLE CSEB_REQ_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSB_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+DROP TABLE CSEB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+DROP TABLE CNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+DROP TABLE FCNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+DROP TABLE CNT_CIN_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+DROP TABLE CNT_FCNTCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+DROP TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+DROP TABLE CNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE CNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE CSR_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE DAC_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+DROP TABLE CIN_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNT_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+DROP TABLE GRP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+DROP TABLE NOD_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSR_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+DROP TABLE SCH_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHFCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+DROP TABLE FCNT_CHFCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+DROP TABLE FCNT_CA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+DROP TABLE FCNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE FCNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_FCNTACHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+DROP TABLE FCNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+DROP TABLE FCNTASUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+DROP TABLE CNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+DROP TABLE CIN_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+DROP TABLE CIN_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+DROP TABLE GRP_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+DROP TABLE GRP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+DROP TABLE GRP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+DROP TABLE CSR_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+DROP TABLE NODE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+DROP TABLE PCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+DROP TABLE SUB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSR_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+DROP TABLE NOD_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSR_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+DROP TABLE CSRA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+DROP TABLE REQ_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+DROP TABLE SCHACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+DROP TABLE SCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+DROP TABLE SCH_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+DROP TABLE SUB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACC" not found; SQL statement:
+DROP TABLE ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACO" not found; SQL statement:
+DROP TABLE ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP" not found; SQL statement:
+DROP TABLE ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR" not found; SQL statement:
+DROP TABLE ACR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE" not found; SQL statement:
+DROP TABLE AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA" not found; SQL statement:
+DROP TABLE AEA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI" not found; SQL statement:
+DROP TABLE ANDI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI" not found; SQL statement:
+DROP TABLE ANI [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB" not found; SQL statement:
+DROP TABLE CSEB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT" not found; SQL statement:
+DROP TABLE CNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT" not found; SQL statement:
+DROP TABLE FCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA" not found; SQL statement:
+DROP TABLE FCNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CA" not found; SQL statement:
+DROP TABLE CA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA" not found; SQL statement:
+DROP TABLE CNTA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN" not found; SQL statement:
+DROP TABLE CIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP" not found; SQL statement:
+DROP TABLE GRP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "LBL" not found; SQL statement:
+DROP TABLE LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE" not found; SQL statement:
+DROP TABLE NODE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH" not found; SQL statement:
+DROP TABLE PCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR" not found; SQL statement:
+DROP TABLE CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA" not found; SQL statement:
+DROP TABLE CSRA [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ" not found; SQL statement:
+DROP TABLE REQ [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH" not found; SQL statement:
+DROP TABLE SCH [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB" not found; SQL statement:
+DROP TABLE SUB [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "URI_MAPPER" not found; SQL statement:
+DROP TABLE URI_MAPPER [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANNC_RESOURCES" not found; SQL statement:
+DROP TABLE ANNC_RESOURCES [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHACP" not found; SQL statement:
+DROP TABLE AE_CHACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDACP" not found; SQL statement:
+DROP TABLE CSEB_CHILDACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACPCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACPCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANDI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_ACP_JOIN" not found; SQL statement:
+DROP TABLE ANI_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_SUB_JOIN" not found; SQL statement:
+DROP TABLE ACP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_DAC_JOIN" not found; SQL statement:
+DROP TABLE ACP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_LBL" not found; SQL statement:
+DROP TABLE ACP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_ACP" not found; SQL statement:
+DROP TABLE AE_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE CNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_ACP" not found; SQL statement:
+DROP TABLE CSEB_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_ACP_JOIN" not found; SQL statement:
+DROP TABLE DAC_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_ACP_JOIN" not found; SQL statement:
+DROP TABLE FCNT_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_ACP_JOIN" not found; SQL statement:
+DROP TABLE NOD_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_PCH_JOIN" not found; SQL statement:
+DROP TABLE ACP_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_ACP_JOIN" not found; SQL statement:
+DROP TABLE SUB_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PV" not found; SQL statement:
+DROP TABLE ACP_ACR_PV [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACP_ACR_PVS" not found; SQL statement:
+DROP TABLE ACP_ACR_PVS [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACC" not found; SQL statement:
+DROP TABLE ACR_ACC [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACR_ACO" not found; SQL statement:
+DROP TABLE ACR_ACO [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_AE" not found; SQL statement:
+DROP TABLE CSEB_AE [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHAE_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHAE_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CNT_JOIN" not found; SQL statement:
+DROP TABLE AE_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE AE_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_FCNT_JOIN" not found; SQL statement:
+DROP TABLE AE_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE AE_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_DAC_JOIN" not found; SQL statement:
+DROP TABLE AE_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_LBL" not found; SQL statement:
+DROP TABLE AE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_PCH_JOIN" not found; SQL statement:
+DROP TABLE AE_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AE_SUB_JOIN" not found; SQL statement:
+DROP TABLE AE_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_AEANNCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_AEANNCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_ACP" not found; SQL statement:
+DROP TABLE AEANNC_ACP [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_DAC_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNC_FCNTA_JOIN" not found; SQL statement:
+DROP TABLE AEANNC_FCNTA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEA_LBL" not found; SQL statement:
+DROP TABLE AEA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "AEANNCSUB_JOIN_ID" not found; SQL statement:
+DROP TABLE AEANNCSUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANDI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANDI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_LBL" not found; SQL statement:
+DROP TABLE ANDI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANDI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANDI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_NOD_JOIN" not found; SQL statement:
+DROP TABLE ANI_NOD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_DAC_JOIN" not found; SQL statement:
+DROP TABLE ANI_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_LBL" not found; SQL statement:
+DROP TABLE ANI_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ANI_SUB_JOIN" not found; SQL statement:
+DROP TABLE ANI_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_CHILDDAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_CHILDDAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_FCNT_JOIN" not found; SQL statement:
+DROP TABLE CSEB_FCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSB_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSB_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_CSR" not found; SQL statement:
+DROP TABLE CSB_CSR [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_REQ_JOIN" not found; SQL statement:
+DROP TABLE CSEB_REQ_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSB_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSB_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSEB_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSEB_LBL" not found; SQL statement:
+DROP TABLE CSEB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CHCNT" not found; SQL statement:
+DROP TABLE CNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHCNT" not found; SQL statement:
+DROP TABLE FCNT_CHCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_CIN_JOIN" not found; SQL statement:
+DROP TABLE CNT_CIN_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_FCNTCHILD_JOIN" not found; SQL statement:
+DROP TABLE CNT_FCNTCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN" not found; SQL statement:
+DROP TABLE CNT_DYNAMIC_AUTHORIZATION_CONSULTATION_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_LBL" not found; SQL statement:
+DROP TABLE CNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE CNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE CSR_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DAC_DACCHILD_JOIN" not found; SQL statement:
+DROP TABLE DAC_DACCHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL" not found; SQL statement:
+DROP TABLE DYNAMIC_AUTHORIZATION_CONSULTATION_ENTITY_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_DAC_JOIN" not found; SQL statement:
+DROP TABLE CIN_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_DAC_JOIN" not found; SQL statement:
+DROP TABLE FCNT_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_DAC_JOIN" not found; SQL statement:
+DROP TABLE GRP_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_DAC_JOIN" not found; SQL statement:
+DROP TABLE NOD_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_DAC_JOIN" not found; SQL statement:
+DROP TABLE CSR_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_DAC_JOIN" not found; SQL statement:
+DROP TABLE SCH_DAC_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHFCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHFCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CHFCNT" not found; SQL statement:
+DROP TABLE FCNT_CHFCNT [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_CA_JOIN" not found; SQL statement:
+DROP TABLE FCNT_CA_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_LBL" not found; SQL statement:
+DROP TABLE FCNT_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNT_SUB_JOIN" not found; SQL statement:
+DROP TABLE FCNT_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_FCNTACHILD_JOIN" not found; SQL statement:
+DROP TABLE FCNTA_FCNTACHILD_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTA_LBL" not found; SQL statement:
+DROP TABLE FCNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "FCNTASUB_JOIN_ID" not found; SQL statement:
+DROP TABLE FCNTASUB_JOIN_ID [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CNTA_LBL" not found; SQL statement:
+DROP TABLE CNTA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_ACP_JOIN" not found; SQL statement:
+DROP TABLE CIN_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CIN_LBL" not found; SQL statement:
+DROP TABLE CIN_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_GRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_GRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_ACP_JOIN" not found; SQL statement:
+DROP TABLE GRP_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_LBL" not found; SQL statement:
+DROP TABLE GRP_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "GRP_SUB_JOIN" not found; SQL statement:
+DROP TABLE GRP_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_LBL" not found; SQL statement:
+DROP TABLE CSR_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NODE_LBL" not found; SQL statement:
+DROP TABLE NODE_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PCH_LBL" not found; SQL statement:
+DROP TABLE PCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_LBL" not found; SQL statement:
+DROP TABLE SUB_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_NOD_CH_JOIN" not found; SQL statement:
+DROP TABLE CSR_NOD_CH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "NOD_SUB_JOIN" not found; SQL statement:
+DROP TABLE NOD_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_PCH_JOIN" not found; SQL statement:
+DROP TABLE CSR_PCH_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_ACP_JOIN" not found; SQL statement:
+DROP TABLE CSR_ACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHCNT_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHCNT_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_CHGRP_JOIN" not found; SQL statement:
+DROP TABLE CSR_CHGRP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSR_SUB_JOIN" not found; SQL statement:
+DROP TABLE CSR_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "CSRA_LBL" not found; SQL statement:
+DROP TABLE CSRA_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "REQ_LBL" not found; SQL statement:
+DROP TABLE REQ_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCHACP_JOIN" not found; SQL statement:
+DROP TABLE SCHACP_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_LBL" not found; SQL statement:
+DROP TABLE SCH_LBL [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SCH_SUB_JOIN" not found; SQL statement:
+DROP TABLE SCH_SUB_JOIN [42102-186]
+02-25 12:07:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SUB_DAC_JOIN" not found; SQL statement:
+DROP TABLE SUB_DAC_JOIN [42102-186]
+02-25 12:07:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "SEQUENCE" not found; SQL statement:
+SELECT SEQ_NAME FROM SEQUENCE WHERE SEQ_NAME <> SEQ_NAME [42102-186]
+02-28 20:56:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-186]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1469)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1444)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:275)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1556)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1505)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:619)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:558)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2002)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.selectOneRow(DatasourceCallQueryMechanism.java:714)
+	at org.eclipse.persistence.internal.queries.ExpressionQueryMechanism.selectOneRowFromTable(ExpressionQueryMechanism.java:2801)
+	at org.eclipse.persistence.internal.queries.ExpressionQueryMechanism.selectOneRow(ExpressionQueryMechanism.java:2754)
+	at org.eclipse.persistence.queries.ReadObjectQuery.executeObjectLevelReadQuery(ReadObjectQuery.java:545)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.executeDatabaseQuery(ObjectLevelReadQuery.java:1168)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:899)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.execute(ObjectLevelReadQuery.java:1127)
+	at org.eclipse.persistence.queries.ReadObjectQuery.execute(ReadObjectQuery.java:431)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.executeInUnitOfWork(ObjectLevelReadQuery.java:1215)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:2896)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1804)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1786)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1737)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.executeQuery(EntityManagerImpl.java:900)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.findInternal(EntityManagerImpl.java:843)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.find(EntityManagerImpl.java:719)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.find(EntityManagerImpl.java:588)
+	at org.eclipse.om2m.persistence.eclipselink.internal.dao.UriMapperDAO.find(UriMapperDAO.java:32)
+	at org.eclipse.om2m.persistence.eclipselink.internal.dao.UriMapperDAO.find(UriMapperDAO.java:1)
+	at org.eclipse.om2m.core.urimapper.UriMapper.getNonHierarchicalUri(UriMapper.java:56)
+	at org.eclipse.om2m.core.router.Router.doRequest(Router.java:205)
+	at org.eclipse.om2m.binding.http.RestHttpServlet.service(RestHttpServlet.java:130)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.equinox.http.servlet.internal.ServletRegistration.service(ServletRegistration.java:61)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.processAlias(ProxyServlet.java:128)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.service(ProxyServlet.java:76)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.equinox.http.jetty.internal.HttpServerManager$InternalHttpServiceServlet.service(HttpServerManager.java:360)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:684)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:503)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:229)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:429)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:370)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:494)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:971)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1033)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:644)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:696)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:53)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:745)
+02-28 20:56:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-186]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1469)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1444)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:275)
+	at org.eclipse.persistence.internal.databaseaccess.DatabasePlatform.wasFailureCommunicationBased(DatabasePlatform.java:2848)
+	at org.eclipse.persistence.platform.server.ServerPlatformBase.wasFailureCommunicationBased(ServerPlatformBase.java:528)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.processExceptionForCommError(DatabaseAccessor.java:1607)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:674)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:558)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2002)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.selectOneRow(DatasourceCallQueryMechanism.java:714)
+	at org.eclipse.persistence.internal.queries.ExpressionQueryMechanism.selectOneRowFromTable(ExpressionQueryMechanism.java:2801)
+	at org.eclipse.persistence.internal.queries.ExpressionQueryMechanism.selectOneRow(ExpressionQueryMechanism.java:2754)
+	at org.eclipse.persistence.queries.ReadObjectQuery.executeObjectLevelReadQuery(ReadObjectQuery.java:545)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.executeDatabaseQuery(ObjectLevelReadQuery.java:1168)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:899)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.execute(ObjectLevelReadQuery.java:1127)
+	at org.eclipse.persistence.queries.ReadObjectQuery.execute(ReadObjectQuery.java:431)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.executeInUnitOfWork(ObjectLevelReadQuery.java:1215)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:2896)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1804)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1786)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1737)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.executeQuery(EntityManagerImpl.java:900)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.findInternal(EntityManagerImpl.java:843)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.find(EntityManagerImpl.java:719)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.find(EntityManagerImpl.java:588)
+	at org.eclipse.om2m.persistence.eclipselink.internal.dao.UriMapperDAO.find(UriMapperDAO.java:32)
+	at org.eclipse.om2m.persistence.eclipselink.internal.dao.UriMapperDAO.find(UriMapperDAO.java:1)
+	at org.eclipse.om2m.core.urimapper.UriMapper.getNonHierarchicalUri(UriMapper.java:56)
+	at org.eclipse.om2m.core.router.Router.doRequest(Router.java:205)
+	at org.eclipse.om2m.binding.http.RestHttpServlet.service(RestHttpServlet.java:130)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.equinox.http.servlet.internal.ServletRegistration.service(ServletRegistration.java:61)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.processAlias(ProxyServlet.java:128)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.service(ProxyServlet.java:76)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.equinox.http.jetty.internal.HttpServerManager$InternalHttpServiceServlet.service(HttpServerManager.java:360)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:684)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:503)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:229)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:429)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:370)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:494)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:971)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1033)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:644)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:696)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:53)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:745)
+02-28 20:56:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-186]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1469)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1444)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:275)
+	at org.eclipse.persistence.internal.databaseaccess.DatabasePlatform.wasFailureCommunicationBased(DatabasePlatform.java:2848)
+	at org.eclipse.persistence.platform.server.ServerPlatformBase.wasFailureCommunicationBased(ServerPlatformBase.java:528)
+	at org.eclipse.persistence.sessions.server.ConnectionPool.acquireConnection(ConnectionPool.java:173)
+	at org.eclipse.persistence.sessions.server.ServerSession.getAccessors(ServerSession.java:538)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:557)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.selectOneRow(DatasourceCallQueryMechanism.java:714)
+	at org.eclipse.persistence.internal.queries.ExpressionQueryMechanism.selectOneRowFromTable(ExpressionQueryMechanism.java:2801)
+	at org.eclipse.persistence.internal.queries.ExpressionQueryMechanism.selectOneRow(ExpressionQueryMechanism.java:2754)
+	at org.eclipse.persistence.queries.ReadObjectQuery.executeObjectLevelReadQuery(ReadObjectQuery.java:545)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.executeDatabaseQuery(ObjectLevelReadQuery.java:1168)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:899)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.execute(ObjectLevelReadQuery.java:1127)
+	at org.eclipse.persistence.queries.ReadObjectQuery.execute(ReadObjectQuery.java:431)
+	at org.eclipse.persistence.queries.ObjectLevelReadQuery.executeInUnitOfWork(ObjectLevelReadQuery.java:1215)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:2896)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1804)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.retryQuery(AbstractSession.java:1874)
+	at org.eclipse.persistence.sessions.server.ClientSession.retryQuery(ClientSession.java:687)
+	at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.retryQuery(UnitOfWorkImpl.java:5538)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1840)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1786)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1737)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.executeQuery(EntityManagerImpl.java:900)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.findInternal(EntityManagerImpl.java:843)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.find(EntityManagerImpl.java:719)
+	at org.eclipse.persistence.internal.jpa.EntityManagerImpl.find(EntityManagerImpl.java:588)
+	at org.eclipse.om2m.persistence.eclipselink.internal.dao.UriMapperDAO.find(UriMapperDAO.java:32)
+	at org.eclipse.om2m.persistence.eclipselink.internal.dao.UriMapperDAO.find(UriMapperDAO.java:1)
+	at org.eclipse.om2m.core.urimapper.UriMapper.getNonHierarchicalUri(UriMapper.java:56)
+	at org.eclipse.om2m.core.router.Router.doRequest(Router.java:205)
+	at org.eclipse.om2m.binding.http.RestHttpServlet.service(RestHttpServlet.java:130)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.equinox.http.servlet.internal.ServletRegistration.service(ServletRegistration.java:61)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.processAlias(ProxyServlet.java:128)
+	at org.eclipse.equinox.http.servlet.internal.ProxyServlet.service(ProxyServlet.java:76)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.equinox.http.jetty.internal.HttpServerManager$InternalHttpServiceServlet.service(HttpServerManager.java:360)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:684)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:503)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:229)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1086)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:429)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:193)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1020)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:135)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:116)
+	at org.eclipse.jetty.server.Server.handle(Server.java:370)
+	at org.eclipse.jetty.server.AbstractHttpConnection.handleRequest(AbstractHttpConnection.java:494)
+	at org.eclipse.jetty.server.AbstractHttpConnection.headerComplete(AbstractHttpConnection.java:971)
+	at org.eclipse.jetty.server.AbstractHttpConnection$RequestHandler.headerComplete(AbstractHttpConnection.java:1033)
+	at org.eclipse.jetty.http.HttpParser.parseNext(HttpParser.java:644)
+	at org.eclipse.jetty.http.HttpParser.parseAvailable(HttpParser.java:235)
+	at org.eclipse.jetty.server.AsyncHttpConnection.handle(AsyncHttpConnection.java:82)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint.handle(SelectChannelEndPoint.java:696)
+	at org.eclipse.jetty.io.nio.SelectChannelEndPoint$1.run(SelectChannelEndPoint.java:53)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:608)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:543)
+	at java.lang.Thread.run(Thread.java:745)

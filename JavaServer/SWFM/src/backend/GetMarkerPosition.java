@@ -25,7 +25,7 @@ public class GetMarkerPosition extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("application/json");
 		QueryManagerIN mng = new QueryManagerIN();
-		JSONArray response = mng.getMNPosition();
+		JSONArray response = mng.getAEPosition();
 		
 		if(response == null) {
 			resp.getWriter().write(new JsonResponse().create(true, "Empty content."));

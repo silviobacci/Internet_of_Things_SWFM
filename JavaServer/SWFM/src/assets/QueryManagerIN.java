@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 import oneM2M.OM2MManager;
 import resources.AEResource;
@@ -123,7 +125,7 @@ public class QueryManagerIN {
 		return containers;
 	}
 	
-	private ArrayList<OM2MResource> getContainerByName(String father_id, String name) {
+	private OM2MResource getContainerByName(String father_id, String name) {
 		ArrayList<OM2MResource> gps_containers = getAllContainers(father_id);
 		
 		if(gps_containers == null)
@@ -134,16 +136,14 @@ public class QueryManagerIN {
 		if(gps_containers == null || gps_containers.isEmpty() || gps_containers.size() !=1)
 			return null;
 		
-		return gps_containers;
+		return gps_containers.get(0);
 	}
 	
 	private ArrayList<OM2MResource> getAll(String father_id, String type) {
-		ArrayList<OM2MResource> container = getContainerByName(father_id, type);
+		OM2MResource c = getContainerByName(father_id, type);
 		
-		if(container == null)
+		if(c == null)
 			return null;
-		
-		ContainerResource c = (ContainerResource) container.get(0);
 		
 		ArrayList<OM2MResource> all = getAllContainers(c.getRi());
 		
@@ -153,26 +153,21 @@ public class QueryManagerIN {
 		return all;
 	}
 	
-	private JSONObject getSingleData(String father_id, String type) {
-		ArrayList<OM2MResource> types = getContainerByName(father_id, type);
+	private InstanceResource getSingleData(String father_id, String type) {
+		ContainerResource data = (ContainerResource) getContainerByName(father_id, type);
 		
-		if(types == null)
+		if(data == null)
 			return null;
 		
-		ContainerResource data = (ContainerResource) types.get(0);
-		
-		InstanceResource value = mng.getContentInstance(IN, data.getRi());
+		InstanceResource value = mng.getContentInstance(IN, data.getLa());
 		
 		if(value == null)
 			return null;	
 		
-		JSONObject jo = new JSONObject();
-		jo.put(father_id, value);
-
-		return jo;
+		return value;
 	}
 	
-	private JSONArray getAllData(String father_id, String type, String d) {
+	private JSONArray getAllData(String father_id, String type) {
 		ArrayList<OM2MResource> copiedAE = getCopiedAE();
 		
 		if(copiedAE == null || copiedAE.isEmpty())
@@ -183,7 +178,7 @@ public class QueryManagerIN {
 		if(copiedAE == null || copiedAE.isEmpty() || copiedAE.size() != 1)
 			return null;
 		
-		AEResource ae = (AEResource) copiedAE.get(0);
+		OM2MResource ae = (OM2MResource) copiedAE.get(0);
 		
 		ArrayList<OM2MResource> sensors = getAll(ae.getRi(), type);
 		
@@ -193,10 +188,32 @@ public class QueryManagerIN {
 		JSONArray response = new JSONArray();
 		
 		for(OM2MResource s : sensors) {
-			JSONObject data = getSingleData(s.getRi(), d);
+			InstanceResource gps = getSingleData(s.getRi(), GPS);
+			InstanceResource th = getSingleData(s.getRi(), THRESHOLD);
+			InstanceResource level = getSingleData(s.getRi(), LEVEL);
 			
-			if(data != null)
-				response.add(data);
+			JSONObject gps_json = null, th_json = null;
+			try {
+				gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+				th_json = (JSONObject) JSONValue.parseWithException(th.getCon().toString().replace("'", "\""));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(gps_json != null && th_json != null) {
+				JSONObject data = new JSONObject();
+				data.put("id", s.getRi());
+				data.put("lat", gps_json.get("LAT"));
+				data.put("lng", gps_json.get("LNG"));
+				data.put("level", Integer.parseInt(level.getCon().toString()));
+				data.put("min", th_json.get("MIN"));
+				data.put("max", th_json.get("MAX"));
+				data.put("th", th_json.get("TH"));
+				
+				if(data != null)
+					response.add(data);
+			}
 		}
 		
 		if(response == null || response.isEmpty())
@@ -254,20 +271,33 @@ public class QueryManagerIN {
 		return true;
 	}
 	
-	public JSONArray getMNPosition() {
-		ArrayList<OM2MResource> copiedMN = getCopiedMN();
-		JSONArray response = new JSONArray();
+	public JSONArray getAEPosition() {
+		ArrayList<OM2MResource> copiedAE = getCopiedAE();
 		
-		if(copiedMN == null || copiedMN.isEmpty())
+		if(copiedAE == null || copiedAE.isEmpty())
 			return null;
 		
-		for (OM2MResource mn : copiedMN) {
-			JSONObject value = getSingleData(mn.getRi(), GPS);
+		JSONArray response = new JSONArray();
+		
+		for (OM2MResource ae : copiedAE) {
+			InstanceResource value = getSingleData(ae.getRi(), GPS);
 			
-			if(value != null) {
-				JSONObject jo = new JSONObject();
-				jo.put(mn.getRi(), value);
-				response.add(jo);
+			JSONObject gps_json = null;
+			try {
+				gps_json = (JSONObject) JSONValue.parseWithException(value.getCon().toString().replace("'", "\""));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if(gps_json != null) {
+				JSONObject data = new JSONObject();
+				data.put("id", ae.getRi());
+				data.put("name", ae.getRn());
+				data.put("lat", gps_json.get("LAT"));
+				data.put("lng", gps_json.get("LNG"));
+			
+				if(data != null)
+					response.add(data);
 			}
 		}
 		
@@ -277,44 +307,12 @@ public class QueryManagerIN {
 		return response;
 	}
 	
-	public JSONArray getMNNames() {
-		ArrayList<OM2MResource> references = getMNReference();
-		
-		if(references == null || references.isEmpty())
-			return null;
-		
-		JSONArray response = new JSONArray();
-		
-		for (OM2MResource r : references) {
-			JSONObject jo = new JSONObject();
-			jo.put(r.getRi(), r.getRn());
-			response.add(jo);
-		}
-		
-		if(response == null || response.isEmpty())
-			return null;
-		
-		return response;
+	public JSONArray getSensorData(String copiedAE_id) {
+		return getAllData(copiedAE_id, SENSORS);
 	}
 	
-	public JSONArray getSensorLevel(String copiedAE_id) {
-		return getAllData(copiedAE_id, SENSORS, LEVEL);
-	}
-	
-	public JSONArray getSensorThreshold(String copiedAE_id) {
-		return getAllData(copiedAE_id, SENSORS, THRESHOLD);
-	}
-	
-	public JSONArray getSensorPosition(String copiedAE_id) {
-		return getAllData(copiedAE_id, SENSORS, GPS);
-	}
-	
-	public JSONArray getDamState(String copiedAE_id) {
-		return getAllData(copiedAE_id, DAMS, STATE);
-	}
-	
-	public JSONArray getDamPosition(String copiedAE_id) {
-		return getAllData(copiedAE_id, DAMS, GPS);
+	public JSONArray getDamData(String copiedAE_id) {
+		return getAllData(copiedAE_id, DAMS);
 	}
 	
 	public boolean changeDamState(String copiedAE_id, String dam_id, String data, String admin_name) {

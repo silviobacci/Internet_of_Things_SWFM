@@ -1,5 +1,6 @@
 package backend;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 import assets.JsonResponse;
 import assets.QueryManagerIN;
@@ -29,25 +33,32 @@ public class GetDamData extends HttpServlet {
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		resp.setContentType("application/json");
 		QueryManagerIN mng = new QueryManagerIN();
-		String id = req.getParameter("id");
-		String data = req.getParameter("data");
-		if(id == null || data == null) {
-			resp.getWriter().write(new JsonResponse().create(true, "Some empty fileds."));
+		
+		StringBuffer jb = new StringBuffer();
+		String line = null;
+		try {
+			BufferedReader reader = req.getReader();
+			while ((line = reader.readLine()) != null)
+				jb.append(line);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		  
+		JSONObject payload = null;
+		
+		try {
+			payload = (JSONObject) JSONValue.parseWithException(jb.toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if(payload == null || payload.get("id") == null) {
+			resp.getWriter().write(new JsonResponse().create(true, "Some problem with the post request."));
 			return;
 		}
 		
-		JSONArray response = null;
-		
-		switch(data) {
-			case QueryManagerIN.STATE:
-				response = mng.getDamState(id);
-				break;
-			case QueryManagerIN.GPS:
-				response = mng.getDamPosition(id);
-				break;
-		}
+		JSONArray response = mng.getDamData((String) payload.get("id"));
 		
 		if(response == null) {
 			resp.getWriter().write(new JsonResponse().create(true, "Empty content."));

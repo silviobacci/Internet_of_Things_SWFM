@@ -18,6 +18,7 @@ var max_level = 32;
 var texture = [];
 var context_texture;
 var context_overlay;
+var context_mote_canvas;
 var scaling_factor;
 
 var row_number;
@@ -94,18 +95,26 @@ function set_texture_dimension(canvas, container, container2) {
 	container2.css("height", canvas[0].height + 4);
 }
 
-function create_overlay(canvas, overlay) {
+function create_overlay(canvas, mote_canvas, overlay) {
 	context_overlay = overlay[0].getContext("2d");
 	context_overlay.scale(scaling_factor, scaling_factor);
+	
+	context_mote_canvas = mote_canvas[0].getContext("2d");
+	context_mote_canvas.scale(scaling_factor, scaling_factor);
 	
 	overlay[0].width = canvas[0].width;
 	overlay[0].height = canvas[0].height;
 	
+	mote_canvas[0].width = canvas[0].width;
+	mote_canvas[0].height = canvas[0].height;
+	
 	canvas.css("position", "absolute");
+	mote_canvas.css("position", "absolute");
 	overlay.css("position", "absolute");
 	
 	canvas.css("z-index", "0");
-	overlay.css("z-index", "1");
+	mote_canvas.css("z-index", "1");
+	overlay.css("z-index", "2");
 }
 
 function create_tileset() {
@@ -466,21 +475,16 @@ function set_water_level(mote_index, level) {
 	}
 }
 
-function add_mote(new_mote_row, new_mote_columns) {
-	n_motes++;
-	draw_mote(n_motes - 1, new_motes_row[n_motes - 1], new_motes_columns[n_motes - 1]);
-}
-
-function create_motes(new_motes_row, new_motes_columns) {
-	n_motes = new_motes_row.length;
+function create_motes() {
+	n_motes = sensors.length;
 	for(var mote_index = 0; mote_index < n_motes; mote_index++)
-		draw_mote(mote_index, new_motes_row[mote_index],  new_motes_columns[mote_index]);
+		draw_mote(mote_index, sensors[mote_index].lat,  sensors[mote_index].lng);
 }
 
 function draw_mote(mote_index, row, column) {
 	mote[mote_index] = {x : (column-1)*tile_width+8, y : (row-1)*tile_height+6, w : tile_width*3, h : tile_height};
-	context_texture.drawImage(label, (column-1)*tile_width, (row-1)*tile_height, tile_width*3, tile_height);
-	context_texture.drawImage(marker, column*tile_width, row*tile_height, tile_width, tile_height);
+	context_mote_canvas.drawImage(label, (column-1)*tile_width, (row-1)*tile_height, tile_width*3, tile_height);
+	context_mote_canvas.drawImage(marker, column*tile_width, row*tile_height, tile_width, tile_height);
 }
 
 function draw_texture() {
@@ -679,160 +683,99 @@ function create_texture_handlers(is_admin) {
 	$('#overlay').mousemove(function(ev) {
 		var x = ev.pageX - $(this).offset().left;
 		var y = ev.pageY - $(this).offset().top;
-
-		if(is_admin && contains(d[0], x, y)){
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : d[0].x + tile_width, y : d[0].y, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				if(!dam_open[0])
-					var text = "click to open";
-				else
-					var text = "click to close";
-				context_overlay.fillText(text, image.x + 21, image.y + 19);
+		
+		for(var mote_index = 0; mote_index < mote.length; mote_index++)
+			if (contains(mote[mote_index], x, y)){
+				$(this).css('cursor', 'pointer');
+				if(!text_visible) {
+					if(mote_index == 1 || mote_index == 3)
+						var image = {x : mote[1].x - 7 * tile_width, y : mote[1].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
+					else
+						var image = {x : mote[mote_index].x + 2 * tile_width + 5, y : mote[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
+					
+					context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+					context_overlay.fillStyle="#000000";
+					var text = "click for more info";
+					context_overlay.fillText(text, image.x + 10, image.y + 19);
+				}
+				text_visible = true;
 			}
-			text_visible = true;
-		}
-		else if (is_admin && contains(d[1], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : d[1].x - 6 * tile_width, y : d[1].y, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				if(!dam_open[1])
-					var text = "click to open";
-				else
-					var text = "click to close";
-				context_overlay.fillText(text, image.x + 21, image.y + 19);
+		
+		for(var dam_index = 0; dam_index < mote.length; dam_index++)
+			if (is_admin && contains(d[dam_index], x, y)){
+				$(this).css('cursor', 'pointer');
+				if(!text_visible) {
+					if(dam_index == 0 || dam_index == 2)
+						var image = {x : d[dam_index].x + tile_width, y : d[dam_index].y, w : 6 * tile_width, h : 2*tile_height};
+					else
+						var image = {x : d[dam_index].x - 6 * tile_width, y : d[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+					context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+					context_overlay.fillStyle="#000000";
+					if(!dam_open[dam_index])
+						var text = "click to open";
+					else
+						var text = "click to close";
+					context_overlay.fillText(text, image.x + 21, image.y + 19);
+				}
+				text_visible = true;
 			}
-			text_visible = true;
-		}
-		else if (is_admin && contains(d[2], x, y)){
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : d[2].x + tile_width, y : d[2].y, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				if(!dam_open[2])
-					var text = "click to open";
-				else
-					var text = "click to close";
-				context_overlay.fillText(text, image.x + 21, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (is_admin && contains(d[3], x, y)){
-			$(this).css('cursor', 'pointer');
-			
-			if(!text_visible) {
-				var image = {x : d[3].x - 6 * tile_width, y : d[3].y, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				if(!dam_open[3])
-					var text = "click to open";
-				else
-					var text = "click to close";
-				context_overlay.fillText(text, image.x + 21, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (contains(mote[0], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : mote[0].x + 2 * tile_width + 5, y : mote[0].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				var text = "click for more info";
-				context_overlay.fillText(text, image.x + 10, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (contains(mote[1], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : mote[1].x - 7 * tile_width, y : mote[1].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				var text = "click for more info";
-				context_overlay.fillText(text, image.x + 10, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (contains(mote[2], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : mote[2].x + 2 * tile_width + 5, y : mote[2].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				var text = "click for more info";
-				context_overlay.fillText(text, image.x + 10, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (contains(mote[3], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : mote[3].x - 7 * tile_width, y : mote[3].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				var text = "click for more info";
-				context_overlay.fillText(text, image.x + 10, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (contains(mote[4], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : mote[4].x + 2 * tile_width + 5, y : mote[4].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				var text = "click for more info";
-				context_overlay.fillText(text, image.x + 10, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else if (contains(mote[5], x, y)) {
-			$(this).css('cursor', 'pointer');
-			if(!text_visible) {
-				var image = {x : mote[5].x + 2 * tile_width + 5, y : mote[5].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
-				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
-				context_overlay.fillStyle="#000000";
-				var text = "click for more info";
-				context_overlay.fillText(text, image.x + 10, image.y + 19);
-			}
-			text_visible = true;
-		}
-		else {
-			$(this).css('cursor', 'default');
-			context_overlay.clearRect(0, 0, $(this)[0].width, $(this)[0].height);
-			text_visible = false;
-		}
 	});
 	
 	$('#overlay').click(function(ev) {
 		var x = ev.pageX - $(this).offset().left;
 		var y = ev.pageY - $(this).offset().top;
 
-		if(is_admin && contains(d[0], x, y))
-			dam(0, false);
-		else if (is_admin && contains(d[1], x, y))
-			dam(1, true);
-		else if (is_admin && contains(d[2], x, y))
-			dam(2, false);
-		else if (is_admin && contains(d[3], x, y))
-			dam(3, true);
-		 else if (contains(mote[0], x, y))
-			set_water_level(0, 15);
-		 else if (contains(mote[1], x, y))
-			set_water_level(1, 15);
-		 else if (contains(mote[2], x, y))
-			set_water_level(2, 15);
-		 else if (contains(mote[3], x, y))
-			set_water_level(3, 15);
-		 else if (contains(mote[4], x, y))
-			set_water_level(4, 15);
-		 else if (contains(mote[5], x, y))
-			set_water_level(5, 15);
+		for(var mote_index = 0; mote_index < mote.length; mote_index++)
+			if (contains(mote[mote_index], x, y))
+				set_water_level(2, 15);
+		
+		for(var dam_index = 0; dam_index < mote.length; dam_index++)
+			if (contains(d[dam_index], x, y)){
+				if(dam_index == 0 || dam_index == 2)
+					dam(dam_index, false);
+				else
+					dam(dam_index, true);
+			}
 	});
+}
+
+var sensors = [];
+
+function createSensorStructure(reply) {
+	sensors = [];
+	for(var i = 0; i < reply.message.length; i++) {
+		sensors[i] = {id : 0, lat : 0, lng : 0, level : 0, min : 0, max : 0, th : 0};
+	}
+}
+
+function getSensorDataSuccess(reply) {
+	if(reply.error == false) {
+		if(sensors.length == 0)
+			createSensorStructure(reply);
+		
+		if(sensors.length != reply.message.length) {
+			getSensorDataError(reply);
+			return;
+		}
+		
+		for(var i = 0; i < reply.message.length; i++)
+			sensors[i] = reply.message[i];
+		
+		draw_texture();
+		create_texture_handlers(is_admin);
+		create_overlay($("#river-ov"), $("#mote-canvas") ,$("#overlay"));
+		create_motes();
+	}	
+	else
+		getSensorDataError(reply);
+}
+
+function getSensorDataError(reply) {
+	console.log(reply.message);
+	create_texture_placeholder($("#river-ov"));
+}
+
+function getSensorData(ae) {
+	var payload = "{\"id\" : \"" + ae.id + "\"}";
+	ajax_post_req(getsensordata, payload, getSensorDataSuccess, getSensorDataError);
 }

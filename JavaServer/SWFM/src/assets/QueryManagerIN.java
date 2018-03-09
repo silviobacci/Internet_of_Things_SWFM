@@ -187,34 +187,59 @@ public class QueryManagerIN {
 		
 		JSONArray response = new JSONArray();
 		
-		for(OM2MResource s : sensors) {
-			InstanceResource gps = getSingleData(s.getRi(), GPS);
-			InstanceResource th = getSingleData(s.getRi(), THRESHOLD);
-			InstanceResource level = getSingleData(s.getRi(), LEVEL);
-			
-			JSONObject gps_json = null, th_json = null;
-			try {
-				gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
-				th_json = (JSONObject) JSONValue.parseWithException(th.getCon().toString().replace("'", "\""));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(gps_json != null && th_json != null) {
-				JSONObject data = new JSONObject();
-				data.put("id", s.getRi());
-				data.put("lat", gps_json.get("LAT"));
-				data.put("lng", gps_json.get("LNG"));
-				data.put("level", Integer.parseInt(level.getCon().toString()));
-				data.put("min", th_json.get("MIN"));
-				data.put("max", th_json.get("MAX"));
-				data.put("th", th_json.get("TH"));
+		if(type == SENSORS)
+			for(OM2MResource s : sensors) {
+				InstanceResource gps = getSingleData(s.getRi(), GPS);
+				InstanceResource th = getSingleData(s.getRi(), THRESHOLD);
+				InstanceResource level = getSingleData(s.getRi(), LEVEL);
 				
-				if(data != null)
-					response.add(data);
+				JSONObject gps_json = null, th_json = null;
+				try {
+					gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+					th_json = (JSONObject) JSONValue.parseWithException(th.getCon().toString().replace("'", "\""));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(gps_json != null && th_json != null) {
+					JSONObject data = new JSONObject();
+					data.put("id", s.getRi());
+					data.put("lat", gps_json.get("LAT"));
+					data.put("lng", gps_json.get("LNG"));
+					data.put("level", Integer.parseInt(level.getCon().toString()));
+					data.put("min", th_json.get("MIN"));
+					data.put("max", th_json.get("MAX"));
+					data.put("th", th_json.get("TH"));
+					
+					if(data != null)
+						response.add(data);
+				}
 			}
-		}
+		else
+			for(OM2MResource s : sensors) {
+				InstanceResource gps = getSingleData(s.getRi(), GPS);
+				InstanceResource state = getSingleData(s.getRi(), STATE);
+				
+				JSONObject gps_json = null;
+				try {
+					gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(gps_json != null) {
+					JSONObject data = new JSONObject();
+					data.put("id", s.getRi());
+					data.put("lat", gps_json.get("LAT"));
+					data.put("lng", gps_json.get("LNG"));
+					data.put("state", Boolean.parseBoolean(state.getCon().toString()));
+					
+					if(data != null)
+						response.add(data);
+				}
+			}
 		
 		if(response == null || response.isEmpty())
 			return null;
@@ -271,7 +296,40 @@ public class QueryManagerIN {
 		return true;
 	}
 	
-	public JSONArray getAEPosition() {
+	public JSONArray getHistoryData(String father_id) {
+		ContainerResource level = (ContainerResource) getContainerByName(father_id, LEVEL);
+		
+		if(level == null)
+			return null;
+		
+		ArrayList<String> f = new ArrayList<String>();
+		f.add("lbl=" + level.getRi());
+		
+		ArrayList<OM2MResource> values = mng.discovery(IN, OM2MManager.CONTENT_INSTANCE, f);
+		
+		if(values == null || values.isEmpty())
+			return null;	
+		
+		JSONArray response = new JSONArray();
+		
+		for (OM2MResource value : values) {
+			InstanceResource v = (InstanceResource) value;
+			
+			JSONObject data = new JSONObject();
+			data.put("x", values.indexOf(value));
+			data.put("y", Integer.parseInt(v.getCon().toString()));
+			
+			if(data != null)
+				response.add(data);
+		}
+		
+		if(response == null || response.isEmpty())
+			return null;
+		
+		return response;
+	}
+	
+	public JSONArray getMarkerData() {
 		ArrayList<OM2MResource> copiedAE = getCopiedAE();
 		
 		if(copiedAE == null || copiedAE.isEmpty())
@@ -280,21 +338,25 @@ public class QueryManagerIN {
 		JSONArray response = new JSONArray();
 		
 		for (OM2MResource ae : copiedAE) {
-			InstanceResource value = getSingleData(ae.getRi(), GPS);
+			InstanceResource gps = getSingleData(ae.getRi(), GPS);
+			InstanceResource state = getSingleData(ae.getRi(), STATE);
 			
-			JSONObject gps_json = null;
+			JSONObject gps_json = null, state_json = null;
 			try {
-				gps_json = (JSONObject) JSONValue.parseWithException(value.getCon().toString().replace("'", "\""));
+				gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+				state_json = (JSONObject) JSONValue.parseWithException(state.getCon().toString().replace("'", "\""));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 			
-			if(gps_json != null) {
+			if(gps_json != null && state_json != null) {
 				JSONObject data = new JSONObject();
 				data.put("id", ae.getRi());
 				data.put("name", ae.getRn());
 				data.put("lat", gps_json.get("LAT"));
 				data.put("lng", gps_json.get("LNG"));
+				data.put("level", state_json.get("LEVEL"));
+				data.put("message", state_json.get("MESSAGE"));
 			
 				if(data != null)
 					response.add(data);

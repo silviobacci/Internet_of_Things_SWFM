@@ -86,6 +86,19 @@ public class InstallerMN extends Thread {
 		json = mng.jsonContainer("SENSOR_12332434", cnt.get(2).getRi());
 		nestedCnt.add(mng.createContainer(isMN, cnt.get(2).getRi(), json));
 		
+		// 4 DAMS
+		json = mng.jsonContainer("DAM_43253434", cnt.get(3).getRi());
+		nestedCnt.add(mng.createContainer(isMN, cnt.get(3).getRi(), json));	
+		
+		json = mng.jsonContainer("DAM_54654755", cnt.get(3).getRi());
+		nestedCnt.add(mng.createContainer(isMN, cnt.get(3).getRi(), json));	
+		
+		json = mng.jsonContainer("DAM_24324323", cnt.get(3).getRi());
+		nestedCnt.add(mng.createContainer(isMN, cnt.get(3).getRi(), json));
+		
+		json = mng.jsonContainer("DAM_78676777", cnt.get(3).getRi());
+		nestedCnt.add(mng.createContainer(isMN, cnt.get(3).getRi(), json));
+		
 		// CONTAINER INNESTATI AI SENSORI
 		json = mng.jsonContainer("LEVEL", nestedCnt.get(0).getRi());
 		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(0).getRi(), json));	
@@ -141,69 +154,150 @@ public class InstallerMN extends Thread {
 		json = mng.jsonContainer("GPS", nestedCnt.get(5).getRi());
 		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(5).getRi(), json));
 		
+		// CONTAINER INNESTATI ALLE DAM
+		
+		json = mng.jsonContainer("STATE", nestedCnt.get(6).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(6).getRi(), json));	
+		
+		json = mng.jsonContainer("STATE", nestedCnt.get(7).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(7).getRi(), json));	
+		
+		json = mng.jsonContainer("STATE", nestedCnt.get(8).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(8).getRi(), json));	
+		
+		json = mng.jsonContainer("STATE", nestedCnt.get(9).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(9).getRi(), json));	
+		
+		json = mng.jsonContainer("GPS", nestedCnt.get(6).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(6).getRi(), json));
+		
+		json = mng.jsonContainer("GPS", nestedCnt.get(7).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(7).getRi(), json));
+		
+		json = mng.jsonContainer("GPS", nestedCnt.get(8).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(8).getRi(), json));
+		
+		json = mng.jsonContainer("GPS", nestedCnt.get(9).getRi());
+		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(9).getRi(), json));
+		
 		// ISTANZE NEI SENSORI
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 20, nestedNestedCnt.get(0).getRi());
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 50, nestedNestedCnt.get(0).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(0).getRi(), json));
 		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 30, nestedNestedCnt.get(1).getRi());
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 100, nestedNestedCnt.get(0).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(0).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 150, nestedNestedCnt.get(0).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(0).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 200, nestedNestedCnt.get(0).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(0).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 100, nestedNestedCnt.get(1).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(1).getRi(), json));
 		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 40, nestedNestedCnt.get(2).getRi());
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 100, nestedNestedCnt.get(1).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(1).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 150, nestedNestedCnt.get(1).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(1).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 200, nestedNestedCnt.get(1).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(1).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(2).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(2).getRi(), json));
 		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 50, nestedNestedCnt.get(3).getRi());
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(2).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(2).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(2).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(2).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(2).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(2).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 200, nestedNestedCnt.get(3).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(3).getRi(), json));
 		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 60, nestedNestedCnt.get(4).getRi());
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 200, nestedNestedCnt.get(3).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(3).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 200, nestedNestedCnt.get(3).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(3).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 200, nestedNestedCnt.get(3).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(3).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(4).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(4).getRi(), json));
 		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 70, nestedNestedCnt.get(5).getRi());
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(4).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(4).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(4).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(4).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 250, nestedNestedCnt.get(4).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(4).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 300, nestedNestedCnt.get(5).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(5).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 300, nestedNestedCnt.get(5).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(5).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 300, nestedNestedCnt.get(5).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(5).getRi(), json));
+		
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", 300, nestedNestedCnt.get(5).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(5).getRi(), json));
 		
 		JSONObject th = new JSONObject();
 		th.put("MIN", 0);
 		th.put("MAX", 500);
-		th.put("TH", 50);
+		th.put("TH", 250);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", th.toJSONString().replace("\"", "'"), nestedNestedCnt.get(6).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(6).getRi(), json));
 		
 		th = new JSONObject();
-		th.put("MIN", 50);
+		th.put("MIN", 0);
 		th.put("MAX", 500);
-		th.put("TH", 100);
+		th.put("TH", 250);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", th.toJSONString().replace("\"", "'"), nestedNestedCnt.get(7).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(7).getRi(), json));
 		
 		th = new JSONObject();
-		th.put("MIN", 100);
+		th.put("MIN", 0);
 		th.put("MAX", 500);
-		th.put("TH", 150);
+		th.put("TH", 250);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", th.toJSONString().replace("\"", "'"), nestedNestedCnt.get(8).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(8).getRi(), json));
 		
 		th = new JSONObject();
-		th.put("MIN", 150);
+		th.put("MIN", 0);
 		th.put("MAX", 500);
-		th.put("TH", 150);
+		th.put("TH", 250);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", th.toJSONString().replace("\"", "'"), nestedNestedCnt.get(9).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(9).getRi(), json));
 		
 		th = new JSONObject();
-		th.put("MIN", 200);
+		th.put("MIN", 0);
 		th.put("MAX", 500);
-		th.put("TH", 150);
+		th.put("TH", 250);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", th.toJSONString().replace("\"", "'"), nestedNestedCnt.get(10).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(10).getRi(), json));
 		
 		th = new JSONObject();
-		th.put("MIN", 250);
+		th.put("MIN", 0);
 		th.put("MAX", 500);
-		th.put("TH", 150);
+		th.put("TH", 250);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", th.toJSONString().replace("\"", "'"), nestedNestedCnt.get(11).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(11).getRi(), json));
@@ -250,98 +344,48 @@ public class InstallerMN extends Thread {
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(17).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(17).getRi(), json));
 		
-		/*
-		// 2 DAM INNESTATE
-		json = mng.jsonContainer("DAM_34344345", cnt.get(2).getRi());
-		nestedCnt.add(mng.createContainer(isMN, cnt.get(2).getRi(), json));	
+		// ISTANZE NELLE DAM
 		
-		json = mng.jsonContainer("DAM_56756456", cnt.get(2).getRi());
-		nestedCnt.add(mng.createContainer(isMN, cnt.get(2).getRi(), json));	
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", true, nestedNestedCnt.get(18).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(18).getRi(), json));
 		
-		// INNESTATI SENSORI
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", false, nestedNestedCnt.get(19).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(19).getRi(), json));
 		
-		json = mng.jsonContainer("LEVEL", nestedCnt.get(0).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(0).getRi(), json));	
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", false, nestedNestedCnt.get(20).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(20).getRi(), json));
 		
-		json = mng.jsonContainer("LEVEL", nestedCnt.get(1).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(1).getRi(), json));	
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", true, nestedNestedCnt.get(21).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(21).getRi(), json));
 		
-		json = mng.jsonContainer("LEVEL", nestedCnt.get(2).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(2).getRi(), json));	
+		gps = new JSONObject();
+		gps.put("LAT", 9);
+		gps.put("LNG", 3);
 		
-		json = mng.jsonContainer("THRESHOLD", nestedCnt.get(0).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(0).getRi(), json));	
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(22).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(22).getRi(), json));
 		
-		json = mng.jsonContainer("THRESHOLD", nestedCnt.get(1).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(1).getRi(), json));	
+		gps = new JSONObject();
+		gps.put("LAT", 28);
+		gps.put("LNG", 3);
 		
-		json = mng.jsonContainer("THRESHOLD", nestedCnt.get(2).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(2).getRi(), json));
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(23).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(23).getRi(), json));
 		
-		json = mng.jsonContainer("GPS", nestedCnt.get(0).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(0).getRi(), json));	
+		gps = new JSONObject();
+		gps.put("LAT", 15);
+		gps.put("LNG", 22);
 		
-		json = mng.jsonContainer("GPS", nestedCnt.get(1).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(1).getRi(), json));	
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(24).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(24).getRi(), json));
 		
-		json = mng.jsonContainer("GPS", nestedCnt.get(2).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(2).getRi(), json));
+		gps = new JSONObject();
+		gps.put("LAT", 21);
+		gps.put("LNG", 30);
 		
-		// INNESTATI DAM
-		
-		json = mng.jsonContainer("STATE", nestedCnt.get(3).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(3).getRi(), json));
-		
-		json = mng.jsonContainer("STATE", nestedCnt.get(4).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(4).getRi(), json));	
-		
-		json = mng.jsonContainer("GPS", nestedCnt.get(3).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(3).getRi(), json));
-		
-		json = mng.jsonContainer("GPS", nestedCnt.get(4).getRi());
-		nestedNestedCnt.add(mng.createContainer(isMN, nestedCnt.get(4).getRi(), json));	
-		
-		// ISTANZE NEI SENSORI
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(0).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(0).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(1).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(1).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(2).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(2).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(3).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(3).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(4).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(4).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(5).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(5).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(6).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(6).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(7).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(7).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(8).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(8).getRi(), json));
-		
-		// ISTANZE NEI DAM
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(9).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(9).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(10).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(10).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(11).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(11).getRi(), json));
-		
-		json = mng.jsonCI("CHANGED AUTOMATICALLY", 10, nestedNestedCnt.get(12).getRi());
-		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(12).getRi(), json));
-		*/
+		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(25).getRi());
+		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(25).getRi(), json));
+	
 	}
 	
 	public void createContentInstance() {

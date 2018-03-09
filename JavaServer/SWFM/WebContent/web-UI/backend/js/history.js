@@ -7,11 +7,11 @@ function history_constructor(canvas, container) {
 }
 
 function create_history_placeholder(canvas, container) {
-	$('<img />', {src: $("#unable_rect")[0].src, width: canvas[0].width, height : canvas[0].height}).appendTo(container);
+	container.append("<img src=" + $("#unable_rect")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
 }
 
 function create_history_click_to_open(canvas, container) {
-	$('<img />', {src: $("#click")[0].src, width: canvas[0].width, height : canvas[0].height}).appendTo(container);
+	container.append("<img src=" + $("#click")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
 }
 
 // build a chart
@@ -48,4 +48,28 @@ function build_chart(data_points) {
         }]
     });
     chart.render();
+}
+
+function getHistoryDataSuccess(reply) {
+	if(reply.error == false && reply.message.length != 0) {
+		var data_points = [];
+		for(var i = 0; i < reply.message.length; i++)
+			data_points[i] = reply.message[i];
+		
+		if(data_points.lenght == 1)
+			data_points[1] = data_points[0];
+		
+		build_chart(data_points);
+	}	
+	else
+		getHistoryError(reply);
+}
+
+function getHistoryError(reply) {
+	console.log(reply.message);
+}
+
+function getHistoryData(mote_index) {
+	var payload = "{\"id\" : \"" + sensors[mote_index].id + "\"}";
+	ajax_post_req(gethistorydata, payload ,getHistoryDataSuccess, getHistoryError);
 }

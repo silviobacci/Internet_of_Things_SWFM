@@ -26,14 +26,15 @@ function add_marker(ae, coordinates) {
 	
 	marker.addListener('click', function() {
 		var id = ae.id.substring(ae.id.lastIndexOf("/") + 1, ae.id.length);
-		$('#modal-label').html(ae.name + " - " + id); 
-		getSensorData(ae);
+		$('#modal-label').html(ae.name + " - " + id);
+		draw_alert(ae);
 		$('#modal').modal('show');
+		getSensorData(ae);
 	});
 }
 
-function getMarkerPositionSuccess(reply) {
-	if(reply.error == false) {
+function getMarkerDataSuccess(reply) {
+	if(reply.error == false && reply.message.length != 0) {
 		for(var i = 0; i < reply.message.length; i++) {
 			aes[i] = reply.message[i];
 		}
@@ -48,6 +49,6 @@ function getMarkerError(reply) {
 	create_map_placeholder($("#map"));
 }
 
-function getMarkerPosition() {
-	ajax_get_req(getmarkerposition, getMarkerPositionSuccess, getMarkerError);
+function getMarkerData() {
+	ajax_get_req(getmarkerdata, getMarkerDataSuccess, getMarkerError);
 }

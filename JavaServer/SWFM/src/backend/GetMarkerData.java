@@ -14,18 +14,18 @@ import assets.JsonResponse;
 import assets.QueryManagerIN;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "getmarkerposition", urlPatterns={"/backend/getmarkerposition"}, loadOnStartup = 1)
-public class GetMarkerPosition extends HttpServlet {
+@WebServlet(name = "getmarkerdata", urlPatterns={"/backend/getmarkerdata"}, loadOnStartup = 1)
+public class GetMarkerData extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
-		System.out.println("INIT backend/getmarkerposition");
+		System.out.println("INIT backend/getmarkerdata");
 	}
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("application/json");
 		QueryManagerIN mng = new QueryManagerIN();
-		JSONArray response = mng.getAEPosition();
+		JSONArray response = mng.getMarkerData();
 		
 		if(response == null) {
 			resp.getWriter().write(new JsonResponse().create(true, "Empty content."));

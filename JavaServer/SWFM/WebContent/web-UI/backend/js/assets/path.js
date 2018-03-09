@@ -21,9 +21,9 @@ var redirect = "http://localhost/SWFM/backend/redirect";
 // SERVLET
 //------------------------------------
 
-var getmarkerposition = "http://localhost/SWFM/backend/getmarkerposition";
-var getmarkername = "http://localhost/SWFM/backend/getmarkername";
-var getdamdata = "http://localhost/SWFM/backend/getdamdata";
-var setdamdata = "http://localhost/SWFM/backend/setdamdata";
+var getmarkerdata = "http://localhost/SWFM/backend/getmarkerdata";
 var getsensordata = "http://localhost/SWFM/backend/getsensordata";
+var getdamdata = "http://localhost/SWFM/backend/getdamdata";
+var gethistorydata = "http://localhost/SWFM/backend/gethistorydata";
+var setdamdata = "http://localhost/SWFM/backend/setdamdata";
 var setsensordata = "http://localhost/SWFM/backend/setsensordata";

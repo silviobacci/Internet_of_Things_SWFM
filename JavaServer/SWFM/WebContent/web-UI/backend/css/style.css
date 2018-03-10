@@ -308,3 +308,7 @@ CRASH:
     text-align: center;
     margin: 0 auto;
 }
+
+#result-container {
+    display: none;
+}

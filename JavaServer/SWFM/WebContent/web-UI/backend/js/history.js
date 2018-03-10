@@ -7,10 +7,12 @@ function history_constructor(canvas, container) {
 }
 
 function create_history_placeholder(canvas, container) {
+	$("#history img:last-child").remove();
 	container.append("<img src=" + $("#unable_rect")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
 }
 
 function create_history_click_to_open(canvas, container) {
+	$("#history img:last-child").remove();
 	container.append("<img src=" + $("#click")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
 }
 
@@ -69,7 +71,7 @@ function getHistoryError(reply) {
 	console.log(reply.message);
 }
 
-function getHistoryData(mote_index) {
-	var payload = "{\"id\" : \"" + sensors[mote_index].id + "\"}";
+function getHistoryData() {
+	var payload = "{\"id\" : \"" + selected_sensor.id + "\"}";
 	ajax_post_req(gethistorydata, payload ,getHistoryDataSuccess, getHistoryError);
 }

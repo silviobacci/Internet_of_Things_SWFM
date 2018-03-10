@@ -14,7 +14,7 @@ function create_info_click_to_open() {
 	$('#info').html("<strong>Selected mote: </strong> No mote selected.");
 }
 
-function draw_info(mote_index) {
-	var id = sensors[mote_index].id.substring(sensors[mote_index].id.lastIndexOf("/") + 1, sensors[mote_index].id.length)
+function draw_info() {
+	var id = selected_sensor.id.substring(selected_sensor.id.lastIndexOf("/") + 1, selected_sensor.id.length)
 	$('#info').html("<strong>Selected mote: </strong> " + id);
 }

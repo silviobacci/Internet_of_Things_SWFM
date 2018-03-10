@@ -9,12 +9,14 @@
 		
 		<!-- Bootstrap CSS - FontAwesome CSS - Main CSS -->
 		<link rel="stylesheet" href="css/assets/bootstrap.css">
+		<link rel="stylesheet" href="css/assets/jquery-ui.css">
 		<link rel="stylesheet" href="css/assets/font-awesome.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
 		
 		<!-- jQuery JS - Popper JS - Bootstrap JS - FontAwesome JS - Main JS -->
 		<script type="text/javascript" src="js/assets/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="js/assets/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/assets/popper.min.js"></script>
 		<script type="text/javascript" src="js/assets/tether.min.js"></script>
 		<script type="text/javascript" src="js/assets/bootstrap.js"></script>
@@ -202,10 +204,13 @@
 															<label id="new_th" class="form-control-label">NEW THRESHOLD</label>
 														</div>
 														<div class="th">
-															<input id="slider" type="range" min="0" max="200" step="1" value="20"/>
+															<input id="slider" type="range"/>
 														</div>
 														<div class="th">
-															<button type="button" onclick="submit_signup();" class="btn btn-primary">CHANGE</button>
+															<button type="button" onclick="submit_threshold();" class="btn btn-primary">CHANGE</button>
+														</div>
+														<div class="th result-container">
+															<div id="result-th" class="alert"></div>
 														</div>
 													</div>
 												</div>

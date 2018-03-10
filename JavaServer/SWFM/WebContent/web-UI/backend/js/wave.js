@@ -43,14 +43,14 @@ function create_wave_click_to_open(canvas) {
 	context_wave.drawImage($("#click")[0], 0, 0, canvas[0].width, canvas[0].height);
 }
 
-function wave_animation(timestamp, mote_index, level, first_time) {		
+function wave_animation(timestamp, level, first_time) {		
 	if(first_time)
 		start_time_wave = timestamp;
 	
 	first_time = false;
 	
 	if (timestamp - start_time_wave < animation_period_wave) {
-		req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, mote_index, level, first_time);});
+		req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});
 		return;
 	}
 	
@@ -60,24 +60,24 @@ function wave_animation(timestamp, mote_index, level, first_time) {
 	context_wave.drawImage(wave, animation_position_wave, background_wave.height - level, wave.width, wave.height);
 	context_wave.drawImage(wave, animation_position_wave - wave.width,  background_wave.height - level, wave.width, wave.height);
 	
-	level = create_threshold_level(mote_index);
+	level = create_threshold_level();
 	
 	first_time = true;
-	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, mote_index, level, first_time);});
+	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});
 }
 
-function create_threshold_level(mote_index) {
+function create_threshold_level() {
 	var max_level = background_wave.height;
 	
-	var max_mote = sensors[mote_index].max;
-	var min_mote = sensors[mote_index].min;
-	var level_mote = sensors[mote_index].level;
+	var max_mote = selected_sensor.max;
+	var min_mote = selected_sensor.min;
+	var level_mote = selected_sensor.level;
 	
 	var level = Math.floor(max_level / (max_mote - min_mote) * (level_mote - min_mote));
 	
-	var th = Math.floor(max_level / (max_mote - min_mote) * (sensors[mote_index].th - min_mote));
+	var th = Math.floor(max_level / (max_mote - min_mote) * (selected_sensor.th - min_mote));
 	
-	var text = "THRESHOLD " + sensors[mote_index].th + " cm";
+	var text = "THRESHOLD " + selected_sensor.th + " cm";
 	
 	context_wave.fillStyle="#ff0000";
 	context_wave.font="20px Arial";
@@ -94,11 +94,11 @@ function create_threshold_level(mote_index) {
 	return level;
 }
 
-function draw_wave(mote_index) {
+function draw_wave() {
 	if(req != null && req != undefined)
 		cancelAnimationFrame(req);
-	$('#current-level').html("CURRENT LEVEL " + sensors[mote_index].level + " cm");
+	$('#current-level').html("CURRENT LEVEL " + selected_sensor.level + " cm");
 	var first_time = true;
-	var level = create_threshold_level(mote_index);
-	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, mote_index, level, first_time);});
+	var level = create_threshold_level();
+	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});
 }

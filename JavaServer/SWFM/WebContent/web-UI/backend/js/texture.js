@@ -23,10 +23,9 @@ var row_number;
 var col_number;
 
 var n_dams;
-var dam_open = [false, false, false, false];
-var animation_position_texture = [0, 0, 0, 0];
+var animation_position_texture = [];
 var animation_period_texture;
-var start_time = [0, 0, 0, 0];
+var start_time = [];
 
 var sd = [0, 28, 0, 21];
 var ed = [9, 32, 15, 32];
@@ -43,6 +42,7 @@ var d = [
 var n_motes;
 var mote = [];
 var sensors = [];
+var dams = [];
 
 var water_left;
 var water_right;
@@ -78,6 +78,8 @@ var text_visible;
 var objects_created = false;
 var to_create_overlay = false;
 
+var selected_sensor;
+var selected_dam;
 var ae;
 
 function texture_constructor(canvas1, canvas2, canvas3, canvas4, container, container2, ap) {
@@ -189,22 +191,22 @@ function create_texture_placeholder(canvas) {
 	context_texture.drawImage($("#unable_quad")[0], 0, 0, canvas[0].width, canvas[0].height);
 }
 
-function open_dam_left(timestamp, index_dam, first_time) {
+function open_dam_left(timestamp, dam_index, first_time) {
 	if(first_time)
-		start_time[index_dam] = timestamp;
+		start_time[dam_index] = timestamp;
 	
 	first_time = false;
 	
-	if (timestamp - start_time[index_dam] < animation_period_texture) {
-		requestAnimationFrame(function(timestamp){open_dam_left(timestamp, index_dam, first_time);});
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 		return;
 	}
 	
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = end_dam - animation_position_texture[index_dam];
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = end_dam - animation_position_texture[dam_index];
 	
 	first_time = true;
 	
@@ -212,30 +214,29 @@ function open_dam_left(timestamp, index_dam, first_time) {
 		case end_dam:
 			context_dam_canvas.drawImage(wave_corner_top_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_corner_bottom_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 			break;
 		case end_dam - 1:
 			context_dam_canvas.drawImage(water_corner_top_left, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(water_corner_bottom_left, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 			break;
 		case start_dam - 1:
 			context_dam_canvas.drawImage(water_top, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(water_bottom, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position_texture[index_dam] = 0;
-			if(dam_text_visible[index_dam]) {
-				if(index_dam == 1 || index_dam == 3)
-					var image = {x : d[index_dam].x - 6 * tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				else
-					var image = {x : d[index_dam].x + tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
 				context_overlay.fillStyle="#000000";
-				if(!dam_open[index_dam])
+				if(!dams[dam_index].state)
 					var text = "click to open";
 				else
 					var text = "click to close";
@@ -247,28 +248,28 @@ function open_dam_left(timestamp, index_dam, first_time) {
 			context_dam_canvas.drawImage(water_bottom, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function close_dam_left(timestamp, index_dam, first_time) {
+function close_dam_left(timestamp, dam_index, first_time) {
 	if(first_time)
-		start_time[index_dam] = timestamp;
+		start_time[dam_index] = timestamp;
 	
 	first_time = false;
 		
-	if (timestamp - start_time[index_dam] < animation_period_texture) {
-		requestAnimationFrame(function(timestamp){close_dam_left(timestamp, index_dam, first_time);});
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
 		return;
 	}
 	
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = end_dam - animation_position_texture[index_dam];
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = end_dam - animation_position_texture[dam_index];
 	
 	first_time = true;
 	
@@ -278,22 +279,21 @@ function close_dam_left(timestamp, index_dam, first_time) {
 			context_dam_canvas.drawImage(water_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_right, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_right, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
 			break;
 		case start_dam:
 			context_dam_canvas.drawImage(ground_top, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position_texture[index_dam] = 0;
-			if(dam_text_visible[index_dam]) {
-				if(index_dam == 1 || index_dam == 3)
-					var image = {x : d[index_dam].x - 6 * tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				else
-					var image = {x : d[index_dam].x + tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
 				context_overlay.fillStyle="#000000";
-				if(!dam_open[index_dam])
+				if(!dams[dam_index].state)
 					var text = "click to open";
 				else
 					var text = "click to close";
@@ -305,28 +305,28 @@ function close_dam_left(timestamp, index_dam, first_time) {
 			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_right, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_right, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function open_dam_right(timestamp, index_dam, first_time) {
+function open_dam_right(timestamp, dam_index, first_time) {
 	if(first_time)
-		start_time[index_dam] = timestamp;
+		start_time[dam_index] = timestamp;
 	
 	first_time = false;
 		
-	if (timestamp - start_time[index_dam] < animation_period_texture) {
-		requestAnimationFrame(function(timestamp){open_dam_right(timestamp, index_dam, first_time);});
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 		return;
 	}
 	
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = start_dam + animation_position_texture[index_dam];
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = start_dam + animation_position_texture[dam_index];
 	
 	first_time = true;
 	
@@ -334,30 +334,29 @@ function open_dam_right(timestamp, index_dam, first_time) {
 		case start_dam:
 			context_dam_canvas.drawImage(wave_corner_top_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_corner_bottom_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 			break;
 		case start_dam + 1:
 			context_dam_canvas.drawImage(water_corner_top_right, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(water_corner_bottom_right, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 			break;
 		case end_dam + 1:
 			context_dam_canvas.drawImage(water_top, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(water_bottom, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position_texture[index_dam] = 0;
-			if(dam_text_visible[index_dam]) {
-				if(index_dam == 1 || index_dam == 3)
-					var image = {x : d[index_dam].x - 6 * tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				else
-					var image = {x : d[index_dam].x + tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
 				context_overlay.fillStyle="#000000";
-				if(!dam_open[index_dam])
+				if(!dams[dam_index].state)
 					var text = "click to open";
 				else
 					var text = "click to close";
@@ -369,28 +368,28 @@ function open_dam_right(timestamp, index_dam, first_time) {
 			context_dam_canvas.drawImage(water_bottom, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function close_dam_right(timestamp, index_dam, first_time) {
+function close_dam_right(timestamp, dam_index, first_time) {
 	if(first_time)
-		start_time[index_dam] = timestamp;
+		start_time[dam_index] = timestamp;
 	
 	first_time = false;
 	
-	if (timestamp - start_time[index_dam] < animation_period_texture) {
-		requestAnimationFrame(function(timestamp){close_dam_right(timestamp, index_dam, first_time);});
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
 		return;
 	}
 	
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = start_dam + animation_position_texture[index_dam];
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = start_dam + animation_position_texture[dam_index];
 	
 	first_time = true;
 	
@@ -400,22 +399,21 @@ function close_dam_right(timestamp, index_dam, first_time) {
 			context_dam_canvas.drawImage(water_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_left, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_left, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
 			break;
 		case end_dam:
 			context_dam_canvas.drawImage(ground_top, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position_texture[index_dam] = 0;
-			if(dam_text_visible[index_dam]) {
-				if(index_dam == 1 || index_dam == 3)
-					var image = {x : d[index_dam].x - 6 * tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				else
-					var image = {x : d[index_dam].x + tile_width, y : d[index_dam].y, w : 6 * tile_width, h : 2*tile_height}; 
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
 				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
 				context_overlay.fillStyle="#000000";
-				if(!dam_open[index_dam])
+				if(!dams[dam_index].state)
 					var text = "click to open";
 				else
 					var text = "click to close";
@@ -427,28 +425,28 @@ function close_dam_right(timestamp, index_dam, first_time) {
 			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_top_to_left, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
 			context_dam_canvas.drawImage(wave_bottom_to_left, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position_texture[index_dam]++;
-			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, index_dam, first_time);});
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function dam(index_dam, right) {
+function dam(dam_index, right) {
 	var first_time = true;
-	if(animation_position_texture[index_dam] != 0)
+	if(animation_position_texture[dam_index] != 0)
 		return;
 	
 	if(right == true) {
-		if (dam_open[index_dam] == true)
-			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, index_dam, first_time);});
+		if (dams[dam_index].state == false)
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
 		else
-			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, index_dam, first_time);});
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 	}
 	else {
-		if (dam_open[index_dam] == true)
-			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, index_dam, first_time);});
+		if (dams[dam_index].state == false)
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
 		else
-			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, index_dam, first_time);});
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 	}
 }
 
@@ -532,17 +530,17 @@ function create_texture_handlers(is_admin) {
 			}
 		
 		for(var dam_index = 0; dam_index < d.length; dam_index++)
-			if (is_admin && contains(d[dam_index], x, y)){
+			if (is_admin && contains(dams[dam_index], x, y)){
 				$(this).css('cursor', 'pointer');
 				if(!dam_text_visible[dam_index]) {
 					if(dam_index == 0 || dam_index == 2)
-						var image = {x : d[dam_index].x + 16, y : d[dam_index].y, w : 6 * tile_width, h : 2*tile_height};
+						var image = {x : dams[dam_index].x + 16, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height};
 					else
-						var image = {x : d[dam_index].x - 96, y : d[dam_index].y, w : 6 * tile_width, h : 2 * tile_height}; 
+						var image = {x : dams[dam_index].x - 96, y : dams[dam_index].y, w : 6 * tile_width, h : 2 * tile_height}; 
 					
 					context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
 					context_overlay.fillStyle="#000000";
-					if(!dam_open[dam_index])
+					if(!dams[dam_index].state)
 						var text = "click to open";
 					else
 						var text = "click to close";
@@ -564,19 +562,18 @@ function create_texture_handlers(is_admin) {
 
 		for(var mote_index = 0; mote_index < mote.length; mote_index++)
 			if (contains(mote[mote_index], x, y)){
-				draw_info(mote_index);
-				draw_wave(mote_index);
-				draw_threshold(mote_index);
-				getHistoryData(mote_index);
+				selected_sensor = sensors[mote_index];
+				draw_info();
+				draw_wave();
+				draw_threshold();
+				getHistoryData();
 				return;
 			}
 		
 		for(var dam_index = 0; dam_index < d.length; dam_index++)
-			if (contains(d[dam_index], x, y)){
-				if(dam_index == 0 || dam_index == 2)
-					dam(dam_index, false);
-				else
-					dam(dam_index, true);
+			if (contains(dams[dam_index], x, y)){
+				selected_dam = dam_index;
+				set_dam_state();
 				return;
 			}
 	});
@@ -587,6 +584,17 @@ function createSensorStructure(reply) {
 	for(var i = 0; i < reply.message.length; i++) {
 		sensors[i] = {id : 0, lat : 0, lng : 0, level : 0, min : 0, max : 0, th : 0};
 	}
+}
+
+function construct_objects() {
+	texture_constructor($("#river-ov"), $("#mote-canvas"), $("#overlay"), $("#dam-canvas"), $("#canvas-left-container"), $("#canvas-river-ov"), 50);
+	wave_constructor($("#river-sec"), $("#canvas-right-container"), $("#canvas-river-sec"), 1);
+	history_constructor($("#river-sec"), $("#chart-history"));
+	threshold_constructor($("#river-sec"), $("#threshold"));
+	alert_constructor($("#river-sec"), $("#alert"));
+	info_constructor($("#river-sec"), $("#info"));
+	
+	objects_created = true;
 }
 
 function getDamDataSuccess(reply) {
@@ -608,7 +616,20 @@ function getDamDataSuccess(reply) {
 		create_info_click_to_open();
 		
 		for(var dam_index = 0; dam_index < n_dams; dam_index++) {
-			if (reply.message[dam_index].state == true)
+			start_time[dam_index] = 0;
+			animation_position_texture[dam_index] = 0;
+			
+			dams[dam_index] = reply.message[dam_index];
+			dams[dam_index].x = d[dam_index].x;
+			dams[dam_index].y = d[dam_index].y;
+			dams[dam_index].w = d[dam_index].w;
+			dams[dam_index].h = d[dam_index].h;
+			dams[dam_index].sd = sd[dam_index];
+			dams[dam_index].ed = ed[dam_index];
+			dams[dam_index].td = td[dam_index];
+			dams[dam_index].bd = bd[dam_index];
+			
+			if (dams[dam_index].state == true)
 				if(dam_index == 0 || dam_index == 2)
 					dam(dam_index, false);
 				else
@@ -619,17 +640,6 @@ function getDamDataSuccess(reply) {
 	}	
 	else
 		getDataError(reply);
-}
-
-function construct_objects() {
-	texture_constructor($("#river-ov"), $("#mote-canvas"), $("#overlay"), $("#dam-canvas"), $("#canvas-left-container"), $("#canvas-river-ov"), 50);
-	wave_constructor($("#river-sec"), $("#canvas-right-container"), $("#canvas-river-sec"), 1);
-	history_constructor($("#river-sec"), $("#chart-history"));
-	threshold_constructor($("#river-sec"), $("#threshold"));
-	alert_constructor($("#river-sec"), $("#alert"));
-	info_constructor($("#river-sec"), $("#info"));
-	
-	objects_created = true;
 }
 
 function getSensorDataSuccess(reply) {
@@ -671,4 +681,42 @@ function getDamData(a) {
 	ae = a;
 	var payload = "{\"id\" : \"" + ae.id + "\"}";
 	ajax_post_req(getdamdata, payload, getDamDataSuccess, getDataError);
+}
+
+function set_dam_state_success(reply) {
+	if(reply.error == false) {
+		console.log(reply.message);
+	}	
+	else
+		set_dam_state_error(reply);
+}
+
+function set_dam_state_error(reply) {
+	console.log(reply.message);
+}
+
+function set_dam_state() {
+	var payload = "{\"ae\" : \"" + ae.id + "\", \"id\" : \"" + dams[selected_dam].id + "\", \"data\" : " + !dams[selected_dam].state + "}";
+	ajax_post_req(setdamdata, payload, set_dam_state_success, set_dam_state_error);
+}
+
+var start_time_refresh_sensor;
+var refresh_sensor_period = 1000;
+var refresh_sensor_req;
+
+function refresh_sensors(timestamp, ae, first_time) {		
+	if(first_time)
+		start_time_refresh_sensor = timestamp;
+	
+	first_time = false;
+	
+	if (timestamp - start_time_refresh_sensor < refresh_sensor_period) {
+		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, first_time);});
+		return;
+	}
+	
+	getSensorData(ae);
+	
+	first_time = true;
+	refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, first_time);});
 }

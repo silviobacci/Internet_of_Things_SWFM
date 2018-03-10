@@ -7,10 +7,12 @@ function map_constructor(container) {
 }
 
 function create_map() {
+	map = new google.maps.Map($("#map")[0], {zoom: 6});
+}
+
+function create_markers() {
 	for(var i = 0; i < aes.length; i++) {
 		var coordinates = {lat : aes[i].lat, lng : aes[i].lng};
-		if(i == 0)
-			map = new google.maps.Map($("#map")[0], {zoom: 6, center: coordinates});
 		add_marker(aes[i], coordinates);
 	}
 }
@@ -35,17 +37,16 @@ function add_marker(ae, coordinates) {
 
 function getMarkerDataSuccess(reply) {
 	if(reply.error == false && reply.message.length != 0) {
-		for(var i = 0; i < reply.message.length; i++) {
+		aes = [];
+		for(var i = 0; i < reply.message.length; i++)
 			aes[i] = reply.message[i];
-		}
-		map_constructor($("#map"));
+		create_markers();
 	}	
 	else
 		getMarkerError(reply);
 }
 
 function getMarkerError(reply) {
-	console.log(reply.message);
 	create_map_placeholder($("#map"));
 }
 

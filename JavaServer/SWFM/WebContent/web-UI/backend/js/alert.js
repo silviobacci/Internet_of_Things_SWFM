@@ -27,7 +27,7 @@ function draw_alert(ae) {
 			break;
 		default:
 			$('#alert').addClass('alert-danger');
-		$('#alert').html("<strong>Alarm!</strong> " + ae.message);
+			$('#alert').html("<strong>Alarm!</strong> " + ae.message);
 			break;
 	}
 }

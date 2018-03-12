@@ -12,17 +12,15 @@ var tile_height = 16;
 var tile_level_width = 1;
 var tile_level_height = 4;
 
-var texture = [];
 var context_texture;
 var context_overlay;
 var context_mote_canvas;
 var context_dam_canvas;
-var scaling_factor;
+var scaling_factor = 1;
 
 var row_number;
 var col_number;
 
-var n_dams;
 var animation_position_texture = [];
 var animation_period_texture;
 var start_time = [];
@@ -32,17 +30,14 @@ var ed = [9, 32, 15, 32];
 var td = [3, 3, 22, 30];
 var bd = [4, 4, 23, 31];
 
-var d = [
-			{x: tile_width * ed[0], y: tile_height * td[0], w: tile_width * 2, h: tile_height * 3},
-			{x: tile_width * sd[1], y: tile_height * td[1], w: tile_width * 2, h: tile_height * 3},
-			{x: tile_width * ed[2], y: tile_height * td[2], w: tile_width * 2, h: tile_height * 3},
-			{x: tile_width * sd[3], y: tile_height * td[3], w: tile_width * 2, h: tile_height * 3}
-];
+var d = [{x: tile_width * ed[0], y: tile_height * td[0], w: tile_width * 2, h: tile_height * 3},
+		{x: tile_width * sd[1], y: tile_height * td[1], w: tile_width * 2, h: tile_height * 3},
+		{x: tile_width * ed[2], y: tile_height * td[2], w: tile_width * 2, h: tile_height * 3},
+		{x: tile_width * sd[3], y: tile_height * td[3], w: tile_width * 2, h: tile_height * 3}];
 
-var n_motes;
-var mote = [];
 var sensors = [];
 var dams = [];
+var old_dams = [];
 
 var water_left;
 var water_right;
@@ -75,44 +70,26 @@ var rect;
 
 var dam_text_visible = [false, false, false, false];
 var text_visible;
-var objects_created = false;
-var to_create_overlay = false;
 
 var selected_sensor;
 var selected_dam;
 var ae;
 
-function texture_constructor(canvas1, canvas2, canvas3, canvas4, container, container2, ap) {
+var scene_created = false;
+
+function texture_constructor(canvas1, canvas2, canvas3, canvas4, container1, container2, ap) {
 	animation_period_texture = ap;
-	set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container, container2);
+	set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container1, container2);
 	create_tileset();
-	var refresh_canvas = true;
 }
 
-function create_texture(texture_file) {
-	$.get(texture_svr_path + texture_file, function(data) {
-		var lines = data.split("\n");
-		for(var i = 0; i < lines.length - 1; i++) {
-		  var chars = lines[i].split("");
-		  texture[i] = [];
-		  for(var j = 0; j < chars.length; j++) {
-		  	texture[i][j] = chars[j];
-		  }
-		}
-		row_number = texture.length;
-		col_number = texture[1].length;
-	});
-}
-
-function set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container, container2) {
+function set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container1, container2) {
 	context_texture = canvas1[0].getContext("2d");
-	context_mote_canvas = canvas2[0].getContext("2d");
-	context_overlay = canvas3[0].getContext("2d");
-	context_dam_canvas = canvas4[0].getContext("2d");
+	context_dam_canvas = canvas2[0].getContext("2d");
+	context_mote_canvas = canvas3[0].getContext("2d");
+	context_overlay = canvas4[0].getContext("2d");
 	
-	var min_dim = container.innerWidth() < container.innerHeight() ? container.innerWidth() : container.innerHeight();
-
-	scaling_factor = 1;
+	var min_dim = container1.innerWidth() < container1.innerHeight() ? container1.innerWidth() : container1.innerHeight();
 	
 	if(min_dim < size) {
 		canvas1[0].width = min_dim;
@@ -121,39 +98,27 @@ function set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container, co
 		context_texture.scale(scaling_factor, scaling_factor);
 	}
 	else {
-		canvas1[0].width = tile_height * row_number;
-		canvas1[0].height = tile_width * row_number;
+		canvas1[0].width = size;
+		canvas1[0].height = size;
 	}
 	
-	canvas4[0].width = canvas1[0].width;
-	canvas4[0].height = canvas1[0].height;
+	canvas2[0].width = canvas1[0].width;
+	canvas2[0].height = canvas1[0].height;
 	
 	context_dam_canvas.scale(scaling_factor, scaling_factor);
 	
 	canvas3[0].width = canvas1[0].width;
 	canvas3[0].height = canvas1[0].height;
 	
-	context_overlay.scale(scaling_factor, scaling_factor);
-	
-	canvas2[0].width = canvas1[0].width;
-	canvas2[0].height = canvas1[0].height;
-	
 	context_mote_canvas.scale(scaling_factor, scaling_factor);
+	
+	canvas4[0].width = canvas1[0].width;
+	canvas4[0].height = canvas1[0].height;
+	
+	context_overlay.scale(scaling_factor, scaling_factor);
 	
 	container2.css("width", canvas1[0].width + 4);
 	container2.css("height", canvas1[0].height + 4);
-}
-
-function create_overlay(canvas, mote_canvas, overlay, dam_canvas) {
-	canvas.css("position", "absolute");
-	mote_canvas.css("position", "absolute");
-	overlay.css("position", "absolute");
-	dam_canvas.css("position", "absolute");
-	
-	canvas.css("z-index", "0");
-	dam_canvas.css("z-index", "1");
-	mote_canvas.css("z-index", "2");
-	overlay.css("z-index", "3");
 }
 
 function create_tileset() {
@@ -187,7 +152,23 @@ function create_tileset() {
 	rect = $('#rect')[0];
 }
 
+function create_overlay(canvas1, canvas2, canvas3, canvas4) {
+	canvas1.css("position", "absolute");
+	canvas2.css("position", "absolute");
+	canvas3.css("position", "absolute");
+	canvas4.css("position", "absolute");
+	
+	canvas1.css("z-index", "0");
+	canvas2.css("z-index", "1");
+	canvas3.css("z-index", "2");
+	canvas4.css("z-index", "3");
+}
+
 function create_texture_placeholder(canvas) {
+	context_texture.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_dam_canvas.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_mote_canvas.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_overlay.clearRect(0, 0, canvas[0].width, canvas[0].height);
 	context_texture.drawImage($("#unable_quad")[0], 0, 0, canvas[0].width, canvas[0].height);
 }
 
@@ -432,21 +413,20 @@ function close_dam_right(timestamp, dam_index, first_time) {
 }
 
 function dam(dam_index, right) {
-	var first_time = true;
 	if(animation_position_texture[dam_index] != 0)
 		return;
 	
 	if(right == true) {
 		if (dams[dam_index].state == false)
-			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, true);});
 		else
-			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, true);});
 	}
 	else {
 		if (dams[dam_index].state == false)
-			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, true);});
 		else
-			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, true);});
 	}
 }
 
@@ -463,37 +443,35 @@ function set_water_level(mote_index, level) {
 	
 	if(level >= th){
 		for(var i = 0; i < level; i++)
-			context_mote_canvas.drawImage(red, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(red, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 		for(var i = level; i < max_level; i++)
-			context_mote_canvas.drawImage(grey, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(grey, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 	}
 	else if (level < th && level >=  Math.floor(th/2)) {
 		for(var i = 0; i < level; i++)
-			context_mote_canvas.drawImage(yellow, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(yellow, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 		for(var i = level; i < max_level; i++)
-			context_mote_canvas.drawImage(grey, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(grey, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 	}
 	else {
 		for(var i = 0; i < level; i++)
-			context_mote_canvas.drawImage(green, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(green, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 		for(var i = level; i < max_level; i++)
-			context_mote_canvas.drawImage(grey, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(grey, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 	}
 }
 
 function create_motes() {
-	n_motes = sensors.length;
-	for(var mote_index = 0; mote_index < n_motes; mote_index++)
+	for(var mote_index = 0; mote_index < sensors.length; mote_index++)
 		draw_mote(mote_index, sensors[mote_index].lat,  sensors[mote_index].lng);
 	
-	for(var mote_index = 0; mote_index < n_motes; mote_index++)
+	for(var mote_index = 0; mote_index < sensors.length; mote_index++)
 		set_water_level(mote_index);	
 }
 
-function draw_mote(mote_index, row, column) {
-	mote[mote_index] = {x : (column-1) * tile_width + 8, y : (row - 1) * tile_height + 6, w : 3 * tile_width, h : 2 * tile_height};
-	context_mote_canvas.drawImage(label, (column-1)*tile_width, (row-1)*tile_height, 3 * tile_width, tile_height);
-	context_mote_canvas.drawImage(marker, column*tile_width, row*tile_height, tile_width, tile_height);
+function draw_mote(mote_index) {
+	context_mote_canvas.drawImage(label, sensors[mote_index].x - 8, sensors[mote_index].y - 6, 3 * tile_width, tile_height);
+	context_mote_canvas.drawImage(marker, sensors[mote_index].x + tile_width - 8, sensors[mote_index].y + tile_height - 6, tile_width, tile_height);
 }
 
 function draw_texture_background(canvas) {
@@ -511,14 +489,14 @@ function create_texture_handlers(is_admin) {
 		var x = ev.pageX - $(this).offset().left;
 		var y = ev.pageY - $(this).offset().top;
 		
-		for(var mote_index = 0; mote_index < mote.length; mote_index++)
-			if (contains(mote[mote_index], x, y)){
+		for(var mote_index = 0; mote_index < sensors.length; mote_index++)
+			if (contains(sensors[mote_index], x, y)){
 				$(this).css('cursor', 'pointer');
 				if(!text_visible) {
 					if(mote_index == 1 || mote_index == 3)
-						var image = {x : mote[mote_index].x - 104, y : mote[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
+						var image = {x : sensors[mote_index].x - 104, y : sensors[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
 					else
-						var image = {x : mote[mote_index].x + 40, y : mote[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
+						var image = {x : sensors[mote_index].x + 40, y : sensors[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
 					
 					context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
 					context_overlay.fillStyle="#000000";
@@ -529,7 +507,7 @@ function create_texture_handlers(is_admin) {
 				return;
 			}
 		
-		for(var dam_index = 0; dam_index < d.length; dam_index++)
+		for(var dam_index = 0; dam_index < dams.length; dam_index++)
 			if (is_admin && contains(dams[dam_index], x, y)){
 				$(this).css('cursor', 'pointer');
 				if(!dam_text_visible[dam_index]) {
@@ -560,17 +538,17 @@ function create_texture_handlers(is_admin) {
 		var x = ev.pageX - $(this).offset().left;
 		var y = ev.pageY - $(this).offset().top;
 
-		for(var mote_index = 0; mote_index < mote.length; mote_index++)
-			if (contains(mote[mote_index], x, y)){
-				selected_sensor = sensors[mote_index];
+		for(var mote_index = 0; mote_index < sensors.length; mote_index++)
+			if (contains(sensors[mote_index], x, y)){
+				selected_sensor = mote_index;
 				draw_info();
 				draw_wave();
 				draw_threshold();
-				getHistoryData();
+				getHistoryData(false);
 				return;
 			}
 		
-		for(var dam_index = 0; dam_index < d.length; dam_index++)
+		for(var dam_index = 0; dam_index < dams.length; dam_index++)
 			if (contains(dams[dam_index], x, y)){
 				selected_dam = dam_index;
 				set_dam_state();
@@ -579,47 +557,71 @@ function create_texture_handlers(is_admin) {
 	});
 }
 
-function createSensorStructure(reply) {
-	sensors = [];
-	for(var i = 0; i < reply.message.length; i++) {
-		sensors[i] = {id : 0, lat : 0, lng : 0, level : 0, min : 0, max : 0, th : 0};
+function updateScene() {
+	create_motes();
+	
+	if(selected_sensor != undefined) {
+		draw_info();
+		draw_wave();
+		draw_threshold();
+		getHistoryData(chart_built);
+	}
+	
+	for(var dam_index = 0; dam_index < dams.length; dam_index++) {
+		if (old_dams[dam_index].state != dams[dam_index].state) {
+			if(dam_index == 0 || dam_index == 2)
+				dam(dam_index, false);
+			else
+				dam(dam_index, true);
+		}
 	}
 }
 
 function construct_objects() {
-	texture_constructor($("#river-ov"), $("#mote-canvas"), $("#overlay"), $("#dam-canvas"), $("#canvas-left-container"), $("#canvas-river-ov"), 50);
+	texture_constructor($("#river-ov"), $("#dam-canvas"), $("#mote-canvas"), $("#overlay"), $("#canvas-left-container"), $("#canvas-river-ov"), 50);
 	wave_constructor($("#river-sec"), $("#canvas-right-container"), $("#canvas-river-sec"), 1);
 	history_constructor($("#river-sec"), $("#chart-history"));
 	threshold_constructor($("#river-sec"), $("#threshold"));
 	alert_constructor($("#river-sec"), $("#alert"));
 	info_constructor($("#river-sec"), $("#info"));
+}
+
+function createScene() {
+	construct_objects();
 	
-	objects_created = true;
+	draw_texture_background($("#river-ov"));
+	create_motes();
+	create_texture_handlers(is_admin);
+	
+	create_wave_click_to_open($("#river-sec"));
+	create_threshold_click_to_open($("#river-sec"), $("#threshold"));
+	create_history_click_to_open($("#river-sec"), $("#chart-history"));
+	create_info_click_to_open();
+	
+	for(var dam_index = 0; dam_index < dams.length; dam_index++)
+		if (dams[dam_index].state == true)
+			if(dam_index == 0 || dam_index == 2)
+				dam(dam_index, false);
+			else
+				dam(dam_index, true);
+	
+	create_overlay($("#river-ov"), $("#dam-canvas"), $("#mote-canvas"), $("#overlay"));
 }
 
 function getDamDataSuccess(reply) {
 	if(reply.error == false) {
-		n_dams = d.length;
-		
-		if(n_dams != reply.message.length) {
+		if(d.length != reply.message.length) {
 			getDataError(reply);
 			return;
 		}
 		
-		draw_texture_background($("#river-ov"));
-		create_motes();
-		create_texture_handlers(is_admin);
-		
-		create_wave_click_to_open($("#river-sec"));
-		create_threshold_click_to_open($("#river-sec"), $("#threshold"));
-		create_history_click_to_open($("#river-sec"), $("#chart-history"));
-		create_info_click_to_open();
-		
-		for(var dam_index = 0; dam_index < n_dams; dam_index++) {
+		for(var dam_index = 0; dam_index < d.length; dam_index++) {
 			start_time[dam_index] = 0;
 			animation_position_texture[dam_index] = 0;
 			
+			old_dams[dam_index] = dams[dam_index];
 			dams[dam_index] = reply.message[dam_index];
+			
 			dams[dam_index].x = d[dam_index].x;
 			dams[dam_index].y = d[dam_index].y;
 			dams[dam_index].w = d[dam_index].w;
@@ -628,15 +630,14 @@ function getDamDataSuccess(reply) {
 			dams[dam_index].ed = ed[dam_index];
 			dams[dam_index].td = td[dam_index];
 			dams[dam_index].bd = bd[dam_index];
-			
-			if (dams[dam_index].state == true)
-				if(dam_index == 0 || dam_index == 2)
-					dam(dam_index, false);
-				else
-					dam(dam_index, true);
 		}
 		
-		create_overlay($("#river-ov"), $("#mote-canvas") ,$("#overlay"),  $("#dam-canvas"));
+		if(!scene_created) {
+			createScene();
+			scene_created = true;
+		}
+		else
+			updateScene();
 	}	
 	else
 		getDataError(reply);
@@ -644,30 +645,31 @@ function getDamDataSuccess(reply) {
 
 function getSensorDataSuccess(reply) {
 	if(reply.error == false) {
-		if(sensors.length == 0)
-			createSensorStructure(reply);
-		
-		if(sensors.length != reply.message.length) {
+		if(sensors.length != 0 && sensors.length != reply.message.length) {
 			getDataError(reply);
 			return;
 		}
 		
-		for(var i = 0; i < reply.message.length; i++)
+		for(var i = 0; i < reply.message.length; i++) {
 			sensors[i] = reply.message[i];
+			sensors[i].x = (sensors[i].lng - 1) * tile_width + 8;
+			sensors[i].y = (sensors[i].lat - 1) * tile_height + 6;
+			sensors[i].w = 3 * tile_width;
+			sensors[i].h = 2 * tile_height;
+		}
 		
-		construct_objects();
-		getDamData(ae);
+		getDamData();
 	}	
 	else
 		getDataError(reply);
 }
 
 function getDataError(reply) {
-	console.log(reply.message);
 	create_texture_placeholder($("#river-ov"));
 	create_wave_placeholder($("#river-sec"));
 	create_history_placeholder($("#river-sec"), $("#chart-history"));
-	create_threshold_alarm_placeholder($("#river-sec"), $("#threshold"));
+	create_threshold_placeholder($("#river-sec"), $("#threshold"));
+	create_alert_placeholder($("#river-sec"), $("#alert"));
 	create_info_placeholder();
 }
 
@@ -677,17 +679,13 @@ function getSensorData(a) {
 	ajax_post_req(getsensordata, payload, getSensorDataSuccess, getDataError);
 }
 
-function getDamData(a) {
-	ae = a;
+function getDamData() {
 	var payload = "{\"id\" : \"" + ae.id + "\"}";
 	ajax_post_req(getdamdata, payload, getDamDataSuccess, getDataError);
 }
 
 function set_dam_state_success(reply) {
-	if(reply.error == false) {
-		console.log(reply.message);
-	}	
-	else
+	if(reply.error == true)
 		set_dam_state_error(reply);
 }
 
@@ -701,22 +699,20 @@ function set_dam_state() {
 }
 
 var start_time_refresh_sensor;
-var refresh_sensor_period = 1000;
+var refresh_sensor_period = 5000;
 var refresh_sensor_req;
 
 function refresh_sensors(timestamp, ae, first_time) {		
-	if(first_time)
+	if(first_time) {
+		var id = ae.id.substring(ae.id.lastIndexOf("/") + 1, ae.id.length);
+		$('#modal-label').html(ae.name + " - " + id);
+		draw_alert(ae);
+		getSensorData(ae);
 		start_time_refresh_sensor = timestamp;
-	
-	first_time = false;
-	
-	if (timestamp - start_time_refresh_sensor < refresh_sensor_period) {
-		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, first_time);});
-		return;
 	}
 	
-	getSensorData(ae);
-	
-	first_time = true;
-	refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, first_time);});
+	if (timestamp - start_time_refresh_sensor < refresh_sensor_period)
+		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, false);});
+	else
+		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, true);});
 }

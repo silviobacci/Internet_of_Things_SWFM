@@ -69,20 +69,23 @@ function wave_animation(timestamp, level, first_time) {
 function create_threshold_level() {
 	var max_level = background_wave.height;
 	
-	var max_mote = selected_sensor.max;
-	var min_mote = selected_sensor.min;
-	var level_mote = selected_sensor.level;
+	var max_mote = sensors[selected_sensor].max;
+	var min_mote = sensors[selected_sensor].min;
+	var level_mote = sensors[selected_sensor].level;
 	
 	var level = Math.floor(max_level / (max_mote - min_mote) * (level_mote - min_mote));
 	
-	var th = Math.floor(max_level / (max_mote - min_mote) * (selected_sensor.th - min_mote));
+	var th = Math.floor(max_level + (-max_level / (max_mote - min_mote) * (sensors[selected_sensor].th - min_mote)));
 	
-	var text = "THRESHOLD " + selected_sensor.th + " cm";
+	var text = "THRESHOLD " + sensors[selected_sensor].th + " cm";
 	
 	context_wave.fillStyle="#ff0000";
 	context_wave.font="20px Arial";
 	context_wave.textAlign = "center"; 
-	context_wave.fillText(text, background_wave.width/2, th - 10);
+	if(th > max_level*2/3)
+		context_wave.fillText(text, background_wave.width/2, th - 10);
+	else
+		context_wave.fillText(text, background_wave.width/2, th + 20);
 	
 	context_wave.beginPath();
 	context_wave.moveTo(0, th);
@@ -97,7 +100,7 @@ function create_threshold_level() {
 function draw_wave() {
 	if(req != null && req != undefined)
 		cancelAnimationFrame(req);
-	$('#current-level').html("CURRENT LEVEL " + selected_sensor.level + " cm");
+	$('#current-level').html("CURRENT LEVEL " + sensors[selected_sensor].level + " cm");
 	var first_time = true;
 	var level = create_threshold_level();
 	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});

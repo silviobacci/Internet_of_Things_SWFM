@@ -1,6 +1,9 @@
 var map;
 var aes = [];
 var markers = [];
+var start_time_refresh_map;
+var refresh_map_period = 10000;
+var refresh_req;
 
 function map_constructor(container) {
 	$('<script />', {type: "text/javascript", src : "https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=create_map"}).appendTo(container);
@@ -8,6 +11,7 @@ function map_constructor(container) {
 
 function create_map() {
 	map = new google.maps.Map($("#map")[0], {zoom: 6});
+	refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, true);});
 }
 
 function create_markers() {
@@ -27,11 +31,8 @@ function add_marker(ae, coordinates) {
 	map.setCenter(new google.maps.LatLng(coordinates.lat, coordinates.lng));
 	
 	marker.addListener('click', function() {
-		var id = ae.id.substring(ae.id.lastIndexOf("/") + 1, ae.id.length);
-		$('#modal-label').html(ae.name + " - " + id);
-		draw_alert(ae);
 		$('#modal').modal('show');
-		getSensorData(ae);
+		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, true);});
 	});
 }
 
@@ -52,4 +53,16 @@ function getMarkerError(reply) {
 
 function getMarkerData() {
 	ajax_get_req(getmarkerdata, getMarkerDataSuccess, getMarkerError);
+}
+
+function refresh_map(timestamp, first_time) {		
+	if(first_time) {
+		start_time_refresh_map = timestamp;
+		getMarkerData();
+	}
+	
+	if (timestamp - start_time_refresh_map < refresh_map_period)
+		refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, false);});
+	else
+		refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, true);});
 }

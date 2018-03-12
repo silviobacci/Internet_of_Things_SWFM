@@ -227,6 +227,7 @@ public class OM2MManager {
 	
 	public InstanceResource createContentInstance(boolean isMN, String id_father, JSONObject body) {
 		String resource = createResource(isMN, id_father, RESOURCE_TYPE_CONTENT_INSTANCE, CONTENT_INSTANCE, body);
+
 		if(resource == null)
 			return null;
 		

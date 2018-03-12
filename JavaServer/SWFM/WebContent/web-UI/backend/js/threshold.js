@@ -24,15 +24,17 @@ function create_slider_handler() {
 }
 
 function draw_threshold() {
-	$('#slider')[0].min = selected_sensor.min;
-	$('#slider')[0].max = selected_sensor.max;
+	$('#slider')[0].min = sensors[selected_sensor].min;
+	$('#slider')[0].max = sensors[selected_sensor].max;
 	$('#slider')[0].step = 1;
-	$('#slider')[0].value = selected_sensor.th;
+	
+	if($('#slider')[0].value == 0)
+		$('#slider')[0].value = sensors[selected_sensor].th;
 
 	$("#threshold img:last-child").remove();
 	$('#threshold-container').show();
 	$('#new_th').html("NEW THRESHOLD " + $('#slider')[0].value + " cm");
-	$('#current-threshold').html("CURRENT THRESHOLD " + selected_sensor.th + " cm");
+	$('#current-threshold').html("CURRENT THRESHOLD " + sensors[selected_sensor].th + " cm");
 	create_slider_handler();
 }
 
@@ -43,7 +45,7 @@ function submit_threshold_success(reply) {
 		$('#result-th').removeClass('alert-warning');
 		$('#result-th').removeClass('alert-danger');
 		$('#result-th').addClass('alert-success');
-		$('#result-th').html("<strong>Error:</strong> " + reply.message);
+		$('#result-th').html("<strong>Success:</strong> " + reply.message);
 	}	
 	else
 		submit_threshold_error(reply);
@@ -60,6 +62,6 @@ function submit_threshold_error(reply) {
 
 function submit_threshold() {
 	var data = "{\"MIN\" : " + $('#slider')[0].min + ", \"MAX\" : " + $('#slider')[0].max + ", \"TH\" : " + $('#slider')[0].value + "}";
-	var payload = "{\"ae\" : \"" + ae.id + "\", \"id\" : \"" + selected_sensor.id + "\", \"data\" : " + data + "}";
+	var payload = "{\"ae\" : \"" + ae.id + "\", \"id\" : \"" + sensors[selected_sensor].id + "\", \"data\" : " + data + "}";
 	ajax_post_req(setsensordata, payload, submit_threshold_success, submit_threshold_error);
 }

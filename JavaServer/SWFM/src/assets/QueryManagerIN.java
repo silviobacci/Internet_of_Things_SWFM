@@ -1,6 +1,11 @@
 package assets;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -297,14 +302,41 @@ public class QueryManagerIN {
 		if(values == null || values.isEmpty())
 			return null;	
 		
+		Collections.sort(values);
+		
 		JSONArray response = new JSONArray();
+		
+		Date current_time, previous_time = null;
 		
 		for (OM2MResource value : values) {
 			InstanceResource v = (InstanceResource) value;
 			
-			JSONObject data = new JSONObject();
-			data.put("x", values.indexOf(value));
-			data.put("y", Integer.parseInt(v.getCon().toString()));
+			SimpleDateFormat d_format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+			
+			current_time = null;
+			
+			try {
+				current_time = d_format.parse(v.getCt());
+			} 
+			catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			
+			JSONObject data = null;
+			
+			if(current_time != null) {
+				data = new JSONObject();
+				if(previous_time != null) {
+					Calendar gcal = new GregorianCalendar();
+				    gcal.setTime(previous_time);
+				    gcal.add(Calendar.SECOND, 5);
+				    current_time = gcal.getTime();
+				}
+				
+				data.put("x", current_time.getTime());
+				data.put("y", Integer.parseInt(v.getCon().toString()));
+				previous_time = current_time;
+			}
 			
 			if(data != null)
 				response.add(data);

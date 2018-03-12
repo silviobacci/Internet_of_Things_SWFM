@@ -15,6 +15,6 @@ function create_info_click_to_open() {
 }
 
 function draw_info() {
-	var id = selected_sensor.id.substring(selected_sensor.id.lastIndexOf("/") + 1, selected_sensor.id.length)
+	var id = sensors[selected_sensor].id.substring(sensors[selected_sensor].id.lastIndexOf("/") + 1, sensors[selected_sensor].id.length)
 	$('#info').html("<strong>Selected mote: </strong> " + id);
 }

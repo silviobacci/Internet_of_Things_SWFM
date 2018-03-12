@@ -246,6 +246,16 @@ CRASH:
 	margin : 0;
 }
 
+@media(max-width: 767px){
+	.modal-body{
+		overflow : scroll;
+	}
+	
+	#modal-label, #info, .text-left.d-inline, .th  {
+		font-size: 10px;
+	}
+}
+
 .modal-dialog{
 	max-width: 100%;
 }
@@ -304,6 +314,16 @@ CRASH:
 	overflow : scroll;
 }
 
+@media(max-width: 767px){
+	.right-section{
+		overflow : hidden;
+	}
+	
+	#threshold{
+		overflow : scroll;
+	}
+}
+
 .chart-container {
     text-align: center;
     margin: 0 auto;
@@ -311,4 +331,8 @@ CRASH:
 
 #result-container {
     display: none;
+}
+
+#result-th{
+	padding : 1px;
 }

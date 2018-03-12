@@ -8,33 +8,13 @@
 // PAGE CODE
 // ----------------------------
 var is_admin;
-var start_time_refresh_map;
-var refresh_map_period = 3000;
-var refresh_req;
 
 $(document).ready(function(){
 	get_user_data();
 	map_constructor($("#map"));
-	var first_time = true;
-	refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, first_time);});
 });
 
-function refresh_map(timestamp, first_time) {		
-	if(first_time)
-		start_time_refresh_map = timestamp;
-	
-	first_time = false;
-	
-	if (timestamp - start_time_refresh_map < refresh_map_period) {
-		refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, first_time);});
-		return;
-	}
-	
-	getMarkerData();
-	
-	first_time = true;
-	refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, first_time);});
-}
+
 
 // ----------------------------
 // GET USER FUNCTIONS

@@ -1,5 +1,6 @@
-var chart_id = "chart-history";
+var chart_built = false;
 var context_history;
+var chart;
 
 function history_constructor(canvas, container) {
 	container.css("width", canvas[0].width + 4);
@@ -16,23 +17,25 @@ function create_history_click_to_open(canvas, container) {
 	container.append("<img src=" + $("#click")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
 }
 
-// build a chart
+function add_data_point(data_points) {
+	for(var i = 0; i < data_points.length; i++) {
+		if(chart.options.data[0].dataPoints[i] == undefined)
+			chart.options.data[0].dataPoints.push(data_points[i]);
+		else if (chart.options.data[0].dataPoints[i].y != data_points[i].y)
+			chart.options.data[0].dataPoints[3].y = data_points[i].y;
+	}
+}
+
 function build_chart(data_points) {
-    var chart = new CanvasJS.Chart(chart_id, {
+    chart = new CanvasJS.Chart("chart-history", {
         animationEnabled: true,
         axisX: {
-            valueFormatString: "#",
-            titleFontFamily: "Roboto",
-            interval: 1,
-            minimum: data_points[0].x,
-            maximum: data_points[data_points.length-1].x
+            gridThickness: 0,
+            interval:3, 
+            intervalType: "second", 
         },
         axisY: {
-            gridThickness: 0,
-            tickLength: 0,
-            margin: 0,
-            lineThickness: 0,
-            valueFormatString: " "
+            gridThickness: 0
         },
         legend: {
             fontFamily: "Roboto",
@@ -41,11 +44,10 @@ function build_chart(data_points) {
             dockInsidePlotArea: true
         },
         data: [{
-            name: "Overall",
             legendMarkerType: "square",
             type: "area",
-            color: "rgba(40,175,101,0.6)",
-            markerSize: 0,
+            xValueType: "dateTime",
+            color: "#87D0DE",
             dataPoints: data_points
         }]
     });
@@ -55,13 +57,21 @@ function build_chart(data_points) {
 function getHistoryDataSuccess(reply) {
 	if(reply.error == false && reply.message.length != 0) {
 		var data_points = [];
-		for(var i = 0; i < reply.message.length; i++)
-			data_points[i] = reply.message[i];
 		
+		for(var i = 0; i < reply.message.length; i++) {
+			data_points[i] = reply.message[i];
+		}
+		console.log(data_points);
+
 		if(data_points.lenght == 1)
 			data_points[1] = data_points[0];
 		
-		build_chart(data_points);
+		if(!chart_built) {
+			build_chart(data_points);
+			chart_built = true;
+		}
+		else
+			add_data_point(data_points);
 	}	
 	else
 		getHistoryError(reply);
@@ -71,7 +81,8 @@ function getHistoryError(reply) {
 	console.log(reply.message);
 }
 
-function getHistoryData() {
-	var payload = "{\"id\" : \"" + selected_sensor.id + "\"}";
+function getHistoryData(bc) {
+	chart_built = bc;
+	var payload = "{\"id\" : \"" + sensors[selected_sensor].id + "\"}";
 	ajax_post_req(gethistorydata, payload ,getHistoryDataSuccess, getHistoryError);
 }

@@ -106,9 +106,9 @@ public class InstallerIN extends Thread{
 			copiedInsatnces = mng.getResourcesByName(copiedInsatnces, name);
 		
 		if(copiedInsatnces == null || copiedInsatnces.isEmpty()) {
-			System.out.println("CREO INSTANCE PER CONTAINER");
 			json = mng.jsonCI(i.getCnf(), i.getCon(), copiedContainer.getRi(), name);
-			mng.createContentInstance(IN, copiedContainer.getRi(), json);
+			if(mng.createContentInstance(IN, copiedContainer.getRi(), json) != null)
+				System.out.println("CREO INSTANCE PER CONTAINER");
 		}
 	}
 	

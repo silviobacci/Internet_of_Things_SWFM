@@ -8,7 +8,7 @@ public class Starter {
 		
 		new InstallerMN(IP_ADDRESS_OM2M).start();
 		
-		//AdnIN adn = new AdnIN(IP_ADDRESS_OM2M, COAP_PORT, RESOURCE_NAME);
-		//adn.start();
+		AdnIN adn = new AdnIN(IP_ADDRESS_OM2M, COAP_PORT, RESOURCE_NAME);
+		adn.start();
     }
 }

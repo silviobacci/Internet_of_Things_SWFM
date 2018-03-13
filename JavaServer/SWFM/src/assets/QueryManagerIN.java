@@ -1,9 +1,16 @@
 package assets;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 import oneM2M.OM2MManager;
 import resources.AEResource;
@@ -56,12 +63,12 @@ public class QueryManagerIN {
 	}
 	
 	private ReferenceResource getMNReference(ContainerResource copiedAE) {
-		ArrayList<OM2MResource> references = getMNReference();
+		ArrayList<OM2MResource> copiedMN = getCopiedMN();
 		
-		if(references == null)
+		if(copiedMN == null || copiedMN.isEmpty())
 			return null;
 		
-		ArrayList<OM2MResource> copiedMN = mng.getResourcesById(references, copiedAE.getPi());
+		copiedMN = mng.getResourcesById(copiedMN, copiedAE.getPi());
 		
 		if(copiedMN == null || copiedMN.isEmpty() || copiedMN.size() != 1)
 			return null;
@@ -123,7 +130,7 @@ public class QueryManagerIN {
 		return containers;
 	}
 	
-	private ArrayList<OM2MResource> getContainerByName(String father_id, String name) {
+	private OM2MResource getContainerByName(String father_id, String name) {
 		ArrayList<OM2MResource> gps_containers = getAllContainers(father_id);
 		
 		if(gps_containers == null)
@@ -134,16 +141,14 @@ public class QueryManagerIN {
 		if(gps_containers == null || gps_containers.isEmpty() || gps_containers.size() !=1)
 			return null;
 		
-		return gps_containers;
+		return gps_containers.get(0);
 	}
 	
 	private ArrayList<OM2MResource> getAll(String father_id, String type) {
-		ArrayList<OM2MResource> container = getContainerByName(father_id, type);
+		OM2MResource c = getContainerByName(father_id, type);
 		
-		if(container == null)
+		if(c == null)
 			return null;
-		
-		ContainerResource c = (ContainerResource) container.get(0);
 		
 		ArrayList<OM2MResource> all = getAllContainers(c.getRi());
 		
@@ -153,61 +158,21 @@ public class QueryManagerIN {
 		return all;
 	}
 	
-	private JSONObject getLatitudeLongitude(String father_id) {
-		ArrayList<OM2MResource> gps_containers = getContainerByName(father_id, GPS);
+	private InstanceResource getSingleData(String father_id, String type) {
+		ContainerResource data = (ContainerResource) getContainerByName(father_id, type);
 		
-		if(gps_containers == null)
+		if(data == null)
 			return null;
 		
-		ContainerResource gps = (ContainerResource) gps_containers.get(0);
-		
-		ArrayList<OM2MResource> gps_lat = getContainerByName(gps.getRi(), LATITUDE);
-		
-		if(gps_lat == null)
-			return null;
-		
-		ContainerResource lat = (ContainerResource) gps_lat.get(0);
-		
-		ArrayList<OM2MResource> gps_lon = getContainerByName(gps.getRi(), LONGITUDE);
-		
-		if(gps_lon == null)
-			return null;
-		
-		ContainerResource lon = (ContainerResource) gps_lon.get(0);
-		
-		InstanceResource last_lat = mng.getContentInstance(IN, ((ContainerResource) lat).getRi());
-		InstanceResource last_lon = mng.getContentInstance(IN, ((ContainerResource) lon).getRi());
-		
-		if(last_lat == null || last_lon == null)
-			return null;
-		
-		JSONObject jo = new JSONObject();
-		jo.put("lat", last_lat.getCon());
-		jo.put("lon", last_lon.getCon());
-		
-		return jo;
-	}
-	
-	private JSONObject getSingleData(String father_id, String type) {
-		ArrayList<OM2MResource> types = getContainerByName(father_id, type);
-		
-		if(types == null)
-			return null;
-		
-		ContainerResource data = (ContainerResource) types.get(0);
-		
-		InstanceResource value = mng.getContentInstance(IN, data.getRi());
+		InstanceResource value = mng.getContentInstance(IN, data.getLa());
 		
 		if(value == null)
 			return null;	
 		
-		JSONObject jo = new JSONObject();
-		jo.put(father_id, value);
-
-		return jo;
+		return value;
 	}
 	
-	private JSONArray getAllData(String father_id, String type, String d) {
+	private JSONArray getData(String father_id, String type) {
 		ArrayList<OM2MResource> copiedAE = getCopiedAE();
 		
 		if(copiedAE == null || copiedAE.isEmpty())
@@ -218,7 +183,7 @@ public class QueryManagerIN {
 		if(copiedAE == null || copiedAE.isEmpty() || copiedAE.size() != 1)
 			return null;
 		
-		AEResource ae = (AEResource) copiedAE.get(0);
+		OM2MResource ae = (OM2MResource) copiedAE.get(0);
 		
 		ArrayList<OM2MResource> sensors = getAll(ae.getRi(), type);
 		
@@ -227,13 +192,151 @@ public class QueryManagerIN {
 		
 		JSONArray response = new JSONArray();
 		
-		for(OM2MResource s : sensors) {
+		if(type == SENSORS)
+			for(OM2MResource s : sensors) {
+				InstanceResource gps = getSingleData(s.getRi(), GPS);
+				InstanceResource th = getSingleData(s.getRi(), THRESHOLD);
+				InstanceResource level = getSingleData(s.getRi(), LEVEL);
+				
+				JSONObject gps_json = null, th_json = null;
+				try {
+					gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+					th_json = (JSONObject) JSONValue.parseWithException(th.getCon().toString().replace("'", "\""));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				if(gps_json != null && th_json != null) {
+					JSONObject data = new JSONObject();
+					data.put("id", s.getRi());
+					data.put("lat", gps_json.get("LAT"));
+					data.put("lng", gps_json.get("LNG"));
+					data.put("level", Integer.parseInt(level.getCon().toString()));
+					data.put("min", th_json.get("MIN"));
+					data.put("max", th_json.get("MAX"));
+					data.put("th", th_json.get("TH"));
+					
+					if(data != null)
+						response.add(data);
+				}
+			}
+		else
+			for(OM2MResource s : sensors) {
+				InstanceResource gps = getSingleData(s.getRi(), GPS);
+				InstanceResource state = getSingleData(s.getRi(), STATE);
+				
+				JSONObject gps_json = null;
+				try {
+					gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				if(gps_json != null) {
+					JSONObject data = new JSONObject();
+					data.put("id", s.getRi());
+					data.put("lat", gps_json.get("LAT"));
+					data.put("lng", gps_json.get("LNG"));
+					data.put("state", Boolean.parseBoolean(state.getCon().toString()));
+					
+					if(data != null)
+						response.add(data);
+				}
+			}
+		
+		if(response == null || response.isEmpty())
+			return null;
+		
+		return response;
+	}
+	
+	private boolean setData(String ae_id, String sensor_id, String type, Object data, String admin_name) {
+		ContainerResource ae = getCopiedAE(ae_id);
+		
+		ContainerResource sensor = (ContainerResource) getContainerByName(sensor_id, type);
+		
+		if(sensor == null)
+			return false;
+		
+		ArrayList<String> lables = sensor.getLbl();
+		String sub_id = null;
+		for(String label : lables)
+			if(label.toLowerCase().contains("sub"))
+				sub_id = label;
+		
+		if(sub_id == null)
+			return false;
+		
+		ReferenceResource reference = getMNReference(ae);
+		
+		if(reference == null)
+			return false;
+		
+		SubscriptionResource sub = mng.getBridgedSubscription(IN, reference.getCsi(), sub_id);
+		
+		if(sub == null)
+			return false;
+		
+		ContainerResource c = mng.getBridgedContainer(IN, reference.getRi(), sub.getPi());
+		
+		if(c == null)
+			return false;
+		
+		JSONObject json = mng.jsonCI(DEFAULT_CNF + admin_name, data, c.getRi());
+		mng.createBridgedContentInstance(IN, reference.getCsi(), c.getRi(), json);
+		
+		return true;
+	}
+	
+	public JSONArray getHistoryData(String sensor_id) {
+		ContainerResource level = (ContainerResource) getContainerByName(sensor_id, LEVEL);
+		
+		if(level == null)
+			return null;
+		
+		ArrayList<String> f = new ArrayList<String>();
+		f.add("lbl=" + level.getRi());
+		
+		ArrayList<OM2MResource> values = mng.discovery(IN, OM2MManager.CONTENT_INSTANCE, f);
+		
+		if(values == null || values.isEmpty())
+			return null;	
+		
+		Collections.sort(values);
+		
+		JSONArray response = new JSONArray();
+		
+		Date current_time, previous_time = null;
+		
+		for (OM2MResource value : values) {
+			InstanceResource v = (InstanceResource) value;
+			
+			SimpleDateFormat d_format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+			
+			current_time = null;
+			
+			try {
+				current_time = d_format.parse(v.getCt());
+			} 
+			catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			
 			JSONObject data = null;
 			
-			if(d == GPS)
-				data = getLatitudeLongitude(s.getRi());
-			else
-				data = getSingleData(s.getRi(), d);
+			if(current_time != null) {
+				data = new JSONObject();
+				if(previous_time != null) {
+					Calendar gcal = new GregorianCalendar();
+				    gcal.setTime(previous_time);
+				    gcal.add(Calendar.SECOND, 5);
+				    current_time = gcal.getTime();
+				}
+				
+				data.put("x", current_time.getTime());
+				data.put("y", Integer.parseInt(v.getCon().toString()));
+				previous_time = current_time;
+			}
 			
 			if(data != null)
 				response.add(data);
@@ -245,69 +348,37 @@ public class QueryManagerIN {
 		return response;
 	}
 	
-	private boolean changeData(String father_id, String d_id, String type, String d, String data, String admin_name) {
-		ContainerResource ae = getCopiedAE(father_id);
+	public JSONArray getMarkerData() {
+		ArrayList<OM2MResource> copiedAE = getCopiedAE();
 		
-		ArrayList<OM2MResource> sensors = getAll(ae.getRi(), type);
-		
-		if(sensors == null)
-			return false;
-		
-		sensors = mng.getResourcesById(sensors, d_id);
-		
-		if(sensors == null || sensors.isEmpty() || sensors.size() != 1)
-			return false;
-		
-		ContainerResource s = (ContainerResource) sensors.get(0);
-		
-		ArrayList<String> lables = s.getLbl();
-		String sub_id = null;
-		for(String label : lables)
-			if(label.toLowerCase().contains("sub"))
-				sub_id = label;
-		
-		if(sub_id == null)
-			return false;
-		
-		ReferenceResource reference = getMNReference(ae);
-		
-		ArrayList<OM2MResource> subscriptions = mng.bridgedDiscovery(IN, reference.getCsi(), OM2MManager.SUBSCRIPTION, null);
-		
-		if(subscriptions == null || subscriptions.isEmpty())
-			return false;
-		
-		subscriptions = mng.getResourcesById(subscriptions, sub_id);
-		
-		if(subscriptions == null || subscriptions.isEmpty() || subscriptions.size() != 1)
-			return false;
-		
-		SubscriptionResource sub = (SubscriptionResource) subscriptions.get(0);
-		
-		ContainerResource c = mng.getBridgedContainer(IN, reference.getRi(), sub.getPi());
-		
-		if(c == null)
-			return false;
-		
-		JSONObject json = mng.jsonCI(DEFAULT_CNF + admin_name, data, s.getRi());
-		mng.createBridgedContentInstance(IN, reference.getRi(), c.getRi(), json);
-		
-		return true;
-	}
-	
-	public JSONArray getMNPosition() {
-		ArrayList<OM2MResource> copiedMN = getCopiedMN();
-		JSONArray response = new JSONArray();
-		
-		if(copiedMN == null || copiedMN.isEmpty())
+		if(copiedAE == null || copiedAE.isEmpty())
 			return null;
 		
-		for (OM2MResource mn : copiedMN) {
-			JSONObject value = getLatitudeLongitude(mn.getRi());
+		JSONArray response = new JSONArray();
+		
+		for (OM2MResource ae : copiedAE) {
+			InstanceResource gps = getSingleData(ae.getRi(), GPS);
+			InstanceResource state = getSingleData(ae.getRi(), STATE);
 			
-			if(value != null) {
-				JSONObject jo = new JSONObject();
-				jo.put(mn.getRi(), value);
-				response.add(jo);
+			JSONObject gps_json = null, state_json = null;
+			try {
+				gps_json = (JSONObject) JSONValue.parseWithException(gps.getCon().toString().replace("'", "\""));
+				state_json = (JSONObject) JSONValue.parseWithException(state.getCon().toString().replace("'", "\""));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if(gps_json != null && state_json != null) {
+				JSONObject data = new JSONObject();
+				data.put("id", ae.getRi());
+				data.put("name", ae.getRn());
+				data.put("lat", gps_json.get("LAT"));
+				data.put("lng", gps_json.get("LNG"));
+				data.put("level", state_json.get("LEVEL"));
+				data.put("message", state_json.get("MESSAGE"));
+			
+				if(data != null)
+					response.add(data);
 			}
 		}
 		
@@ -317,51 +388,19 @@ public class QueryManagerIN {
 		return response;
 	}
 	
-	public JSONArray getMNNames() {
-		ArrayList<OM2MResource> references = getMNReference();
-		
-		if(references == null || references.isEmpty())
-			return null;
-		
-		JSONArray response = new JSONArray();
-		
-		for (OM2MResource r : references) {
-			JSONObject jo = new JSONObject();
-			jo.put(r.getRi(), r.getRn());
-			response.add(jo);
-		}
-		
-		if(response == null || response.isEmpty())
-			return null;
-		
-		return response;
+	public JSONArray getSensorData(String sensor_id) {
+		return getData(sensor_id, SENSORS);
 	}
 	
-	public JSONArray getSensorLevel(String copiedAE_id) {
-		return getAllData(copiedAE_id, SENSORS, LEVEL);
+	public JSONArray getDamData(String dam_id) {
+		return getData(dam_id, DAMS);
 	}
 	
-	public JSONArray getSensorThreshold(String copiedAE_id) {
-		return getAllData(copiedAE_id, SENSORS, THRESHOLD);
+	public boolean setDamData(String ae_id, String dam_id, Object data, String admin_name) {
+		return setData(ae_id, dam_id, STATE, data, admin_name);
 	}
 	
-	public JSONArray getSensorPosition(String copiedAE_id) {
-		return getAllData(copiedAE_id, SENSORS, GPS);
-	}
-	
-	public JSONArray getDamState(String copiedAE_id) {
-		return getAllData(copiedAE_id, DAMS, STATE);
-	}
-	
-	public JSONArray getDamPosition(String copiedAE_id) {
-		return getAllData(copiedAE_id, DAMS, GPS);
-	}
-	
-	public boolean changeDamState(String copiedAE_id, String dam_id, String data, String admin_name) {
-		return changeData(copiedAE_id, dam_id, DAMS, STATE, data, admin_name);
-	}
-	
-	public boolean changeSensorThreshold(String copiedAE_id, String sensor_id, String data, String admin_name) {
-		return changeData(copiedAE_id, sensor_id, SENSORS, THRESHOLD, data, admin_name);
+	public boolean setSensorData(String ae_id, String sensor_id, Object data, String admin_name) {
+		return setData(ae_id, sensor_id, THRESHOLD, data, admin_name);
 	}
 }

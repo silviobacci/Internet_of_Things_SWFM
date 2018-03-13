@@ -1,5 +1,6 @@
 package backend;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -7,6 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 
 import assets.JsonResponse;
 import assets.QueryManagerIN;
@@ -28,18 +33,36 @@ public class SetDamData extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		QueryManagerIN mng = new QueryManagerIN();
-		String ae_id = req.getParameter("ae_id");
-		String dam_id = req.getParameter("dam_id");
-		String data = req.getParameter("data");
 		
-		if(ae_id == null || dam_id == null || data == null) {
-			resp.getWriter().write(new JsonResponse().create(true, "Some empty fileds."));
+		StringBuffer jb = new StringBuffer();
+		String line = null;
+		try {
+			BufferedReader reader = req.getReader();
+			while ((line = reader.readLine()) != null)
+				jb.append(line);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		  
+		JSONObject payload = null;
+		
+		try {
+			payload = (JSONObject) JSONValue.parseWithException(jb.toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if(payload == null || payload.get("id") == null || payload.get("data") == null || payload.get("ae") == null) {
+			resp.getWriter().write(new JsonResponse().create(true, "Some problem with the post request."));
 			return;
 		}
 		
 		String admin_name = (String) req.getSession().getAttribute("username");
+		String ae_id = (String) payload.get("ae");
+		String dam_id = (String) payload.get("id");
+		boolean data = (boolean) payload.get("data");
 		
-		if(!mng.changeDamState(ae_id, dam_id, data, admin_name)) {
+		if(!mng.setDamData(ae_id, dam_id, data, admin_name)) {
 			resp.getWriter().write(new JsonResponse().create(true, "State unchanged."));
 			return;
 		}

@@ -206,7 +206,7 @@ public class OM2MManager {
 	}
 	
 	public String createBridgedResource(boolean isMN, String csi, String id_father, String resource_type, int type, JSONObject body) {		
-		return createResource(isMN, csi + id_father, resource_type, type, body);
+		return createResource(isMN, id_father, resource_type, type, body);
 	}
 	
 	public AEResource createAE(boolean isMN, JSONObject body) {		
@@ -227,6 +227,7 @@ public class OM2MManager {
 	
 	public InstanceResource createContentInstance(boolean isMN, String id_father, JSONObject body) {
 		String resource = createResource(isMN, id_father, RESOURCE_TYPE_CONTENT_INSTANCE, CONTENT_INSTANCE, body);
+
 		if(resource == null)
 			return null;
 		
@@ -305,7 +306,7 @@ public class OM2MManager {
 	}
 	
 	private String getBridgedResource(boolean isMN, String csi, String id) {
-		String address = getAddress(isMN) + csi + id;
+		String address = getAddress(isMN) + id;
 		
 		CoapResponse res = getRequest(address);
 		
@@ -339,8 +340,9 @@ public class OM2MManager {
 		return new ContainerResource(resource);
 	}
 	
-	public InstanceResource getContentInstance(boolean isMN, String id) {
-		String resource = getResource(isMN, id + "/la");
+	public InstanceResource getContentInstance(boolean isMN, String la) {
+		String resource = getResource(isMN, la);
+		
 		if(resource == null)
 			return null;
 		
@@ -471,7 +473,7 @@ public class OM2MManager {
 	public ArrayList<OM2MResource> filterByName(ArrayList<OM2MResource> r, String name) {
 		Iterator<OM2MResource> iter = r.iterator();
 		while(iter.hasNext()) {
-		    if(!iter.next().getRn().equals(name))
+		    if(iter.next().getRn().equals(name))
 		        iter.remove();
 		}
 		
@@ -481,7 +483,7 @@ public class OM2MManager {
 	public ArrayList<OM2MResource> getResourcesByName(ArrayList<OM2MResource> r, String name) {
 		Iterator<OM2MResource> iter = r.iterator();
 		while(iter.hasNext()) {
-		    if(iter.next().getRn().equals(name))
+		    if(!iter.next().getRn().equals(name))
 		        iter.remove();
 		}
 		
@@ -491,7 +493,7 @@ public class OM2MManager {
 	public ArrayList<OM2MResource> getResourcesById(ArrayList<OM2MResource> r, String id) {
 		Iterator<OM2MResource> iter = r.iterator();
 		while(iter.hasNext()) {
-		    if(iter.next().getRn().equals(id))
+		    if(!iter.next().getRi().contains(id))
 		        iter.remove();
 		}
 		

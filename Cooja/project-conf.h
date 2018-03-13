@@ -6,6 +6,8 @@
 
 
 
+#undef	UIP_CONF_IPV6_RPL
+#define UIP_CONF_IPV6_RPL 1
 
 #undef UIP_CONF_TCP
 #define UIP_CONF_TCP    0
@@ -28,9 +30,9 @@
 
 /* Save some memory for the sky platform. */
 #undef NBR_TABLE_CONF_MAX_NEIGHBORS
-#define NBR_TABLE_CONF_MAX_NEIGHBORS     10
+#define NBR_TABLE_CONF_MAX_NEIGHBORS     4
 #undef UIP_CONF_MAX_ROUTES
-#define UIP_CONF_MAX_ROUTES   10
+#define UIP_CONF_MAX_ROUTES   16
 #undef UIP_CONF_BUFFER_SIZE
 #define UIP_CONF_BUFFER_SIZE  280
 

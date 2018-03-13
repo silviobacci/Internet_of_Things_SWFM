@@ -39,7 +39,12 @@ import configuration.WaterFlowInstance;
 
 	private static final String HTTP_GET	= "GET / HTTP/1.1\r\n\r\n";
 	private static final int 	HTTP_PORT	= 80;
-	private static final int 	PERIOD		= 20;	
+	private static final int 	PERIOD		= 30;
+	private static final String GET 		= "GET";
+	private static final String HTTP		= "http://";
+	private static final String COAP 		= "coap://[";
+	private static final String COAP_END	= "]:5683/";
+	private static final String WELL_KNOWN	= ".well-known/core"; 
 	
 	private static CoapClientADN instance;
 	private HashMap<String,WaterFlowSensor> monitoringModule=new HashMap<String, WaterFlowSensor>();
@@ -51,6 +56,7 @@ import configuration.WaterFlowInstance;
     public void setWInstance(WaterFlowInstance inst) {
     	wInstance = inst; 
     }
+ 
     private CoapClientADN() {}
     
     public static CoapClientADN getInstance() {
@@ -67,25 +73,43 @@ import configuration.WaterFlowInstance;
 	public CoapClientADN(WaterFlowInstance inst){
 		wInstance = inst; 
 	}
+	
+	private void printAssociations() {
+		System.out.println("ASSOCIATIONS:");
+		for(String s : damAssociations.keySet()) {
+			System.out.print(s+":");
+			for(String sensor : damAssociations.get(s))
+				System.out.print("  "+sensor);
+			System.out.println();
+		}
+		
+	}
 
 	public void checkDamAssociations() {
 		String nearestDam = null;
 		double minDistance = 0;
 		
-		for(WaterFlowSensor ws : monitoringModule.values())
+		for(String s : damAssociations.keySet())
+			damAssociations.put(s, new ArrayList<String>());
+		for(WaterFlowSensor ws : monitoringModule.values()) {
 			
 			for (DamActuator dam : damModule.values()) {	
 				
-				if(minDistance < euclideanDistance(dam,ws) || minDistance == 0) {
+				if(minDistance > euclideanDistance(dam,ws) || minDistance == 0) {
 					minDistance = euclideanDistance(dam,ws);
 					nearestDam = dam.getName();
 				}	
+			}
+			if(nearestDam != null) {
 				damAssociations.get(nearestDam).add(ws.getName());
 				minDistance= 0;
 				nearestDam = null;
+			}
 		}
+		printAssociations();
 		
 	}
+	
 	private double euclideanDistance(DamActuator m, WaterFlowSensor ws) {
 		double diffX = Math.pow((((Integer)m.getState().get(JSONParser.GPSX)).intValue() - ((Integer)ws.getState().get(JSONParser.GPSX)).intValue()),2);
 		double diffY = Math.pow((((Integer)m.getState().get(JSONParser.GPSY)).intValue() - ((Integer)ws.getState().get(JSONParser.GPSY)).intValue()),2);
@@ -107,77 +131,78 @@ import configuration.WaterFlowInstance;
 	
 	public void getModulesAddresses() throws IOException {	
 		String ip = "["+wInstance.getAddressBR()+"]"; 
-		String port = wInstance.getPortBR()+"";
-	    String uri, moduleName,coreUri,str,tmp="";
+	    String uri,coreUri,str;
+	    String inputLine;
+	    StringBuffer content;
+	    BufferedReader in;
 	    char id; 
 	    String [] routes;    
-	    InputStream is;
-	    InputStreamReader isr;
-	    BufferedReader br;
 	    
 	    int i=0;
 	    
-	        try {
-		          Socket sock = new Socket(ip, HTTP_PORT);
-		         // System.out.println("Connected OK!\n");noti
-		          PrintWriter request = new PrintWriter(sock.getOutputStream(), true);
-		          request.println(HTTP_GET);
-		       
-		          is = sock.getInputStream();
-		          isr = new InputStreamReader(is);
-		          br = new BufferedReader(isr);
-		          String message = br.readLine();
+	    	try {
+	    		URL url = new URL(HTTP+ip);
+	    		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+	    		con.setRequestMethod(GET);
+	        	  
+				con.setConnectTimeout(5000);
+				con.setReadTimeout(5000);
+				
+				System.out.println("HTTP response:"+con.getResponseCode());
+				
+				in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				content = new StringBuffer();
+				  
+				while ((inputLine = in.readLine()) != null)
+					content.append(inputLine);
+				 
+				in.close();
 		          
-		          do {  
-		        	  str = br.readLine();
-		        	  tmp = tmp+" "+ str;
-		            
-		          }while (str != null);
-		          
-		          System.out.println("\nServer Reponse: " + message);
-		          sock.close();
-		          
-		          str = tmp.substring(tmp.lastIndexOf("<pre>")+5);
-		          str = str.substring(0,str.indexOf("<"));
-		          routes =str.split(" ");
+		        str = content.substring(content.lastIndexOf("<pre>")+5);
+		        str = str.substring(0,str.indexOf("<"));
+		        routes =str.split(" ");
 		     
-		          while(routes[i] != null) {
+		        while(routes[i] != null) {
 		        	 
-		        	 if(routes[i].contains("/") == true) {
-		        		 routes[i] = routes[i].substring(0,routes[i].length()-4);
-		        		 uri = "coap://["+routes[i]+"]:5683/";
-		        		 coreUri = "coap://["+routes[i]+"]:5683/.well-known/core";
-		        		 id = uri.charAt(uri.lastIndexOf("]")-1);
+		        	if(routes[i].contains("/") == true) {
+		        		 
+		        		if(routes[i].contains("s"))
+		        			routes[i]= routes[i].substring(routes[i].indexOf("s")+1);
+		        		 
+		        		routes[i] = routes[i].substring(0,routes[i].length()-4);
+		        		uri = COAP+routes[i]+COAP_END;
+		        		coreUri = uri+WELL_KNOWN;
+		        		
+		        		id = uri.charAt(uri.lastIndexOf("]")-1);
 		        	  
-		        		 if(!isSensor(coreUri)) {
-		        			 moduleName =  ModulesConstants.DAM + id;
-		        			 if(!damModule.containsKey(moduleName)) {
-		        				 damModule.put( moduleName, new DamActuator(moduleName,uri)); 
-		        		   	   	 System.out.println("dam"+id+" created");
-		        		   	     dObserve(moduleName);
-		        		   	     damAssociations.put(moduleName, new ArrayList<String>());
-		        			 }
-		        		 }else if(!monitoringModule.containsKey( ModulesConstants.SENSOR + id)) {
-		        			     moduleName =  ModulesConstants.SENSOR + id;
-		        				 monitoringModule.put(  moduleName, new WaterFlowSensor( moduleName,uri) ); 
-		        				 System.out.println( moduleName +" created");
-		        				 sObserve( moduleName);
-		        				 //associateToDam(monitoringModule.get(moduleName));
-		        				
-		        		 }
-		        	 }else
+		        		 if(isDam(coreUri) && !damModule.containsKey( ModulesConstants.DAM + id ))
+		        				 initializeDam( ModulesConstants.DAM + id,uri);
+		        		   	     
+		        		 else if(isSensor(coreUri) && !monitoringModule.containsKey( ModulesConstants.SENSOR + id)) 
+		        			     initializeSensor(ModulesConstants.SENSOR + id,uri);
+		        	}else
 		        		 i++;       	 
 		          }
 		      
 	      } catch (Exception e) {
-	          System.out.println(e.getMessage());
+	          System.out.println("eccezione "+e.getMessage());
       }	
 	}
 
-	public void observeAllSensors() {		
-		for(String s : monitoringModule.keySet()) {
-			sObserve(s);
-		}
+	private void initializeDam(String moduleName, String uri) {
+		 damModule.put( moduleName, new DamActuator(moduleName,uri)); 
+   	   	 Observing.dObserve(moduleName);
+   	     damAssociations.put(moduleName, new ArrayList<String>());
+   	     DamPostJSON(moduleName, ModulesConstants.CLOSED);
+   	     damModule.get(moduleName).setClosed();
+   	   
+	}
+	
+	private void initializeSensor(String moduleName, String uri) {
+		 monitoringModule.put(  moduleName, new WaterFlowSensor( moduleName,uri) ); 
+		 Observing.sObserve( moduleName);
+	     SensorPostJSON(moduleName, new Integer(70), 0, null, new Integer(85));
+	     System.out.println(moduleName +" created");
 	}
 	
 	private boolean isSensor(String address) {
@@ -186,15 +211,32 @@ import configuration.WaterFlowInstance;
   
    	 	if(res.getResponseText().contains(ModulesConstants.SENSOR))
    	 		return true;
-		return false;
+   	 	return false;
+   	 	
 	}
 	
-	private String [] SensorNames(String str) {
-		 String [] names = null; 
-		 names[0] = str.substring(  str.indexOf("rt=")+4 ,  str.indexOf("rt=")+9);
-		 names[1] = str.substring(  str.lastIndexOf("rt=")+4 ,  str.lastIndexOf("rt=")+9);
-		 return names;
-
+	private boolean isDam(String address) {
+		Request req = new Request(Code.GET);
+   	 	CoapResponse res =  new CoapClient(address).advanced(req);
+  
+   	 	if(res.getResponseText().contains(ModulesConstants.DAM))
+   	 		return true;
+   	 	return false;
+   	 	
+	}
+		
+	public  CoapResponse gpsPostJSON(String name, int x, int y) {
+		String json = "json={";
+		Request req = new Request(Code.POST);
+		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
+		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
+	
+		json += "\""+JSONParser.GPSX+"\":"+x+",";
+		json += "\""+JSONParser.GPSX+"\":"+y;
+		json += "}";
+		
+		req.setPayload(json);
+    	return monitoringModule.get(name).getGpsConnection().advanced(req);
 	}
 	
 	public void InitializeContext(int wl, int threshold) {
@@ -206,99 +248,6 @@ import configuration.WaterFlowInstance;
 		
 	}
 	
-	private void levelObserving(final String name){
-		 monitoringModule.get(name).getSDConnection().observe(
-		    		new CoapHandler() {
-		    			public void onLoad(CoapResponse response) {
-		    				monitoringModule.get(name).updateState( response.getResponseText());
-		    			//	System.out.println("updated because level:"+name+" "+response.getResponseText());
-		    			
-		    			}
-					
-		    			public void onError() {
-		    				System.err.println("FAILED--------"); 
-		    			}
-					}
-		    	);
-	}
-	
-	private void sGpsObserving(final String name) {
-		monitoringModule.get(name).getGpsConnection().observe(
-	    		new CoapHandler() {
-	    			public void onLoad(CoapResponse response) {
-	    				monitoringModule.get(name).updateState( response.getResponseText());
-	    					//System.out.println("updated because gps:"+name+" "+response.getResponseText());
-	    			
-	    			}
-				
-	    			public void onError() {
-	    				System.err.println("FAILED--------"); 
-	    			}
-				}
-	    	);
-	}	
-	
-	private void dGpsObserving(final String name) {
-		damModule.get(name).getGpsConnection().observe(
-	    		new CoapHandler() {
-	    			public void onLoad(CoapResponse response) {
-	    				damModule.get(name).updateState( response.getResponseText());
-	    					//System.out.println("updated because gps:"+name+" "+response.getResponseText());
-	    			
-	    			}
-				
-	    			public void onError() {
-	    				System.err.println("FAILED--------"); 
-	    			}
-				}
-	    	);
-		
-	}
-	
-	private void damObserving(final String name) {
-		damModule.get(name).getSDConnection().observe(
-	    		new CoapHandler() {
-	    			public void onLoad(CoapResponse response) {
-	    				damModule.get(name).updateState( response.getResponseText());
-	    					//System.out.println("updated because dam:"+name+" "+response.getResponseText());
-	    			
-	    			}
-				
-	    			public void onError() {
-	    				System.err.println("FAILED--------"); 
-	    			}
-				}
-	    	);
-		
-	}
-	
-	
-	public void sObserve( final String name) {
-		levelObserving(name);
-		sGpsObserving(name);
-		 
-	}
-	public void dObserve( final String name) {
-		damObserving(name);
-		dGpsObserving(name);
-		 
-	}
-	
-	public  CoapResponse gpsPostJSON(String name, int x, int y) {
-		String json = "json={";
-		Request req = new Request(Code.POST);
-		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
-		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		
-		json += "\"gps_x\":"+x+",";
-		json += "\"gps_y\":"+y;
-		json += "}";
-		
-		req.setPayload(json);
-    	return monitoringModule.get(name).getGpsConnection().advanced(req);
-	}
-	
-	
 	public  CoapResponse SensorPostJSON(String name, Integer wl, Integer evo, Integer toReach, Integer wt) {
 		//DamActuator da = new DamActuator(true, 40, "pippo");
 		boolean atLeastOne=false;
@@ -307,7 +256,7 @@ import configuration.WaterFlowInstance;
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
 		if(wl != null) {
-			json += "\"w_l\":"+wl.intValue();
+			json += "\""+JSONParser.WL+"\":"+wl.intValue();
 			atLeastOne= true;
 		}
 		
@@ -316,7 +265,7 @@ import configuration.WaterFlowInstance;
 				json+=",";
 			else
 				atLeastOne=true;
-			json += "\"evolution\":"+evo.intValue();
+			json += "\""+JSONParser.EVO+"\":"+evo.intValue();
 		
 		}
 			
@@ -325,12 +274,13 @@ import configuration.WaterFlowInstance;
 				json+=",";
 			else
 				atLeastOne=true;
-			json += "\"w_t\":"+wt.intValue();
+			json += "\""+JSONParser.WT+"\":"+wt.intValue();
 
 		}
 			json += "}";
 		req.setPayload(json);
-		//System.out.println("json:"+json);
+		
+	monitoringModule.get(name).updateState(json.substring(5));
     	return monitoringModule.get(name).getSDConnection().advanced(req);
 	}
 	
@@ -340,28 +290,18 @@ import configuration.WaterFlowInstance;
 		Request req = new Request(Code.POST);
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		req.setPayload("json={\"dam\":\""+control+"\"}");
+		req.setPayload("json={\""+JSONParser.STATE+"\":\""+control+"\"}");
     	return damModule.get(name).getSDConnection().advanced(req);
-	}
-	
-	public boolean isDam(String address) {
-		Request req = new Request(Code.GET);
-    	 CoapResponse res =  new CoapClient(address).advanced(req);
-    	 String type = res.getResponseText();
-    	 
-    	
-    	 type = type.substring(  type.indexOf("rt=")+4 , type.length()-1);
-    	
-    	 if(type.equalsIgnoreCase("Sensor"))
-    		 return false;
-    	 else
-    		 return true;	 
 	}
 	
 	public String getRaw(CoapResponse response) {
     	return response.getResponseText();
 	}
 
+	public HashMap<String, ArrayList<String>> getDamAssociations() {
+		return damAssociations;
+	}
+	
 	public  HashMap<String, WaterFlowSensor> getMonitoringModule() {
 		return monitoringModule;
 	}
@@ -387,7 +327,6 @@ import configuration.WaterFlowInstance;
 			
 			try {
 				getModulesAddresses();
-				checkDamAssociations();
 				TimeUnit.SECONDS.sleep(PERIOD);
 			
 			} catch (IOException e) {

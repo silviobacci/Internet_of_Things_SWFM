@@ -33,7 +33,7 @@ public class DamActuator extends Module implements ModuleAPI {
 	
 	
 	public void printState() {
-		System.out.println(name+" is currently "+state+" coordinates:"+state.get(JSONParser.GPSX)+" "+state.get(JSONParser.GPSY));
+		System.out.println(name+"coordinates:"+state.get(JSONParser.GPSX)+" "+state.get(JSONParser.GPSY));
 		
 	}
 	
@@ -46,6 +46,7 @@ public class DamActuator extends Module implements ModuleAPI {
 	}
 	
 	public void setClosed() {
+		System.out.println(this.name+" closed...");
 		state.put(JSONParser.STATE, false);
 		
 	}
@@ -56,7 +57,8 @@ public class DamActuator extends Module implements ModuleAPI {
 	}
 	
 	public void setOpened() {
-		state.put(JSONParser.STATE, false);
+		System.out.println(this.name+" opened...");
+		state.put(JSONParser.STATE, true);
 	}
 	public void updateState(String jsonPost) {
 		HashMap<String, Object> tmp = JSONParser.getDamValues(jsonPost);
@@ -68,12 +70,11 @@ public class DamActuator extends Module implements ModuleAPI {
 					setOpened();
 				else
 					setClosed();
-				if(!state.equals(tmp.get(key)))
-					System.out.println("dam"+this.name+"->updated value:state");
+				//if(!state.get(key).equals(tmp.get(key)))
+					//System.out.println("dam"+this.name+"->updated value:state");
 			
 			}else {
-				//if(!state.get( key).equals(tmp.get(key)))
-					//System.out.println("dam"+this.name+"->updated value:"+key);
+					//System.out.println("dam"+this.name+"->updated value:"+key+" "+tmp.get(key));
 				state.put(key, tmp.get(key));
 			}
 		}
@@ -81,7 +82,7 @@ public class DamActuator extends Module implements ModuleAPI {
 	}
 	
 	public boolean isOpened() {
-		return  (Boolean) state.get(JSONParser.STATE);
+		return   (Boolean) state.get(JSONParser.STATE);
 		}
 	public String getName() {
 		return name;

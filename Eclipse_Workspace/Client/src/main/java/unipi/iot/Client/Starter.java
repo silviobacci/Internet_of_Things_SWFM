@@ -33,6 +33,8 @@ public class Starter {
 		}
 		WaterFlowManager.setWInstance(s.getWinstance());
 		WaterFlowManager.start();
+		DamController.start();
+		
 		
 		//DamController.start();
 		

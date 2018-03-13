@@ -27,7 +27,6 @@ obj_z1/watchdog.o: /home/osboxes/contiki/cpu/msp430/./watchdog.c \
  /home/osboxes/contiki/core/./sys/loader.h \
  /home/osboxes/contiki/core/./sys/clock.h \
  /home/osboxes/contiki/core/./sys/energest.h \
- /home/osboxes/contiki/core/./dev/watchdog.h \
  /home/osboxes/contiki/cpu/msp430/./isr_compat.h
 /home/osboxes/contiki/cpu/msp430/./watchdog.c :
  /home/osboxes/contiki/core/./contiki.h :
@@ -58,5 +57,4 @@ obj_z1/watchdog.o: /home/osboxes/contiki/cpu/msp430/./watchdog.c \
  /home/osboxes/contiki/core/./sys/loader.h :
  /home/osboxes/contiki/core/./sys/clock.h :
  /home/osboxes/contiki/core/./sys/energest.h :
- /home/osboxes/contiki/core/./dev/watchdog.h :
  /home/osboxes/contiki/cpu/msp430/./isr_compat.h :

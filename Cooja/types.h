@@ -1,12 +1,11 @@
 #define 	ERROR 			-1
-#define 	MESSAGE_SIZE		60
+#define 	MESSAGE_SIZE		40
 #define 	FIXED_STEP		5
-#define 	EQUAL_THRESHOLD 	20
-#define 	RES_CHANGE		7
+#define 	RES_CHANGE		4
 #define 	DAM_STATE_SIZE		10
 #define		MIN_LEVEL_DETECTABLE	30
 #define		MAX_LEVEL_DETECTABLE	500
-#define 	LEVEL_SAMPLING_PERIOD	5
+#define 	LEVEL_SAMPLING_PERIOD	10
 #define 	POS_SAMPLING_PERIOD	25
 
 #define str(s) 		#s
@@ -22,4 +21,10 @@ typedef struct{
 	unsigned int water_level_threshold;
 } sensor_state;
 
+
+typedef struct{
+	int gpsx;
+	int gpsy;
+	char dam_state[7];
+} dam_state;
 

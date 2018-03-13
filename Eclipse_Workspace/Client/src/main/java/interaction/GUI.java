@@ -72,7 +72,7 @@ public class GUI {
 		try {
 			context.getModulesAddresses();
 			context.InitializeContext( new Integer(70),new Integer(150));
-			context.observeAllSensors();
+			//context.observeAllSensors();
 			Starter.DamController.start();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

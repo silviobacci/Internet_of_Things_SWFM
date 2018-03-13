@@ -7,11 +7,8 @@
 #include "types.h"
 #include "sys/etimer.h" // Include etimer
 #include "dev/serial-line.h"
-//fare controllo sul content delle richieste 
 
-
-static char dam_state[10] = "closed";
-static int gpsx,gpsy;
+static dam_state d_state;
 static unsigned int accept = -1;
 static char j_message[MESSAGE_SIZE];
 static struct jsonparse_state parser;	
@@ -26,11 +23,12 @@ EVENT_RESOURCE(gps, "title=\"Resource\";rt=\"gps\"", gps_event_get_handler, NULL
 
 
 void update_position(int x, int y){
-	if(gpsx != x || gpsy != y ){	
-		gpsx = x;
-		gpsy = y;
+	if(d_state.gpsx != x || d_state.gpsy != y ){	
+		d_state.gpsx = x;
+		d_state.gpsy = y;
+		printf("c %d %d \n",d_state.gpsx,d_state.gpsy);
 		REST.notify_subscribers(&gps);
-		//printf("changed %d %d \n",state.gps_x,state.gps_y);
+		
 	}
 }
 
@@ -41,7 +39,7 @@ gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t p
 	accept = -1;
   	REST.get_header_accept(request, &accept);							//retrieve accepted options
 	 if( accept == -1 || accept == REST.type.APPLICATION_JSON) {				//select and create the correct format: JSON
-		sprintf(j_message,"{\"%s\":%d,\"%s\":%d}",str(gps_x),gpsx,str(gps_y),gpsy);
+		sprintf(j_message,"{\"%s\":%d,\"%s\":%d}",str(gps_x),d_state.gpsx,str(gps_y),d_state.gpsy);
 		//printf("sended:%s \n",j_message);
 		//memcpy(buffer, j_message,strlen(j_message));
 
@@ -64,26 +62,26 @@ res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t p
 	
 	accept = -1;
   	REST.get_header_accept(request, &accept);					//retrieve accepted options
-	if(  accept == REST.type.TEXT_PLAIN) {						//select and create the correct format: plain tex
+	/*if(  accept == REST.type.TEXT_PLAIN) {						//select and create the correct format: plain tex
 		REST.set_header_content_type(response, REST.type.TEXT_PLAIN); 		//set header content format
 		REST.set_response_payload(response, buffer, MESSAGE_SIZE);
 	
-	} else if( accept == -1 || accept == REST.type.APPLICATION_JSON) {		//select and create the correct format: X	
-		sprintf(j_message,"{\"%s\":\"%s\"}", str(state),dam_state);	
+	} else*/ if( accept == -1 || accept == REST.type.APPLICATION_JSON) {		//select and create the correct format: X	
+		sprintf(j_message,"{\"%s\":\"%s\"}", str(state),d_state.dam_state);	
 		memcpy(buffer, j_message,strlen(j_message));
 
 		REST.set_header_content_type(response,  REST.type.APPLICATION_JSON);	//set header content format
 		REST.set_response_payload(response, buffer, strlen(j_message));
 	
-	} else{
+	} /*else{
 		REST.set_response_status(response, REST.status.NOT_ACCEPTABLE);
-		message = "Supporting content-types text/plain, application/xml";
+		//message = "Supporting content-types text/plain, application/xml";
 		REST.set_response_payload(response, message, strlen(message));
-	}
+	}*/
 }
 
 void jparse_and_store(struct jsonparse_state *parser ){
-	json_get_string(parser, str(state), dam_state,DAM_STATE_SIZE);
+	json_get_string(parser, str(state), d_state.dam_state,DAM_STATE_SIZE);
 	REST.notify_subscribers(&resource_example);
 }
 

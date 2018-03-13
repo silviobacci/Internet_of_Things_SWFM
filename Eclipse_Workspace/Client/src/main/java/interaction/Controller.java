@@ -4,15 +4,65 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import Modules.DamActuator;
+import Modules.ModulesConstants;
 import Modules.WaterFlowSensor;
 import communication.CoapClientADN;
 
 public class Controller extends Thread {
-	private static final int PERIOD	= 15;
+	private static final int PERIOD	= 10;
 	
 	private CoapClientADN context = CoapClientADN.getInstance();
 
+	
+	private void openDam(String name) {
+		
+		context.DamPostJSON(name,ModulesConstants.OPEN);
+		context.getDamModule().get(name).setOpened();
+		
+		for (String ws: context.getDamAssociations().get(name))
+			context.SensorPostJSON(ws, null, -1, null, null); // getMonitoringModule().get("Sensor1").getConnection().
+	
+	}
+	
+	
+	private void closeDam(String name) {
+		
+		context.DamPostJSON(name,ModulesConstants.CLOSED);
+		context.getDamModule().get(name).setClosed();
+		
+		for (String ws: context.getDamAssociations().get(name))
+			context.SensorPostJSON(ws, null, 0, null, null); // getMonitoringModule().get("Sensor1").getConnection().
+	
+	}
+	
 	private void attuateLogic() {
+		boolean close = true;
+		
+		for(DamActuator dam : context.getDamModule().values() ) {
+			
+			if(!dam.isOpened()) {
+				
+				for( String ws : context.getDamAssociations().get(dam.getName())) {
+					context.getMonitoringModule().get(ws);
+					if(context.getMonitoringModule().containsKey(ws) && context.getMonitoringModule().get(ws).isOverflowed() ) {
+						openDam(dam.getName());
+						break;
+					}
+				}
+			
+			}else if(dam.isOpened()) {
+				for( String ws : context.getDamAssociations().get(dam.getName())) {
+					
+					if(context.getMonitoringModule().get(ws).isOverflowed() )
+						close = false;
+				}
+				if(close) {
+					closeDam(dam.getName());
+				}
+			}
+			
+		}
+	/*	
 		HashMap <String,WaterFlowSensor> tmps =context.getMonitoringModule();
 		HashMap <String,DamActuator> tmpd =context.getDamModule();
 		//System.out.println("controller-> S2:"+tmps.get("Sensor2").getLevel()+" S4:"+tmps.get("Sensor4").getLevel()+" dam3:"+ tmpd.get("Dam3").isOpened());
@@ -75,12 +125,13 @@ public class Controller extends Thread {
 			
 		try {
 			TimeUnit.SECONDS.sleep(PERIOD);
-			System.out.println("controller");
+			System.out.println("----------CONTROLLER-----------");
 		} catch (InterruptedException e) {
 		
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		context.checkDamAssociations();
 		attuateLogic();
 		
 	   }

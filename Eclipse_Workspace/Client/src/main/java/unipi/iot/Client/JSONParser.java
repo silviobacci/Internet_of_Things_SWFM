@@ -99,7 +99,7 @@ public class JSONParser {
 		for (String property: jProperties) {
 			if(jo.get(property) != null && property != JSONParser.STATE)
 				propVal.put(property, new Integer ( ( (Long) jo.get(property) ).intValue()));
-			else
+			else if(jo.get(property) != null)
 				propVal.put(property,jo.get(property) );
 		
 		}

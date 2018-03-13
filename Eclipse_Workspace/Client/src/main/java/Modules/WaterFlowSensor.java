@@ -27,7 +27,7 @@ public class WaterFlowSensor extends Module implements ModuleAPI{
 	
 	public boolean isOverflowed() {
 		if(state.get(JSONParser.WL) != null && state.get(JSONParser.WL) != null )
-			return (((Integer)state.get(JSONParser.WL)).intValue() - ((Integer)state.get(JSONParser.WT)).intValue() < 0);
+			return (((Integer)state.get(JSONParser.WT)).intValue() - ((Integer)state.get(JSONParser.WL)).intValue() < 0);
 		else
 			return false;
 	}
@@ -38,7 +38,7 @@ public class WaterFlowSensor extends Module implements ModuleAPI{
 	
 	
 	public void printState() {
-		//System.out.print("updating "+name+":");
+		System.out.print("updating "+name+":");
 		for(String key: state.keySet())
 			System.out.print(key+":"+state.get(key)+" ");
 		System.out.println();
@@ -62,14 +62,14 @@ public class WaterFlowSensor extends Module implements ModuleAPI{
 	public void updateState(String jsonPost) {
 		HashMap<String, Object> tmp = JSONParser.getSensorValues(jsonPost);
 		for (String key: tmp.keySet()) {
-			if(state.containsKey(key)) {
-				if(!state.get( key).equals(tmp.get(key)))
-					System.out.println("Sensor"+name+"->updated value:"+key+ "    new:"+tmp.get(key)+"   old:"+state.get(key) );
+			//System.out.println(key+":"+tmp.get(key));
+				//if(!state.get( key).equals(tmp.get(key)))
+					//System.out.println("Sensor"+name+"->updated value:"+key+ "    new:"+tmp.get(key)+"   old:"+state.get(key) );
 				state.put(key,tmp.get(key));		 
 			
-			}
 		
 		}
+		
 		//printState();
 	}
 	

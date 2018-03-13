@@ -11,521 +11,708 @@ var tile_height = 16;
 
 var tile_level_width = 1;
 var tile_level_height = 4;
-var min_level = 8;
-var av_level = 24;
-var max_level = 32;
+
+var context_texture;
+var context_overlay;
+var context_mote_canvas;
+var context_dam_canvas;
+var scaling_factor = 1;
 
 var row_number;
 var col_number;
 
-var dam_open = [false, false, false, false];
-var animation_position = [0, 0, 0, 0];
-var animation_timer = [0, 0, 0, 0];
-var animation_speed;
+var animation_position_texture = [];
+var animation_period_texture;
+var start_time = [];
+
 var sd = [0, 28, 0, 21];
 var ed = [9, 32, 15, 32];
 var td = [3, 3, 22, 30];
 var bd = [4, 4, 23, 31];
 
-var d0 = {x: (tile_width - 1) * ed[0], y: tile_height * td[0], w: tile_width * 2, h: tile_height * 3};
-var d1 = {x: tile_width * sd[1], y: tile_height * td[1], w: tile_width * 2, h: tile_height * 3};
-var d2 = {x: (tile_width - 1) * ed[2], y: tile_height * td[2], w: tile_width * 2, h: tile_height * 3};
-var d3 = {x: tile_width * sd[3], y: tile_height * td[3], w: tile_width * 2, h: tile_height * 3};
+var d = [{x: tile_width * ed[0], y: tile_height * td[0], w: tile_width * 2, h: tile_height * 3},
+		{x: tile_width * sd[1], y: tile_height * td[1], w: tile_width * 2, h: tile_height * 3},
+		{x: tile_width * ed[2], y: tile_height * td[2], w: tile_width * 2, h: tile_height * 3},
+		{x: tile_width * sd[3], y: tile_height * td[3], w: tile_width * 2, h: tile_height * 3}];
 
-var n_motes;
-var mote = [];
+var sensors = [];
+var dams = [];
+var old_dams = [];
 
-var g, l, w, r, u, b, w1, w2, w3, w4, g1, g2, g3, g4, u2, b2, o1, o2, o3, o4, o5, o6, o7, o8, o9, o0;
-var t1, t2, t3, m1, m2, m3, m4, m5, m6, m7, m8, f2, f5;
-var h01, h02, h03, h04, h11, h12, h13, h14, h21, h22, h23, h24, h31, h32, h33, h34, h41, h42, h43, h44;
-var fm1, fm2, marker, label, red, green, yellow, grey;
+var water_left;
+var water_right;
+var water_top;
+var water_bottom;
+var water_corner_bottom_right;
+var water_corner_bottom_left;
+var water_corner_top_left;
+var water_corner_top_right;
+var ground_top;
+var ground_bottom;
+var wave_bottom_to_right;
+var wave_bottom_to_left;
+var wave_top_to_right;
+var wave_top_to_left;
+var wave_to_left;
+var wave_to_right;
+var wave_corner_bottom_right;
+var wave_corner_bottom_left;
+var wave_corner_top_right;
+var wave_corner_top_left;
+var background_texture;
+var marker;
+var label;
+var red;
+var green;
+var yellow;
+var grey;
+var rect;
 
-function texture_constructor(texture_file, canvas, container, as) {
-	animation_speed = as;
-	create_texture();
-	set_texture_dimension(canvas, container);
+var dam_text_visible = [false, false, false, false];
+var text_visible;
+
+var selected_sensor;
+var selected_dam;
+var ae;
+
+var scene_created = false;
+
+function texture_constructor(canvas1, canvas2, canvas3, canvas4, container1, container2, ap) {
+	animation_period_texture = ap;
+	set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container1, container2);
+	create_tileset();
 }
 
-function create_texture(texture_file) {
-	$.get(texture_svr_path + texture_file, function(data) {
-		var lines = data.split("\n");
-		for(var i = 0; i < lines.length - 1; i++) {
-		  var chars = lines[i].split("");
-		  texture[i] = [];
-		  for(var j = 0; j < chars.length; j++) {
-		  	texture[i][j] = chars[j];
-		  }
-		}
-		row_number = texture.length;
-		col_number = texture[1].length;
-	});
-}
-
-function set_texture_dimension(canvas, container) {
-	console.log(canvas[0]);
-	console.log(canvas);
-	context = canvas[0].getContext("2d");
+function set_texture_dimension(canvas1, canvas2, canvas3, canvas4, container1, container2) {
+	context_texture = canvas1[0].getContext("2d");
+	context_dam_canvas = canvas2[0].getContext("2d");
+	context_mote_canvas = canvas3[0].getContext("2d");
+	context_overlay = canvas4[0].getContext("2d");
 	
-	var min_dim = container.innerWidth() < container.innerHeight() ? container.innerWidth() : container.innerHeight();
+	var min_dim = container1.innerWidth() < container1.innerHeight() ? container1.innerWidth() : container1.innerHeight();
 	
 	if(min_dim < size) {
-		canvas[0].width = min_dim;
-		canvas[0].height = min_dim;
-		var scaling_factor = min_dim/size;
-		context.scale(scaling_factor, scaling_factor);
+		canvas1[0].width = min_dim;
+		canvas1[0].height = min_dim;
+		scaling_factor = min_dim/size;
+		context_texture.scale(scaling_factor, scaling_factor);
 	}
 	else {
-		canvas[0].width = tile_height * row_number;
-		canvas[0].height = tile_width * row_number;
+		canvas1[0].width = size;
+		canvas1[0].height = size;
 	}
+	
+	canvas2[0].width = canvas1[0].width;
+	canvas2[0].height = canvas1[0].height;
+	
+	context_dam_canvas.scale(scaling_factor, scaling_factor);
+	
+	canvas3[0].width = canvas1[0].width;
+	canvas3[0].height = canvas1[0].height;
+	
+	context_mote_canvas.scale(scaling_factor, scaling_factor);
+	
+	canvas4[0].width = canvas1[0].width;
+	canvas4[0].height = canvas1[0].height;
+	
+	context_overlay.scale(scaling_factor, scaling_factor);
+	
+	container2.css("width", canvas1[0].width + 4);
+	container2.css("height", canvas1[0].height + 4);
 }
 
 function create_tileset() {
-	g = $('#g')[0];
-	l = $('#l')[0];
-	w = $('#w')[0];
-	r = $('#r')[0];
-	u = $('#u')[0];
-	b = $('#b')[0];
-	w1 = $('#1')[0];
-	w2 = $('#2')[0];
-	w3 = $('#3')[0];
-	w4 = $('#4')[0];
-	g1 = $('#5')[0];
-	g2 = $('#6')[0];
-	g3 = $('#7')[0];
-	g4 = $('#8')[0];
-	u2 = $('#u2')[0];
-	b2 = $('#b2')[0];
-	o1 = $('#o1')[0];
-	o2 = $('#o2')[0];
-	o3 = $('#o3')[0];
-	o4 = $('#o4')[0];
-	o5 = $('#o5')[0];
-	o6 = $('#o6')[0];
-	o7 = $('#o7')[0];
-	o8 = $('#o8')[0];
-	o9 = $('#o9')[0];
-	o0 = $('#o0')[0];
-	t1 = $('#t1')[0];
-	t2 = $('#t2')[0];
-	t3 = $('#t3')[0];
-	m1 = $('#m1')[0];
-	m2 = $('#m2')[0];
-	m3 = $('#m3')[0];
-	m4 = $('#m4')[0];
-	m5 = $('#m5')[0];
-	m6 = $('#m6')[0];
-	m7 = $('#m7')[0];
-	f2 = $('#f2')[0];
-	f5 = $('#f5')[0];
-	h01 = $('#h01')[0];
-	h02 = $('#h02')[0];
-	h03 = $('#h03')[0];
-	h04 = $('#h04')[0];
-	h11 = $('#h11')[0];
-	h12 = $('#h12')[0];
-	h13 = $('#h13')[0];
-	h14 = $('#h14')[0];
-	h21 = $('#h21')[0];
-	h22 = $('#h22')[0];
-	h23 = $('#h23')[0];
-	h24 = $('#h24')[0];
-	h31 = $('#h31')[0];
-	h32 = $('#h32')[0];
-	h33 = $('#h33')[0];
-	h34 = $('#h34')[0];
-	h41 = $('#h41')[0];
-	h42 = $('#h42')[0];
-	h43 = $('#h43')[0];
-	h44 = $('#h44')[0];
-	fm1 = $('#fm1')[0];
-	fm2 = $('#fm2')[0];
+	water_left = $('#water_left')[0];
+	water_right = $('#water_right')[0];
+	water_top = $('#water_top')[0];
+	water_bottom = $('#water_bottom')[0];
+	water_corner_bottom_right = $('#water_corner_bottom_right')[0];
+	water_corner_bottom_left = $('#water_corner_bottom_left')[0];
+	water_corner_top_left = $('#water_corner_top_left')[0];
+	water_corner_top_right = $('#water_corner_top_right')[0];
+	ground_top = $('#ground_top')[0];
+	ground_bottom = $('#ground_bottom')[0];
+	wave_bottom_to_right = $('#wave_bottom_to_right')[0];
+	wave_bottom_to_left = $('#wave_bottom_to_left')[0];
+	wave_top_to_right = $('#wave_top_to_right')[0];
+	wave_top_to_left = $('#wave_top_to_left')[0];
+	wave_to_left = $('#wave_to_left')[0];
+	wave_to_right = $('#wave_to_right')[0];
+	wave_corner_bottom_right = $('#wave_corner_bottom_right')[0];
+	wave_corner_bottom_left = $('#wave_corner_bottom_left')[0];
+	wave_corner_top_right = $('#wave_corner_top_right')[0];
+	wave_corner_top_left = $('#wave_corner_top_left')[0];
+	background_texture = $('#background_texture')[0];
 	marker = $('#marker')[0];
 	label = $('#label')[0];
 	red = $('#red')[0];
 	green = $('#green')[0];
 	yellow = $('#yellow')[0];
 	grey = $('#grey')[0];
+	rect = $('#rect')[0];
 }
 
-function open_dam_left(index_dam) {
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = end_dam - animation_position[index_dam];
+function create_overlay(canvas1, canvas2, canvas3, canvas4) {
+	canvas1.css("position", "absolute");
+	canvas2.css("position", "absolute");
+	canvas3.css("position", "absolute");
+	canvas4.css("position", "absolute");
+	
+	canvas1.css("z-index", "0");
+	canvas2.css("z-index", "1");
+	canvas3.css("z-index", "2");
+	canvas4.css("z-index", "3");
+}
+
+function create_texture_placeholder(canvas) {
+	context_texture.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_dam_canvas.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_mote_canvas.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_overlay.clearRect(0, 0, canvas[0].width, canvas[0].height);
+	context_texture.drawImage($("#unable_quad")[0], 0, 0, canvas[0].width, canvas[0].height);
+}
+
+function open_dam_left(timestamp, dam_index, first_time) {
+	if(first_time)
+		start_time[dam_index] = timestamp;
+	
+	first_time = false;
+	
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
+		return;
+	}
+	
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = end_dam - animation_position_texture[dam_index];
+	
+	first_time = true;
 	
 	switch(current_index) {
 		case end_dam:
-			context.drawImage(o4, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o5, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(wave_corner_top_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_corner_bottom_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 			break;
 		case end_dam - 1:
-			context.drawImage(g3, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(g2, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o1, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o3, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(water_corner_top_left, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_corner_bottom_left, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 			break;
 		case start_dam - 1:
-			context.drawImage(u, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position[index_dam] = 0;
-			clearInterval(animation_timer[index_dam]);
+			context_dam_canvas.drawImage(water_top, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_bottom, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				else
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+				context_overlay.fillStyle="#000000";
+				if(!dams[dam_index].state)
+					var text = "click to open";
+				else
+					var text = "click to close";
+				context_overlay.fillText(text, image.x + 21, image.y + 19);
+			}
 			break;
 		default:
-			context.drawImage(u, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o1, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o3, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(water_top, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_bottom, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function close_dam_left(index_dam) {
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = start_dam + animation_position[index_dam];
+function close_dam_left(timestamp, dam_index, first_time) {
+	if(first_time)
+		start_time[dam_index] = timestamp;
+	
+	first_time = false;
+		
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
+		return;
+	}
+	
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = end_dam - animation_position_texture[dam_index];
+	
+	first_time = true;
 	
 	switch(current_index) {
-		case start_dam:
-			context.drawImage(o1, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o3, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
-			break;
 		case end_dam:
-			context.drawImage(u2, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b2, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(l, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(l, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position[index_dam] = 0;
-			clearInterval(animation_timer[index_dam]);
+			context_dam_canvas.drawImage(water_left, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_left, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_right, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_right, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
+			break;
+		case start_dam:
+			context_dam_canvas.drawImage(ground_top, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				else
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+				context_overlay.fillStyle="#000000";
+				if(!dams[dam_index].state)
+					var text = "click to open";
+				else
+					var text = "click to close";
+				context_overlay.fillText(text, image.x + 21, image.y + 19);
+			}
 			break;
 		default:
-			context.drawImage(u2, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b2, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o1, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o3, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(ground_top, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_right, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_right, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function open_dam_right(index_dam) {
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = start_dam + animation_position[index_dam];
+function open_dam_right(timestamp, dam_index, first_time) {
+	if(first_time)
+		start_time[dam_index] = timestamp;
+	
+	first_time = false;
+		
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
+		return;
+	}
+	
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = start_dam + animation_position_texture[dam_index];
+	
+	first_time = true;
 	
 	switch(current_index) {
 		case start_dam:
-			context.drawImage(o6, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o8, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(wave_corner_top_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_corner_bottom_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 			break;
 		case start_dam + 1:
-			context.drawImage(g4, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(g1, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o9, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o0, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(water_corner_top_right, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_corner_bottom_right, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 			break;
 		case end_dam + 1:
-			context.drawImage(u, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position[index_dam] = 0;
-			clearInterval(animation_timer[index_dam]);
+			context_dam_canvas.drawImage(water_top, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_bottom, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				else
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+				context_overlay.fillStyle="#000000";
+				if(!dams[dam_index].state)
+					var text = "click to open";
+				else
+					var text = "click to close";
+				context_overlay.fillText(text, image.x + 21, image.y + 19);
+			}
 			break;
 		default:
-			context.drawImage(u, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o9, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o0, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(water_top, (current_index - 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_bottom, (current_index - 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function close_dam_right(index_dam) {
-	var start_dam = sd[index_dam];
-	var end_dam = ed[index_dam];
-	var top_dam = td[index_dam];
-	var bottom_dam = bd[index_dam];
-	var current_index = end_dam - animation_position[index_dam];
+function close_dam_right(timestamp, dam_index, first_time) {
+	if(first_time)
+		start_time[dam_index] = timestamp;
+	
+	first_time = false;
+	
+	if (timestamp - start_time[dam_index] < animation_period_texture) {
+		requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
+		return;
+	}
+	
+	var start_dam = dams[dam_index].sd;
+	var end_dam = dams[dam_index].ed;
+	var top_dam = dams[dam_index].td;
+	var bottom_dam = dams[dam_index].bd;
+	var current_index = start_dam + animation_position_texture[dam_index];
+	
+	first_time = true;
 	
 	switch(current_index) {
-		case end_dam:
-			context.drawImage(o9, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o0, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
-			break;
 		case start_dam:
-			context.drawImage(u2, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b2, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(r, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(r, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			dam_open[index_dam] = !dam_open[index_dam];
-			animation_position[index_dam] = 0;
-			clearInterval(animation_timer[index_dam]);
+			context_dam_canvas.drawImage(water_right, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(water_right, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_left, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_left, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
+			break;
+		case end_dam:
+			context_dam_canvas.drawImage(ground_top, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index] = 0;
+			if(dam_text_visible[dam_index]) {
+				if(dam_index == 1 || dam_index == 3)
+					var image = {x : dams[dam_index].x - 6 * tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				else
+					var image = {x : dams[dam_index].x + tile_width, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height}; 
+				context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+				context_overlay.fillStyle="#000000";
+				if(!dams[dam_index].state)
+					var text = "click to open";
+				else
+					var text = "click to close";
+				context_overlay.fillText(text, image.x + 21, image.y + 19);
+			}
 			break;
 		default:
-			context.drawImage(u2, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(b2, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o9, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
-			context.drawImage(o0, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
-			animation_position[index_dam]++;
+			context_dam_canvas.drawImage(ground_top, current_index * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(ground_bottom, current_index * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_top_to_left, (current_index + 1) * tile_width, top_dam * tile_height, tile_width, tile_height);
+			context_dam_canvas.drawImage(wave_bottom_to_left, (current_index + 1) * tile_width, bottom_dam * tile_height, tile_width, tile_height);
+			animation_position_texture[dam_index]++;
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, first_time);});
 			break;
 	}
 }
 
-function dam(index_dam, right) {
-	clearInterval(animation_timer[index_dam]);
+function dam(dam_index, right) {
+	if(animation_position_texture[dam_index] != 0)
+		return;
 	
 	if(right == true) {
-		if (dam_open[index_dam] == true)
-			animation_timer[index_dam] = setInterval(close_dam_right, animation_speed, index_dam);
+		if (dams[dam_index].state == false)
+			requestAnimationFrame(function(timestamp){close_dam_right(timestamp, dam_index, true);});
 		else
-			animation_timer[index_dam] = setInterval(open_dam_right, animation_speed, index_dam);
+			requestAnimationFrame(function(timestamp){open_dam_right(timestamp, dam_index, true);});
 	}
 	else {
-		if (dam_open[index_dam] == true)
-			animation_timer[index_dam] = setInterval(close_dam_left, animation_speed, index_dam);
+		if (dams[dam_index].state == false)
+			requestAnimationFrame(function(timestamp){close_dam_left(timestamp, dam_index, true);});
 		else
-			animation_timer[index_dam] = setInterval(open_dam_left, animation_speed, index_dam);
+			requestAnimationFrame(function(timestamp){open_dam_left(timestamp, dam_index, true);});
 	}
 }
 
 function set_water_level(mote_index, level) {
-	if(level <= min_level){
+	var max_level = 32;
+	
+	var max_mote = sensors[mote_index].max;
+	var min_mote = sensors[mote_index].min;
+	var level_mote = sensors[mote_index].level;
+	
+	var level = Math.floor(max_level / (max_mote - min_mote) * (level_mote - min_mote));
+	
+	var th = Math.floor(max_level / (max_mote - min_mote) * (sensors[mote_index].th - min_mote));
+	
+	if(level >= th){
 		for(var i = 0; i < level; i++)
-			context.drawImage(red, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(red, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 		for(var i = level; i < max_level; i++)
-			context.drawImage(grey, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(grey, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 	}
-	else if (level > min_level && level <= av_level) {
+	else if (level < th && level >=  Math.floor(th/2)) {
 		for(var i = 0; i < level; i++)
-			context.drawImage(yellow, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(yellow, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 		for(var i = level; i < max_level; i++)
-			context.drawImage(grey, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(grey, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 	}
 	else {
 		for(var i = 0; i < level; i++)
-			context.drawImage(green, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(green, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 		for(var i = level; i < max_level; i++)
-			context.drawImage(grey, mote[mote_index].x + i, mote[mote_index].y, tile_level_width, tile_level_height);
+			context_mote_canvas.drawImage(grey, sensors[mote_index].x + i, sensors[mote_index].y, tile_level_width, tile_level_height);
 	}
 }
 
-function add_mote(new_mote_row, new_mote_columns) {
-	n_motes++;
-	draw_mote(n_motes - 1, new_motes_row[n_motes - 1], new_motes_columns[n_motes - 1]);
+function create_motes() {
+	for(var mote_index = 0; mote_index < sensors.length; mote_index++)
+		draw_mote(mote_index, sensors[mote_index].lat,  sensors[mote_index].lng);
+	
+	for(var mote_index = 0; mote_index < sensors.length; mote_index++)
+		set_water_level(mote_index);	
 }
 
-function create_motes(new_motes_row, new_motes_columns) {
-	n_motes = new_motes.size();
-	for(var mote_index = 0; mote_index < n_motes; i++)
-		draw_mote(mote_index, new_motes_row[mote_index],  new_motes_columns[mote_index]);
+function draw_mote(mote_index) {
+	context_mote_canvas.drawImage(label, sensors[mote_index].x - 8, sensors[mote_index].y - 6, 3 * tile_width, tile_height);
+	context_mote_canvas.drawImage(marker, sensors[mote_index].x + tile_width - 8, sensors[mote_index].y + tile_height - 6, tile_width, tile_height);
 }
 
-function draw_mote(mote_index, row, column) {
-	mote[mote_index] = {x : (column-1)*tile_width+8, y : (row-1)*tile_height+6, w : tile_width*3, h : tile_height};
-	context.drawImage(label, (column-1)*tile_width, (row-1)*tile_height, tile_width*3, tile_height);
-	context.drawImage(marker, column*tile_width, row*tile_height, tile_width, tile_height);
+function draw_texture_background(canvas) {
+	context_texture.drawImage(background_texture, 0, 0, background_texture.width, background_texture.height);
 }
 
-function draw_texture() {
-	for(var i = 0; i < row_number; i++) {
-		for(var j = 0; j < col_number; j++) {
-			switch(texture[i][j]) {
-				case "r":
-					context.drawImage(r, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "w":
-					context.drawImage(w, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "l":
-					context.drawImage(l, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "u":
-					context.drawImage(u, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "b":
-					context.drawImage(b, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "1":
-					context.drawImage(w1, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "2":
-					context.drawImage(w2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "3":
-					context.drawImage(w3, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "4":
-					context.drawImage(w4, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "5":
-					context.drawImage(g1, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "6":
-					context.drawImage(g2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "7":
-					context.drawImage(g3, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "8":
-					context.drawImage(g4, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "9":
-					context.drawImage(u2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "0":
-					context.drawImage(b2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "a":
-					context.drawImage(o1, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "c":
-					context.drawImage(o2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "d":
-					context.drawImage(o3, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "e":
-					context.drawImage(o4, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "f":
-					context.drawImage(o5, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "h":
-					context.drawImage(o6, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "i":
-					context.drawImage(o7, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "j":
-					context.drawImage(o8, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "k":
-					context.drawImage(o9, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "m":
-					context.drawImage(o0, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "n":
-					context.drawImage(t1, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "o":
-					context.drawImage(t2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "p":
-					context.drawImage(t3, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "q":
-					context.drawImage(m1, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "s":
-					context.drawImage(m2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "t":
-					context.drawImage(m3, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "v":
-					context.drawImage(m4, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "x":
-					context.drawImage(m5, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "y":
-					context.drawImage(m6, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "z":
-					context.drawImage(m7, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "$":
-					context.drawImage(f2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "!":
-					context.drawImage(f5, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "[":
-					context.drawImage(h01, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "]":
-					context.drawImage(h02, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "+":
-					context.drawImage(h03, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "*":
-					context.drawImage(h04, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "\\":
-					context.drawImage(h11, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "|":
-					context.drawImage(h12, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "\"":
-					context.drawImage(h13, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "£":
-					context.drawImage(h14, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "%":
-					context.drawImage(h21, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "&":
-					context.drawImage(h22, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "/":
-					context.drawImage(h23, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "(":
-					context.drawImage(h24, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case ")":
-					context.drawImage(h31, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "=":
-					context.drawImage(h32, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "?":
-					context.drawImage(h33, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "'":
-					context.drawImage(h34, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "^":
-					context.drawImage(h41, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "ì":
-					context.drawImage(h42, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "è":
-					context.drawImage(h43, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "é":
-					context.drawImage(h44, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "ò":
-					context.drawImage(fm1, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				case "@":
-					context.drawImage(fm2, j*tile_width, i*tile_height, tile_width, tile_height);
-					break;
-				default:
-					context.drawImage(g, j*tile_width, i*tile_height, tile_width, tile_height);
+function contains(r, x, y) {
+	x = x / scaling_factor;
+	y = y / scaling_factor;
+	return (x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h)
+}
+
+function create_texture_handlers(is_admin) {
+	$('#overlay').mousemove(function(ev) {
+		var x = ev.pageX - $(this).offset().left;
+		var y = ev.pageY - $(this).offset().top;
+		
+		for(var mote_index = 0; mote_index < sensors.length; mote_index++)
+			if (contains(sensors[mote_index], x, y)){
+				$(this).css('cursor', 'pointer');
+				if(!text_visible) {
+					if(mote_index == 1 || mote_index == 3)
+						var image = {x : sensors[mote_index].x - 104, y : sensors[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
+					else
+						var image = {x : sensors[mote_index].x + 40, y : sensors[mote_index].y - 8, w : 6 * tile_width, h : 2*tile_height}; 
+					
+					context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+					context_overlay.fillStyle="#000000";
+					var text = "click for more info";
+					context_overlay.fillText(text, image.x + 10, image.y + 19);
+				}
+				text_visible = true;
+				return;
 			}
+		
+		for(var dam_index = 0; dam_index < dams.length; dam_index++)
+			if (is_admin && contains(dams[dam_index], x, y)){
+				$(this).css('cursor', 'pointer');
+				if(!dam_text_visible[dam_index]) {
+					if(dam_index == 0 || dam_index == 2)
+						var image = {x : dams[dam_index].x + 16, y : dams[dam_index].y, w : 6 * tile_width, h : 2*tile_height};
+					else
+						var image = {x : dams[dam_index].x - 96, y : dams[dam_index].y, w : 6 * tile_width, h : 2 * tile_height}; 
+					
+					context_overlay.drawImage(rect, image.x, image.y, image.w, image.h);
+					context_overlay.fillStyle="#000000";
+					if(!dams[dam_index].state)
+						var text = "click to open";
+					else
+						var text = "click to close";
+					context_overlay.fillText(text, image.x + 21, image.y + 19);
+				}
+				dam_text_visible[dam_index] = true;
+				return;
+			}
+		
+		$(this).css('cursor', 'default');
+		text_visible = false;
+		dam_text_visible = [false, false, false, false];
+		context_overlay.clearRect(0, 0, size, size);
+	});
+	
+	$('#overlay').click(function(ev) {
+		var x = ev.pageX - $(this).offset().left;
+		var y = ev.pageY - $(this).offset().top;
+
+		for(var mote_index = 0; mote_index < sensors.length; mote_index++)
+			if (contains(sensors[mote_index], x, y)){
+				selected_sensor = mote_index;
+				draw_info();
+				draw_wave();
+				draw_threshold();
+				getHistoryData(false);
+				return;
+			}
+		
+		for(var dam_index = 0; dam_index < dams.length; dam_index++)
+			if (contains(dams[dam_index], x, y)){
+				selected_dam = dam_index;
+				set_dam_state();
+				return;
+			}
+	});
+}
+
+function updateScene() {
+	create_motes();
+	
+	if(selected_sensor != undefined) {
+		draw_info();
+		draw_wave();
+		draw_threshold();
+		getHistoryData(chart_built);
+	}
+	
+	for(var dam_index = 0; dam_index < dams.length; dam_index++) {
+		if (old_dams[dam_index].state != dams[dam_index].state) {
+			if(dam_index == 0 || dam_index == 2)
+				dam(dam_index, false);
+			else
+				dam(dam_index, true);
 		}
 	}
+}
+
+function construct_objects() {
+	texture_constructor($("#river-ov"), $("#dam-canvas"), $("#mote-canvas"), $("#overlay"), $("#canvas-left-container"), $("#canvas-river-ov"), 50);
+	wave_constructor($("#river-sec"), $("#canvas-right-container"), $("#canvas-river-sec"), 1);
+	history_constructor($("#river-sec"), $("#chart-history"));
+	threshold_constructor($("#river-sec"), $("#threshold"));
+	alert_constructor($("#river-sec"), $("#alert"));
+	info_constructor($("#river-sec"), $("#info"));
+}
+
+function createScene() {
+	construct_objects();
+	
+	draw_texture_background($("#river-ov"));
+	create_motes();
+	create_texture_handlers(is_admin);
+	
+	create_wave_click_to_open($("#river-sec"));
+	create_threshold_click_to_open($("#river-sec"), $("#threshold"));
+	create_history_click_to_open($("#river-sec"), $("#chart-history"));
+	create_info_click_to_open();
+	
+	for(var dam_index = 0; dam_index < dams.length; dam_index++)
+		if (dams[dam_index].state == true)
+			if(dam_index == 0 || dam_index == 2)
+				dam(dam_index, false);
+			else
+				dam(dam_index, true);
+	
+	create_overlay($("#river-ov"), $("#dam-canvas"), $("#mote-canvas"), $("#overlay"));
+}
+
+function getDamDataSuccess(reply) {
+	if(reply.error == false) {
+		if(d.length != reply.message.length) {
+			getDataError(reply);
+			return;
+		}
+		
+		for(var dam_index = 0; dam_index < d.length; dam_index++) {
+			start_time[dam_index] = 0;
+			animation_position_texture[dam_index] = 0;
+			
+			old_dams[dam_index] = dams[dam_index];
+			dams[dam_index] = reply.message[dam_index];
+			
+			dams[dam_index].x = d[dam_index].x;
+			dams[dam_index].y = d[dam_index].y;
+			dams[dam_index].w = d[dam_index].w;
+			dams[dam_index].h = d[dam_index].h;
+			dams[dam_index].sd = sd[dam_index];
+			dams[dam_index].ed = ed[dam_index];
+			dams[dam_index].td = td[dam_index];
+			dams[dam_index].bd = bd[dam_index];
+		}
+		
+		if(!scene_created) {
+			createScene();
+			scene_created = true;
+		}
+		else
+			updateScene();
+	}	
+	else
+		getDataError(reply);
+}
+
+function getSensorDataSuccess(reply) {
+	if(reply.error == false) {
+		if(sensors.length != 0 && sensors.length != reply.message.length) {
+			getDataError(reply);
+			return;
+		}
+		
+		for(var i = 0; i < reply.message.length; i++) {
+			sensors[i] = reply.message[i];
+			sensors[i].x = (sensors[i].lng - 1) * tile_width + 8;
+			sensors[i].y = (sensors[i].lat - 1) * tile_height + 6;
+			sensors[i].w = 3 * tile_width;
+			sensors[i].h = 2 * tile_height;
+		}
+		
+		getDamData();
+	}	
+	else
+		getDataError(reply);
+}
+
+function getDataError(reply) {
+	create_texture_placeholder($("#river-ov"));
+	create_wave_placeholder($("#river-sec"));
+	create_history_placeholder($("#river-sec"), $("#chart-history"));
+	create_threshold_placeholder($("#river-sec"), $("#threshold"));
+	create_alert_placeholder($("#river-sec"), $("#alert"));
+	create_info_placeholder();
+}
+
+function getSensorData(a) {
+	ae = a;
+	var payload = "{\"id\" : \"" + ae.id + "\"}";
+	ajax_post_req(getsensordata, payload, getSensorDataSuccess, getDataError);
+}
+
+function getDamData() {
+	var payload = "{\"id\" : \"" + ae.id + "\"}";
+	ajax_post_req(getdamdata, payload, getDamDataSuccess, getDataError);
+}
+
+function set_dam_state_success(reply) {
+	if(reply.error == true)
+		set_dam_state_error(reply);
+}
+
+function set_dam_state_error(reply) {
+	console.log(reply.message);
+}
+
+function set_dam_state() {
+	var payload = "{\"ae\" : \"" + ae.id + "\", \"id\" : \"" + dams[selected_dam].id + "\", \"data\" : " + !dams[selected_dam].state + "}";
+	ajax_post_req(setdamdata, payload, set_dam_state_success, set_dam_state_error);
+}
+
+var start_time_refresh_sensor;
+var refresh_sensor_period = 5000;
+var refresh_sensor_req;
+
+function refresh_sensors(timestamp, ae, first_time) {		
+	if(first_time) {
+		var id = ae.id.substring(ae.id.lastIndexOf("/") + 1, ae.id.length);
+		$('#modal-label').html(ae.name + " - " + id);
+		draw_alert(ae);
+		getSensorData(ae);
+		start_time_refresh_sensor = timestamp;
+	}
+	
+	if (timestamp - start_time_refresh_sensor < refresh_sensor_period)
+		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, false);});
+	else
+		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, true);});
 }

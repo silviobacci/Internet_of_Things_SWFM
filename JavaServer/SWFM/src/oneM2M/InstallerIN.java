@@ -28,7 +28,7 @@ public class InstallerIN extends Thread{
 		ArrayList<OM2MResource> copiedMN = mng.discovery(IN, OM2MManager.AE);
 		
 		if(copiedMN != null)
-			copiedMN = mng.filterByName(copiedMN, name);
+			copiedMN = mng.getResourcesByName(copiedMN, name);
 
 		if(copiedMN == null || copiedMN.isEmpty()) {
 			System.out.println("CREO COPIA REFERENCE");
@@ -51,7 +51,7 @@ public class InstallerIN extends Thread{
 		ArrayList<OM2MResource> copiedAE = mng.discovery(IN, OM2MManager.CONTAINER, f);
 		
 		if(copiedAE != null)
-			copiedAE = mng.filterByName(copiedAE, name);
+			copiedAE = mng.getResourcesByName(copiedAE, name);
 
 		if(copiedAE == null || copiedAE.isEmpty()) {
 			System.out.println("CREO CONTAINER PER AE");
@@ -74,7 +74,7 @@ public class InstallerIN extends Thread{
 		ArrayList<OM2MResource> copiedContainer = mng.discovery(IN, OM2MManager.CONTAINER, f);
 		
 		if(copiedContainer != null)
-			copiedContainer = mng.filterByName(copiedContainer, name);
+			copiedContainer = mng.getResourcesByName(copiedContainer, name);
 		
 		if(copiedContainer == null || copiedContainer.isEmpty()) {
 			System.out.println("CREO SUBSCRIPTION PER CONTAINER");
@@ -103,12 +103,12 @@ public class InstallerIN extends Thread{
 		ArrayList<OM2MResource> copiedInsatnces = mng.discovery(IN, OM2MManager.CONTENT_INSTANCE, f);
 		
 		if(copiedInsatnces != null)
-			copiedInsatnces = mng.filterByName(copiedInsatnces, name);
+			copiedInsatnces = mng.getResourcesByName(copiedInsatnces, name);
 		
 		if(copiedInsatnces == null || copiedInsatnces.isEmpty()) {
-			System.out.println("CREO INSTANCE PER CONTAINER");
 			json = mng.jsonCI(i.getCnf(), i.getCon(), copiedContainer.getRi(), name);
-			mng.createContentInstance(IN, copiedContainer.getRi(), json);
+			if(mng.createContentInstance(IN, copiedContainer.getRi(), json) != null)
+				System.out.println("CREO INSTANCE PER CONTAINER");
 		}
 	}
 	

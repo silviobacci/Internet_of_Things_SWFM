@@ -1,107 +1,48 @@
 var context_wave;
+var brackground, wave;
+var animation_speed;
 
-var animation_position_wave;
-var animation_period_wave;
-
-var background_wave, wave;
-
-var start_time_wave;
-
-var req;
-
-function wave_constructor(canvas, container, container2, ap) {
-	background_wave = $('#background_wave')[0];
+function wave_constructor(canvas, container, as) {
+	animation_speed = as;
+	set_wave_dimension(canvas, container);
+	brackground = $('#brackground')[0];
 	wave = $('#wave')[0];
-	animation_period_wave = ap;
-	animation_position_wave = 0;
-	set_wave_dimension(canvas, container, container2);
 }
 
-function set_wave_dimension(canvas, container, container2) {
+function set_wave_dimension(canvas, container) {
 	context_wave = canvas[0].getContext("2d");
 	
-	var min_dim = background_wave.width < container.innerWidth() ? background_wave.width : container.innerWidth();
+	var min_dim = background.width < container.innerWidth() ? background.width : container.innerWidth();
 	
 	canvas[0].width = min_dim;
-	canvas[0].height = background_wave.height;
+	canvas[0].height = background.height;
 	
 	if(min_dim == container.innerWidth()) {
-		var scaling_factor = min_dim/background_wave.width;
-		canvas[0].height = background_wave.height * scaling_factor;
+		var scaling_factor = min_dim/background.width;
+		canvas[0].height = background.height * scaling_factor;
 		context_wave.scale(scaling_factor, scaling_factor);
 	}
-	
-	container2.css("width", canvas[0].width + 4);
-	container2.css("height", canvas[0].height + 4);
 }
 
-function create_wave_placeholder(canvas) {
-	context_wave.drawImage($("#unable_rect")[0], 0, 0, canvas[0].width, canvas[0].height);
-}
-
-function create_wave_click_to_open(canvas) {
-	context_wave.drawImage($("#click")[0], 0, 0, canvas[0].width, canvas[0].height);
-}
-
-function wave_animation(timestamp, level, first_time) {		
-	if(first_time)
-		start_time_wave = timestamp;
-	
-	first_time = false;
-	
-	if (timestamp - start_time_wave < animation_period_wave) {
-		req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});
-		return;
-	}
-	
-	context_wave.drawImage(background_wave, 0, 0, background_wave.width, background_wave.height);
-	if(++animation_position_wave == background_wave.width)
-		animation_position_wave = 0;
-	context_wave.drawImage(wave, animation_position_wave, background_wave.height - level, wave.width, wave.height);
-	context_wave.drawImage(wave, animation_position_wave - wave.width,  background_wave.height - level, wave.width, wave.height);
-	
-	level = create_threshold_level();
-	
-	first_time = true;
-	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});
-}
-
-function create_threshold_level() {
-	var max_level = background_wave.height;
-	
-	var max_mote = sensors[selected_sensor].max;
-	var min_mote = sensors[selected_sensor].min;
-	var level_mote = sensors[selected_sensor].level;
-	
-	var level = Math.floor(max_level / (max_mote - min_mote) * (level_mote - min_mote));
-	
-	var th = Math.floor(max_level + (-max_level / (max_mote - min_mote) * (sensors[selected_sensor].th - min_mote)));
-	
-	var text = "THRESHOLD " + sensors[selected_sensor].th + " cm";
-	
-	context_wave.fillStyle="#ff0000";
-	context_wave.font="20px Arial";
-	context_wave.textAlign = "center"; 
-	if(th > max_level*2/3)
-		context_wave.fillText(text, background_wave.width/2, th - 10);
-	else
-		context_wave.fillText(text, background_wave.width/2, th + 20);
+function wave_animation() {
+	context_wave.drawImage(background, 0, 0, background.width, background.height);
+	if(++animation_wave_position == background.width)
+		animation_wave_position = 0;
+	var height = background.height - wave.height;
+	var threshold_height = animation_wave_position;
+	context_wave.drawImage(wave, animation_wave_position, height, wave.width, wave.height);
+	context_wave.drawImage(wave, animation_wave_position - wave.width, height, wave.width, wave.height);
 	
 	context_wave.beginPath();
-	context_wave.moveTo(0, th);
-	context_wave.lineTo(background_wave.width, th);
-	context_wave.lineWidth = 2;
+	context_wave.moveTo(0,threshold_height);
+	context_wave.lineTo(background.width, threshold_height);
+	context_wave.lineWidth = 5;
 	context_wave.strokeStyle = '#ff0000';
 	context_wave.stroke();
-	
-	return level;
 }
 
 function draw_wave() {
-	if(req != null && req != undefined)
-		cancelAnimationFrame(req);
-	$('#current-level').html("CURRENT LEVEL " + sensors[selected_sensor].level + " cm");
-	var first_time = true;
-	var level = create_threshold_level();
-	req = requestAnimationFrame(function(timestamp){wave_animation(timestamp, level, first_time);});
+	request_timer = setInterval(wave_animation, 10);
+	
+	context_wave.drawImage(background, 0, 0, background.width, background.height);
 }

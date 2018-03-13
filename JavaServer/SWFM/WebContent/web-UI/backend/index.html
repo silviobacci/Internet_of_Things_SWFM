@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>SWFM - Home</title>
+		<title>SWFM backend - Home</title>
 		
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -9,28 +9,21 @@
 		
 		<!-- Bootstrap CSS - FontAwesome CSS - Main CSS -->
 		<link rel="stylesheet" href="css/assets/bootstrap.css">
-		<link rel="stylesheet" href="css/assets/jquery-ui.css">
 		<link rel="stylesheet" href="css/assets/font-awesome.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
 		
 		<!-- jQuery JS - Popper JS - Bootstrap JS - FontAwesome JS - Main JS -->
 		<script type="text/javascript" src="js/assets/jquery-3.2.1.js"></script>
-		<script type="text/javascript" src="js/assets/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/assets/popper.min.js"></script>
 		<script type="text/javascript" src="js/assets/tether.min.js"></script>
 		<script type="text/javascript" src="js/assets/bootstrap.js"></script>
-		<script type="text/javascript" src="js/assets/jquery.canvasjs.min.js"></script>
 		<script type="text/javascript" src="js/assets/path.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/texture.js"></script>
-		<script type="text/javascript" src="js/info.js"></script>
 		<script type="text/javascript" src="js/wave.js"></script>
 		<script type="text/javascript" src="js/map.js"></script>
 		<script type="text/javascript" src="js/history.js"></script>
-		<script type="text/javascript" src="js/threshold.js"></script>
-		<script type="text/javascript" src="js/alert.js"></script>
-		<script type="text/javascript" src="js/ajax.js"></script>
 		
 		<!-- Favicon & Preferences -->
 		<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -46,39 +39,74 @@
 	<body>
 		<!-- HIDDEN SECTION FOR UPLOADING IMAGES -->
 		<div class="texture-container">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_left.png" id="water_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_right.png" id="water_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_top.png" id="water_top" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_bottom.png" id="water_bottom" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_corner_bottom_right.png" id="water_corner_bottom_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_corner_bottom_left.png" id="water_corner_bottom_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_corner_top_left.png" id="water_corner_top_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/water_corner_top_right.png" id="water_corner_top_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/ground_top.png" id="ground_top" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/ground_bottom.png" id="ground_bottom" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_bottom_to_right.png" id="wave_bottom_to_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_bottom_to_left.png" id="wave_bottom_to_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_top_to_right.png" id="wave_top_to_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_top_to_left.png" id="wave_top_to_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_to_right.png" id="wave_to_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_to_left.png" id="wave_to_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_corner_bottom_right.png" id="wave_corner_bottom_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_corner_bottom_left.png" id="wave_corner_bottom_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_corner_top_left.png" id="wave_corner_top_left" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/wave_corner_top_right.png" id="wave_corner_top_right" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/mote_animation/marker.png" id="marker" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/mote_animation/label.png" id="label" width="16" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/mote_animation/red.png" id="red" width="1" height="4">
-			<img src="http://localhost/SWFM/web-UI/backend/img/mote_animation/green.png" id="green" width="1" height="4">
-			<img src="http://localhost/SWFM/web-UI/backend/img/mote_animation/yellow.png" id="yellow" width="1" height="4">
-			<img src="http://localhost/SWFM/web-UI/backend/img/mote_animation/grey.png" id="grey" width="1" height="4">
-			<img src="http://localhost/SWFM/web-UI/backend/img/background/background_wave.png" id="background_wave" width="400" height="225">
-			<img src="http://localhost/SWFM/web-UI/backend/img/background/background_texture.png" id="background_texture" width="528" height="528">
-			<img src="http://localhost/SWFM/web-UI/backend/img/wave_animation/wave.png" id="wave" width="528" height="297">
-			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/rect.png" id="rect" width="48" height="16">
-			<img src="http://localhost/SWFM/web-UI/backend/img/placeholder/unable_rect.png" id="unable_rect" width="528" height="297">
-			<img src="http://localhost/SWFM/web-UI/backend/img/placeholder/unable_quad.png" id="unable_quad" width="528" height="528">
-			<img src="http://localhost/SWFM/web-UI/backend/img/placeholder/click.png" id="click" width="528" height="297">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/g.png" id="g" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/l.png" id="l" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/w.png" id="w" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/r.png" id="r" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/u.png" id="u" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/b.png" id="b" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/1.png" id="1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/2.png" id="2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/3.png" id="3" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/4.png" id="4" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/5.png" id="5" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/6.png" id="6" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/7.png" id="7" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/8.png" id="8" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/u2.png" id="u2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/b2.png" id="b2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o1.png" id="o1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o2.png" id="o2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o3.png" id="o3" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o4.png" id="o4" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o5.png" id="o5" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o6.png" id="o6" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o7.png" id="o7" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o8.png" id="o8" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o9.png" id="o9" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/o0.png" id="o0" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/t1.png" id="t1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/t2.png" id="t2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/t3.png" id="t3" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m1.png" id="m1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m2.png" id="m2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m3.png" id="m3" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m4.png" id="m4" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m5.png" id="m5" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m6.png" id="m6" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/m7.png" id="m7" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/f2.png" id="f2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/f5.png" id="f5" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h01.png" id="h01" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h02.png" id="h02" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h03.png" id="h03" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h04.png" id="h04" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h11.png" id="h11" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h12.png" id="h12" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h13.png" id="h13" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h14.png" id="h14" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h21.png" id="h21" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h22.png" id="h22" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h23.png" id="h23" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h24.png" id="h24" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h31.png" id="h31" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h32.png" id="h32" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h33.png" id="h33" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h34.png" id="h34" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h41.png" id="h41" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h42.png" id="h42" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h43.png" id="h43" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/h44.png" id="h44" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/fm1.png" id="fm1" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/fm2.png" id="fm2" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/marker.png" id="marker" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/label.png" id="label" width="16" height="16">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/red.png" id="red" width="1" height="4">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/green.png" id="green" width="1" height="4">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/yellow.png" id="yellow" width="1" height="4">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/grey.png" id="grey" width="1" height="4">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/background.png" id="background" width="528" height="297">
+			<img src="http://localhost/SWFM/web-UI/backend/img/tileset/wave.png" id="wave" width="528" height="189">
 		</div>
 		
 		<div class="container-fluid main-container">
@@ -113,9 +141,11 @@
 							<p class="card-text"></p>
 						</div>
 					</div>
-				</div>
+					</div>
 				<div class="col-sm-8">
-					<div class="card map-card" id="map"></div>
+					<div class="card map-card" id="map">
+						<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=create_map"></script>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -124,109 +154,38 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content modal-container">
 					<div class="modal-header">
-						<h5 class="modal-title" id="modal-label"></h5>
+						<h5 class="modal-title" id="login-modal-label">Pescia - Fiume</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body row">
-						<div class="col-sm-6">
-							<div id="canvas-left-container" class="canvas">
-								<div>
-									<div class="card bg-faded titles">
-										<div class="card-about">
-											<h6 class="text-left d-inline">CURRENT STATE</h6>
-										</div>
-									</div>
-									<div id="canvas-river-ov">
-										<canvas id="river-ov"></canvas>
-										<canvas id="dam-canvas"></canvas>
-										<canvas id="mote-canvas"></canvas>
-										<canvas id="overlay"></canvas>
-									</div>
+						<div class="col-sm-6" id="canvas-left-container" class="canvas">
+							<canvas id="river-ov"></canvas>
+						</div>
+						<div class="col-sm-6" id="canvas-right-container" class="canvas">
+							<canvas id="river-sec"></canvas>
+							<div class="card bg-faded">
+								<div class="card-about">
+									<h6 class="text-left d-inline">Current level: 3m</h6><br>
 								</div>
 							</div>
-						</div>
-						<div class="col-sm-6 right-section">
-							<div class="row" id ="info-container">
-									<div class="col-sm-12">
-										<div class="canvas">
-											<div>
-												<div id="info" class="alert alert-info">
-												</div>
-											</div>
+							<div class="card bg-faded">
+								<div class="card-about">
+									<h6 class="text-left d-inline">Current threshold: 4m</h6>
+									<form id="form-signup" method="post" enctype="multipart/form-data" data-toggle="validator">
+										<div class="form-group">
+											<label for="name" class="form-control-label">New threshold:</label>
+											<input type="text" class="align-middle" name="name" id="signup-name" data-vindicate="required|active">
+											<button type="button" onclick="submit_signup();" class="btn btn-primary">Chnage</button>
 										</div>
-									</div>
+									</form>
 								</div>
-							<div>
-								<div class="row">
-									<div class="col-sm-12">
-										<div id="canvas-right-container" class="canvas">
-											<div>
-												<div class="card bg-faded titles">
-													<div class="card-about">
-														<h6 class="text-left d-inline" id="current-level">CURRENT LEVEL</h6>
-													</div>
-												</div>
-												<div id="canvas-river-sec">
-													<canvas id="river-sec"></canvas>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="canvas">
-											<div>
-												<div class="card bg-faded titles">
-													<div class="card-about">
-														<h6 class="text-left d-inline">SENSOR HISTORY</h6><br>
-													</div>
-												</div>
-												<div id="chart-history" class="chart-container"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row admin-to-hide">
-									<div class="col-sm-12">
-										<div class="canvas">
-											<div>
-												<div class="card bg-faded titles">
-													<div class="card-about">
-														<h6 id="current-threshold" class="text-left d-inline">CURRENT THRESHOLD</h6>
-													</div>
-												</div>
-												<div id="threshold">
-													<div id="threshold-container">
-														<div class="th">
-															<label id="new_th" class="form-control-label">NEW THRESHOLD</label>
-														</div>
-														<div class="th">
-															<input id="slider" type="range" value="0"/>
-														</div>
-														<div class="th">
-															<button type="button" onclick="submit_threshold();" class="btn btn-primary">CHANGE</button>
-														</div>
-														<div class="th result-container">
-															<div id="result-th" class="alert"></div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row  admin-to-hide" id ="alert-container">
-									<div class="col-sm-12">
-										<div class="canvas">
-											<div>
-												<div id="alert" class="alert">
-												</div>
-											</div>
-										</div>
-									</div>
+							</div>
+							<div class="card bg-faded">
+								<div class="card-about">
+									<h6>ATTENTION:</h6>
+									<p>Messaggio</p>
 								</div>
 							</div>
 						</div>

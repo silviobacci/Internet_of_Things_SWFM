@@ -7,14 +7,17 @@
 // ----------------------------
 // PAGE CODE
 // ----------------------------
-var is_admin;
 
 $(document).ready(function(){
-	get_user_data();
-	map_constructor($("#map"));
+	$('#modal').on('shown.bs.modal', function (e) {
+		get_user_data();
+		texture_constructor("texture_map.txt", $("#canvas-ov"), $("#canvas-left-container"), 30);
+		wave_constructor($("#river-sec"), $("#canvas-right-container"), 30);
+		draw_texture();
+		draw_wave();
+		create_handlers();
+	});
 });
-
-
 
 // ----------------------------
 // GET USER FUNCTIONS
@@ -24,7 +27,7 @@ $(document).ready(function(){
 // Change navbar link if already logged in
 function get_user_data() {
     ajax_req(
-    		redirect, 
+        php_redir, 
         "",     
         get_succ, 
         get_err
@@ -61,22 +64,19 @@ function logout_err(reply) {
 
 // Prepare page with custom user data
 function prepare_page(userdata) {
-	$('#btn-logout > a').click(function (){ajax_req(logout, "null", logout_succ, logout_err);});
+	$('#btn-logout > a').click(function (){
+		ajax_req(php_logout, "null", logout_succ, logout_err);
+	});
 	$('.nav-avatar').attr("src", img_svr_path + userdata.avatar);
 	$('.card-avatar').attr("src", img_svr_path + userdata.avatar);
 	$('.cover-img').css('background-image', 'url(' + img_svr_path + userdata.cover + ')');
 	$('.card-name').html(userdata.name + " " + userdata.surname);
-	$('.navbar-brand').attr("href", rel_fron_path);
-	is_admin = userdata.admin;
-	
-	if(is_admin == true){
+	if(userdata.admin == true)
 		$('.card-text').html("You are an administrator. You can act directly on our dams in order control the water flows.");
-		$('.admin-to-hide').show();
-	}
-	else{
+	else
 		$('.card-text').html("You are a standard user so we can simply observe an overview of the current state of the water flows.");
-		$('.admin-to-hide').hide();
-	}
+		
+    $('.navbar-brand').attr("href", rel_fron_path);
 }
 
 function request_to_server() {
@@ -92,7 +92,67 @@ function request_to_server() {
 		   error: function(data) {
 		   console.log(data);
 		   }
-		 });
+		   });
+}
+
+function contains(rect, x, y) {
+	return (x >= rect.x && x <= rect.x + rect.w && y >= rect.y && y <= rect.y + rect.h)
+}
+
+function create_handlers() {
+	$('#river-ov').mousemove(function(ev) {
+		var x = ev.pageX - $(this).offset().left;
+		var y = ev.pageY - $(this).offset().top;
+
+		if(contains(d0, x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(d1, x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(d2, x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(d3, x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(mote[0], x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(mote[1], x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(mote[2], x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(mote[3], x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(mote[4], x, y))
+			$(this).css('cursor', 'pointer');
+		else if (contains(mote[5], x, y))
+			$(this).css('cursor', 'pointer');
+		else
+			$(this).css('cursor', 'default');
+	});
+	
+	$('#river-ov').click(function(ev) {
+		var x = ev.pageX - $(this).offset().left;
+		var y = ev.pageY - $(this).offset().top;
+
+		if(contains(d0, x, y))
+			dam(0, false);
+		else if (contains(d1, x, y))
+			dam(1, true);
+		else if (contains(d2, x, y))
+			dam(2, false);
+		else if (contains(d3, x, y))
+			dam(3, true);
+		 else if (contains(mote[0], x, y))
+			set_water_level(0, 15);
+		 else if (contains(mote[1], x, y))
+			set_water_level(1, 15);
+		 else if (contains(mote[2], x, y))
+			set_water_level(2, 15);
+		 else if (contains(mote[3], x, y))
+			set_water_level(3, 15);
+		 else if (contains(mote[4], x, y))
+			set_water_level(4, 15);
+		 else if (contains(mote[5], x, y))
+			set_water_level(5, 15);
+	});
 }
 
 // -------------------------------------

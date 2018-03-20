@@ -11,6 +11,8 @@ public class JSONParser {
 	public static final String WL 		= "w_l";
 	public static final String EVO 		= "evolution";
 	public static final String WT 		= "w_t";
+	public static final String MIN 		= "min_l";
+	public static final String MAX		= "max_l";
 	public static final String GPSX		= "gps_x";
 	public static final String GPSY 	= "gps_y";
 	public static final String STATE 	= "state";
@@ -46,6 +48,8 @@ public class JSONParser {
 		jProperties.add(WT);
 		jProperties.add(GPSX);
 		jProperties.add(GPSY);
+		jProperties.add(MIN);
+		jProperties.add(MAX);
 	}
 	
 	public static void setDamProperties() {
@@ -59,7 +63,6 @@ public class JSONParser {
 	public static void setProperties(ArrayList<String> prop) {
 		jProperties = prop;
 	}
-
 	
 	public ArrayList<String> getProperties(){
 		return jProperties;
@@ -68,39 +71,45 @@ public class JSONParser {
 	public static HashMap<String, Object> getSensorValues(String toParse) {
 		setSensorProperties();
 		JSONObject jo= new JSONObject();
+		HashMap<String, Object> propVal;
+		
 		try {
-			jo = (JSONObject) JSONValue.parseWithException( toParse); //"{\"to_reach\":200,\"evolution\":1}");
+			jo = (JSONObject) JSONValue.parseWithException( toParse);
+		
 		} catch (ParseException e) {
 			System.out.println("Parsing exception while parsing:"+toParse);
 			e.printStackTrace();
 		}
-		HashMap<String, Object> propVal = new HashMap<String, Object>();
+		
+		propVal = new HashMap<String, Object>();
+		
 		for (String property: jProperties) {
 			if(jo.get(property) != null)
-			propVal.put(property, new Integer ( ( (Long) jo.get(property) ).intValue()) );
+				propVal.put(property, new Integer ( ( (Long) jo.get(property) ).intValue()) );
 		
 		}
 		return propVal;
-
 	}
 	
 	public static HashMap<String, Object> getDamValues(String toParse) {
 		setDamProperties();
 		JSONObject jo= new JSONObject();
+		HashMap<String, Object> propVal;
+		
 		try {
-		//	System.out.println(""+toParse);
-			jo = (JSONObject) JSONValue.parseWithException( toParse); //"{\"to_reach\":200,\"evolution\":1}");
+			jo = (JSONObject) JSONValue.parseWithException( toParse); 
 		} catch (ParseException e) {
-	//		System.out.println("Parsing exception while parsing:"+toParse);
 			e.printStackTrace();
 		}
-		//guardare i tipi qui sotto 
-		HashMap<String, Object> propVal = new HashMap<String, Object>();
+		
+		propVal = new HashMap<String, Object>();
+		
 		for (String property: jProperties) {
 			if(jo.get(property) != null && property != JSONParser.STATE)
 				propVal.put(property, new Integer ( ( (Long) jo.get(property) ).intValue()));
+			
 			else if(jo.get(property) != null)
-				propVal.put(property,jo.get(property) );
+				propVal.put(property,jo.get(property));
 		
 		}
 		return propVal;
@@ -110,33 +119,42 @@ public class JSONParser {
 	public static HashMap<String, Object> getValues(String toParse,ArrayList<String> prop) {
 		setProperties(prop);
 		JSONObject jo= new JSONObject();
+		HashMap<String, Object> propVal;
+		
 		try {
 
 			jo = (JSONObject) JSONValue.parseWithException( toParse);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		HashMap<String, Object> propVal = new HashMap<String, Object>();
+		
+		propVal = new HashMap<String, Object>();
+		
 		for (String property: jProperties) {
 			if(jo.get(property) != null)
-			propVal.put(property,  jo.get(property)+"");
-		
+				propVal.put(property,  jo.get(property)+"");
+	
 		}
 		return propVal;
 
 	}
+
 	public static HashMap<String, Object> getConfValues(String toParse) {
 		setConfProperties();
 		JSONObject jo= new JSONObject();
+		HashMap<String, Object> propVal;
+		
 		try {
 			jo = (JSONObject) JSONValue.parseWithException( toParse); 
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		HashMap<String, Object> propVal = new HashMap<String, Object>();
+		
+		propVal = new HashMap<String, Object>();
+		
 		for (String property: jProperties) {
 			if(jo.get(property) != null)
-			propVal.put(property,  jo.get(property)+"");
+				propVal.put(property,  jo.get(property)+"");
 		
 		}
 		return propVal;

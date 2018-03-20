@@ -10,7 +10,11 @@
 
 #define str(s) 		#s
 
-const char *w_l,*w_t,*evolution,*state,*closed,*open,*get_gps,*gps_x,*gps_y;
+const char *w_l,*w_t,*evolution,*min,*max;
+const char *state,*closed,*open;
+const char *gps_x,*gps_y;
+
+static int tmp_x,tmp_y;	
 
 
 typedef struct{
@@ -19,6 +23,8 @@ typedef struct{
 	int evolution;
 	unsigned int water_level;
 	unsigned int water_level_threshold;
+	unsigned int min;
+	unsigned int max;
 } sensor_state;
 
 
@@ -26,5 +32,7 @@ typedef struct{
 	int gpsx;
 	int gpsy;
 	char dam_state[7];
+	unsigned int min;
+	unsigned int max;
 } dam_state;
 

@@ -71,7 +71,7 @@ public class Initializer extends Thread {
 		//Cooja discovery 
 		try {
 			context.getModulesAddresses();
-			context.InitializeContext( new Integer(70),new Integer(150));
+		//	context.InitializeContext( new Integer(70),new Integer(150));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,7 +114,7 @@ public class Initializer extends Thread {
 		//Cooja discovery 
 		try {
 			context.getModulesAddresses();
-			context.InitializeContext( new Integer(70),new Integer(150));
+			//context.InitializeContext( new Integer(70),new Integer(150));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

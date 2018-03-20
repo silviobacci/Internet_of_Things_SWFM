@@ -6,5 +6,6 @@ public final class ModulesConstants {
 	public static final String GPS		=	"gps";
 	public static final String CLOSED	= 	"closed";
 	public static final String OPEN		= 	"open";
+	
 	private ModulesConstants() {};
 }

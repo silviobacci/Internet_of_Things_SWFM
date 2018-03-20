@@ -52,9 +52,13 @@ THRESHOLD.prototype.draw_threshold = function (sensor) {
 	this.new_threshold.html("NEW THRESHOLD " + this.slider[0].value + " cm");
 	this.current_threshold.html("CURRENT THRESHOLD " + sensor.th + " cm");
 	
-	this.slider.on("input", this.slider_hanlder());
+	var self = this;
 	
-	this.button.on("click", this.set_data(sensor.id));
+	this.slider.off("input");
+	this.button.off("click");
+	
+	this.slider.on("input", function(ev) {self.slider_hanlder()});
+	this.button.on("click", function(ev) {self.set_data(sensor.id)});
 }
 
 THRESHOLD.prototype.success = function (reply) {
@@ -65,7 +69,7 @@ THRESHOLD.prototype.success = function (reply) {
 		this.result_threshold.removeClass('alert-warning');
 		this.result_threshold.removeClass('alert-danger');
 		
-		this.result_threshold.addClass('alert-danger');
+		this.result_threshold.addClass('alert-success');
 		this.result_threshold.html("<strong>Success:</strong> " + reply.message);
 	}	
 	else
@@ -85,6 +89,6 @@ THRESHOLD.prototype.error = function (reply) {
 
 THRESHOLD.prototype.set_data = function (id) {
 	var data = "{\"MIN\" : " + this.slider[0].min + ", \"MAX\" : " + this.slider[0].max + ", \"TH\" : " + this.slider[0].value + "}";
-	var payload = "{\"ae\" : \"" + this.ae + "\", \"id\" : \"" + id + "\", \"data\" : " + data + "}";
+	var payload = "{\"ae\" : \"" + this.ae.id + "\", \"id\" : \"" + id + "\", \"data\" : " + data + "}";
 	ajax_post_req(setsensordata, payload, this, this.success, this.error);
 }

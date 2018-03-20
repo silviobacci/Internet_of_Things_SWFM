@@ -25,8 +25,6 @@ function draw_map() {
 	map.req = window.requestAnimationFrame(function(timestamp){map.refresh(timestamp, true);});
 }
 
-
-
 // ----------------------------
 // GET USER FUNCTIONS
 // ----------------------------

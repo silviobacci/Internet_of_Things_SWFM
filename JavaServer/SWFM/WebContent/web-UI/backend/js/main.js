@@ -8,11 +8,22 @@
 // PAGE CODE
 // ----------------------------
 var is_admin;
+var map;
 
 $(document).ready(function(){
 	get_user_data();
-	map_constructor($("#map"));
+	
+	map = new MAP(10000);
+	
+	var googleapi = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=draw_map";
+	var script_type = "text/javascript";
+	map.container.append("<script type=" + script_type + " src=" + googleapi + "/>");
 });
+
+function draw_map() {
+	map.map = new google.maps.Map(map.container[0], {zoom: 6});
+	map.req = window.requestAnimationFrame(function(timestamp){map.refresh(timestamp, true);});
+}
 
 
 

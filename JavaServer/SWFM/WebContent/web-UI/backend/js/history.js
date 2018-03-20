@@ -1,33 +1,38 @@
-var chart_built = false;
-var context_history;
-var chart;
-
-function history_constructor(canvas, container) {
-	container.css("width", canvas[0].width + 4);
-	container.css("height", canvas[0].height + 4);
+function HISTORY() {
+	this.container_name = "chart-history";
+	
+	this.container = $("#" + this.container_name);
+	
+	this.canvas = $("#river-sec")[0];
+	this.unable = $("#unable_rect")[0];
+	this.click = $("#click")[0];
+	
+	this.container.css("width", this.canvas.width + 4);
+	this.container.css("height", this.canvas.height + 4);
+	
+	this.chart_built = false;
 }
 
-function create_history_placeholder(canvas, container) {
-	$("#history img:last-child").remove();
-	container.append("<img src=" + $("#unable_rect")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
+HISTORY.prototype.create_placeholder = function () {
+	$("#" + this.container_name +  " img:last-child").remove();
+	this.container.append("<img src=" + this.unable.src + " width=" + this.canvas.width + "height=" + this.canvas.height + "/>");
 }
 
-function create_history_click_to_open(canvas, container) {
-	$("#history img:last-child").remove();
-	container.append("<img src=" + $("#click")[0].src + " width=" + canvas[0].width + "height=" + canvas[0].height + "/>");
+HISTORY.prototype.create_click_to_open = function () {
+	$("#" + this.container_name +  " img:last-child").remove();
+	this.container.append("<img src=" + this.click.src + " width=" + this.canvas.width + "height=" + this.canvas.height + "/>");
 }
 
-function add_data_point(data_points) {
-	for(var i = 0; i < data_points.length; i++) {
-		if(chart.options.data[0].dataPoints[i] == undefined)
-			chart.options.data[0].dataPoints.push(data_points[i]);
-		else if (chart.options.data[0].dataPoints[i].y != data_points[i].y)
-			chart.options.data[0].dataPoints[3].y = data_points[i].y;
-	}
+HISTORY.prototype.add_data_point = function (data_points) {
+	for(var i = 0; i < data_points.length; i++)
+		if(this.chart.options.data[0].dataPoints[i] == undefined)
+			this.chart.options.data[0].dataPoints.push(data_points[i]);
+		else if (this.chart.options.data[0].dataPoints[i].y != data_points[i].y)
+			this.chart.options.data[0].dataPoints[3].y = data_points[i].y;
 }
 
-function build_chart(data_points) {
-    chart = new CanvasJS.Chart("chart-history", {
+HISTORY.prototype.build_chart = function (data_points) {
+    this.chart = new CanvasJS.Chart(this.container_name, {
         animationEnabled: true,
         axisX: {
             gridThickness: 0,
@@ -51,38 +56,32 @@ function build_chart(data_points) {
             dataPoints: data_points
         }]
     });
-    chart.render();
+    this.chart.render();
 }
 
-function getHistoryDataSuccess(reply) {
+HISTORY.prototype.success = function (reply) {
 	if(reply.error == false && reply.message.length != 0) {
 		var data_points = [];
 		
-		for(var i = 0; i < reply.message.length; i++) {
+		for(var i = 0; i < reply.message.length; i++)
 			data_points[i] = reply.message[i];
-		}
-		console.log(data_points);
-
-		if(data_points.lenght == 1)
-			data_points[1] = data_points[0];
 		
-		if(!chart_built) {
-			build_chart(data_points);
-			chart_built = true;
-		}
+		if(!this.chart_built)
+			this.build_chart(data_points);
 		else
-			add_data_point(data_points);
+			this.add_data_point(data_points);
+		
+		this.chart_built = true;
 	}	
 	else
-		getHistoryError(reply);
+		this.error(reply);
 }
 
-function getHistoryError(reply) {
+HISTORY.prototype.error = function (reply) {
 	console.log(reply.message);
 }
 
-function getHistoryData(bc) {
-	chart_built = bc;
-	var payload = "{\"id\" : \"" + sensors[selected_sensor].id + "\"}";
-	ajax_post_req(gethistorydata, payload ,getHistoryDataSuccess, getHistoryError);
+HISTORY.prototype.get_data = function (sensor) {
+	var payload = "{\"id\" : \"" + sensor.id + "\"}";
+	ajax_post_req(gethistorydata, payload, this, this.success, this.error);
 }

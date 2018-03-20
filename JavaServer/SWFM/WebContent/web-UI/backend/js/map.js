@@ -1,68 +1,74 @@
-var map;
-var aes = [];
-var markers = [];
-var start_time_refresh_map;
-var refresh_map_period = 10000;
-var refresh_req;
-
-function map_constructor(container) {
-	$('<script />', {type: "text/javascript", src : "https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=create_map"}).appendTo(container);
-}
-
-function create_map() {
-	map = new google.maps.Map($("#map")[0], {zoom: 6});
-	refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, true);});
-}
-
-function create_markers() {
-	for(var i = 0; i < aes.length; i++) {
-		var coordinates = {lat : aes[i].lat, lng : aes[i].lng};
-		add_marker(aes[i], coordinates);
-	}
-}
-
-function create_map_placeholder(map) {
-	$('<img />', {src: $("#unable_quad")[0].src, width: map[0].width, height : map[0].height}).appendTo(map);
-}
-
-function add_marker(ae, coordinates) {
-	var marker = new google.maps.Marker({position: coordinates, map: map});
+function MAP(p) {
+	this.container = $("#map");
+	this.modal = $("#modal");
+	this.img = $("#map img:last-child");
 	
-	map.setCenter(new google.maps.LatLng(coordinates.lat, coordinates.lng));
+	this.unable = $("#unable_rect")[0];
 	
-	marker.addListener('click', function() {
-		$('#modal').modal('show');
-		refresh_sensor_req = requestAnimationFrame(function(timestamp){refresh_sensors(timestamp, ae, true);});
-	});
+	this.ae = [];
+	this.period = p;
 }
 
-function getMarkerDataSuccess(reply) {
+MAP.prototype.draw_map = function () {
+	this.map = new google.maps.Map(this.container[0], {zoom: 6});
+	this.req = requestAnimationFrame(function(timestamp){this.refresh(timestamp, true);});
+}
+
+MAP.prototype.create_placeholder = function () {
+	this.img.remove();
+	this.container.append("<img src=" + this.unable.src + " width=" + this.map[0].width + "height=" + this.map[0].height + "/>");
+}
+
+MAP.prototype.add_marker = function (ae, coordinates) {
+	var marker = new google.maps.Marker({position: coordinates, map: this.map});
+	
+	this.map.setCenter(new google.maps.LatLng(coordinates.lat, coordinates.lng));
+	
+	var self = this;
+	
+	marker.addListener("click", function(ev) {self.marker_handler(ae)});
+}
+
+MAP.prototype.marker_handler = function (ae) {
+	this.modal.modal("show");
+	
+	setTimeout(this.modal_handler, 500, ae);
+}
+
+MAP.prototype.modal_handler = function (ae) {
+	var texture = new TEXTURE(5000, ae);
+}
+
+MAP.prototype.success = function (reply) {
 	if(reply.error == false && reply.message.length != 0) {
-		aes = [];
 		for(var i = 0; i < reply.message.length; i++)
-			aes[i] = reply.message[i];
-		create_markers();
+			if(this.ae[i] != reply.message[i]) {
+				this.ae[i] = reply.message[i];
+				this.add_marker(this.ae[i], {lat : this.ae[i].lat, lng : this.ae[i].lng});
+			}
 	}	
 	else
-		getMarkerError(reply);
+		this.error(reply);
 }
 
-function getMarkerError(reply) {
-	create_map_placeholder($("#map"));
+MAP.prototype.error = function (reply) {
+	this.create_placeholder();
 }
 
-function getMarkerData() {
-	ajax_get_req(getmarkerdata, getMarkerDataSuccess, getMarkerError);
+MAP.prototype.get_marker_data = function () {
+	ajax_get_req(getmarkerdata, this, this.success, this.error);
 }
 
-function refresh_map(timestamp, first_time) {		
+MAP.prototype.refresh = function (timestamp, first_time) {
 	if(first_time) {
-		start_time_refresh_map = timestamp;
-		getMarkerData();
+		this.start_time = timestamp;
+		this.get_marker_data();
 	}
 	
-	if (timestamp - start_time_refresh_map < refresh_map_period)
-		refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, false);});
+	var self = this;
+	
+	if (timestamp - this.start_time < this.period)
+		this.req = requestAnimationFrame(function(timestamp){self.refresh(timestamp, false);});
 	else
-		refresh_req = requestAnimationFrame(function(timestamp){refresh_map(timestamp, true);});
+		this.req = requestAnimationFrame(function(timestamp){self.refresh(timestamp, true);});
 }

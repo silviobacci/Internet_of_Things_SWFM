@@ -23,14 +23,18 @@
 		<script type="text/javascript" src="js/assets/jquery.canvasjs.min.js"></script>
 		<script type="text/javascript" src="js/assets/path.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/texture.js"></script>
-		<script type="text/javascript" src="js/info.js"></script>
-		<script type="text/javascript" src="js/wave.js"></script>
-		<script type="text/javascript" src="js/map.js"></script>
-		<script type="text/javascript" src="js/history.js"></script>
-		<script type="text/javascript" src="js/threshold.js"></script>
-		<script type="text/javascript" src="js/alert.js"></script>
 		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/alert.js"></script>
+		<script type="text/javascript" src="js/background.js"></script>
+		<script type="text/javascript" src="js/dams.js"></script>
+		<script type="text/javascript" src="js/history.js"></script>
+		<script type="text/javascript" src="js/information.js"></script>
+		<script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="js/motes.js"></script>
+		<script type="text/javascript" src="js/overlay.js"></script>
+		<script type="text/javascript" src="js/texture.js"></script>
+		<script type="text/javascript" src="js/threshold.js"></script>
+		<script type="text/javascript" src="js/wave.js"></script>
 		
 		<!-- Favicon & Preferences -->
 		<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -201,13 +205,13 @@
 												<div id="threshold">
 													<div id="threshold-container">
 														<div class="th">
-															<label id="new_th" class="form-control-label">NEW THRESHOLD</label>
+															<label id="new-th" class="form-control-label">NEW THRESHOLD</label>
 														</div>
 														<div class="th">
 															<input id="slider" type="range" value="0"/>
 														</div>
 														<div class="th">
-															<button type="button" onclick="submit_threshold();" class="btn btn-primary">CHANGE</button>
+															<button id="button-change-th" type="button" class="btn btn-primary">CHANGE</button>
 														</div>
 														<div class="th result-container">
 															<div id="result-th" class="alert"></div>

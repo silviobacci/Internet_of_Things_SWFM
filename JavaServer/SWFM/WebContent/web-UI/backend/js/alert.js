@@ -1,33 +1,38 @@
-function alert_constructor(canvas, container) {
-	set_alert_dimension(canvas, container);
+function ALERT() {
+	this.canvas = $("#river-sec")[0];
+	
+	this.container = $("#alert");
+	this.to_hide = $("#alert-container");
+	
+	this.container.css("width", this.canvas.width + 4);
 }
 
-function set_alert_dimension(canvas, container) {
-	container.css("width", canvas[0].width + 4);
+ALERT.prototype.create_click_to_open = function () {
+	this.create_placeholder();
 }
 
-function create_alert_placeholder() {
-	$('#alert-container').hide();
+ALERT.prototype.create_placeholder = function () {
+	this.to_hide.hide();
 }
 
-function draw_alert(ae) {
-	$('#alert-container').show();
-	$('#alert').removeClass('alert-success');
-	$('#alert').removeClass('alert-warning');
-	$('#alert').removeClass('alert-danger');
+ALERT.prototype.draw_alert = function (ae) {
+	this.to_hide.show();
+	this.container.removeClass("alert-success");
+	this.container.removeClass("alert-warning");
+	this.container.removeClass("alert-danger");
 
 	switch(ae.level) {
 		case 1:
-			$('#alert').addClass('alert-success');
-			$('#alert').html("<strong>Quiet!</strong> " + ae.message);
+			this.container.addClass("alert-success");
+			this.container.html("<strong>Quiet!</strong> " + ae.message);
 			break;
 		case 2:
-			$('#alert').addClass('alert-warning');
-			$('#alert').html("<strong>Warning!</strong> " + ae.message);
+			this.container.addClass("alert-warning");
+			this.container.html("<strong>Warning!</strong> " + ae.message);
 			break;
 		default:
-			$('#alert').addClass('alert-danger');
-			$('#alert').html("<strong>Alarm!</strong> " + ae.message);
+			this.container.addClass("alert-danger");
+			this.container.html("<strong>Alarm!</strong> " + ae.message);
 			break;
 	}
 }

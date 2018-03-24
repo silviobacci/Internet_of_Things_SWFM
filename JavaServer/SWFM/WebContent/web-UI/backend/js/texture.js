@@ -157,7 +157,6 @@ TEXTURE.prototype.create_scene = function () {
 	this.wave.create_click_to_open();
 	this.history.create_click_to_open();
 	this.threshold.create_click_to_open();
-	this.alert.create_click_to_open();
 	
 	this.create_handlers();
 	

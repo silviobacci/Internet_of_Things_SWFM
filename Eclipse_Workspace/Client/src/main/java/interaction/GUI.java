@@ -46,8 +46,7 @@ public class GUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("dddd");
-		context.setWInstance(s.getWinstance());
+	//	context.setWInstance(s.getWinstance());
 		context.start();
 		
 		
@@ -80,9 +79,11 @@ public class GUI {
 	private void initialize() {
 		
 		this.frame = new JFrame("GUI");
-		this.frame.setSize(400, 400);
-		this.frame.getContentPane().add(GUIFactory.createSensorPanel("Sensor3"), BorderLayout.NORTH);
-	
+		this.frame.setSize(800, 1200);
+		
+		//for (String sensor :context.getMonitoringModule().keySet())
+			this.frame.getContentPane().add(GUIFactory.createSensorPanel("Sensor3"), BorderLayout.NORTH);
+			this.frame.getContentPane().add(GUIFactory.createDamPanel("Damd"), BorderLayout.CENTER);
 		
 		
 	}

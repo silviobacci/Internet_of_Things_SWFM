@@ -35,14 +35,24 @@ import unipi.iot.Client.JSONParser;
 		return damConnection;
 	}
 	
-	public CoapClient getGpsConnection() {
-		return gpsConnection;
+	public int getLat() {
+		return ((Integer)state.get(JSONParser.GPSX)).intValue();
+	}
+
+	public int getLng() {
+		return ((Integer)state.get(JSONParser.GPSX)).intValue();
 	}
 	
-	public void setClosed() {
-		System.out.println(this.name+" closed");
-		state.put(JSONParser.STATE, false);
-		
+	public String getRi() {
+		return this.ri;
+	}
+	
+	public void setRi(String id) {
+		this.ri= id;
+	}
+	
+	public CoapClient getGpsConnection() {
+		return gpsConnection;
 	}
 	
 	public void setDam(boolean opened, String open) {
@@ -50,31 +60,29 @@ import unipi.iot.Client.JSONParser;
 	
 	}
 	
-	public void setOpened() {
-		System.out.println(this.name+" opened");
-		state.put(JSONParser.STATE, true);
+	public void setClosed() {
+		state.put(JSONParser.STATE, ModulesConstants.CLOSED);
+	
 	}
+	
+	public void setOpened() {
+		state.put(JSONParser.STATE, ModulesConstants.OPEN);
+	
+	}
+	
 	
 	public void updateState(String jsonPost) {
 		HashMap<String, Object> tmp = JSONParser.getDamValues(jsonPost);
 		
-		for (String key: tmp.keySet()) {
-			
-			if(key == JSONParser.STATE) {
-				
-				if(tmp.get(key) == JSONParser.OPEN)
-					setOpened();
-				else
-					setClosed();
-			
-			}else 
+		for (String key: tmp.keySet()) 
 				state.put(key, tmp.get(key));
-		}
 		 //printState();
 	}
 	
 	public boolean isOpened() {
-		return   (Boolean) state.get(JSONParser.STATE);
+		if(state.get(JSONParser.STATE).equals(ModulesConstants.OPEN))
+			return true;
+		return false;
 	}
 	
 	public String getName() {

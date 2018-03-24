@@ -13,7 +13,7 @@ public class Controller extends Thread {
 	private void openDam(String name) {
 		
 		context.DamPostJSON(name,ModulesConstants.OPEN);
-		context.getDamModule().get(name).setOpened();
+	
 		
 		for (String ws: context.getDamAssociations().get(name))
 			context.SensorPostJSON(ws, null, -1, null, null, null);	
@@ -21,7 +21,7 @@ public class Controller extends Thread {
 		
 	private void closeDam(String name) {
 		context.DamPostJSON(name,ModulesConstants.CLOSED);
-		context.getDamModule().get(name).setClosed();
+		
 		
 		for (String ws: context.getDamAssociations().get(name))
 			context.SensorPostJSON(ws, null, 0, null, null, null);

@@ -6,15 +6,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Silvio.MNManager;
 import unipi.iot.Client.JSONParser;
 
 public class Setup extends Thread {
 	private static Setup instance;
 	private String instanceJSON; 
 	private ArrayList<String> jprop; 
-	private WaterFlowInstance wInstance ;
+	private static WaterFlowInstance wInstance ;
 	 
-	public WaterFlowInstance getWinstance() {
+	public static WaterFlowInstance getWinstance() {
 		return wInstance;
 	}
 	
@@ -61,6 +62,8 @@ public class Setup extends Thread {
 		
 		instanceJSON = getInstances();
 		wInstance = new WaterFlowInstance(JSONParser.getConfValues(instanceJSON));
+		MNManager.getInstance(wInstance.getAddressMN()).createStructure();
+		;
 			 
 	}
 

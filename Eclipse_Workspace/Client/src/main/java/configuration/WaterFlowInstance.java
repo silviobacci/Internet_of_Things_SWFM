@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class WaterFlowInstance {
 	
+	private String  name;
 	private String	addressBR;
 	private String 	addressMN;
 	private int 	portBR;
@@ -13,6 +14,7 @@ public class WaterFlowInstance {
 	
 	public WaterFlowInstance(HashMap<String, Object> instance) {
 		
+		name		=	instance.get("name").toString();
 		addressBR 	=	instance.get("ip_br").toString(); 
 		addressMN	=	instance.get("ip_mn").toString(); 
 		portBR 		=  	Integer.parseInt(instance.get("port_br").toString());
@@ -20,6 +22,14 @@ public class WaterFlowInstance {
 		lat 		=  	Double.parseDouble( instance.get("lat").toString() );
 		lng 		=	Double.parseDouble( instance.get("lng").toString() );
 	
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddressBR() {

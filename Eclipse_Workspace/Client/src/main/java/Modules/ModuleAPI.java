@@ -11,5 +11,7 @@ public interface ModuleAPI {
 	public CoapClient getGpsConnection();
 	public HashMap<String, Object> getState();
 	public String getName();
+	public int getLat();
+	public int getLng();
 	
 }

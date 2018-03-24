@@ -1,5 +1,5 @@
 #define 	ERROR 			-1
-#define 	MESSAGE_SIZE		40
+#define 	MESSAGE_SIZE		90
 #define 	FIXED_STEP		5
 #define 	RES_CHANGE		4
 #define 	DAM_STATE_SIZE		10
@@ -10,9 +10,6 @@
 
 #define str(s) 		#s
 
-const char *w_l,*w_t,*evolution,*min,*max;
-const char *state,*closed,*open;
-const char *gps_x,*gps_y;
 
 static int tmp_x,tmp_y;	
 

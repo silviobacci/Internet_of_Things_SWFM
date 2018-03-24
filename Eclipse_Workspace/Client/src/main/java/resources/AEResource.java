@@ -4,34 +4,34 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-public class AEResource extends Resource {
+@SuppressWarnings("unchecked")
+public class AEResource extends OM2MResource {
 	private String acpi; 
 	private String et; 
 	private String api;
 	private String aei; 
 	private boolean rr;
-	
+	private String lbl;
 
-	
 	public AEResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public AEResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt, String _acpi, String _et, String _api, String _aei, boolean _rr) {
+	public AEResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt , String _lbl, String _acpi, String _et, String _api, String _aei, boolean _rr) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		acpi = _acpi; 
 		et = _et;
 		api = _api; 
 		aei = _aei; 
 		rr = _rr; 
-		
+		lbl = _lbl;
 	}
 	
-	public AEResource(String _rn, Integer _ty, String _ri, String _api, boolean _rr) {
-		super(_rn,_ty,_ri);
+	public AEResource(String _rn, Integer _ty, String _ri, String _api, boolean _rr, String _lbl) {
+		super(_rn, _ty, _ri);
 		api = _api; 
 		rr = _rr;
+		lbl = _lbl;
 	}
 	
 	public AEResource(String json) {
@@ -45,6 +45,7 @@ public class AEResource extends Resource {
 				else if(key.toString().equals("api")) api = created.get(key).toString();
 				else if(key.toString().equals("aei")) aei = created.get(key).toString();
 				else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
+				else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -59,6 +60,7 @@ public class AEResource extends Resource {
 			else if(key.toString().equals("api")) api = created.get(key).toString();
 			else if(key.toString().equals("aei")) aei = created.get(key).toString();
 			else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
+			else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
 		}
 	}
 
@@ -70,9 +72,9 @@ public class AEResource extends Resource {
 		jo.put("api", api);
 		jo.put("aei", aei);
 		jo.put("rr", rr);
+		jo.put("lbl", lbl);
 		
-		return jo;
-		
+		return jo;	
 	}
 
 	public String getAcpi() {
@@ -114,6 +116,12 @@ public class AEResource extends Resource {
 	public void setRr(boolean rr) {
 		this.rr = rr;
 	}
-	
-	
+
+	public String getLbl() {
+		return lbl;
+	}
+
+	public void setLbl(String lbl) {
+		this.lbl = lbl;
+	}
 }

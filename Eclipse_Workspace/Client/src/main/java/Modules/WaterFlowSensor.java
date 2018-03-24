@@ -8,6 +8,14 @@ import unipi.iot.Client.JSONParser;
 
 public class WaterFlowSensor extends Module implements ModuleAPI{
 
+	public int getLat() {
+		return ((Integer)state.get(JSONParser.GPSX)).intValue();
+	}
+
+	public int getLng() {
+		return ((Integer)state.get(JSONParser.GPSX)).intValue();
+	}
+
 	public CoapClient getSDConnection() {
 		return sdConnection;
 	}
@@ -18,6 +26,14 @@ public class WaterFlowSensor extends Module implements ModuleAPI{
 
 	public HashMap<String, Object> getState() {
 		return state;
+	}
+	
+	public String getRi() {
+		return this.ri;
+	}
+	
+	public void setRi(String id) {
+		this.ri= id;
 	}
 	
 	public boolean isOverflowed() {

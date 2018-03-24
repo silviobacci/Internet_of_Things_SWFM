@@ -40,8 +40,8 @@ void gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint1
 	Dam get-handler
 ********************************************/
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
-	sprintf(j_message,"{\"%s\":%d,\"%s\":%d,\"%s\":%d,\"%s\":%d,\"%s\":%d}",str(w_l), s_state.water_level,str(w_t), s_state.water_level_threshold, str(evolution), s_state.evolution,
-										str(min_l), s_state.min, str(max_l), s_state.max);	
+	sprintf(j_message,"{\"%s\":%d,\"%s\":%d,\"%s\":%d,\"%s\":%d,\"%s\":%d}",str(w_l), s_state.water_level,str(w_t), s_state.water_level_threshold, str(evo), s_state.evolution,
+										str(min), s_state.min, str(max), s_state.max);	
 	REST.set_response_payload(response, j_message, strlen(j_message));
 	
 }
@@ -51,9 +51,8 @@ void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint1
 ********************************************/
 void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset){
 	const char *val = NULL;			
-		
+	
 	tmp = REST.get_post_variable(request, "json", &val);					//get post variable (json format)			
-
 	if( tmp > 0 && val[tmp-1] == '}'){							//check post parameter validity
 		jsonparse_setup(&parser, val, tmp);
 		jparse_and_store(&parser);
@@ -110,13 +109,13 @@ void jparse_and_store(struct jsonparse_state *parser ){
 	if(json_get_int(parser, str(w_t), &tmp) != ERROR)
 		s_state.water_level_threshold = tmp;
 
-	if(json_get_int(parser, str(evolution), &tmp) != ERROR)
+	if(json_get_int(parser, str(evo), &tmp) != ERROR)
 		s_state.evolution = tmp;
 	
-	if(json_get_int(parser, str(min_l), &tmp) != ERROR)
+	if(json_get_int(parser, str(min), &tmp) != ERROR)
 		s_state.min = tmp;
 
-	if(json_get_int(parser, str(max_l), &tmp) != ERROR)
+	if(json_get_int(parser, str(max), &tmp) != ERROR)
 		s_state.max = tmp;
 
 }

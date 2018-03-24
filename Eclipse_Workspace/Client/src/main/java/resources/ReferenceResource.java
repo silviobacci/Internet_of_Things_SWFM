@@ -1,36 +1,37 @@
 package resources;
 
-import java.util.ArrayList;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-public class ReferenceResource extends Resource {
+@SuppressWarnings("unchecked")
+public class ReferenceResource extends OM2MResource {
 	private JSONArray acpi;
 	private JSONArray poa;
 	private String cb;
 	private String csi;
 	private boolean rr;
+	private String lbl;
 
-	public ReferenceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt) {
+	public ReferenceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, String _lbl) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 	}
 	
-	public ReferenceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, JSONArray _acpi, JSONArray _poa, String _cb, String _csi, boolean _rr) {
+	public ReferenceResource(String _rn, long _ty, String _ri) {
+		super(_rn, _ty, _ri);
+	}
+	
+	public ReferenceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, JSONArray _acpi, JSONArray _poa, String _cb, String _csi, boolean _rr, String _lbl) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		acpi = _acpi;
 		poa = _poa;
 		cb = _cb;
 		csi = _csi;
 		rr = _rr;
+		lbl = _lbl;
 	}
-
-	public ReferenceResource(String _rn, long _ty, String _ri) {
-		super(_rn, _ty, _ri);
-	}
-
+	
 	public ReferenceResource(String json) {
 		super(json, "m2m:csr");
 		try {
@@ -42,6 +43,7 @@ public class ReferenceResource extends Resource {
 				else if(key.toString().equals("cb")) cb = created.get(key).toString();
 				else if(key.toString().equals("csi")) csi = created.get(key).toString();
 				else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
+				else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -56,6 +58,7 @@ public class ReferenceResource extends Resource {
 			else if(key.toString().equals("cb")) cb = created.get(key).toString();
 			else if(key.toString().equals("csi")) csi = created.get(key).toString();
 			else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
+			else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
 		}
 	}
 	
@@ -67,9 +70,9 @@ public class ReferenceResource extends Resource {
 		jo.put("cb", cb);
 		jo.put("csi", csi);
 		jo.put("rr", rr);
+		jo.put("lbl", lbl);
 		
 		return jo;
-		
 	}
 
 	public JSONArray getAcpi() {

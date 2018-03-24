@@ -31,7 +31,9 @@ import org.xml.sax.InputSource;
 import Modules.DamActuator;
 import Modules.ModulesConstants;
 import Modules.WaterFlowSensor;
-import Modules.Module; 
+import Silvio.MNManager;
+import Modules.Module;
+import configuration.Setup;
 import configuration.WaterFlowInstance;
 
 	public class CoapClientADN extends Thread {
@@ -44,16 +46,18 @@ import configuration.WaterFlowInstance;
 	private static final String WELL_KNOWN	= ".well-known/core"; 
 	
 	private static CoapClientADN				instance;
-	private WaterFlowInstance 					wInstance;
-	private HashMap<String,WaterFlowSensor> 	monitoringModule =	new HashMap<String, WaterFlowSensor>();
-	private HashMap<String,DamActuator> 		damModule =			new HashMap<String, DamActuator>();
-	private HashMap<String, ArrayList<String>>	damAssociations = 	new HashMap<String, ArrayList<String>>();
+	private WaterFlowInstance 					wInstance ;
+	private MNManager 							mng		;
+	private HashMap<String,WaterFlowSensor> 	monitoringModule	= new HashMap<String, WaterFlowSensor>();
+	private HashMap<String,DamActuator> 		damModule 			= new HashMap<String, DamActuator>();
+	private HashMap<String, ArrayList<String>>	damAssociations 	= new HashMap<String, ArrayList<String>>();
 	
-    public void setWInstance(WaterFlowInstance inst) {
-    	wInstance = inst; 
-    }
+
  
-    private CoapClientADN() {}
+    private CoapClientADN() {
+    	
+    	
+    }
     
     public static CoapClientADN getInstance() {
     	if(instance == null)
@@ -195,20 +199,31 @@ import configuration.WaterFlowInstance;
       }	
 	}
 
+	public WaterFlowInstance getwInstance() {
+		return wInstance;
+	}
+
+	public void setwInstance(WaterFlowInstance wInstance) {
+		this.wInstance = wInstance;
+	}
+	
+
 	private void initializeDam(String moduleName, String uri) {
 		 damModule.put( moduleName, new DamActuator(moduleName,uri)); 
    	   	 Observing.dObserve(moduleName);
    	     damAssociations.put(moduleName, new ArrayList<String>());
    	     DamPostJSON(moduleName, ModulesConstants.CLOSED);
-   	     damModule.get(moduleName).setClosed();
+   	     //damModule.get(moduleName).setClosed();
    	   
 	}
 	
 	private void initializeSensor(String moduleName, String uri) {
 		 monitoringModule.put(  moduleName, new WaterFlowSensor( moduleName,uri) ); 
 		 Observing.sObserve( moduleName);
-	   //  SensorPostJSON(moduleName, new Integer(70), 0,new Integer(60) ,new Integer(500), new Integer(420));
-		  SensorPostJSON(moduleName, null, 1, null ,null, null);
+	     SensorPostJSON(moduleName, new Integer(70), 0,new Integer(60) ,new Integer(500), new Integer(420));
+		// SensorPostJSON(moduleName, new Integer(70), 0,new Integer(60) ,null, new Integer(420));
+		  //SensorPostJSON(moduleName, null, 1, null ,null, null);
+	     
 	     System.out.println(moduleName +" created");
 	}
 	
@@ -316,7 +331,10 @@ import configuration.WaterFlowInstance;
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
 		req.setPayload("json={\""+JSONParser.STATE+"\":\""+control+"\"}");
-    	
+    	if(control == ModulesConstants.OPEN)
+			damModule.get(name).setOpened();
+    	else
+    		damModule.get(name).setClosed();
 		return damModule.get(name).getSDConnection().advanced(req);
 	}
 	
@@ -346,7 +364,8 @@ import configuration.WaterFlowInstance;
 
 	@Override
 	public void run() {
-		
+		wInstance 	= Setup.getWinstance();
+    	MNManager.getInstance(wInstance.getAddressMN());
 		super.run();
 		
 		while(true) {

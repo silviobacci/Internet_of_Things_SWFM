@@ -10,9 +10,11 @@ import interaction.GUI;
 public class Starter {
 	
 	
-	public static CoapClientADN WaterFlowManager = CoapClientADN.getInstance();
-	public static Controller DamController = new Controller();
+	
 	public static Setup s = Setup.getInstance();
+	public static CoapClientADN WaterFlowManager;
+	
+	//public static Controller DamController = new Controller();
 	//private static Initializer init = new Initializer();
 	
 	public static void main(String[] args) throws IOException {
@@ -24,9 +26,9 @@ public class Starter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		WaterFlowManager.setWInstance(s.getWinstance());
+		WaterFlowManager = CoapClientADN.getInstance();
 		WaterFlowManager.start();
-		DamController.start();
+		//DamController.start();
 
 		
 	}

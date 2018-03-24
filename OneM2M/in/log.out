@@ -66526,3 +66526,1591 @@ Response in Router= ResponsePrimitive [
 </m2m:csr>
 
 ]
+[2018-03-23 15:13:54,709 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:13:54,716 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:13:59,104 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:13:59,107 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:14:00,569 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:14:01,155 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:14:01,158 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:14:01,279 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:14:01,286 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:14:01,307 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:14:03,661 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:14:03,676 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:14:03,677 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:14:03,682 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:14:03,682 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:14:03,686 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:14:03,706 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:14:03,706 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:14:03,756 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:14:03,760 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:14:04,100 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:14:04,100 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:14:04,164 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:14:04,165 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:14:04,174 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:14:04,174 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:14:04,311 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:14:04,324 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:14:04,326 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:14:04,329 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:14:06,792 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:14:06,809 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:14:06,844 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:14:07,510 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:14:07,513 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:14:07,519 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:14:07,530 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:14:07,547 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:14:51,630 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:14:51,632 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:14:54,296 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:14:54,302 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:14:55,130 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:14:55,361 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:14:55,364 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:14:55,452 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:14:55,464 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:14:55,494 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:14:57,817 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:14:57,827 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:14:57,829 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:14:57,843 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:14:57,846 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:14:57,848 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:14:57,850 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:14:57,859 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:14:57,884 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:14:57,887 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:14:58,123 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:14:58,124 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:14:58,161 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:14:58,173 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:14:58,181 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:14:58,182 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:14:58,299 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:14:58,327 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:14:58,328 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:14:58,329 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:14:59,899 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:14:59,981 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:14:59,988 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:15:00,386 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:15:00,404 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:15:00,420 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:15:00,429 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:15:00,435 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:16:22,272 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:16:22,274 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:16:23,909 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:16:23,910 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:16:24,450 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:16:24,628 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:16:24,638 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:16:24,713 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:16:24,724 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:16:24,748 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:16:26,179 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:16:26,181 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:16:26,183 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:16:26,181 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:16:26,187 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:16:26,188 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:16:26,188 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:16:26,189 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:16:26,233 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:16:26,236 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:16:26,442 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:16:26,442 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:16:26,519 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:16:26,520 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:16:26,538 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:16:26,539 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:16:26,605 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:16:26,616 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:16:26,617 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:16:26,621 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:16:27,564 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:16:27,571 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:16:27,578 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:16:27,864 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:16:27,880 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:16:27,897 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:16:27,900 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:16:27,905 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:17:34,313 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:17:34,316 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:17:36,785 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:17:36,786 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:17:37,702 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:17:37,931 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:17:37,935 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:17:38,070 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:17:38,076 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:17:38,103 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:17:40,431 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:17:40,440 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:17:40,444 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:17:40,444 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:17:40,445 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:17:40,449 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:17:40,457 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:17:40,464 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:17:40,501 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:17:40,502 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:17:40,805 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:17:40,809 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:17:40,922 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:17:40,939 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:17:40,962 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:17:40,963 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:17:41,097 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:17:41,116 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:17:41,137 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:17:41,151 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:17:42,801 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:17:42,817 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:17:42,820 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:17:43,215 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:17:43,224 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:17:43,229 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:17:43,234 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:17:43,234 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:18:17,631 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:18:17,633 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:18:20,342 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:18:20,343 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:18:21,331 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:18:21,483 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:18:21,488 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:18:21,561 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:18:21,563 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:18:21,593 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:18:23,939 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:18:23,942 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:18:23,950 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:18:23,951 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:18:23,953 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:18:23,954 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:18:23,965 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:18:23,975 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:18:24,000 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:18:24,001 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:18:24,242 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:18:24,244 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:18:24,381 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:18:24,388 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:18:24,396 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:18:24,399 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:18:24,494 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:18:24,515 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:18:24,516 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:18:24,517 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:18:25,852 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:18:25,873 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:18:25,881 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:18:26,171 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:18:26,175 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:18:26,182 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:18:26,191 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:18:26,197 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:19:32,714 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:19:32,715 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:19:34,444 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:19:34,444 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:19:35,140 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:19:35,270 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:19:35,272 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:19:35,341 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:19:35,344 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:19:35,368 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:19:36,836 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:19:36,839 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:19:36,840 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:19:36,842 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:19:36,843 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:19:36,844 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:19:36,851 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:19:36,852 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:19:36,894 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:19:36,902 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:19:37,152 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:19:37,153 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:19:37,181 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:19:37,193 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:19:37,231 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:19:37,252 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:19:37,365 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:19:37,436 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:19:37,436 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:19:37,441 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:19:38,309 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:19:38,340 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:19:38,342 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:19:38,598 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:19:38,609 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:19:38,614 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:19:38,619 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:19:38,627 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:45:22,961 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:45:22,963 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:45:24,740 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:45:24,741 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:45:25,211 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:45:25,434 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:45:25,444 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:45:25,517 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:45:25,519 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:45:25,536 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:45:27,196 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:45:27,200 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:45:27,201 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:45:27,203 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:45:27,205 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:45:27,205 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:45:27,207 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:45:27,208 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:45:27,229 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:45:27,233 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:45:27,491 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:45:27,493 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:45:27,559 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:45:27,560 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:45:27,601 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:45:27,601 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:45:27,740 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:45:27,749 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:45:27,750 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:45:27,755 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:45:29,087 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:45:29,093 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:45:29,101 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:45:29,447 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:45:29,456 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:45:29,468 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:45:29,471 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:45:29,479 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:48:35,422 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:48:35,424 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:48:43,498 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:48:43,500 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:48:45,150 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:48:45,151 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:48:45,688 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:48:45,846 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:48:45,854 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:48:45,938 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:48:45,941 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:48:45,984 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:48:47,400 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:48:47,401 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:48:47,400 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:48:47,401 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:48:47,406 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:48:47,406 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:48:47,424 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:48:47,424 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:48:47,426 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:48:47,428 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:48:47,656 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:48:47,658 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:48:47,682 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:48:47,682 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:48:47,693 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:48:47,694 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:48:47,823 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:48:47,910 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:48:47,916 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:48:47,917 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:48:48,475 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:48:48,480 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:48:48,481 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:48:48,923 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:48:48,926 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:48:48,931 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:48:48,937 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:48:48,968 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped
+[2018-03-23 15:49:05,043 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Starting Data Mapper
+[2018-03-23 15:49:05,045 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering XML Mapper Service..
+[2018-03-23 15:49:06,735 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+XML Mapper service registered.
+[2018-03-23 15:49:06,736 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+Registering JSON Mapper Service..
+[2018-03-23 15:49:07,256 INFO] - org.eclipse.om2m.datamapping.jaxb.Activator 
+JSON Mapper service registered.
+[2018-03-23 15:49:07,476 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Register CoAP RestClientService..
+[2018-03-23 15:49:07,478 INFO] - org.eclipse.om2m.binding.coap.Activator 
+Starting CoAP server
+[2018-03-23 15:49:07,540 INFO] - org.eclipse.om2m.binding.coap.Activator 
+CseService opened
+[2018-03-23 15:49:07,547 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register HTTP RestClientService..
+[2018-03-23 15:49:07,567 INFO] - org.eclipse.om2m.binding.http.Activator 
+HTTP RestClientService is registered.
+[2018-03-23 15:49:09,017 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Starting Persistence JPA plugin...
+[2018-03-23 15:49:09,019 INFO] - org.eclipse.om2m.core.Activator 
+Starting CSE...
+[2018-03-23 15:49:09,020 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/xml
+[2018-03-23 15:49:09,024 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Initializing Database...
+[2018-03-23 15:49:09,025 INFO] - org.eclipse.om2m.persistence.eclipselink.internal.DBServiceJPAImpl 
+Creating new EntityManagerFactory...
+[2018-03-23 15:49:09,024 INFO] - org.eclipse.om2m.core.Activator 
+Added Data Mapper Service: application/json
+[2018-03-23 15:49:09,038 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: coap
+[2018-03-23 15:49:09,039 INFO] - org.eclipse.om2m.core.Activator 
+Rest client service discovered. Protocol: http
+[2018-03-23 15:49:09,054 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService discovered
+[2018-03-23 15:49:09,055 INFO] - org.eclipse.om2m.binding.http.Activator 
+Register / context
+[2018-03-23 15:49:09,273 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService discovered
+[2018-03-23 15:49:09,274 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Register /webpage http context
+[2018-03-23 15:49:09,305 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+HttpService removed
+[2018-03-23 15:49:09,307 INFO] - org.eclipse.om2m.webapp.resourcesbrowser.json.Activator 
+Unregister /webpage http context
+[2018-03-23 15:49:09,310 INFO] - org.eclipse.om2m.binding.http.Activator 
+HttpService removed
+[2018-03-23 15:49:09,314 INFO] - org.eclipse.om2m.binding.http.Activator 
+Unregister / http context
+[2018-03-23 15:49:09,469 INFO] - org.eclipse.om2m.core.Activator 
+Stopping CSE
+[2018-03-23 15:49:09,477 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Sending unregistration request
+[2018-03-23 15:49:09,483 INFO] - org.eclipse.om2m.core.comm.RestClient 
+the requestIndication RC: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:49:09,487 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Sending request: RequestPrimitive [operation=4,
+ to=http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name,
+ from=admin:admin,
+ resultContent=0,
+ ]
+[2018-03-23 15:49:10,186 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Query string generated: ?rcn=0
+[2018-03-23 15:49:10,196 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Request to be send: DELETE http://127.0.0.1:8080/~//api/in-cse/in-name/SWFM-in-name?rcn=0 HTTP/1.1
+[2018-03-23 15:49:10,207 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Headers:
+Accept: 
+X-M2M-Origin: admin:admin
+Content-Type: 
+
+[2018-03-23 15:49:10,420 INFO] - org.eclipse.om2m.binding.http.RestHttpClient 
+Http Client response: ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:49:10,425 INFO] - org.eclipse.om2m.core.comm.RestClient 
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:49:10,434 INFO] - org.eclipse.om2m.core.CSEInitializer 
+Unregistration response:
+ResponsePrimitive [
+ responseStatusCode=4004
+ to=admin:admin
+ from=/SWFM-in-cse
+ contentType=text/html;charset=ISO-8859-1,
+ content (Only first 1000 caracters)=
+ <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
+<title>Error 404 ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</title>
+</head>
+<body>
+<h2>HTTP ERROR: 404</h2>
+<p>Problem accessing /~//api/in-cse/in-name/SWFM-in-name. Reason:
+<pre>    ProxyServlet: /~//api/in-cse/in-name/SWFM-in-name</pre></p>
+<hr /><i><small>Powered by Jetty://</small></i>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                            (...)
+]
+[2018-03-23 15:49:10,437 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Stopping Persistence JPA plugin
+[2018-03-23 15:49:10,439 INFO] - org.eclipse.om2m.persistence.eclipselink.Activator 
+Persistence JPA plugin stopped

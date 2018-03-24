@@ -1,12 +1,13 @@
 package resources;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-public class ContainerResource extends Resource {
-	
-
+@SuppressWarnings("unchecked")
+public class ContainerResource extends OM2MResource {
 	private String acpi; 
 	private String et; 
 	private long st; 
@@ -17,19 +18,18 @@ public class ContainerResource extends Resource {
 	private long cbs; 
 	private String ol;
 	private String la;
+	private ArrayList<String> lbl;
 	
 
 	public ContainerResource(String _rn, Long _ty, String _ri) {
 		super(_rn, _ty, _ri);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ContainerResource(String _rn, Long _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public ContainerResource(String _rn, Long _ty, String _ri, String _pi, String _ct, String _lt, String _acpi, String _et, Long _st,
+	public ContainerResource(String _rn, Long _ty, String _ri, String _pi, String _ct, String _lt, ArrayList<String> _lbl, String _acpi, String _et, Long _st,
 			Long _mni, Long _mbs, Long _mia, Long _cni, Long _cbs, String _ol, String _la) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		acpi = _acpi; 
@@ -42,6 +42,7 @@ public class ContainerResource extends Resource {
 		cbs = _cbs.intValue(); 
 		ol = _ol; 
 		la = _la;
+		lbl = _lbl;
 	}
 	
 	public ContainerResource(String json) {
@@ -60,6 +61,7 @@ public class ContainerResource extends Resource {
 				else if(key.toString().equals("cbs")) cbs = (Long) created.get(key);
 				else if(key.toString().equals("ol")) ol = created.get(key).toString();
 				else if(key.toString().equals("la")) la = created.get(key).toString();
+				else if(key.toString().equals("lbl")) lbl = (ArrayList<String>) created.get(key);
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -79,6 +81,7 @@ public class ContainerResource extends Resource {
 			else if(key.toString().equals("cbs")) cbs = (Long) created.get(key);
 			else if(key.toString().equals("ol")) ol = created.get(key).toString();
 			else if(key.toString().equals("la")) la = created.get(key).toString();
+			else if(key.toString().equals("lbl")) lbl = (ArrayList<String>) created.get(key);
 		}
 	}
 
@@ -95,13 +98,11 @@ public class ContainerResource extends Resource {
 		jo.put("cbs", cbs);
 		jo.put("ol", ol);
 		jo.put("la", la);
+		jo.put("lbl", lbl);
 		
 		return jo;
-		
 	}
 
-	
-	
 	public String getAcpi() {
 		return acpi;
 	}
@@ -161,9 +162,13 @@ public class ContainerResource extends Resource {
 	}
 	public void setLa(String la) {
 		this.la = la;
+	}
+
+	public ArrayList<String> getLbl() {
+		return lbl;
+	}
+
+	public void setLbl(ArrayList<String> lbl) {
+		this.lbl = lbl;
 	} 
-	
-	
-	
-	
 }

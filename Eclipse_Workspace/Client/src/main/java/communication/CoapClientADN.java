@@ -149,6 +149,7 @@ import configuration.WaterFlowInstance;
 	    URL url;
 	    HttpURLConnection con;  
 	    int i=0;
+	    mng = MNManager.getInstance("");
 	    
 	    	try {
 	    		url = new URL(HTTP+ip);
@@ -210,10 +211,11 @@ import configuration.WaterFlowInstance;
 
 	private void initializeDam(String moduleName, String uri) {
 		 damModule.put( moduleName, new DamActuator(moduleName,uri)); 
-   	   	 Observing.dObserve(moduleName);
+   	   	// Observing.dObserve(moduleName);
    	     damAssociations.put(moduleName, new ArrayList<String>());
    	     DamPostJSON(moduleName, ModulesConstants.CLOSED);
    	     //damModule.get(moduleName).setClosed();
+   	     mng.createDamCNT(moduleName);
    	   
 	}
 	
@@ -221,9 +223,10 @@ import configuration.WaterFlowInstance;
 		 monitoringModule.put(  moduleName, new WaterFlowSensor( moduleName,uri) ); 
 		 Observing.sObserve( moduleName);
 	     SensorPostJSON(moduleName, new Integer(70), 0,new Integer(60) ,new Integer(500), new Integer(420));
-		// SensorPostJSON(moduleName, new Integer(70), 0,new Integer(60) ,null, new Integer(420));
+		// SensorPostJSON(moduleName, new Integer(70), 0,new Ingteger(60) ,null, new Integer(420));
 		  //SensorPostJSON(moduleName, null, 1, null ,null, null);
-	     
+	     mng.createSensorCNT(monitoringModule.get(moduleName));
+	     mng.updateSensorCI(monitoringModule.get(moduleName));
 	     System.out.println(moduleName +" created");
 	}
 	

@@ -3,9 +3,12 @@ package communication;
 import org.eclipse.californium.core.CoapHandler;
 import org.eclipse.californium.core.CoapResponse;
 
+import Silvio.MNManager;
+
 public class Observing {
 	
 	private static CoapClientADN context = CoapClientADN.getInstance();
+	private static MNManager mng = MNManager.getInstance("");
 
 	private Observing() {};
 	
@@ -14,6 +17,7 @@ public class Observing {
 		    		new CoapHandler() {
 		    			public void onLoad(CoapResponse response) {
 		    				context.getMonitoringModule().get(name).updateState( response.getResponseText());
+		    				mng.updateSensorCI(	context.getMonitoringModule().get(name));
 		    			}
 					
 		    			public void onError() {

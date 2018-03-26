@@ -120,7 +120,7 @@ public class MNManager {
 		cnt.add(mng.createContainer(isMN, ae.get(0).getRi(), json));
 	}
 	
-	public void createSensorCNT(WaterFlowSensor wfs) {
+	private void createSensorCNT(WaterFlowSensor wfs) {
 		//main CNT
 		JSONObject json = mng.jsonContainer(wfs.getName(), cnt.get(SENSORS_TREE).getRi());
 		ContainerResource tmp = mng.createContainer(isMN, cnt.get(SENSORS_TREE).getRi(), json);
@@ -141,7 +141,7 @@ public class MNManager {
 		
 	}
 	
-	public void createDamCNT(String damName) {
+	private void createDamCNT(String damName) {
 		//main CNT
 		JSONObject json = mng.jsonContainer(damName, cnt.get(DAMS_TREE).getRi());
 		DamCnt.add(mng.createContainer(isMN, cnt.get(DAMS_TREE).getRi(), json));	
@@ -155,24 +155,13 @@ public class MNManager {
 		INDamCnt.add(mng.createContainer(isMN, DamCnt.get(DamCnt.size()-1).getRi(), json));
 	}
 	
-	public void updateSensorCI(WaterFlowSensor wfs) {
-		createGPSContentInstance(wfs);
-		createLevelContentInstance(wfs);
-		createThresholdsContentInstance(wfs);
-	}
-	
-	public void updateDamCI(DamActuator dam) {
-		createGPSContentInstance(dam);
-		createDamContentInstance(dam);
-	}
-	
 	private void createLevelContentInstance(WaterFlowSensor wfs) {
 		JSONObject th = new JSONObject();
 		th.put(LEVEL, wfs.getLevel());
 		
 		//cercare il giusto contenitore
 		for (ContainerResource cnt : INSensorCnt) {
-			if(cnt.getRn().equals(LEVEL) && cnt.getPi().equals( wfs.getRi())) {		
+			if(cnt.getRn().equals(LEVEL) && cnt.getPi() == wfs.getRi()) {		
 				JSONObject json = mng.jsonCI(AUTO_CHANGE, th.toJSONString().replace("\"", "'"), cnt.getRi());
 				inst.add(mng.createContentInstance(isMN, cnt.getRi(), json));
 			}

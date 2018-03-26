@@ -51,8 +51,8 @@ public class OM2MManager {
 	private String inAddress;
 	private String mnAddress;
 	
-	private String inCSE = "/in-cse"; 
-	private String mnCSE = "/mn-cse"; 
+	private String inCSE = "/SWFM-in-cse"; 
+	private String mnCSE = "/SWFM-mn-cse"; 
 
 	public OM2MManager(String ip) {
 		inAddress = "coap://" + ip + ":" + portIN + "/~";

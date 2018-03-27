@@ -155,7 +155,7 @@ public class MNManager {
 		INDamCnt.add(mng.createContainer(isMN, DamCnt.get(DamCnt.size()-1).getRi(), json));
 	}
 	
-	private void createLevelContentInstance(WaterFlowSensor wfs) {
+	public void createLevelContentInstance(WaterFlowSensor wfs) {
 		JSONObject th = new JSONObject();
 		th.put(LEVEL, wfs.getLevel());
 		

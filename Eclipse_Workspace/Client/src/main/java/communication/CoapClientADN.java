@@ -47,10 +47,10 @@ import configuration.WaterFlowInstance;
 	
 	private static CoapClientADN				instance;
 	private WaterFlowInstance 					wInstance ;
-	private MNManager 							mng		;
-	private HashMap<String,WaterFlowSensor> 	monitoringModule	= new HashMap<String, WaterFlowSensor>();
-	private HashMap<String,DamActuator> 		damModule 			= new HashMap<String, DamActuator>();
-	private HashMap<String, ArrayList<String>>	damAssociations 	= new HashMap<String, ArrayList<String>>();
+	public static MNManager 							mng		;
+	private static HashMap<String,WaterFlowSensor> 	monitoringModule	= new HashMap<String, WaterFlowSensor>();
+	private static HashMap<String,DamActuator> 		damModule 			= new HashMap<String, DamActuator>();
+	private static HashMap<String, ArrayList<String>>	damAssociations = new HashMap<String, ArrayList<String>>();
 	
 
  

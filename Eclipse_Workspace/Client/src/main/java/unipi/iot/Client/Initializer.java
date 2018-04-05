@@ -1,16 +1,5 @@
 package unipi.iot.Client;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
-
-import Silvio.OM2MManager;
-import communication.CoapClientADN;
-
-import resources.AEResource;
-import resources.ContainerResource;
-import resources.InstanceResource;
 /*
 public class Initializer extends Thread {
 	private static final String 	WL		= "Water level";

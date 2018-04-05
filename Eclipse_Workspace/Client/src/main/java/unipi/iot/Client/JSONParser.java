@@ -22,8 +22,12 @@ public class JSONParser {
 	public static final String PORTBR	= "port_br";
 	public static final String IPMN		= "ip_mn";
 	public static final String PORTMN	= "port_mn";
-	public static final String LAT		= "lat";
-	public static final String LNG		= "lng";
+	
+	public static final String LAT		= "lat_ae";
+	public static final String LNG		= "lng_ae";
+	
+	public static final String LAT_S	= "lat_Sensor";
+	public static final String LNG_D	= "lng_Dam";
 	public static final String NAME		= "name";
 
 	private static ArrayList<String> jProperties = new ArrayList<String>();

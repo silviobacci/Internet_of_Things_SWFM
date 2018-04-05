@@ -1,18 +1,15 @@
 package configuration;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
-import Silvio.MNManager;
+import OM2M.OM2MManager;
 import unipi.iot.Client.JSONParser;
 
 public class Setup extends Thread {
 	private static Setup instance;
 	private String instanceJSON; 
-	private ArrayList<String> jprop; 
 	private static WaterFlowInstance wInstance ;
 	 
 	public static WaterFlowInstance getWinstance() {
@@ -20,11 +17,7 @@ public class Setup extends Thread {
 	}
 	
 	
-	private Setup() {
-		jprop = new ArrayList<String>();
-	
-
-	}
+	private Setup() {}
 	
 	public static Setup getInstance() {
 		if(instance == null)
@@ -33,10 +26,9 @@ public class Setup extends Thread {
 	}
 	
 	private String getInstances(){
-		String line,all;
+		String line;
 		BufferedReader br;
 		StringBuilder sb= new StringBuilder();
-		ArrayList<String> instances = new ArrayList<String>();
 		try {
 			br = new BufferedReader(new FileReader("Conf.txt"));
 		    line = br.readLine();
@@ -62,8 +54,8 @@ public class Setup extends Thread {
 		
 		instanceJSON = getInstances();
 		wInstance = new WaterFlowInstance(JSONParser.getConfValues(instanceJSON));
-		MNManager.getInstance(wInstance.getAddressMN()).createStructure();
-		;
+		
+		OM2MManager.setIP(wInstance.getAddressMN());
 			 
 	}
 

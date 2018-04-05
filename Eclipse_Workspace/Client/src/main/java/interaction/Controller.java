@@ -7,38 +7,34 @@ import communication.CoapClientADN;
 
 public class Controller extends Thread {
 	private static final int PERIOD	= 50;
-	
-	private CoapClientADN context = CoapClientADN.getInstance();
 
 	private void openDam(String name) {
 		
-		context.DamPostJSON(name,ModulesConstants.OPEN);
-	
+		CoapClientADN.DamPostJSON(name,ModulesConstants.OPEN);
 		
-		for (String ws: context.getDamAssociations().get(name))
-			context.SensorPostJSON(ws, null, -1, null, null, null);	
+		for (String ws: CoapClientADN.getDamAssociations().get(name))
+			CoapClientADN.SensorPostJSON(ws, null, -1, null, null, null);	
 	}
 		
 	private void closeDam(String name) {
-		context.DamPostJSON(name,ModulesConstants.CLOSED);
+		CoapClientADN.DamPostJSON(name,ModulesConstants.CLOSED);
 		
-		
-		for (String ws: context.getDamAssociations().get(name))
-			context.SensorPostJSON(ws, null, 0, null, null, null);
+		for (String ws: CoapClientADN.getDamAssociations().get(name))
+			CoapClientADN.SensorPostJSON(ws, null, 0, null, null, null);
 	
 	}
 	
 	private void attuateLogic() {
 		boolean close = true;
 		
-		for(DamActuator dam : context.getDamModule().values() ) {
+		for(DamActuator dam : CoapClientADN.getDamModule().values() ) {
 			
 			if(!dam.isOpened()) {
 				
-				for( String ws : context.getDamAssociations().get(dam.getName())) {
-					context.getMonitoringModule().get(ws);
+				for( String ws : CoapClientADN.getDamAssociations().get(dam.getName())) {
+					CoapClientADN.getMonitoringModule().get(ws);
 					
-					if(context.getMonitoringModule().containsKey(ws) && context.getMonitoringModule().get(ws).isOverflowed() ) {
+					if(CoapClientADN.getMonitoringModule().containsKey(ws) && CoapClientADN.getMonitoringModule().get(ws).isOverflowed() ) {
 						openDam(dam.getName());
 						break;
 					}
@@ -46,9 +42,9 @@ public class Controller extends Thread {
 			
 			}else if(dam.isOpened()) {
 				
-				for( String ws : context.getDamAssociations().get(dam.getName())) {
+				for( String ws : CoapClientADN.getDamAssociations().get(dam.getName())) {
 					
-					if(context.getMonitoringModule().get(ws).isOverflowed() )
+					if(CoapClientADN.getMonitoringModule().get(ws).isOverflowed() )
 						close = false;
 				}
 				if(close) {
@@ -73,7 +69,7 @@ public class Controller extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		context.checkDamAssociations();
+		CoapClientADN.checkDamAssociations();
 		attuateLogic();
 		
 	   }

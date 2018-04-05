@@ -13,5 +13,6 @@ public interface ModuleAPI {
 	public String getName();
 	public int getLat();
 	public int getLng();
+
 	
 }

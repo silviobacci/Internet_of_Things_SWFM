@@ -22,6 +22,10 @@ import unipi.iot.Client.JSONParser;
 		
 	}
 	
+	public String getDState() {
+		return state.get(JSONParser.STATE).toString();
+	}
+	
 	public HashMap<String, Object> getState() {
 		return state;
 	}
@@ -36,7 +40,7 @@ import unipi.iot.Client.JSONParser;
 	}
 	
 	public int getLat() {
-		return ((Integer)state.get(JSONParser.GPSX)).intValue();
+		return ((Integer)state.get(JSONParser.GPSY)).intValue();
 	}
 
 	public int getLng() {

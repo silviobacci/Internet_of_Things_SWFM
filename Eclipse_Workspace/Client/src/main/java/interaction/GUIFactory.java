@@ -6,24 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 import Modules.ModulesConstants;
 import communication.CoapClientADN;
-import configuration.Setup;
 
 public class GUIFactory {
 	
 	private static final String FLOW	= "Flow:";
 	private static final String SET		= "Set:";
-	private static final String STATE	= "State:";
 	private static final String OPENED	= "opened";
 	private static final String CLOSED	= "Closed";
 	private static final int 	UP		= 1;
@@ -31,27 +25,12 @@ public class GUIFactory {
 	private static final String WT		= "Water threshold";
 	private static final String MIN		= "Min level";
 	private static final String MAX		= "Max level";
-	
-	private JFrame			frame;
-	private JTextField 		EvoTextBox;
-	private JRadioButton 	incrementRadio,decrementRadio;
-	private JButton 		updateBtn;
-	private JPanel 			panel_1;
-	private JLabel 			lblSensor;
-	private JRadioButton 	incrementRadio1;
-	private JRadioButton 	decrementRadio1;
-	private JTextField 		Evo1TextBox;
-	private JButton 		button;
-	
-	private static CoapClientADN	context	=	CoapClientADN.getInstance();
 
-	
-	
 	private static MouseAdapter upBtnListener(final String sensorName) {
 		return new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				context.SensorPostJSON(sensorName, null, new Integer(UP), null,  null, null);
+				CoapClientADN.SensorPostJSON(sensorName, null, new Integer(UP), null,  null, null);
 				
 			}
 		};
@@ -61,7 +40,7 @@ public class GUIFactory {
 		return new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				context.SensorPostJSON(sensorName, null, new Integer(-UP), null,  null, null);
+				CoapClientADN.SensorPostJSON(sensorName, null, new Integer(-UP), null,  null, null);
 				
 			}
 		};
@@ -71,7 +50,7 @@ public class GUIFactory {
 		return new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				context.SensorPostJSON(sensorName, null, new Integer(0), null,  null, null);
+				CoapClientADN.SensorPostJSON(sensorName, null, new Integer(0), null,  null, null);
 				
 			}
 		};
@@ -81,11 +60,11 @@ public class GUIFactory {
 		return new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(!context.getDamModule().get(damName).isOpened()) {
-					context.DamPostJSON(damName, ModulesConstants.OPEN);
+				if(!CoapClientADN.getDamModule().get(damName).isOpened()) {
+					CoapClientADN.DamPostJSON(damName, ModulesConstants.OPEN);
 					lab.setText(OPENED);
 				}else {
-					context.DamPostJSON(damName, ModulesConstants.CLOSED);
+					CoapClientADN.DamPostJSON(damName, ModulesConstants.CLOSED);
 					lab.setText(CLOSED);
 				}
 			}
@@ -95,42 +74,43 @@ public class GUIFactory {
 	private static ActionListener ComboActionListner(final String sensorName, final JTextField txt) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                JComboBox comboBox = (JComboBox) e.getSource();
+                @SuppressWarnings("rawtypes")
+				JComboBox comboBox = (JComboBox) e.getSource();
 
                 Object selected = comboBox.getSelectedItem();
                 
                 if(selected.toString().equals(WL)) 
-                	txt.setText(context.getMonitoringModule().get(sensorName).getLevel()+"");
+                	txt.setText(CoapClientADN.getMonitoringModule().get(sensorName).getLevel()+"");
                 	
                 else if(selected.toString().equals(WT))
-                	txt.setText(context.getMonitoringModule().get(sensorName).getThreshold()+"");
+                	txt.setText(CoapClientADN.getMonitoringModule().get(sensorName).getThreshold()+"");
                 	
                 else if(selected.toString().equals(MIN))
-                	txt.setText(context.getMonitoringModule().get(sensorName).getMin()+"");
+                	txt.setText(CoapClientADN.getMonitoringModule().get(sensorName).getMin()+"");
                 	
                 else if(selected.toString().equals(MAX))
-                	txt.setText(context.getMonitoringModule().get(sensorName).getMax()+"");
+                	txt.setText(CoapClientADN.getMonitoringModule().get(sensorName).getMax()+"");
                 	       
 				
 			}
         };
 	}
 	
-	private static ActionListener textEnterListner(final String sensorName, final JComboBox combo, final JTextField self) {
+	private static ActionListener textEnterListner(final String sensorName, @SuppressWarnings("rawtypes") final JComboBox combo, final JTextField self) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
                 
                 if(combo.getSelectedItem().toString().equals(WL)) 
-                	context.SensorPostJSON(sensorName, Integer.parseInt(self.getText()), null, null, null, null);
+                	CoapClientADN.SensorPostJSON(sensorName, Integer.parseInt(self.getText()), null, null, null, null);
                 	
                 else  if(combo.getSelectedItem().toString().equals(WT)) 
-                	context.SensorPostJSON(sensorName, null, null,null, null,  Integer.parseInt(self.getText()));
+                	CoapClientADN.SensorPostJSON(sensorName, null, null,null, null,  Integer.parseInt(self.getText()));
                 	
                 else  if(combo.getSelectedItem().toString().equals(MIN)) 
-                	context.SensorPostJSON(sensorName, null, null, Integer.parseInt(self.getText()), null, null);
+                	CoapClientADN.SensorPostJSON(sensorName, null, null, Integer.parseInt(self.getText()), null, null);
                 	
                 else  if(combo.getSelectedItem().toString().equals(MAX)) 
-                	context.SensorPostJSON(sensorName, null, null, null, Integer.parseInt(self.getText()), null);
+                	CoapClientADN.SensorPostJSON(sensorName, null, null, null, Integer.parseInt(self.getText()), null);
                 	       
 				
 			}

@@ -26,7 +26,6 @@ public class Signup extends HttpServlet {
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		DbManager db = new DbManager();
 		

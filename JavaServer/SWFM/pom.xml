@@ -35,18 +35,36 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
-		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>servlet-api</artifactId>
-		    <version>3.0-alpha-1</version>
-		    <scope>provided</scope>
-		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.1.0</version>
+    <scope>provided</scope>
+</dependency>
+
 
 		 <dependency>
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
         <version>1.2</version>
      </dependency>
+     	<!-- https://mvnrepository.com/artifact/javax.enterprise/cdi-api -->
+<dependency>
+    <groupId>javax.enterprise</groupId>
+    <artifactId>cdi-api</artifactId>
+    <version>2.0</version>
+    <scope>provided</scope>
+</dependency>
+     	<!-- https://mvnrepository.com/artifact/javax.ejb/ejb-api -->
+<!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
+<dependency>
+    <groupId>javax.ejb</groupId>
+    <artifactId>javax.ejb-api</artifactId>
+    <version>3.2</version>
+</dependency>
+
+     	
 	</dependencies>
 
 	<repositories>

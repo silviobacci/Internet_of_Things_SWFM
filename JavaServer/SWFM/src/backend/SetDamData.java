@@ -52,17 +52,24 @@ public class SetDamData extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(payload == null || payload.get("id") == null || payload.get("data") == null || payload.get("ae") == null) {
+		if(payload == null) {
 			resp.getWriter().write(new JsonResponse().create(true, "Some problem with the post request."));
 			return;
 		}
 		
+		String reference_id = (String) payload.get("reference_id");
+		String ae_id = (String) payload.get("ae_id");
+		String ae_name = (String) payload.get("ae_name");
+		String dam_id = (String) payload.get("dam_id");
 		String admin_name = (String) req.getSession().getAttribute("username");
-		String ae_id = (String) payload.get("ae");
-		String dam_id = (String) payload.get("id");
-		boolean data = (boolean) payload.get("data");
+		Boolean data = (boolean) payload.get("data");
 		
-		if(!mng.setDamData(ae_id, dam_id, data, admin_name)) {
+		if(reference_id == null || ae_id == null || ae_name == null || dam_id == null || admin_name == null || data == null) {
+			resp.getWriter().write(new JsonResponse().create(true, "Some problem with the post request."));
+			return;
+		}
+		
+		if(!mng.setDamData(reference_id, ae_id, ae_name, dam_id, data, admin_name)) {
 			resp.getWriter().write(new JsonResponse().create(true, "State unchanged."));
 			return;
 		}

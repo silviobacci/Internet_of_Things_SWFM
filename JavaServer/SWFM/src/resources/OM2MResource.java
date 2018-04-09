@@ -74,7 +74,6 @@ public class OM2MResource  implements Comparable<OM2MResource> {
 		}
 	}
 	
-	@Override
 	public int compareTo(OM2MResource o) {
 		SimpleDateFormat d_format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
 		Date d1 = null, d2 = null;

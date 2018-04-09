@@ -52,17 +52,24 @@ public class SetSensorData extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(payload == null || payload.get("id") == null || payload.get("data") == null || payload.get("ae") == null) {
+		if(payload == null) {
 			resp.getWriter().write(new JsonResponse().create(true, "Some problem with the post request."));
 			return;
 		}
 		
+		String reference_id = (String) payload.get("reference_id");
+		String ae_id = (String) payload.get("ae_id");
+		String ae_name = (String) payload.get("ae_name");
+		String sensor_id = (String) payload.get("sensor_id");
 		String admin_name = (String) req.getSession().getAttribute("username");
-		String ae_id = (String) payload.get("ae");
-		String sensor_id = (String) payload.get("id");
 		JSONObject data = (JSONObject) payload.get("data");
 		
-		if(!mng.setSensorData(ae_id, sensor_id, data.toJSONString().replace("\"", "'"), admin_name)) {
+		if(reference_id == null || ae_id == null || ae_name == null || sensor_id == null || admin_name == null || data == null) {
+			resp.getWriter().write(new JsonResponse().create(true, "Some problem with the post request."));
+			return;
+		}
+		
+		if(!mng.setSensorData(reference_id, ae_id, ae_name, sensor_id, data, admin_name)) {
 			resp.getWriter().write(new JsonResponse().create(true, "State unchanged."));
 			return;
 		}

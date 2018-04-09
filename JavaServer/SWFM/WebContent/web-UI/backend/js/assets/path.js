@@ -27,3 +27,4 @@ var getdamdata = "http://localhost/SWFM/backend/getdamdata";
 var gethistorydata = "http://localhost/SWFM/backend/gethistorydata";
 var setdamdata = "http://localhost/SWFM/backend/setdamdata";
 var setsensordata = "http://localhost/SWFM/backend/setsensordata";
+var notify = "http://localhost/SWFM/notify";

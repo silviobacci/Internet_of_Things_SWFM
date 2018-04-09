@@ -38,19 +38,28 @@ public class OM2MManager {
 	public static final String RESOURCE_TYPE_URI_LIST = "m2m:uril";
 	public static final String FILTER_USAGE = "fu=1";
 	public static final String FILTER_RESOURCE_TYPE = "rty=";
+	public static final String ACP_ADMIN = "admin:admin";;
 	
 	private static final int RESPONSE_STATUS_CODE = 265;
-	private static final int CREATED_SUCCESSFULLY = 2001;
-	private static final int CONTENT = 2000;
+	private static final int POST_SUCCESSFULL = 2001;
+	private static final int GET_SUCCESSFULL = 2000;
+	private static final int DELETE_SUCCESSFULL = 2002;
 
 	private static final int portIN = 5683;
 	private static final int portMN = 5684;
+	
+	private static final int TIMEOUT = 5000;
 
 	private String inAddress;
 	private String mnAddress;
 	
 	private String inCSE = "/SWFM-in-cse"; 
-	private String mnCSE = "/SWFM-mn-cse"; 
+	private String mnCSE = "/SWFM-mn-cse";
+	
+	public OM2MManager() {
+		inAddress = "coap://127.0.0.1:" + portIN + "/~";
+		mnAddress = "coap://127.0.0.1:" + portMN + "/~";
+	}
 
 	public OM2MManager(String ip) {
 		inAddress = "coap://" + ip + ":" + portIN + "/~";
@@ -71,11 +80,20 @@ public class OM2MManager {
 			return inAddress;
 	}
 	
-	private String getCSE(boolean isMN) {
+	public String getCSE(boolean isMN) {
 		if(isMN)
 			return mnCSE;
 		else
 			return inCSE;
+	}
+	
+	public JSONObject jsonAE(String api, String rn, boolean rr) {
+		JSONObject jo = new JSONObject();
+		jo.put("api", api);
+		jo.put("rn", rn);
+		jo.put("rr", rr);
+		
+		return jo;
 	}
 	
 	public JSONObject jsonAE(String api, String rn, boolean rr, String lbl) {
@@ -168,8 +186,8 @@ public class OM2MManager {
 		Option responseCode = null;
 		for(Option opt : res.getOptions().asSortedList()) {
 		      if(opt.getNumber() == RESPONSE_STATUS_CODE) {
-		    	  responseCode = opt;
-		    	  break;
+		    	  	responseCode = opt;
+		    	  	break;
 		      }
 		}
 		
@@ -179,16 +197,55 @@ public class OM2MManager {
 		return false;
 	}
 	
+	private boolean checkResource(String json, String type) {
+		JSONObject jo = null;
+		try {
+			jo = (JSONObject) (JSONObject) JSONValue.parseWithException(json);
+		} 
+		catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if(jo == null || jo.get(type) == null)
+			return false;
+		
+		return true;
+	}
+	
+	private boolean isReference(String json) {
+		return checkResource(json, RESOURCE_TYPE_REMOTE_CSE);
+	}
+	
+	private boolean isAE(String json) {
+		return checkResource(json, RESOURCE_TYPE_AE);
+	}
+	
+	private boolean isContainer(String json) {
+		return checkResource(json, RESOURCE_TYPE_CONTAINER);
+	}
+	
+	private boolean isContentInstance(String json) {
+		return checkResource(json, RESOURCE_TYPE_CONTENT_INSTANCE);
+	}
+	
+	private boolean isSubscription(String json) {
+		return checkResource(json, RESOURCE_TYPE_SUBSCRIPTION);
+	}
+	
 	private CoapResponse postRequest(String address, String payload, int type) {
 		Request req = new Request(Code.POST);
 		
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		req.getOptions().addOption(new Option(256,"admin:admin"));
+		req.getOptions().addOption(new Option(256,ACP_ADMIN));
 		req.getOptions().addOption(new Option(267,type));
 		req.setPayload(payload);
 		
-		return new CoapClient(address).advanced(req);
+		CoapClient client = new CoapClient(address);
+		
+		client.setTimeout(TIMEOUT);
+		
+		return client.advanced(req);
 	}
 	
 	public String createResource(boolean isMN, String id_father, String resource_type, int type, JSONObject body) {		
@@ -199,14 +256,18 @@ public class OM2MManager {
 		
 		CoapResponse res = postRequest(address, payload.toJSONString().replace("\\", ""), type);
 		
-		if(!checkResponse(res, CREATED_SUCCESSFULLY))
+		if(!checkResponse(res, POST_SUCCESSFULL))
 			return null;
 		
 	    	return res.getResponseText();
 	}
 	
-	public String createBridgedResource(boolean isMN, String csi, String id_father, String resource_type, int type, JSONObject body) {		
-		return createResource(isMN, id_father, resource_type, type, body);
+	public String createBridgedResource(boolean isMN, String csi, String id_father, String resource_type, int type, JSONObject body) {	
+		String name = csi;
+		if(id_father != null)
+			name += id_father.substring(id_father.lastIndexOf("/"), id_father.length());
+		
+		return createResource(isMN, name, resource_type, type, body);
 	}
 	
 	public AEResource createAE(boolean isMN, JSONObject body) {		
@@ -275,13 +336,13 @@ public class OM2MManager {
 	}
 	
 	private CoapResponse getRequest(String address) {
-		Request req = new Request(Code.GET);
+		Request req = getRequest();
 		
-		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
-		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		req.getOptions().addOption(new Option(256, "admin:admin"));
+		CoapClient client = new CoapClient(address);
 		
-		return new CoapClient(address).advanced(req); 
+		client.setTimeout(TIMEOUT);
+		
+		return client.advanced(req);
 	}
 	
 	private Request getRequest() {
@@ -289,7 +350,7 @@ public class OM2MManager {
 		
 		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
 		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
-		req.getOptions().addOption(new Option(256, "admin:admin"));
+		req.getOptions().addOption(new Option(256, ACP_ADMIN));
 		
 		return req;
 	}
@@ -299,26 +360,27 @@ public class OM2MManager {
 		
 		CoapResponse res = getRequest(address);
 		
-		if(!checkResponse(res, CONTENT))
+		if(!checkResponse(res, GET_SUCCESSFULL))
 			return null;
 
     		return res.getResponseText();
 	}
 	
 	private String getBridgedResource(boolean isMN, String csi, String id) {
-		String address = getAddress(isMN) + id;
+		String name = csi;
+		if(id != null)
+			name += id.substring(id.lastIndexOf("/"), id.length());
 		
-		CoapResponse res = getRequest(address);
-		
-		if(!checkResponse(res, CONTENT))
-			return null;
-
-    		return res.getResponseText();
+		return getResource(isMN, name);
 	}
 	
 	public ReferenceResource getReference(boolean isMN, String id) {
 		String resource = getResource(isMN, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isReference(resource))
 			return null;
 		
 		return new ReferenceResource(resource);
@@ -326,7 +388,11 @@ public class OM2MManager {
 	
 	public AEResource getAE(boolean isMN, String id) {
 		String resource = getResource(isMN, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isAE(resource))
 			return null;
 		
 		return new AEResource(resource);
@@ -334,7 +400,11 @@ public class OM2MManager {
 	
 	public ContainerResource getContainer(boolean isMN, String id) {
 		String resource = getResource(isMN, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isContainer(resource))
 			return null;
 		
 		return new ContainerResource(resource);
@@ -346,12 +416,19 @@ public class OM2MManager {
 		if(resource == null)
 			return null;
 		
+		if(!isContentInstance(resource))
+			return null;
+		
 		return new InstanceResource(resource);
 	}
 	
 	public SubscriptionResource getSubscription(boolean isMN, String id) {
 		String resource = getResource(isMN, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isSubscription(resource))
 			return null;
 		
 		return new SubscriptionResource(resource);
@@ -359,7 +436,11 @@ public class OM2MManager {
 	
 	public ReferenceResource getBridgedReference(boolean isMN, String csi, String id) {
 		String resource = getBridgedResource(isMN, csi, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isReference(resource))
 			return null;
 		
 		return new ReferenceResource(resource);
@@ -367,7 +448,11 @@ public class OM2MManager {
 	
 	public AEResource getBridgedAE(boolean isMN, String csi, String id) {
 		String resource = getBridgedResource(isMN, csi, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isAE(resource))
 			return null;
 		
 		return new AEResource(resource);
@@ -375,15 +460,23 @@ public class OM2MManager {
 	
 	public ContainerResource getBridgedContainer(boolean isMN, String csi, String id) {
 		String resource = getBridgedResource(isMN, csi, id);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isContainer(resource))
 			return null;
 		
 		return new ContainerResource(resource);
 	}
 	
-	public InstanceResource getBridgedContentInstance(boolean isMN, String csi, String id) {
-		String resource = getBridgedResource(isMN, csi, id + "/la");
+	public InstanceResource getBridgedContentInstance(boolean isMN, String csi, String la) {
+		String resource = getBridgedResource(isMN, csi, la);
+		
 		if(resource == null)
+			return null;
+		
+		if(!isContentInstance(resource))
 			return null;
 		
 		return new InstanceResource(resource);
@@ -391,10 +484,90 @@ public class OM2MManager {
 	
 	public SubscriptionResource getBridgedSubscription(boolean isMN, String csi, String id) {
 		String resource = getBridgedResource(isMN, csi, id);
+		
 		if(resource == null)
 			return null;
 		
+		if(!isSubscription(resource))
+			return null;
+		
 		return new SubscriptionResource(resource);
+	}
+	
+	private Request deleteRequest() {
+		Request req = new Request(Code.DELETE);
+		
+		req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
+		req.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
+		req.getOptions().addOption(new Option(256, ACP_ADMIN));
+		
+		return req;
+	}
+	
+	private CoapResponse deleteRequest(String address) {
+		Request req = deleteRequest();
+		
+		CoapClient client = new CoapClient(address);
+		
+		client.setTimeout(TIMEOUT);
+		
+		return client.advanced(req);
+	}
+	
+	private boolean deleteResource(boolean isMN, String id) {
+		String address = getAddress(isMN) + id;
+		
+		CoapResponse res = deleteRequest(address);
+		
+		return checkResponse(res, DELETE_SUCCESSFULL);
+	}
+	
+	private boolean deleteBridgedResource(boolean isMN, String csi, String id) {
+		String name = csi;
+		if(id != null)
+			name += id.substring(id.lastIndexOf("/"), id.length());
+		
+		return deleteResource(isMN, name);
+	}
+	
+	public boolean deleteReference(boolean isMN, String id) {
+		return deleteResource(isMN, id);
+	}
+	
+	public boolean deleteAE(boolean isMN, String id) {
+		return deleteResource(isMN, id);
+	}
+	
+	public boolean deleteContainer(boolean isMN, String id) {
+		return deleteResource(isMN, id);
+	}
+	
+	public boolean deleteContentInstance(boolean isMN, String la) {
+		return deleteResource(isMN, la);
+	}
+	
+	public boolean deleteSubscription(boolean isMN, String id) {
+		return deleteResource(isMN, id);
+	}
+	
+	public boolean deleteBridgedReference(boolean isMN, String csi, String id) {
+		return deleteBridgedResource(isMN, csi, id);
+	}
+	
+	public boolean deleteBridgedAE(boolean isMN, String csi, String id) {
+		return deleteBridgedResource(isMN, csi, id);
+	}
+	
+	public boolean deleteBridgedContainer(boolean isMN, String csi, String id) {
+		return deleteBridgedResource(isMN, csi, id);
+	}
+	
+	public boolean deleteBridgedContentInstance(boolean isMN, String csi, String la) {
+		return deleteBridgedResource(isMN, csi, la);
+	}
+	
+	public boolean deleteBridgedSubscription(boolean isMN, String csi, String id) {
+		return deleteBridgedResource(isMN, csi, id);
 	}
 	
 	private ArrayList<OM2MResource> discovery(boolean isMN, String address, Integer type, ArrayList<String> filter) {
@@ -411,9 +584,13 @@ public class OM2MManager {
 			for(String s : filter)
 				req.getOptions().addUriQuery(s);
 		
-		CoapResponse res = new CoapClient(address).advanced(req);
+		CoapClient client = new CoapClient(address);
 		
-		if(!checkResponse(res, CONTENT))
+		client.setTimeout(TIMEOUT);
+		
+		CoapResponse res = client.advanced(req);
+		
+		if(!checkResponse(res, GET_SUCCESSFULL))
 			return null;
 		
 		try {
@@ -423,7 +600,7 @@ public class OM2MManager {
 			for(Object j : json) {
 				String jo = (String) j;
 				res = getRequest(getAddress(isMN) + jo);
-				if (checkResponse(res, CONTENT)){
+				if (checkResponse(res, GET_SUCCESSFULL)){
 					discJSON = (JSONObject) JSONValue.parseWithException(res.getResponseText());
 					
 					if(discJSON.get(RESOURCE_TYPE_AE) != null)
@@ -454,6 +631,12 @@ public class OM2MManager {
 		return discovery(isMN, getAddress(isMN), type, null);
 	}
 	
+	public ArrayList<OM2MResource> discovery(boolean isMN, Integer type, String filter) {
+		ArrayList<String> filters = new ArrayList<String>();
+		filters.add(filter);
+		return discovery(isMN, getAddress(isMN), type, filters);
+	}
+	
 	public ArrayList<OM2MResource> discovery(boolean isMN, Integer type, ArrayList<String> filter) {
 		return discovery(isMN, getAddress(isMN), type, filter);
 	}
@@ -464,6 +647,12 @@ public class OM2MManager {
 	
 	public ArrayList<OM2MResource> bridgedDiscovery(boolean isMN, String csi, Integer type) {
 		return discovery(isMN, getAddress(isMN) + csi, type, null);
+	}
+	
+	public ArrayList<OM2MResource> bridgedDiscovery(boolean isMN, String csi, Integer type, String filter) {
+		ArrayList<String> filters = new ArrayList<String>();
+		filters.add(filter);
+		return discovery(isMN, getAddress(isMN) + csi, type, filters);
 	}
 	
 	public ArrayList<OM2MResource> bridgedDiscovery(boolean isMN, String csi, Integer type, ArrayList<String> filter) {
@@ -494,6 +683,16 @@ public class OM2MManager {
 		Iterator<OM2MResource> iter = r.iterator();
 		while(iter.hasNext()) {
 		    if(!iter.next().getRi().contains(id))
+		        iter.remove();
+		}
+		
+		return r;
+	}
+	
+	public ArrayList<OM2MResource> getResourcesByFatherId(ArrayList<OM2MResource> r, String id) {
+		Iterator<OM2MResource> iter = r.iterator();
+		while(iter.hasNext()) {
+		    if(!iter.next().getPi().contains(id))
 		        iter.remove();
 		}
 		

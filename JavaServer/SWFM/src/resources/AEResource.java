@@ -1,5 +1,7 @@
 package resources;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -11,13 +13,13 @@ public class AEResource extends OM2MResource {
 	private String api;
 	private String aei; 
 	private boolean rr;
-	private String lbl;
+	private ArrayList<String> lbl;
 
 	public AEResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 	}
 	
-	public AEResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt , String _lbl, String _acpi, String _et, String _api, String _aei, boolean _rr) {
+	public AEResource(String _rn, Integer _ty, String _ri, String _pi, String _ct, String _lt , ArrayList<String> _lbl, String _acpi, String _et, String _api, String _aei, boolean _rr) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		acpi = _acpi; 
 		et = _et;
@@ -27,7 +29,7 @@ public class AEResource extends OM2MResource {
 		lbl = _lbl;
 	}
 	
-	public AEResource(String _rn, Integer _ty, String _ri, String _api, boolean _rr, String _lbl) {
+	public AEResource(String _rn, Integer _ty, String _ri, String _api, boolean _rr, ArrayList<String> _lbl) {
 		super(_rn, _ty, _ri);
 		api = _api; 
 		rr = _rr;
@@ -45,7 +47,7 @@ public class AEResource extends OM2MResource {
 				else if(key.toString().equals("api")) api = created.get(key).toString();
 				else if(key.toString().equals("aei")) aei = created.get(key).toString();
 				else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
-				else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
+				else if(key.toString().equals("lbl")) lbl = (ArrayList<String>) created.get(key);
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -60,7 +62,7 @@ public class AEResource extends OM2MResource {
 			else if(key.toString().equals("api")) api = created.get(key).toString();
 			else if(key.toString().equals("aei")) aei = created.get(key).toString();
 			else if(key.toString().equals("rr")) rr = (Boolean) created.get(key);
-			else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
+			else if(key.toString().equals("lbl")) lbl = (ArrayList<String>) created.get(key);
 		}
 	}
 
@@ -117,11 +119,11 @@ public class AEResource extends OM2MResource {
 		this.rr = rr;
 	}
 
-	public String getLbl() {
+	public ArrayList<String> getLbl() {
 		return lbl;
 	}
 
-	public void setLbl(String lbl) {
+	public void setLbl(ArrayList<String> lbl) {
 		this.lbl = lbl;
 	}
 }

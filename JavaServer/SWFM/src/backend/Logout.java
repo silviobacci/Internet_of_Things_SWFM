@@ -33,12 +33,6 @@ public class Logout extends HttpServlet {
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		resp.setContentType("text/plain");
-		resp.getWriter().println("GET RESPONSE FROM: logout");
-	}
-	
-	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("application/json");
 		HttpSession session = req.getSession();
 		if(session.getAttribute("username") != null)

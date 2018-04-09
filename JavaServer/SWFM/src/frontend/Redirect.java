@@ -23,14 +23,8 @@ public class Redirect extends HttpServlet {
 	}
 	
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-		resp.setContentType("text/plain");
-		resp.getWriter().println("GET RESPONSE FROM: redirect");
-	}
-	
-	@Override
 	@SuppressWarnings("unchecked")
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		resp.setContentType("application/json");
 		HttpSession session = req.getSession();
 		

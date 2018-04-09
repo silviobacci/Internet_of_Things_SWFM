@@ -1,49 +1,26 @@
 package oneM2M;
 
-import java.net.SocketException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 
-public class AdnIN extends Thread {
-	private static final int DEFAULT_INSTALLER_PERIOD = 3000;
-	private static final int DEFAULT_COAP_PORT = 5685;
-	
-	private String IP_ADDRESS_OM2M;
-	private int COAP_PORT;
-	private String RESOURCE_NAME;
-	private int INSTALLER_PERIOD;
-	boolean IN;
-	
-	public AdnIN(String ip, int port, String name, int period) {
-		IP_ADDRESS_OM2M = ip;
-		COAP_PORT = port;
-		INSTALLER_PERIOD = period;
-		RESOURCE_NAME = name;
-		IN = false;
-	}
-	
-	public AdnIN(String ip, int port, String name) {
-		this(ip, port, name, DEFAULT_INSTALLER_PERIOD);
-	}
-	
-	public AdnIN(String ip, String name, int period) {
-		this(ip, DEFAULT_COAP_PORT, name, period);
-	}
-	
-	public AdnIN(String ip, String name) {
-		this(ip, DEFAULT_COAP_PORT, name, DEFAULT_INSTALLER_PERIOD);
-	}
-	
+@SuppressWarnings("serial")
+@WebServlet(name = "adnin", urlPatterns={"/onem2m/adnin"}, loadOnStartup = 1)
+public class AdnIN  extends HttpServlet {
 	@Override
-	public void run() {
-		SubscriptionServer ss;
-		try {
-			ss = new SubscriptionServer(IP_ADDRESS_OM2M, COAP_PORT, RESOURCE_NAME, IN);
-			ss.addEndpoints();
-			ss.start();
-		} 
-		catch (SocketException e1) {
-			e1.printStackTrace();
-		}
+	public void init() throws ServletException {
+		System.out.println("INIT frontend/adnin");
+		new StarterINManager().start();
+	}
+	
+	private class StarterINManager extends Thread {
+		private final int COAP_PORT = 5685;
+		private final String RESOURCE_NAME = "notification_resource";
+		private final String IP_ADDRESS_OM2M = "127.0.0.1";
 		
-		new InstallerIN(IP_ADDRESS_OM2M, INSTALLER_PERIOD, COAP_PORT, RESOURCE_NAME).start();
+		@Override
+		public void run() {
+			new INManager(IP_ADDRESS_OM2M, RESOURCE_NAME, COAP_PORT);
+		}
 	}
 }

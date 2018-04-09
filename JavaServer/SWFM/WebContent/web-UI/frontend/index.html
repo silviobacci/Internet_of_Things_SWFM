@@ -22,7 +22,10 @@
 		<script type="text/javascript" src="js/assets/jquery.fullpage.js"></script>
 		<script type="text/javascript" src="js/assets/vindicate.js"></script>
 		<script type="text/javascript" src="js/assets/path.js"></script>
+		<script type="text/javascript" src="js/ajax.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/scroller.js"></script>
+		<script type="text/javascript" src="js/user.js"></script>
 	
 		<!-- Favicon & Preferences -->
 		<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -54,13 +57,13 @@
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul class="navbar-nav ml-auto">
 								<li class="nav-item" id="btn-login">
-									<a class="nav-link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#login-modal" onclick="no_scroll()">LOGIN</a>
+									<a class="nav-link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#login-modal">LOGIN</a>
 								</li>
 								<li class="nav-item" id="btn-backend">
 									<a class="nav-link" href="/SWFM/web-UI/backend/" class="btn btn-primary">ENTER</a>
 								</li>
 								<li class="nav-item" id="btn-signup">
-									<a class="nav-link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#signup-modal" onclick="no_scroll()">SIGN UP</a>
+									<a class="nav-link" href="#" class="btn btn-primary" data-toggle="modal" data-target="#signup-modal">SIGN UP</a>
 								</li>
 							</ul>
 						</div>
@@ -164,13 +167,13 @@
 						<div class="col-sm-6 col-footer">
 							<h6 class="title-footer">CITE THIS WORK</h6>
 							<pre class="bibtex-code">
-								@misc {
-									baccibaldecchi2018,
-									author = "Silvio Bacci and Andrea Baldecchi",
-									title = "SWFM: A smart way to monitor water flows.",
-									year = 2018,
-									address = "Pisa"
-								}
+	@misc {
+		baccibaldecchi2018,
+		author = "Silvio Bacci and Andrea Baldecchi",
+		title = "SWFM: A smart way to monitor water flows.",
+		year = 2018,
+		address = "Pisa"
+	}
 							</pre>
 						</div>
 						<div class="col-sm-6">
@@ -194,12 +197,12 @@
 		<!-- FULL PAGE END -->
 		
 		<!-- MODAL LOGIN BEGIN -->
-		<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
+		<div class="modal fade no-scroll" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="login-modal-label">Login</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="yes_scroll()">
+						<button type="button" class="close yes-scroll" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -221,8 +224,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="yes_scroll()">Close</button>
-						<button type="button" onclick="submit_login(); yes_scroll();" class="btn btn-primary">Log in</button>
+						<button type="button" class="btn btn-secondary yes-scroll" data-dismiss="modal">Close</button>
+						<button type="button" id="login-button" class="btn btn-primary yes-scroll">Log in</button>
 					</div>
 				</div>
 			</div>
@@ -230,12 +233,12 @@
 		<!-- MODAL LOGIN END -->
 	
 		<!-- MODAL SIGNUP BEGIN -->
-		<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signup-modal-label" aria-hidden="true"  onshow="no_scroll()">
+		<div class="modal fade no-scroll" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signup-modal-label" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="signup-modal-label">Sign up</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="yes_scroll()">
+						<button type="button" class="close yes-scroll" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -280,8 +283,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="yes_scroll()">Close</button>
-						<button type="button" onclick="submit_signup();" class="btn btn-primary">Sign up</button>
+						<button type="button" class="btn btn-secondary yes-scroll" data-dismiss="modal">Close</button>
+						<button type="button" id="signup-button" class="btn btn-primary yes-scroll">Sign up</button>
 					</div>
 				</div>
 			</div>

@@ -1,74 +1,115 @@
-function MAP(p) {
-	this.container = $("#map");
-	this.modal = $("#modal");
-	this.img = $("#map img:last-child");
-	
-	this.unable = $("#unable_rect")[0];
-	
-	this.ae = [];
-	this.period = p;
-}
-
-MAP.prototype.draw_map = function () {
-	this.map = new google.maps.Map(this.container[0], {zoom: 6});
-	this.req = requestAnimationFrame(function(timestamp){this.refresh(timestamp, true);});
-}
-
-MAP.prototype.create_placeholder = function () {
-	this.img.remove();
-	this.container.append("<img src=" + this.unable.src + " width=" + this.map[0].width + "height=" + this.map[0].height + "/>");
-}
-
-MAP.prototype.add_marker = function (ae, coordinates) {
-	var marker = new google.maps.Marker({position: coordinates, map: this.map});
-	
-	this.map.setCenter(new google.maps.LatLng(coordinates.lat, coordinates.lng));
-	
-	var self = this;
-	
-	marker.addListener("click", function(ev) {self.marker_handler(ae)});
-}
-
-MAP.prototype.marker_handler = function (ae) {
-	this.modal.modal("show");
-	
-	setTimeout(this.modal_handler, 500, ae);
-}
-
-MAP.prototype.modal_handler = function (ae) {
-	var texture = new TEXTURE(5000, ae);
-}
-
-MAP.prototype.success = function (reply) {
-	if(reply.error == false && reply.message.length != 0) {
-		for(var i = 0; i < reply.message.length; i++)
-			if(this.ae[i] != reply.message[i]) {
-				this.ae[i] = reply.message[i];
-				this.add_marker(this.ae[i], {lat : this.ae[i].lat, lng : this.ae[i].lng});
-			}
-	}	
-	else
-		this.error(reply);
-}
-
-MAP.prototype.error = function (reply) {
-	this.create_placeholder();
-}
-
-MAP.prototype.get_marker_data = function () {
-	ajax_get_req(getmarkerdata, this, this.success, this.error);
-}
-
-MAP.prototype.refresh = function (timestamp, first_time) {
-	if(first_time) {
-		this.start_time = timestamp;
-		this.get_marker_data();
+class Map {
+	constructor(p) {
+		window.google_map_callback = this.google_map_callback.bind(this);
+		
+		var googleapi = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8&callback=google_map_callback";
+		//var googleapi = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDQVpIU4EdpO_4ZI5mU2gTDKOsLRSeFUW8";
+		var script_type = "text/javascript";
+		
+		this.first_time = true;
+		this.ae = [];
+		this.period = p;
+		
+		this.container_name = "map";
+		this.container = $("#" + this.container_name);
+		this.modal = $("#modal");
+		
+		this.unable = $("#unable_rect")[0];
+		
+		this.container.append("<script type=" + script_type + " src=" + googleapi + "/>");
+		
+		this.create_placeholder();
 	}
 	
-	var self = this;
+	google_map_callback() {
+		this.createEventResource();
+	}
 	
-	if (timestamp - this.start_time < this.period)
-		this.req = requestAnimationFrame(function(timestamp){self.refresh(timestamp, false);});
-	else
-		this.req = requestAnimationFrame(function(timestamp){self.refresh(timestamp, true);});
+	draw_map() {
+		$("#" + this.container_name +  " img:last-child").remove();
+		this.map = new google.maps.Map(this.container[0], {zoom: 6});
+		this.first_time = false;
+	}
+	
+	create_placeholder() {
+		$("#" + this.container_name +  " img:last-child").remove();
+		this.container.append("<img src=" + this.unable.src + " width=" + this.container[0].width + "height=" + this.container[0].height + "/>");
+	}
+	
+	add_marker(ae, coordinates) {
+		if(this.first_time)
+			this.draw_map();
+		
+		var marker = new google.maps.Marker({position: coordinates, map: this.map});
+		
+		this.map.setCenter(new google.maps.LatLng(coordinates.lat, coordinates.lng));
+		
+		var self = this;
+		
+		marker.addListener("click", function(ev) {self.marker_handler(ae)});
+	}
+	
+	marker_handler(ae) {
+		this.modal.modal("show");
+		
+		setTimeout(this.modal_handler, 500, ae);
+	}
+	
+	modal_handler(ae) {
+		var modal = new Modal(modal_period, ae);
+	}
+	
+	onopen() {
+		console.log("MAP - Conncetion opened with the SSE");
+	}
+	
+	onmessage(reply) {
+		if(reply.error == false && reply.message.length != 0 && reply.message != null) {
+			for(var i = 0; i < reply.message.length; i++) {
+				var present = false;
+				for(var j = 0; i < this.ae.length; j++) {
+					if(this.ae[j] != undefined && this.ae[j].reference_id != undefined && this.ae[j].ae_id != undefined && this.ae[j].reference_id == reply.message[i].reference_id && this.ae[j].ae_id == reply.message[i].ae_id) {
+						if(reply.message[i].reference_id != undefined) this.ae[j].reference_id = reply.message[i].reference_id;
+						if(reply.message[i].ae_id != undefined) this.ae[j].ae_id = reply.message[i].ae_id;
+						if(reply.message[i].ae_name != undefined) this.ae[j].ae_name = reply.message[i].ae_name;
+						if(reply.message[i].lat != undefined) this.ae[j].lat = reply.message[i].lat;
+						if(reply.message[i].lng != undefined) this.ae[j].lng = reply.message[i].lng;
+						if(reply.message[i].level != undefined) this.ae[j].level = reply.message[i].level;
+						if(reply.message[i].message != undefined) this.ae[j].message = reply.message[i].message;
+						
+						present = true;
+					}
+				}
+				
+				var index = i;
+				
+				if(!present) {
+					index = this.ae.length;
+					this.ae[index] = reply.message[i];
+				}
+				
+				if(this.ae[index].reference_id != undefined && this.ae[index].ae_id != undefined && this.ae[index].ae_name != undefined && this.ae[index].lat != undefined && this.ae[index].lng != undefined && this.ae[index].level != undefined && this.ae[index].message != undefined)
+					this.add_marker(this.ae[index], {lat : this.ae[index].lat, lng : this.ae[index].lng});
+			}
+		}	
+		else
+			this.onerror(JSON.stringify(reply.message));
+	}
+	
+	onerror(reply) {
+		console.log("MAP - Error: " + reply);
+		this.create_placeholder();
+	}
+	
+	createEventResource(){
+		var eventSource = new EventSource(getmarkerdata);
+		
+		var self = this;
+		
+		eventSource.onopen = function(){self.onopen()};
+		
+		eventSource.onmessage = function(e){self.onmessage(JSON.parse(e.data));};
+		
+		eventSource.onerror = function(e){self.onerror(e);};
+	}
 }

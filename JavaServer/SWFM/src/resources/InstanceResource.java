@@ -1,5 +1,7 @@
 package resources;
 
+import java.util.ArrayList;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -10,7 +12,7 @@ public class InstanceResource extends OM2MResource {
 	private String cnf;
 	private long cs; 
 	private Object con;
-	private String lbl;
+	private ArrayList<String> lbl;
   
 	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
@@ -20,7 +22,7 @@ public class InstanceResource extends OM2MResource {
 		super(_rn, _ty, _ri);
 	}
 
-	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, long _st, String _cnf, long _cs, Object _con, String _lbl) {
+	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, long _st, String _cnf, long _cs, Object _con, ArrayList<String> _lbl) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		st = _st; 
 		cnf = _cnf;
@@ -40,7 +42,7 @@ public class InstanceResource extends OM2MResource {
 				else if(key.toString().equals("cnf")) cnf = created.get(key).toString();
 				else if(key.toString().equals("cs")) cs = (Long) created.get(key);
 				else if(key.toString().equals("con")) con = created.get(key);
-				else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
+				else if(key.toString().equals("lbl")) lbl = (ArrayList<String>) created.get(key);
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -54,7 +56,7 @@ public class InstanceResource extends OM2MResource {
 			else if(key.toString().equals("cnf")) cnf = created.get(key).toString();
 			else if(key.toString().equals("cs")) cs = (Long) created.get(key);
 			else if(key.toString().equals("con")) con = created.get(key);
-			else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
+			else if(key.toString().equals("lbl")) lbl = (ArrayList<String>) created.get(key);
 		}
 	}
   
@@ -102,11 +104,11 @@ public class InstanceResource extends OM2MResource {
 		this.con = con;
 	}
 
-	public String getLbl() {
+	public ArrayList<String> getLbl() {
 		return lbl;
 	}
 
-	public void setLbl(String lbl) {
+	public void setLbl(ArrayList<String> lbl) {
 		this.lbl = lbl;
 	}
 }

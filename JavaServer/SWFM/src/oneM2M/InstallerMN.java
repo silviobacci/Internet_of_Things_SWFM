@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 import resources.AEResource;
 import resources.ContainerResource;
 import resources.InstanceResource;
-import resources.OM2MResource;
 
 public class InstallerMN extends Thread {
 	private OM2MManager mng ;
@@ -30,10 +29,9 @@ public class InstallerMN extends Thread {
 	
 	@SuppressWarnings("unchecked")
 	public void createMN() {
-		ArrayList<OM2MResource> references = mng.discovery(isMN, OM2MManager.REMOTE_CSE, null);	
 		
 		// AE
-		JSONObject json = mng.jsonAE("PESCIA-ID", "PESCIA", true, references.get(0).getRi());
+		JSONObject json = mng.jsonAE("PESCIA-ID", "PESCIA", true);
 		ae.add(mng.createAE(isMN, json));
 		
 		// GPS AE
@@ -42,8 +40,8 @@ public class InstallerMN extends Thread {
 		cnt.add(mng.createContainer(isMN, ae.get(0).getRi(), json));
 		
 		JSONObject gps = new JSONObject();
-		gps.put("LAT", 43.843176);
-		gps.put("LNG", 10.734928);
+		gps.put("LAT_AE", 43.843176);
+		gps.put("LNG_AE", 10.734928);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), cnt.get(0).getRi());
 		inst.add(mng.createContentInstance(isMN, cnt.get(0).getRi(), json));
@@ -303,43 +301,43 @@ public class InstallerMN extends Thread {
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(11).getRi(), json));
 
 		gps = new JSONObject();
-		gps.put("LAT", 1);
-		gps.put("LNG", 11);
+		gps.put("LAT_SENSOR", 1);
+		gps.put("LNG_SENSOR", 11);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(12).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(12).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 1);
-		gps.put("LNG", 27);
+		gps.put("LAT_SENSOR", 1);
+		gps.put("LNG_SENSOR", 27);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(13).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(13).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 11);
-		gps.put("LNG", 14);
+		gps.put("LAT_SENSOR", 11);
+		gps.put("LNG_SENSOR", 14);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(14).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(14).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 11);
-		gps.put("LNG", 26);
+		gps.put("LAT_SENSOR", 11);
+		gps.put("LNG_SENSOR", 26);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(15).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(15).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 21);
-		gps.put("LNG", 18);
+		gps.put("LAT_SENSOR", 21);
+		gps.put("LNG_SENSOR", 18);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(16).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(16).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 28);
-		gps.put("LNG", 18);
+		gps.put("LAT_SENSOR", 28);
+		gps.put("LNG_SENSOR", 18);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(17).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(17).getRi(), json));
@@ -359,29 +357,29 @@ public class InstallerMN extends Thread {
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(21).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 9);
-		gps.put("LNG", 3);
+		gps.put("LAT_DAM", 9);
+		gps.put("LNG_DAM", 3);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(22).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(22).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 28);
-		gps.put("LNG", 3);
+		gps.put("LAT_DAM", 28);
+		gps.put("LNG_DAM", 3);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(23).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(23).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 15);
-		gps.put("LNG", 22);
+		gps.put("LAT_DAM", 15);
+		gps.put("LNG_DAM", 22);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(24).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(24).getRi(), json));
 		
 		gps = new JSONObject();
-		gps.put("LAT", 21);
-		gps.put("LNG", 30);
+		gps.put("LAT_DAM", 21);
+		gps.put("LNG_DAM", 30);
 		
 		json = mng.jsonCI("CHANGED AUTOMATICALLY", gps.toJSONString().replace("\"", "'"), nestedNestedCnt.get(25).getRi());
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(25).getRi(), json));
@@ -409,21 +407,11 @@ public class InstallerMN extends Thread {
 		
 		inst.add(mng.createContentInstance(isMN, nestedNestedCnt.get(12).getRi(), json));
 	}
-	
-	private static void sleep(int period) {
-		try {
-			Thread.sleep(period);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void run() {
 		System.out.println("INIZIO CREAZIONE CONTENUTO MN");
 		createMN();
 		System.out.println("FINE CREAZIONE CONTENUTO MN");
-		
-		sleep(10000);
 		
 		//createContentInstance();
 	}

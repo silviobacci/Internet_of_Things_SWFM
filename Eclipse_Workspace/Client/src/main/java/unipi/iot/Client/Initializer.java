@@ -1,24 +1,13 @@
 package unipi.iot.Client;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.json.simple.JSONObject;
-
-import communication.CoapClientADN;
-import oneM2M.Onem2mManager2;
-import resources.AEResource;
-import resources.ContainerResource;
-import resources.InstanceResource;
-import resources.Resource;
-
+/*
 public class Initializer extends Thread {
 	private static final String 	WL		= "Water level";
 	private static final boolean 	isMN	= true; 
 	private static final int 		CI		= 4;			
 	private static final String		DAM		= "Dam";
 	
-	private Onem2mManager2 mng = new Onem2mManager2();
+	private Onem2mManager mng = new OM2MManager();
 	private ArrayList<AEResource> ae;
 	private ArrayList<ContainerResource> cnt;
 	private ArrayList<InstanceResource> inst;
@@ -29,7 +18,7 @@ public class Initializer extends Thread {
 	private static int i; 
 	
 	public Initializer() {
-		mng = new Onem2mManager2();
+		mng = new Onem2mManager();
 		ae = new ArrayList<AEResource>();
 		cnt = new ArrayList<ContainerResource>();
 		inst = new ArrayList<InstanceResource>();
@@ -155,7 +144,7 @@ public class Initializer extends Thread {
 				mng.createSubscription( isMN, dam, mng.jsonSubscription( dam.getRn(),dam.getRi(), CI));
 				//subscription: Current resource does not have any ACP attached
 			
-		}*/
+		}
 		while(true) {
 			
 			try {
@@ -168,4 +157,4 @@ public class Initializer extends Thread {
 			createMiddleNode();
 		}
 	} 
-}
+}*/

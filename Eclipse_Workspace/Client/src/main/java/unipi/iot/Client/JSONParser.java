@@ -9,10 +9,10 @@ import org.json.simple.parser.ParseException;
 
 public class JSONParser {
 	public static final String WL 		= "w_l";
-	public static final String EVO 		= "evolution";
+	public static final String EVO 		= "evo";
 	public static final String WT 		= "w_t";
-	public static final String MIN 		= "min_l";
-	public static final String MAX		= "max_l";
+	public static final String MIN 		= "min";
+	public static final String MAX		= "max";
 	public static final String GPSX		= "gps_x";
 	public static final String GPSY 	= "gps_y";
 	public static final String STATE 	= "state";
@@ -22,8 +22,13 @@ public class JSONParser {
 	public static final String PORTBR	= "port_br";
 	public static final String IPMN		= "ip_mn";
 	public static final String PORTMN	= "port_mn";
-	public static final String LAT		= "lat";
-	public static final String LNG		= "lng";
+	
+	public static final String LAT		= "lat_ae";
+	public static final String LNG		= "lng_ae";
+	
+	public static final String LAT_S	= "lat_Sensor";
+	public static final String LNG_D	= "lng_Dam";
+	public static final String NAME		= "name";
 
 	private static ArrayList<String> jProperties = new ArrayList<String>();
 	
@@ -38,6 +43,7 @@ public class JSONParser {
 		jProperties.add(PORTMN);
 		jProperties.add(LAT);
 		jProperties.add(LNG);
+		jProperties.add(NAME);
 	}
 	
 	public static void setSensorProperties() {

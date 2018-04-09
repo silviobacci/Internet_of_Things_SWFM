@@ -4,27 +4,29 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-public class InstanceResource extends Resource {
-
+@SuppressWarnings("unchecked")
+public class InstanceResource extends OM2MResource {
 	private long st; 
 	private String cnf;
 	private long cs; 
 	private Object con;
+	private String lbl;
   
 	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 	}
-  
+
 	public InstanceResource(String _rn, long _ty, String _ri) {
 		super(_rn, _ty, _ri);
 	}
-  
-	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, long _st, String _cnf, long _cs, Object _con) {
+
+	public InstanceResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt, long _st, String _cnf, long _cs, Object _con, String _lbl) {
 		super(_rn, _ty, _ri, _pi, _ct, _lt);
 		st = _st; 
 		cnf = _cnf;
 		cs = _cs; 
 		con = _con;
+		lbl = _lbl;
 	}
 	
 	public InstanceResource(String json) {
@@ -38,6 +40,7 @@ public class InstanceResource extends Resource {
 				else if(key.toString().equals("cnf")) cnf = created.get(key).toString();
 				else if(key.toString().equals("cs")) cs = (Long) created.get(key);
 				else if(key.toString().equals("con")) con = created.get(key);
+				else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -51,6 +54,7 @@ public class InstanceResource extends Resource {
 			else if(key.toString().equals("cnf")) cnf = created.get(key).toString();
 			else if(key.toString().equals("cs")) cs = (Long) created.get(key);
 			else if(key.toString().equals("con")) con = created.get(key);
+			else if(key.toString().equals("lbl")) lbl = created.get(key).toString();
 		}
 	}
   
@@ -61,7 +65,7 @@ public class InstanceResource extends Resource {
 		jo.put("cnf", cnf);
 		jo.put("cs", cs);
 		jo.put("con", con);
-
+		jo.put("lbl", lbl);
 	
 		return jo;		
 	}
@@ -97,6 +101,12 @@ public class InstanceResource extends Resource {
 	public void setCon(Object con) {
 		this.con = con;
 	}
-	
 
+	public String getLbl() {
+		return lbl;
+	}
+
+	public void setLbl(String lbl) {
+		this.lbl = lbl;
+	}
 }

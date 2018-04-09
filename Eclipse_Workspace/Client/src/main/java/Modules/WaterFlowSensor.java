@@ -1,12 +1,25 @@
 package Modules;
 
 import java.util.HashMap;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import org.eclipse.californium.core.CoapClient;
 import org.json.simple.*;
 
+import OM2M.MNManager;
+import communication.CoapClientADN;
 import unipi.iot.Client.JSONParser;
+import unipi.iot.Client.Starter;
 
 public class WaterFlowSensor extends Module implements ModuleAPI{
+
+	public int getLat() {
+		return ((Integer)state.get(JSONParser.GPSX)).intValue();
+	}
+
+	public int getLng() {
+		return ((Integer)state.get(JSONParser.GPSX)).intValue();
+	}
 
 	public CoapClient getSDConnection() {
 		return sdConnection;
@@ -18,6 +31,14 @@ public class WaterFlowSensor extends Module implements ModuleAPI{
 
 	public HashMap<String, Object> getState() {
 		return state;
+	}
+	
+	public String getRi() {
+		return this.ri;
+	}
+	
+	public void setRi(String id) {
+		this.ri= id;
 	}
 	
 	public boolean isOverflowed() {
@@ -66,12 +87,27 @@ public class WaterFlowSensor extends Module implements ModuleAPI{
 		name = n;
 	}
 	
-	public void updateState(String jsonPost) {
+	public synchronized void updateState(String jsonPost) {
+		System.out.println("update");
 		HashMap<String, Object> tmp = JSONParser.getSensorValues(jsonPost);
 		
 		for (String key: tmp.keySet()) 
-				state.put(key,tmp.get(key));		 
+				state.put(key,tmp.get(key));
+
+		
 		//printState();
+	}
+	
+	public void checkAndNotify() {
+		this.setChanged();
+	    this.notifyObservers();
+	}
+	
+	public void goNot() {
+		this.setChanged();
+		   System.out.println("obs:"+this.countObservers());
+		   if(countObservers()!=0)
+			this.notifyObservers();
 	}
 	
 	private JSONObject createJsonObject() {

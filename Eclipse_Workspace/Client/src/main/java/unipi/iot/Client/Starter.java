@@ -2,18 +2,15 @@ package unipi.iot.Client;
 
 import java.io.IOException;
 
+import OM2M.MNManager;
 import communication.CoapClientADN;
 import configuration.Setup;
-import interaction.Controller;
-import interaction.GUI;
 
 public class Starter {
 	
-	
-	public static CoapClientADN WaterFlowManager = CoapClientADN.getInstance();
-	public static Controller DamController = new Controller();
 	public static Setup s = Setup.getInstance();
-	//private static Initializer init = new Initializer();
+	public static CoapClientADN WaterFlowManager = new CoapClientADN() ;
+
 	
 	public static void main(String[] args) throws IOException {
 
@@ -24,12 +21,12 @@ public class Starter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		WaterFlowManager.setWInstance(s.getWinstance());
+		MNManager.setWFI(Setup.getWinstance());
+		MNManager.createStructure();
+		WaterFlowManager.setName("ADN");
 		WaterFlowManager.start();
-		DamController.start();
 
 		
-	}
-		
-	}
+	}		
+}
 

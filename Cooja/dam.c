@@ -64,7 +64,6 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 
 	REST.get_header_accept(request, &accept);							//getting request
      
-  	if(accept == REST.type.APPLICATION_JSON) {							//select and create the correct format: JSON
 		struct jsonparse_state	parser;				
 		
 		len=REST.get_post_variable(request, "json", &val);					//get post variable (json format)			
@@ -73,10 +72,7 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 			jsonparse_setup(&parser, val, len);
 			
 			jparse_and_store(&parser);
-
-		 }else 
-		     REST.set_response_status(response, REST.status.BAD_REQUEST);
-				
+	
 		memcpy(buffer, message, MESSAGE_SIZE);
 		REST.set_header_content_type(response,  REST.type.TEXT_PLAIN);				//set header content format
 		REST.set_response_payload(response, buffer, MESSAGE_SIZE);

@@ -1,10 +1,14 @@
 package resources;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-public class Resource {
+@SuppressWarnings("unchecked")
+public class OM2MResource  implements Comparable<OM2MResource> {
 	private String rn; 
 	private long 	ty; 
 	private String 	ri;
@@ -25,7 +29,7 @@ public class Resource {
 		return jo;
 	}
 	
-	public Resource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt ) {
+	public OM2MResource(String _rn, long _ty, String _ri, String _pi, String _ct, String _lt) {
 		rn = _rn; 
 		ty = _ty;
 		ri = _ri;
@@ -34,13 +38,13 @@ public class Resource {
 		lt = _lt;
 	}
 	
-	public Resource(String _rn, long _ty, String _ri) {
+	public OM2MResource(String _rn, long _ty, String _ri) {
 		rn = _rn; 
 		ty = _ty;
 		ri = _ri;
 	}
 	
-	public Resource(String json, String type) {
+	public OM2MResource(String json, String type) {
 		try {
 			JSONObject created = (JSONObject) JSONValue.parseWithException(json);
 			created = (JSONObject) created.get(type);
@@ -51,13 +55,14 @@ public class Resource {
 				else if(key.toString().equals("pi")) pi = created.get(key).toString();
 				else if(key.toString().equals("ct")) ct = created.get(key).toString();
 				else if(key.toString().equals("lt")) lt = created.get(key).toString();
+				else if(key.toString().equals("lbl")) lt = created.get(key).toString();
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public Resource(JSONObject created) {
+	public OM2MResource(JSONObject created) {
 		for(Object key : created.keySet()) {
 			if(key.toString().equals("rn")) rn = created.get(key).toString();
 			else if(key.toString().equals("ty")) ty = (Long) created.get(key);
@@ -65,7 +70,27 @@ public class Resource {
 			else if(key.toString().equals("pi")) pi = created.get(key).toString();
 			else if(key.toString().equals("ct")) ct = created.get(key).toString();
 			else if(key.toString().equals("lt")) lt = created.get(key).toString();
+			else if(key.toString().equals("lt")) lt = created.get(key).toString();
 		}
+	}
+	
+	//@Override
+	public int compareTo(OM2MResource o) {
+		SimpleDateFormat d_format = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+		Date d1 = null, d2 = null;
+		
+		try {
+			d1 = d_format.parse(ct);
+			d2 = d_format.parse(o.getCt());
+		} 
+		catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		
+		if(d1 == null || d2 == null)
+			return 0;
+		
+		return d1.compareTo(d2);
 	}
 	
 	public String getRn() {

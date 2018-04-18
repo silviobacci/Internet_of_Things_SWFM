@@ -24,20 +24,8 @@
 		<script type="text/javascript" src="js/assets/path.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/ajax.js"></script>
-		<script type="text/javascript" src="js/alert.js"></script>
-		<script type="text/javascript" src="js/background.js"></script>
-		<script type="text/javascript" src="js/dam_information.js"></script>
-		<script type="text/javascript" src="js/dams.js"></script>
-		<script type="text/javascript" src="js/history.js"></script>
 		<script type="text/javascript" src="js/map.js"></script>
-		<script type="text/javascript" src="js/modal.js"></script>
-		<script type="text/javascript" src="js/motes.js"></script>
-		<script type="text/javascript" src="js/overlay.js"></script>
-		<script type="text/javascript" src="js/sensor_information.js"></script>
-		<script type="text/javascript" src="js/state.js"></script>
-		<script type="text/javascript" src="js/threshold.js"></script>
 		<script type="text/javascript" src="js/user.js"></script>
-		<script type="text/javascript" src="js/wave.js"></script>
 		
 		<!-- Favicon & Preferences -->
 		<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -84,7 +72,6 @@
 			<img src="http://localhost/SWFM/web-UI/backend/img/wave_animation/wave.png" id="wave" width="528" height="297">
 			<img src="http://localhost/SWFM/web-UI/backend/img/texture_animation/rect.png" id="rect" width="48" height="16">
 			<img src="http://localhost/SWFM/web-UI/backend/img/placeholder/unable_rect.png" id="unable_rect" width="528" height="297">
-			<img src="http://localhost/SWFM/web-UI/backend/img/placeholder/unable_quad.png" id="unable_quad" width="528" height="528">
 			<img src="http://localhost/SWFM/web-UI/backend/img/placeholder/click.png" id="click" width="528" height="297">
 		</div>
 		
@@ -127,150 +114,8 @@
 			</div>
 		</div>
 		
-		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="signup-modal-label" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content modal-container">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modal-label"></h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body row">
-						<div class="col-sm-6 left-section">
-							<div class="row  admin-to-hide" id ="alert-container">
-								<div class="col-sm-12">
-									<div class="canvas">
-										<div>
-											<div id="alert" class="alert">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div id="canvas-left-container" class="canvas">
-								<div>
-									<div class="card bg-faded titles">
-										<div class="card-about">
-											<h6 class="text-left d-inline">CURRENT STATE</h6>
-										</div>
-									</div>
-									<div id="canvas-river-ov">
-										<canvas id="river-ov"></canvas>
-										<canvas id="dam-canvas"></canvas>
-										<canvas id="mote-canvas"></canvas>
-										<canvas id="overlay"></canvas>
-									</div>
-								</div>
-							</div>
-							<div class="row" id ="dam-info-container">
-								<div class="col-sm-12">
-									<div class="canvas">
-										<div>
-											<div id="dam-info" class="alert alert-info">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row admin-to-hide">
-								<div class="col-sm-12">
-									<div class="canvas">
-										<div>
-											<div class="card bg-faded titles">
-												<div class="card-about">
-													<h6 id="current-state" class="text-left d-inline">CURRENT STATE</h6>
-												</div>
-											</div>
-											<div id="state">
-												<div id="state-container">
-													<div class="dam">
-														<button id="button-change-dam" type="button" class="btn btn-primary">CHANGE</button>
-													</div>
-													<div class="dam" id="result-container-dam">
-														<div id="result-dam" class="alert"></div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 right-section">
-							<div class="row" id ="info-container">
-								<div class="col-sm-12">
-									<div class="canvas">
-										<div>
-											<div id="info" class="alert alert-info">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div id="canvas-right-container" class="canvas">
-										<div>
-											<div class="card bg-faded titles">
-												<div class="card-about">
-													<h6 class="text-left d-inline" id="current-level">CURRENT LEVEL</h6>
-												</div>
-											</div>
-											<div id="canvas-river-sec">
-												<canvas id="river-sec"></canvas>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="canvas">
-										<div>
-											<div class="card bg-faded titles">
-												<div class="card-about">
-													<h6 class="text-left d-inline">SENSOR HISTORY</h6><br>
-												</div>
-											</div>
-											<div id="chart-history" class="chart-container"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row admin-to-hide">
-								<div class="col-sm-12">
-									<div class="canvas">
-										<div>
-											<div class="card bg-faded titles">
-												<div class="card-about">
-													<h6 id="current-threshold" class="text-left d-inline">CURRENT THRESHOLD</h6>
-												</div>
-											</div>
-											<div id="threshold">
-												<div id="threshold-container">
-													<div class="th">
-														<label id="new-th" class="form-control-label">NEW THRESHOLD</label>
-													</div>
-													<div class="th">
-														<input id="slider" type="range" value="0"/>
-													</div>
-													<div class="th">
-														<button id="button-change-th" type="button" class="btn btn-primary">CHANGE</button>
-													</div>
-													<div class="th result-container">
-														<div id="result-th" class="alert"></div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="signup-modal-label" aria-hidden="true">
+			<iframe id="modal_frame" class="modal-container"></iframe>
 		</div>
 	</body>
 </html>

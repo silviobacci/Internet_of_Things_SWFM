@@ -4,6 +4,7 @@ class Background {
 		
 		this.canvas = $("#river-ov");
 		this.unable = $("#unable_quad")[0];
+		this.title = $("#titles")[0];
 		this.container1 = $("#canvas-left-container");
 		this.container2 = $("#canvas-river-ov");
 		this.context = this.canvas[0].getContext("2d");
@@ -27,8 +28,11 @@ class Background {
 			this.canvas[0].height = this.size;
 		}
 		
-		this.container1.width = this.canvas[0].width;
-		this.container1.height = this.canvas[0].height;
+		this.container2[0].width = this.canvas[0].width;
+		this.container2[0].height = this.canvas[0].height;
+		
+		this.container1[0].width = this.container2[0].width + 4;
+		this.container1[0].height = this.container2[0].height + this.title.clientHeight + 4;
 	}
 	
 	create_placeholder() {

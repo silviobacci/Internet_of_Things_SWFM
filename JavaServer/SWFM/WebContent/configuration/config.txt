@@ -1,0 +1,7 @@
+{
+	"PORT_IN" : 5683, 
+	"SUBSCRIPTION_SERVER_START_PORT" : 5686, 
+	"IN_CSE_ID" : "/SWFM-in-cse",
+	"RESOURCE_NAME" : "notification_resource",
+	"IN_IP_ADDRESS" : "172.20.10.3"
+}

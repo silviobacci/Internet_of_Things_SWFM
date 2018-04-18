@@ -8,12 +8,9 @@ class User {
 		this.card_text = $(".card-text");
 		this.cover_img = $(".cover-img");
 		this.admin_container = $(".admin-to-hide");
-		
 	}
 	
 	prepare_page(userdata) {
-		var self = this;
-		this.logout_button.on("click", function(ev){self.logout()});
 		this.navbar_avatar.attr("src", img_svr_path + userdata.avatar);
 		this.navbar_brand.attr("href", rel_fron_path);
 		this.card_avatar.attr("src", img_svr_path + userdata.avatar);
@@ -29,6 +26,15 @@ class User {
 			this.card_text.html("You are a standard user so we can simply observe an overview of the current state of the water flows.");
 			this.admin_container.hide();
 		}
+		
+		var map = new Map(this.is_admin);
+		this.create_logout_handler(map);
+	}
+	
+	create_logout_handler(map) {
+		this.map = map;
+		var self = this;
+		this.logout_button.on("click", function(ev){self.logout()});
 	}
 	
 	success(reply) {
@@ -48,6 +54,7 @@ class User {
 	}
 	
 	logout_success(reply) {
+		if(this.map.eventSource != undefined) this.map.eventSource.close();
 		window.location.replace(rel_fron_path);
 	}
 	

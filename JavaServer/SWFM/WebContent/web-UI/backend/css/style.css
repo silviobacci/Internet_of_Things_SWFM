@@ -231,7 +231,7 @@ CRASH:
 }
 
 .modal-header{
-	height: calc(15% - 60px);
+	height: 60px;
 	text-align : center;
 }
 
@@ -241,9 +241,13 @@ CRASH:
 }
 
 .modal-body{
-	height: calc(85% - 60px);
+	height: calc(100vh - 60px);
 	width: 100%;
 	margin : 0;
+}
+
+body::-webkit-scrollbar {
+	display : none;
 }
 
 @media(max-width: 767px){
@@ -251,7 +255,7 @@ CRASH:
 		overflow : scroll;
 	}
 	
-	#modal-label, #info, .text-left.d-inline, .th  {
+	#modal-label, #info, #alert, #dam-info, .text-left.d-inline, .th  {
 		font-size: 10px;
 	}
 }
@@ -265,6 +269,7 @@ CRASH:
 }
 
 .canvas {
+	margin: auto;
 	display : flex;
 	justify-content : center;
 	align-items : center;
@@ -283,7 +288,7 @@ CRASH:
 	border-bottom : 0;
 }
 
-#canvas-river-ov, #canvas-river-sec, #threshold, #alert, #chart-history, #state {
+#canvas-river-ov, #canvas-river-sec, #threshold, #chart-history, #state {
 	border : 2px solid;
 	border-color : black;
 	border-bottom-left-radius : 4px;
@@ -327,10 +332,19 @@ CRASH:
     margin: 0 auto;
 }
 
+#result-dam {
+    margin-top : 30px;
+}
+
 #result-containe {
     display: none;
 }
 
 #result-th, #result-dam{
 	padding : 1px;
+}
+
+#modal {
+	width : 100vw;
+	height : 100vh;
 }

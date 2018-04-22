@@ -7,12 +7,15 @@
 #include "types.h"
 #include "sys/etimer.h" // Include etimer
 #include "dev/serial-line.h"
+#include "node-id.h"
 
 /****** global variables ******/
 static dam_state		d_state;
 static unsigned int 		accept = -1;
 static char 			j_message[MESSAGE_SIZE];
+static char 		resource_name[MESSAGE_SIZE];
 static struct jsonparse_state 	parser;	
+
 
 /****** resources handlers ******/
 void res_event_get_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset);
@@ -22,6 +25,7 @@ void gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint1
 /****** resources ******/
 EVENT_RESOURCE(resource_example, "title=\"Resource\";rt=\"Dam\"", res_event_get_handler, res_event_post_handler, NULL, NULL, NULL);
 EVENT_RESOURCE(gps, "title=\"Resource\";rt=\"gps\"", gps_event_get_handler, NULL, NULL, NULL, NULL);
+
 
 /****** Handlers ******/
 
@@ -76,6 +80,7 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 		memcpy(buffer, message, MESSAGE_SIZE);
 		REST.set_header_content_type(response,  REST.type.TEXT_PLAIN);				//set header content format
 		REST.set_response_payload(response, buffer, MESSAGE_SIZE);
+		REST.notify_subscribers(&resource_example);
 	}
 }
 
@@ -123,14 +128,14 @@ AUTOSTART_PROCESSES(&server);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(server, ev, data){
  	PROCESS_BEGIN();
-	
 	static struct etimer gps_timer;		
 	
 	uart0_set_input(serial_line_input_byte);
 	serial_line_init();
 								       
 	rest_init_engine();
-	rest_activate_resource(&resource_example, "Dam");
+	sprintf(resource_name,"Dam_%d",node_id);
+	rest_activate_resource(&resource_example, resource_name);
 	rest_activate_resource(&gps, "gps");
 
 	etimer_set(&gps_timer, CLOCK_SECOND * POS_SAMPLING_PERIOD);

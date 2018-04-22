@@ -1,12 +1,12 @@
 #define 	ERROR 			-1
 #define 	MESSAGE_SIZE		90
-#define 	FIXED_STEP		5
-#define 	RES_CHANGE		4
+#define 	FIXED_STEP		10
+#define 	RES_CHANGE		2
 #define 	DAM_STATE_SIZE		10
 #define		MIN_LEVEL_DETECTABLE	30
 #define		MAX_LEVEL_DETECTABLE	500
-#define 	LEVEL_SAMPLING_PERIOD	10
-#define 	POS_SAMPLING_PERIOD	25
+#define 	LEVEL_SAMPLING_PERIOD	3
+#define 	POS_SAMPLING_PERIOD	10
 
 #define str(s) 		#s
 

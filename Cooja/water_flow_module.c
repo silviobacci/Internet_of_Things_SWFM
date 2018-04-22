@@ -8,11 +8,13 @@
 #include "types.h"
 #include "sys/etimer.h" 			
 #include "dev/serial-line.h"
+#include "node-id.h"
 
 /****** global variables ******/
 static sensor_state	s_state;
 static int 		reference; 
 static char 		j_message[MESSAGE_SIZE];
+static char 		resource_name[MESSAGE_SIZE];
 static struct 		jsonparse_state	parser;	
 static int 		tmp;
 
@@ -24,6 +26,8 @@ void gps_event_get_handler(void* request, void* response, uint8_t *buffer, uint1
 /****** resources ******/
 EVENT_RESOURCE(resource_example, "title=\"Resource\";rt=\"Sensor\"", res_event_get_handler, res_event_post_handler, NULL, NULL, NULL);
 EVENT_RESOURCE(gps, "title=\"Resource\";rt=\"gps\"", gps_event_get_handler, NULL, NULL, NULL, NULL);
+
+
 
 /****** Handlers ******/
 
@@ -56,6 +60,7 @@ void res_event_post_handler(void* request, void* response, uint8_t *buffer, uint
 	if( tmp > 0 && val[tmp-1] == '}'){							//check post parameter validity
 		jsonparse_setup(&parser, val, tmp);
 		jparse_and_store(&parser);
+		REST.notify_subscribers(&resource_example);
 	}
 }
 
@@ -143,7 +148,7 @@ AUTOSTART_PROCESSES(&server);
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(server, ev, data) {
 	PROCESS_BEGIN();
-	
+
 	
 	
 	uart0_set_input(serial_line_input_byte);
@@ -154,7 +159,8 @@ static struct etimer sampling_timer,gps_timer;
 	etimer_set(&gps_timer, CLOCK_SECOND * POS_SAMPLING_PERIOD);
 	
 	rest_init_engine();
-	rest_activate_resource(&resource_example, "Sensor");
+	sprintf(resource_name,"Sensor_%d",node_id);
+	rest_activate_resource(&resource_example, resource_name);
 	rest_activate_resource(&gps, "gps");
 
 	while(1) {

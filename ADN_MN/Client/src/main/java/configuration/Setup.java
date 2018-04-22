@@ -67,7 +67,7 @@ public class Setup extends Thread {
 		BufferedReader br;
 		StringBuilder sb= new StringBuilder();
 		try {
-			br = new BufferedReader(new FileReader("Conf.txt"));
+			br = new BufferedReader(new FileReader("config.txt"));
 		    line = br.readLine();
 	
 		    while (line != null) {

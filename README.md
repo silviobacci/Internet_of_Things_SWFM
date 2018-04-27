@@ -1,13 +1,8 @@
 # Internet_of_Things_SWFM
 Smart Water Flow Monitoring: the new way to monitor water flows and live quite!
 
-# XDR-eXtended-Data-Recorder
-XDR is a system able to evaluate people driving behaviors from a safety perspective.
-
 ## About 
 This work has been realized in University of Pisa/Scuola Superiore Sant'Anna in the context of Internet of Things exam.
-
-//TODO
 
 ## Path and dependency
 ```
@@ -28,13 +23,10 @@ Report -> report of the project
 OneM2M_Bacci -> MN and IN source code used by Silvio Bacci
 OneM2M_Baldecchi -> MN and IN source code used by Andrea Baldecchi
 >>>>>>> fe100541d858262ec6cd1cf6204a9e2629b3d2bd
-Cooja -> source code of the motes and the Cooja simulation file
-ADN_MN -> source code of the ADN MN side
-ADN_IN -> source code of the ADN IN side
+Cooja -> source code of the motes and the Cooja simulation file. Interesting feature: practicle example of using the Javascript Editor of Cooja to communicate to the motes their positions.
+ADN_MN -> source code of the ADN MN side developed by Baldecchi
+ADN_IN -> source code of the ADN IN side developed by Bacci
 ```
-
-## Video
-?
 
 ## Authors
 * <b>Silvio Bacci</b>
